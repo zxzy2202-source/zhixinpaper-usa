@@ -38,6 +38,7 @@ const NAV_ITEMS: { section: string; items: NavItem[] }[] = [
       { href: "/admin/blog", icon: FileText, label: "博客文章" },
       { href: "/admin/products", icon: Package, label: "产品管理" },
       { href: "/admin/media", icon: Image, label: "图片管理" },
+      { href: "/admin/image-slots", icon: LayoutGrid, label: "前台图位" },
     ],
   },
   {
