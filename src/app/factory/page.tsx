@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
+import SlotImage from "@/components/ui/SlotImage";
 import { COMPANY } from "@/lib/data";
 import { ArrowRight, CheckCircle2, Award, Settings, BarChart3, Eye } from "lucide-react";
 

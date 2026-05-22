@@ -109,40 +109,43 @@ export default function USPage() {
       <main>
 
         {/* ── HERO ── */}
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
-          <div className="container-site">
+        <section className="relative pt-32 pb-16 bg-blue-900 overflow-hidden">
+          {/* Background image */}
+          <div className="absolute inset-0 z-0 opacity-40">
+            <SlotImage slotKey="geo.us.hero" fill className="object-cover" priority />
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent" />
+          </div>
+
+          <div className="container-site relative z-10">
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-5xl">🇺🇸</span>
+              <span className="text-5xl drop-shadow-lg">🇺🇸</span>
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-blue-600">United States Market</span>
+                  <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
+                  <span className="text-xs font-bold tracking-widest uppercase text-blue-200">United States Market</span>
                 </div>
-                <h1 className="font-bold text-slate-900 text-5xl md:text-6xl">
+                <h1 className="font-bold text-white text-5xl md:text-6xl tracking-tight">
                   Thermal Paper Supplier USA
                 </h1>
               </div>
             </div>
-            <p className="text-slate-500 text-lg max-w-3xl mb-5">
+            <p className="text-blue-100 text-lg max-w-3xl mb-5 leading-relaxed">
               FDA-compliant, Prop 65 compliant thermal paper rolls and labels for US distributors, importers, and e-commerce sellers. BPA-free, ISO 9001 certified, DDP shipping to any US port.
             </p>
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-8">
               {["FDA 21 CFR", "Prop 65 Compliant", "BPA-Free", "ISO 9001", "DDP USA", "Amazon FBA Validated", "Cannabis Labels"].map((f) => (
-                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-xs tracking-wide uppercase text-slate-600 rounded-lg shadow-sm">
-                  <CheckCircle2 className="w-3 h-3 text-blue-600" />
+                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white rounded-lg shadow-sm">
+                  <CheckCircle2 className="w-3 h-3 text-blue-400" />
                   {f}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 text-sm">
                 Get US Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
+              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
                 Free Samples
-              </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
-                <Download className="w-4 h-4" /> Compliance Docs
               </Link>
             </div>
           </div>

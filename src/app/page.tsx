@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
+import SlotImage from "@/components/ui/SlotImage";
 import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
 import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES, COMPLIANCE_ITEMS, BLOG_POSTS, GEO_REGIONS } from "@/lib/data";
 import {
@@ -20,7 +21,6 @@ export const metadata: Metadata = buildMetadata({
     "ISO 9001:2015 certified manufacturer of BPA-free, FDA-compliant thermal paper rolls and thermal labels. Factory-direct wholesale for distributors, importers, and e-commerce sellers in USA, Europe & Canada. Pallet pricing, free samples, DDP shipping available.",
   path: "/",
   keywords: [
-    // High-volume core keywords
     "thermal paper rolls manufacturer",
     "thermal labels supplier",
     "BPA free thermal paper wholesale",
@@ -28,7 +28,6 @@ export const metadata: Metadata = buildMetadata({
     "receipt paper rolls bulk",
     "80mm thermal paper rolls wholesale",
     "4x6 shipping labels wholesale",
-    // B2B buyer intent
     "thermal paper factory direct",
     "thermal paper USA importer",
     "thermal paper Europe distributor",
@@ -36,13 +35,11 @@ export const metadata: Metadata = buildMetadata({
     "custom thermal labels OEM",
     "container load thermal paper wholesale",
     "pallet pricing thermal paper rolls",
-    // Compliance
     "ISO 9001 thermal paper manufacturer",
     "FDA compliant thermal paper manufacturer",
     "Prop 65 compliant thermal paper",
     "BPA free receipt paper",
     "REACH compliant thermal paper EU",
-    // Application keywords
     "POS paper rolls bulk",
     "ATM paper rolls supplier",
     "ecommerce shipping labels bulk",
@@ -51,7 +48,6 @@ export const metadata: Metadata = buildMetadata({
     "casino TITO paper manufacturer",
     "cannabis compliance labels USA",
     "freezer labels cold chain",
-    // Logistics
     "DDP thermal paper USA",
     "LTL shipping thermal paper USA",
   ],
@@ -101,9 +97,8 @@ export default function HomePage() {
         <section className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden bg-blue-950">
           {/* Background image */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/hero-bg.jpg"
-              alt="BPA-free thermal paper rolls in a large manufacturing facility by ZhixinPaper USA, a leading thermal paper manufacturer"
+            <SlotImage
+              slotKey="home.hero"
               fill
               className="object-cover object-center opacity-75"
               priority
@@ -215,7 +210,7 @@ export default function HomePage() {
               {/* Rolls card */}
               <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all duration-300">
                 <div className="relative h-64 overflow-hidden bg-slate-100">
-                  <Image src="/images/thermal-rolls-product.jpg" alt="Various sizes of BPA-free thermal paper rolls for POS, ATM, and receipt printers from a leading manufacturer" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <SlotImage slotKey="home.product.thermal-rolls" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-800/55 via-slate-800/10 to-transparent" />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg uppercase tracking-wider shadow-sm">Thermal Paper Rolls</span>
@@ -252,7 +247,7 @@ export default function HomePage() {
               {/* Labels card */}
               <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all duration-300">
                 <div className="relative h-64 overflow-hidden bg-slate-100">
-                  <Image src="/images/thermal-labels-product.jpg" alt="Various rolls of thermal labels including direct thermal, shipping, and barcode labels for B2B use" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <SlotImage slotKey="home.product.thermal-labels" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-800/55 via-slate-800/10 to-transparent" />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg uppercase tracking-wider shadow-sm">Thermal Labels</span>
@@ -327,7 +322,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/images/factory-overview.jpg" alt="ISO 9001 certified thermal paper manufacturing facility with BPA-free paper rolls and workers operating machines" width={640} height={480} className="w-full object-cover" />
+                <SlotImage slotKey="home.factory-overview" width={640} height={480} className="w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5 grid grid-cols-3 gap-3">
                   {[{ v: "15+", l: "Years Exp." }, { v: "500M+", l: "Rolls/Year" }, { v: "80+", l: "Countries" }].map((s) => (
@@ -380,7 +375,7 @@ export default function HomePage() {
           <div className="container-site">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div className="relative">
-                <Image src="/images/compliance-certifications.jpg" alt="Compliance certifications including ISO 9001, BPA-free, REACH, and FSC for thermal paper manufacturer products" width={600} height={450} className="w-full object-cover rounded-2xl shadow-2xl" />
+                <SlotImage slotKey="home.compliance" width={600} height={450} className="w-full object-cover rounded-2xl shadow-2xl" />
                 <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl border border-slate-200 p-5 max-w-[200px]">
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle2 className="w-5 h-5 text-green-500" />
@@ -486,7 +481,7 @@ export default function HomePage() {
                 </Link>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/images/factory-overview.jpg" alt="ISO 9001 certified thermal paper manufacturing facility with BPA-free paper rolls and workers operating machines" width={640} height={480} className="w-full object-cover opacity-80" />
+                <SlotImage slotKey="home.factory-overview" width={640} height={480} className="w-full object-cover opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-700/30 to-blue-900/45" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">

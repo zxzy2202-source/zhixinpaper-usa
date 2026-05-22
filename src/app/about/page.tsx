@@ -57,7 +57,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div>
-                <Image src="/images/factory-overview.jpg" alt="ISO 9001 certified thermal paper manufacturing facility with BPA-free paper rolls and workers operating machines" width={640} height={480} className="w-full object-cover" />
+                <SlotImage slotKey="about.banner" width={640} height={480} className="w-full object-cover rounded-2xl shadow-xl" />
               </div>
             </div>
 
@@ -79,6 +79,18 @@ export default function AboutPage() {
                   <h3 className="font-bold text-slate-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">{item.name}</h3>
                   <p className="text-slate-500 text-xs leading-relaxed">{item.description}</p>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CTABanner />
+      </main>
+      <Footer />
+    </>
+  );
+}
+      </Link>
               ))}
             </div>
           </div>
