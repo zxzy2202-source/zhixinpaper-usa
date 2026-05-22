@@ -180,9 +180,3 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
     </div>
   );
 }
-         {children}
-        </main>
-      </div>
-    </div>
-  );
-}
