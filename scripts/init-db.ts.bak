@@ -1,0 +1,168 @@
+import Database from "better-sqlite3";
+import path from "path";
+import fs from "fs";
+import bcrypt from "bcryptjs";
+
+const DB_PATH = path.join(process.cwd(), "data", "zhixinpaper.db");
+const dataDir = path.join(process.cwd(), "data");
+
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
+const sqlite = new Database(DB_PATH);
+sqlite.pragma("journal_mode = WAL");
+sqlite.pragma("foreign_keys = ON");
+
+// ── Create Tables ─────────────────────────────────────────────────────────────
+sqlite.exec(`
+  CREATE TABLE IF NOT EXISTS admin_users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'admin' CHECK(role IN ('super_admin', 'admin', 'viewer')),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    last_login_at TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS contact_inquiries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    phone TEXT,
+    country TEXT,
+    subject TEXT,
+    message TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'new' CHECK(status IN ('new', 'in_progress', 'replied', 'closed')),
+    notes TEXT,
+    source TEXT DEFAULT 'contact_form',
+    ip_address TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS quote_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    phone TEXT,
+    country TEXT,
+    product_type TEXT,
+    quantity TEXT,
+    specifications TEXT,
+    message TEXT,
+    status TEXT NOT NULL DEFAULT 'new' CHECK(status IN ('new', 'quoted', 'negotiating', 'won', 'lost')),
+    estimated_value REAL,
+    notes TEXT,
+    source TEXT DEFAULT 'quote_form',
+    ip_address TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS sample_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    phone TEXT,
+    country TEXT,
+    address TEXT,
+    products TEXT,
+    notes TEXT,
+    status TEXT NOT NULL DEFAULT 'new' CHECK(status IN ('new', 'preparing', 'shipped', 'delivered', 'converted')),
+    tracking_number TEXT,
+    shipped_at TEXT,
+    source TEXT DEFAULT 'samples_form',
+    ip_address TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS blog_posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT NOT NULL UNIQUE,
+    title TEXT NOT NULL,
+    excerpt TEXT,
+    content TEXT NOT NULL,
+    category TEXT,
+    tags TEXT,
+    read_time TEXT,
+    status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published', 'archived')),
+    author_id INTEGER REFERENCES admin_users(id),
+    published_at TEXT,
+    seo_title TEXT,
+    seo_description TEXT,
+    seo_keywords TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS product_overrides (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT NOT NULL UNIQUE,
+    product_type TEXT NOT NULL CHECK(product_type IN ('roll', 'label')),
+    name TEXT,
+    subtitle TEXT,
+    hero_desc TEXT,
+    description TEXT,
+    features TEXT,
+    specifications TEXT,
+    moq TEXT,
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS activity_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    admin_id INTEGER REFERENCES admin_users(id),
+    action TEXT NOT NULL,
+    entity_type TEXT,
+    entity_id INTEGER,
+    details TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`);
+
+// ── Seed Default Admin User ───────────────────────────────────────────────────
+const existing = sqlite.prepare("SELECT id FROM admin_users WHERE email = ?").get("admin@zhixinpaper.com");
+
+if (!existing) {
+  const passwordHash = bcrypt.hashSync("ZhixinAdmin2025!", 12);
+  sqlite.prepare(`
+    INSERT INTO admin_users (email, name, password_hash, role)
+    VALUES (?, ?, ?, ?)
+  `).run("admin@zhixinpaper.com", "Admin", passwordHash, "super_admin");
+  console.log("✅ Default admin created: admin@zhixinpaper.com / ZhixinAdmin2025!");
+} else {
+  console.log("ℹ️  Admin user already exists, skipping seed.");
+}
+
+// ── Seed Sample Data ──────────────────────────────────────────────────────────
+const existingInquiry = sqlite.prepare("SELECT id FROM contact_inquiries LIMIT 1").get();
+if (!existingInquiry) {
+  sqlite.prepare(`
+    INSERT INTO contact_inquiries (first_name, last_name, email, company, country, subject, message, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run("Hans", "Mueller", "hans.mueller@example.de", "Papier GmbH", "Germany", "BPA-Free Thermal Paper Inquiry", "We are looking for BPA-free thermal paper rolls for our POS systems. Please send us a quote for 500,000 rolls per month.", "new");
+
+  sqlite.prepare(`
+    INSERT INTO quote_requests (first_name, last_name, email, company, country, product_type, quantity, message, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run("Sarah", "Johnson", "sarah@ecommerce-co.com", "FastShip LLC", "United States", "Direct Thermal Labels 4x6", "500,000 labels/month", "We need Amazon FBA compliant 4x6 shipping labels. Please provide pricing for 500K/month.", "new");
+
+  sqlite.prepare(`
+    INSERT INTO sample_requests (first_name, last_name, email, company, country, address, products, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run("Pierre", "Dubois", "pierre@distribution.fr", "Euro Distribution SAS", "France", "15 Rue de la Paix, 75001 Paris, France", JSON.stringify(["Standard POS Rolls 80x80mm", "Direct Thermal Labels 100x150mm"]), "new");
+
+  console.log("✅ Sample data seeded.");
+}
+
+sqlite.close();
+console.log("✅ Database initialized at:", DB_PATH);
