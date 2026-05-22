@@ -155,6 +155,16 @@ export const imageSlots = sqliteTable("image_slots", {
   updatedAt: text("updated_at").notNull().default(sql`(datetime('now'))`),
 });
 
+// ── Site Settings（站点级配置 - Hero 文案/SEO/公司信息等）────────────────────
+// 通用 key-value，value 存 JSON 字符串，sectionKey 用于按区域分组
+export const siteSettings = sqliteTable("site_settings", {
+  key: text("key").primaryKey(),               // e.g. "hero.home", "seo.global"
+  sectionKey: text("section_key").notNull(),   // e.g. "hero", "seo", "company"
+  value: text("value").notNull().default("{}"),// JSON 字符串
+  updatedBy: integer("updated_by").references(() => adminUsers.id),
+  updatedAt: text("updated_at").notNull().default(sql`(datetime('now'))`),
+});
+
 // ── Admin Activity Log ────────────────────────────────────────────────────────
 export const activityLog = sqliteTable("activity_log", {
   id: integer("id").primaryKey({ autoIncrement: true }),

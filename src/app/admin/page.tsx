@@ -6,17 +6,19 @@ import {
   ArrowRight, ExternalLink, Sparkles
 } from "lucide-react";
 import { SLOT_REGISTRY } from "@/lib/imageSlots";
+import { getSeoGlobal, calculateSeoScore } from "@/lib/siteSettings";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   // 并发拉数据
-  const [allInquiries, allQuotes, allSamples, allPosts, allSlots] = await Promise.all([
+  const [allInquiries, allQuotes, allSamples, allPosts, allSlots, seo] = await Promise.all([
     db.select().from(contactInquiries),
     db.select().from(quoteRequests),
     db.select().from(sampleRequests),
     db.select().from(blogPosts),
     db.select().from(imageSlots),
+    getSeoGlobal(),
   ]);
 
   // 三类询盘合并后的"今日"数
@@ -31,15 +33,8 @@ export default async function AdminDashboard() {
   const usedSlots = allSlots.filter((s) => s.mediaFileId).length;
   const customPercent = totalSlots > 0 ? Math.round((usedSlots / totalSlots) * 100) : 0;
 
-  // 估算 SEO 分（参考 zxpapers 风格的简单评分，可以后期再升级）
-  const seoScore = (() => {
-    let score = 60;
-    if (usedSlots >= totalSlots * 0.5) score += 10;
-    if (usedSlots >= totalSlots * 0.8) score += 10;
-    if (allPosts.length >= 3) score += 10;
-    if (allPosts.length >= 10) score += 5;
-    return Math.min(score, 99);
-  })();
+  // 真实 SEO 分（基于实际填写的 SEO 字段）
+  const seoScore = calculateSeoScore(seo);
 
   const cards = [
     {

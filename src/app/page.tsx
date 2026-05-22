@@ -8,6 +8,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import SlotImage from "@/components/ui/SlotImage";
 import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
 import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES, COMPLIANCE_ITEMS, BLOG_POSTS, GEO_REGIONS } from "@/lib/data";
+import { getHeroHome } from "@/lib/siteSettings";
 import {
   ArrowRight, CheckCircle2, ShieldCheck, FileCheck, Award, Leaf,
   UtensilsCrossed, Shield, Package, Truck, Clock, Star,
@@ -77,11 +78,12 @@ const INDUSTRY_ICONS: Record<string, React.ReactNode> = {
   Leaf: <Leaf className="w-5 h-5" />,
 };
 
-export default function HomePage() {
+export default async function HomePage() {
   const featuredRolls = THERMAL_PAPER_ROLLS.slice(0, 6);
   const featuredLabels = THERMAL_LABELS.slice(0, 6);
   const featuredIndustries = INDUSTRIES.slice(0, 8);
   const featuredPosts = BLOG_POSTS.slice(0, 3);
+  const hero = await getHeroHome();
 
   const jsonLd = [organizationSchema(), breadcrumbSchema([{ name: "Home", url: "/" }])];
 
@@ -114,38 +116,36 @@ export default function HomePage() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/15 border border-blue-400/25 rounded-full text-blue-300 text-xs font-semibold tracking-widest uppercase mb-8 backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                ISO 9001 Certified Manufacturer · Est. {COMPANY.founded}
+                {hero.badge}
               </div>
 
               {/* Headline */}
               <h1 className="font-extrabold text-white text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6">
-                One-Stop{" "}
+                {hero.headlineLine1}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-200 via-blue-200 to-cyan-200">
-                  Thermal
+                  {hero.headlineHighlight}
                 </span>
                 <br />
-                Consumables
+                {hero.headlineLine2}
                 <br />
-                <span className="text-blue-100">Platform</span>
+                <span className="text-blue-100">{hero.headlineLine3}</span>
               </h1>
 
               {/* Subheadline */}
               <p className="text-blue-50/90 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
-                Thermal paper rolls &amp; thermal labels for distributors, importers, and local factories in{" "}
-                <strong className="text-white font-semibold">Europe, USA &amp; Canada</strong>.
-                Custom OEM · BPA-Free · Stable Supply · Full Compliance Documentation.
+                {hero.subtitle}
               </p>
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3 mb-12">
-                <Link href="/quote" className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 hover:-translate-y-0.5 text-sm">
-                  Get a Custom Quote <ArrowRight className="w-4 h-4" />
+                <Link href={hero.primaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 hover:-translate-y-0.5 text-sm">
+                  {hero.primaryCtaText} <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/samples" className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
-                  Request Free Samples
+                <Link href={hero.secondaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
+                  {hero.secondaryCtaText}
                 </Link>
-                <Link href="/products" className="inline-flex items-center gap-2 px-7 py-3.5 bg-transparent hover:bg-white/5 text-blue-300 font-semibold rounded-xl border border-blue-400/30 hover:border-blue-300/50 transition-all text-sm">
-                  Browse Products
+                <Link href={hero.tertiaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-transparent hover:bg-white/5 text-blue-300 font-semibold rounded-xl border border-blue-400/30 hover:border-blue-300/50 transition-all text-sm">
+                  {hero.tertiaryCtaText}
                 </Link>
               </div>
 

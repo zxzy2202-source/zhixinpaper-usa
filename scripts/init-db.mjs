@@ -196,6 +196,14 @@ const statements = [
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
 
+  `CREATE TABLE IF NOT EXISTS site_settings (
+    key TEXT PRIMARY KEY,
+    section_key TEXT NOT NULL,
+    value TEXT NOT NULL DEFAULT '{}',
+    updated_by INTEGER REFERENCES admin_users(id),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  )`,
+
   `CREATE TABLE IF NOT EXISTS activity_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     admin_id INTEGER REFERENCES admin_users(id),
