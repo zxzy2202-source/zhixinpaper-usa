@@ -1,6 +1,17 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* 后台仪表盘 - 挥手动画 */
+@keyframes wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(-14deg); }
+  20% { transform: rotate(14deg); }
+  40%, 50% { transform: rotate(-4deg); }
+}
+.animate-wave {
+  animation: wave 2.5s ease-in-out infinite;
+}
+
 /*
  * DESIGN SYSTEM: Modern Light — Clean & Professional
  * Inter (headings) + Inter (body) — clean sans-serif

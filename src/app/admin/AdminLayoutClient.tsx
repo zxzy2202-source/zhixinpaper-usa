@@ -3,9 +3,9 @@
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  LayoutDashboard, MessageSquare, FileText, Package, Settings,
-  LogOut, Globe, Mail, Send, FlaskConical,
-  Menu, X, ExternalLink, Image, LayoutGrid
+  LayoutDashboard, FileText, Settings,
+  LogOut, Globe, MessageSquare,
+  Menu, X, ExternalLink, Image as ImageIcon, Home
 } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
@@ -17,36 +17,17 @@ interface NavItem {
   exact?: boolean;
 }
 
-const NAV_ITEMS: { section: string; items: NavItem[] }[] = [
-  {
-    section: "概览",
-    items: [
-      { href: "/admin", icon: LayoutDashboard, label: "仪表盘", exact: true },
-    ],
-  },
-  {
-    section: "线索与询盘",
-    items: [
-      { href: "/admin/inquiries", icon: Mail, label: "联系询盘" },
-      { href: "/admin/quotes", icon: Send, label: "报价请求" },
-      { href: "/admin/samples", icon: FlaskConical, label: "样品申请" },
-    ],
-  },
-  {
-    section: "内容管理",
-    items: [
-      { href: "/admin/blog", icon: FileText, label: "博客文章" },
-      { href: "/admin/products", icon: Package, label: "产品管理" },
-      { href: "/admin/image-slots", icon: Image, label: "图片管理" },
-      { href: "/admin/media", icon: LayoutGrid, label: "媒体库（高级）" },
-    ],
-  },
-  {
-    section: "系统",
-    items: [
-      { href: "/admin/settings", icon: Settings, label: "系统设置" },
-    ],
-  },
+// 后台菜单 —— B2B 简化版（对齐 zxpapers 风格）
+// 隐藏路径：/admin/products（产品很少改，URL 直接进）
+//          /admin/media（媒体库高级，B2B 用不上，URL 直接进）
+//          /admin/quotes /admin/samples（合并到 /admin/inquiries Tab 内）
+const NAV_ITEMS: NavItem[] = [
+  { href: "/admin", icon: LayoutDashboard, label: "仪表盘", exact: true },
+  { href: "/admin/hero", icon: Home, label: "首页 Hero" },
+  { href: "/admin/image-slots", icon: ImageIcon, label: "图片管理" },
+  { href: "/admin/blog", icon: FileText, label: "文章管理" },
+  { href: "/admin/inquiries", icon: MessageSquare, label: "客户询盘" },
+  { href: "/admin/settings", icon: Settings, label: "SEO 设置" },
 ];
 
 export default function AdminLayoutClient({ children }: { children: React.ReactNode }) {
@@ -98,36 +79,29 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4 px-3">
-          {NAV_ITEMS.map((group) => (
-            <div key={group.section} className="mb-5">
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest px-3 mb-2">
-                {group.section}
-              </p>
-              <ul className="space-y-0.5">
-                {group.items.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.href, item.exact);
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setSidebarOpen(false)}
-                        className={clsx(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all",
-                          active
-                            ? "bg-blue-600 text-white shadow-sm"
-                            : "text-slate-400 hover:text-white hover:bg-slate-800"
-                        )}
-                      >
-                        <Icon className="w-4 h-4 shrink-0" />
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+          <ul className="space-y-1">
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.href, item.exact);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setSidebarOpen(false)}
+                    className={clsx(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all",
+                      active
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-slate-400 hover:text-white hover:bg-slate-800"
+                    )}
+                  >
+                    <Icon className="w-4 h-4 shrink-0" />
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
         {/* Footer */}
@@ -165,7 +139,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
           </button>
           <div className="flex-1">
             <p className="text-sm text-slate-500">
-              {NAV_ITEMS.flatMap(g => g.items).find(i => isActive(i.href, i.exact))?.label || "后台管理"}
+              {NAV_ITEMS.find(i => isActive(i.href, i.exact))?.label || "后台管理"}
             </p>
           </div>
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
