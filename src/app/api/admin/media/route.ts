@@ -197,7 +197,7 @@ export async function POST(request: NextRequest) {
         size: optimized.length,
         width,
         height,
-        url: blob.url,
+        url: uploaded.url,
         alt,
         folder: thumbnailUrl || "",  // 复用 folder 字段存储缩略图 URL
         categoryId: categoryId && !isNaN(categoryId) ? categoryId : null,

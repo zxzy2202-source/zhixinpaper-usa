@@ -30,23 +30,13 @@ export async function DELETE(
       return NextResponse.json({ error: "文件不存在" }, { status: 404 });
     }
 
-    // 删除 Vercel Blob 上的文件（仅当 URL 是 blob URL 时）
-    if (file.url && file.url.includes("blob.vercel-storage.com")) {
-      try {
-        await del(file.url);
-      } catch {
-        // Blob 删除失败不阻塞数据库删除
-        console.warn("Blob 文件删除失败:", file.url);
-      }
-
-      // 删除缩略图（存储在 folder 字段中）
-      if (file.folder && file.folder.includes("blob.vercel-storage.com")) {
-        try {
-          await del(file.folder);
-        } catch {
-          console.warn("缩略图删除失败:", file.folder);
-        }
-      }
+    // 删除远程文件（R2 / 兼容 Blob 残留）
+    if (file.url) {
+      await deleteFromR2(file.url);
+    }
+    if (file.folder && file.folder.startsWith("http")) {
+      // folder 字段被复用存储缩略图 URL
+      await deleteFromR2(file.folder);
     }
 
     // 删除数据库记录
@@ -81,6 +71,20 @@ export async function PATCH(
     if (categoryId !== undefined) {
       updateData.categoryId =
         categoryId === null ? null : parseInt(String(categoryId));
+    }
+
+    await db
+      .update(mediaFiles)
+      .set(updateData)
+      .where(eq(mediaFiles.id, fileId));
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("更新图片失败:", error);
+    return NextResponse.json({ error: "更新失败" }, { status: 500 });
+  }
+}
+ parseInt(String(categoryId));
     }
 
     await db

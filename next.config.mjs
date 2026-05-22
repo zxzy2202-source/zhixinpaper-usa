@@ -7,12 +7,14 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year cache for optimized images
-    // 允许 Vercel Blob 上传的图片走 next/image 优化
+    // 允许远程图片走 next/image 优化
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
-      },
+      // Cloudflare R2 公开开发 URL（pub-xxx.r2.dev）
+      { protocol: "https", hostname: "*.r2.dev" },
+      // Cloudflare R2 自定义域名（如 cdn.zhixinpaper.com）
+      { protocol: "https", hostname: "cdn.zhixinpaper.com" },
+      // 兼容期：Vercel Blob 残留图片（迁移完成后可删）
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
   // Enable compression for better performance
