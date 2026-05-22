@@ -5,53 +5,61 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
+import SlotImage from "@/components/ui/SlotImage";
 import { COMPANY, COMPLIANCE_ITEMS } from "@/lib/data";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
+import {
+  History, Users, Factory, Target, Award, ShieldCheck,
+  CheckCircle2, ArrowRight, Globe, Zap, Users2, Trophy,
+} from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "About Us | Thermal Paper Manufacturer Since 2008",
+export const metadata: Metadata = buildMetadata({
+  title: "About Zhixin Paper | ISO 9001 Certified Thermal Paper Manufacturer",
   description:
-    "Zhixin Paper is an ISO 9001:2015 certified thermal paper manufacturer since 2008. Serving distributors in Europe, USA, and Canada with premium thermal paper rolls and labels.",
-  keywords: ["Zhixin Paper manufacturer", "thermal paper company China", "thermal paper manufacturer since 2008", "ISO 9001 thermal paper factory"],
-};
+    "Learn about Zhixin Paper, a leading manufacturer of BPA-free thermal paper rolls and labels. Based in China, serving USA, Europe and Canada with ISO 9001:2015 certified quality since " +
+    COMPANY.founded + ".",
+  path: "/about",
+});
 
 export default function AboutPage() {
+  const jsonLd = [
+    organizationSchema(),
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "About Us", url: "/about" },
+    ]),
+  ];
+
   return (
     <>
       <Header />
-      <main>
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
+      {jsonLd.map((schema, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      ))}
+      <main className="pt-[88px]">
+        {/* Hero Section */}
+        <section className="py-20 bg-slate-50 border-b border-slate-200">
           <div className="container-site">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-              <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600">About Us</span>
-            </div>
-            <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">
-              About Zhixin Paper
-            </h1>
-            <p className="text-slate-500 text-lg max-w-2xl">
-              ISO 9001:2015 certified thermal paper manufacturer since {COMPANY.founded}. Serving distributors, importers, and factories in Europe, USA, and Canada with premium thermal consumables.
-            </p>
-          </div>
-        </section>
-
-        <section className="py-20 bg-white">
-          <div className="container-site">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <SectionHeader label="Our Story" title="15+ Years of Thermal Excellence" subtitle="Founded in 2008, Zhixin Paper has grown from a regional manufacturer to a global supplier serving 80+ countries." />
-                <div className="mt-8 space-y-4">
-                  {[
-                    "ISO 9001:2015 certified manufacturing facility in Xi'an, Shaanxi, China",
-                    "500M+ thermal paper rolls produced annually",
-                    "Serving 80+ countries across Europe, Americas, and Asia-Pacific",
-                    "Full BPA-free product range for EU and US market compliance",
-                    "Custom OEM and private label capabilities for distributors",
-                    "Dedicated technical support for compliance documentation",
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                      <p className="text-slate-500 text-sm leading-relaxed">{item}</p>
+                <SectionHeader
+                  label="Our Story"
+                  title="A Legacy of Precision in Thermal Manufacturing"
+                  subtitle={"Founded in " + COMPANY.founded + ", Zhixin Paper has grown from a local coating facility to a global leader in thermal paper consumables."}
+                />
+                <div className="mt-8 space-y-4 text-slate-600 leading-relaxed">
+                  <p>
+                    With over 15 years of industry expertise, we specialize in the complete production cycle of thermal paper—from advanced chemical coating to high-speed slitting and custom OEM printing.
+                  </p>
+                  <p>
+                    Our ISO 9001:2015 certified facility in China operates 24/7 to ensure a stable, large-scale supply for our partners in the USA, Canada, and Europe. We understand that in the B2B world, reliability is as important as quality.
+                  </p>
+                </div>
+                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+                  {COMPANY.stats.map((stat) => (
+                    <div key={stat.label} className="text-center">
+                      <div className="text-3xl font-extrabold text-blue-600">{stat.value}</div>
+                      <div className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -60,38 +68,68 @@ export default function AboutPage() {
                 <SlotImage slotKey="about.banner" width={640} height={480} className="w-full object-cover rounded-2xl shadow-xl" />
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-              {COMPANY.stats.map((stat) => (
-                <div key={stat.label} className="bg-white border border-slate-200 p-6 text-center rounded-xl hover:shadow-md transition-shadow">
-                  <div className="font-bold text-blue-600 text-4xl mb-2">{stat.value}</div>
-                  <div className="text-xs tracking-widest uppercase text-slate-400">{stat.label}</div>
+        {/* Core Values */}
+        <section className="py-24 bg-white">
+          <div className="container-site">
+            <SectionHeader
+              label="Our Values"
+              title="What Drives Us Forward"
+              subtitle="Our commitment to excellence is built on four core pillars that define every roll of paper we produce."
+              className="mb-14"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { icon: <ShieldCheck className="w-6 h-6" />, title: "Quality First", desc: "Rigorous ISO 9001 quality control at every stage, from coating thickness to slitting precision." },
+                { icon: <Target className="w-6 h-6" />, title: "Global Compliance", desc: "Proactive testing for REACH, RoHS, FDA, and Prop 65 to ensure frictionless market entry." },
+                { icon: <Users2 className="w-6 h-6" />, title: "Partner Centric", desc: "Dedicated support for importers and distributors with custom OEM and stable pallet pricing." },
+                { icon: <Zap className="w-6 h-6" />, title: "Agile Production", desc: "Fast 15-day standard lead times and efficient logistics handling for US/EU/CA markets." },
+              ].map((val, i) => (
+                <div key={i} className="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all group">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+                    {val.icon}
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-lg mb-3">{val.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{val.desc}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Certifications */}
-            <SectionHeader label="Certifications" title="Our Compliance Credentials" className="mb-10" />
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {COMPLIANCE_ITEMS.map((item) => (
-                <Link key={item.slug} href={`/compliance/${item.slug}`} className="rounded-xl border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-5 group">
-                  <h3 className="font-bold text-slate-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">{item.name}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{item.description}</p>
-                </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <CTABanner />
-      </main>
-      <Footer />
-    </>
-  );
-}
-      </Link>
-              ))}
+        {/* Timeline/Milestones */}
+        <section className="py-24 bg-slate-50">
+          <div className="container-site">
+            <div className="max-w-4xl mx-auto">
+              <SectionHeader
+                label="Milestones"
+                title="A Journey of Growth"
+                subtitle="From a small coating workshop to an international manufacturing powerhouse."
+                className="text-center mb-16"
+              />
+              <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                {[
+                  { year: "2009", title: "Inception", desc: "Established our first thermal coating facility with a focus on local retail markets." },
+                  { year: "2014", title: "ISO Certification", desc: "Achieved ISO 9001:2015 certification and expanded into high-speed slitting technology." },
+                  { year: "2018", title: "International Expansion", desc: "Launched dedicated export division for the USA and European markets." },
+                  { year: "2023", title: "Next-Gen Facility", desc: "Inaugurated our 150,000 rolls/day automated facility with BPA-free coating lines." },
+                ].map((m, i) => (
+                  <div key={i} className={"relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group " + (i % 2 === 0 ? "is-active" : "")}>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                      <History className="w-5 h-5" />
+                    </div>
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="font-black text-blue-600 text-xl tracking-tight">{m.year}</div>
+                      </div>
+                      <div className="font-bold text-slate-900 mb-2">{m.title}</div>
+                      <div className="text-slate-500 text-sm leading-relaxed">{m.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
