@@ -66,9 +66,9 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "FacebookBot", disallow: ["/"] },            // Meta AI
       { userAgent: "Meta-ExternalAgent", disallow: ["/"] },
 
-      // ─── 屏蔽 SEO 分析爬虫（消耗带宽 + 数据被竞品看到） ───
+      // ─── 屏蔽 SEO 分析爬虫（消耗带宽） ───
+      // 注：SemrushBot 已放行，老板自己要用 Semrush 跑分析
       { userAgent: "AhrefsBot", disallow: ["/"] },
-      { userAgent: "SemrushBot", disallow: ["/"] },
       { userAgent: "MJ12bot", disallow: ["/"] },
       { userAgent: "DotBot", disallow: ["/"] },
       { userAgent: "BLEXBot", disallow: ["/"] },
