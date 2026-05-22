@@ -3,9 +3,9 @@ import { getSession } from "@/lib/session";
 import { db } from "@/lib/db";
 import { mediaFiles } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { del } from "@vercel/blob";
+import { deleteFromR2 } from "@/lib/r2";
 
-// DELETE — 删除图片（同时删除 Vercel Blob 上的文件）
+// DELETE — 删除图片（同时删除 R2 上的文件）
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -71,20 +71,6 @@ export async function PATCH(
     if (categoryId !== undefined) {
       updateData.categoryId =
         categoryId === null ? null : parseInt(String(categoryId));
-    }
-
-    await db
-      .update(mediaFiles)
-      .set(updateData)
-      .where(eq(mediaFiles.id, fileId));
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("更新图片失败:", error);
-    return NextResponse.json({ error: "更新失败" }, { status: 500 });
-  }
-}
- parseInt(String(categoryId));
     }
 
     await db

@@ -3,7 +3,7 @@ import { getSession } from "@/lib/session";
 import { db } from "@/lib/db";
 import { mediaFiles } from "@/lib/db/schema";
 import { desc } from "drizzle-orm";
-import { put } from "@vercel/blob";
+import { uploadToR2 } from "@/lib/r2";
 import sharp from "sharp";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST — 上传图片（Vercel Blob + 自动压缩 + 缩略图）
+// POST — 上传图片（Cloudflare R2 + 自动压缩 + 缩略图）
 export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
@@ -165,26 +165,17 @@ export async function POST(request: NextRequest) {
       .replace(/\.[^/.]+$/, "")
       .replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, "_")
       .substring(0, 50);
-    const blobFilename = `media/${timestamp}_${safeName}.${ext}`;
 
-    // 上传压缩后的图片到 Vercel Blob
-    const blob = await put(blobFilename, optimized, {
-      access: "public",
-      addRandomSuffix: false,
-    });
+    // 上传压缩后的图片到 R2
+    const mainKey = `media/${timestamp}_${safeName}.${ext}`;
+    const mainUpload = await uploadToR2(mainKey, optimized, file.type);
 
-    // 上传缩略图到 Vercel Blob
+    // 上传缩略图到 R2
     let thumbnailUrl: string | null = null;
     if (thumbnail) {
-      const thumbBlob = await put(
-        `media/thumbs/${timestamp}_${safeName}.webp`,
-        thumbnail,
-        {
-          access: "public",
-          addRandomSuffix: false,
-        }
-      );
-      thumbnailUrl = thumbBlob.url;
+      const thumbKey = `media/thumbs/${timestamp}_${safeName}.webp`;
+      const thumbUpload = await uploadToR2(thumbKey, thumbnail, "image/webp");
+      thumbnailUrl = thumbUpload.url;
     }
 
     // 写入数据库
@@ -197,7 +188,7 @@ export async function POST(request: NextRequest) {
         size: optimized.length,
         width,
         height,
-        url: uploaded.url,
+        url: mainUpload.url,
         alt,
         folder: thumbnailUrl || "",  // 复用 folder 字段存储缩略图 URL
         categoryId: categoryId && !isNaN(categoryId) ? categoryId : null,
