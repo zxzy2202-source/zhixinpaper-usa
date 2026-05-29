@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { Inter } from "next/font/google";
 import { websiteSchema, organizationSchema } from "@/lib/seo";
@@ -95,10 +96,25 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
+        {/* OKKI CRM 访客分析配置 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.okkiConfigs = window.okkiConfigs || [];
+              function okkiAdd() { okkiConfigs.push(arguments); };
+              okkiAdd("analytics", { siteId: "68611-18549", gId: "" });
+            `,
+          }}
+        />
       </head>
       <body className="bg-white text-slate-900 antialiased font-sans">
         {children}
         <WhatsAppButton />
+        {/* OKKI CRM 访客分析脚本 */}
+        <Script
+          src="//tfile.xiaoman.cn/okki/analyze.js?id=68611-18549-"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
