@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { contactInquiries } from "@/lib/db/schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { notifyAll } from "@/lib/notify";
+import { COMPANY } from "@/lib/data";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY || "placeholder");
@@ -67,27 +68,27 @@ export async function POST(request: NextRequest) {
     try {
       const resend = getResend();
       await resend.emails.send({
-        from: "Zhixin Paper <Sales@zxpapers.com>",
+        from: `${COMPANY.name} <Sales@zxpapers.com>`,
         to: [email],
-        subject: "We received your message — Zhixin Paper",
+        subject: `We received your message — ${COMPANY.name}`,
         html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: #1e40af; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
             <h1 style="margin: 0; font-size: 20px;">Thank You for Contacting Us</h1>
-            <p style="margin: 5px 0 0; opacity: 0.8; font-size: 14px;">Zhixin Paper — Thermal Paper Manufacturer</p>
+            <p style="margin: 5px 0 0; opacity: 0.8; font-size: 14px;">${COMPANY.name} — Thermal Paper Manufacturer</p>
           </div>
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; padding: 24px; border-radius: 0 0 8px 8px;">
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">Dear ${firstName},</p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
-              Thank you for reaching out to Zhixin Paper. We have received your message and our sales team will respond within <strong>24 business hours</strong>.
+              Thank you for reaching out to ${COMPANY.name}. We have received your message and our sales team will respond within <strong>24 business hours</strong>.
             </p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
               For urgent inquiries, you can also reach us via:
             </p>
             <ul style="color: #1e293b; font-size: 15px; line-height: 2;">
-              <li>📧 Email: <a href="mailto:Sales@zxpapers.com" style="color: #2563eb;">Sales@zxpapers.com</a></li>
-              <li>📱 WhatsApp: <a href="https://wa.me/8618792771927" style="color: #2563eb;">+86 187 9277 1927</a></li>
-              <li>📞 Phone: +86 153 3924 7872</li>
+              <li>📧 Email: <a href="mailto:${COMPANY.email}" style="color: #2563eb;">${COMPANY.email}</a></li>
+              <li>📱 WhatsApp: <a href="https://wa.me/${COMPANY.whatsapp.replace(/\+/g, "").replace(/\s/g, "")}" style="color: #2563eb;">${COMPANY.whatsapp}</a></li>
+              <li>📞 Phone: ${COMPANY.phone}</li>
             </ul>
             <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin-top: 20px;">
               Business Hours: Monday–Friday, 9:00–18:00 GMT+8
@@ -98,7 +99,7 @@ export async function POST(request: NextRequest) {
             </div>
           </div>
           <p style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 16px;">
-            Zhixin Paper Co., Ltd. | Building 15, Phase 1 Zone 2, Ronghao Industrial Park, Gaoling District, Xi'an, Shaanxi, China<br/>
+            ${COMPANY.name} Co., Ltd. | ${COMPANY.address}<br/>
             <a href="https://www.zhixinpaper.com" style="color: #94a3b8;">www.zhixinpaper.com</a>
           </p>
         </div>

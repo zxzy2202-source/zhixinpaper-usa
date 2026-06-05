@@ -16,6 +16,7 @@
  */
 
 import { Resend } from "resend";
+import { COMPANY } from "@/lib/data";
 
 // ── 通用类型 ─────────────────────────────────────────────────────
 export type InquiryKind = "contact" | "quote" | "samples";
@@ -51,7 +52,7 @@ function buildTitle(p: InquiryPayload): string {
         ? "📦 Sample Request"
         : "✉️ Contact";
   const who = p.company || p.name;
-  return `[${tag}] ${who}${p.country ? ` · ${p.country}` : ""}`;
+  return `[${COMPANY.name}][${tag}] ${who}${p.country ? ` · ${p.country}` : ""}`;
 }
 
 // ── 模板：Markdown 摘要（Server酱 desp） ─────────────────────────
@@ -127,7 +128,7 @@ function buildEmailHtml(p: InquiryPayload): string {
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
       <div style="background:${color};color:white;padding:20px;border-radius:8px 8px 0 0;">
         <h1 style="margin:0;font-size:20px;">${escapeHtml(buildTitle(p))}</h1>
-        <p style="margin:5px 0 0;opacity:0.85;font-size:14px;">Zhixin Paper Website</p>
+        <p style="margin:5px 0 0;opacity:0.85;font-size:14px;">${COMPANY.name} Website</p>
       </div>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-top:none;padding:24px;border-radius:0 0 8px 8px;">
         <table style="width:100%;border-collapse:collapse;">
@@ -207,7 +208,7 @@ async function sendEmail(p: InquiryPayload): Promise<{
   const to = process.env.NOTIFY_EMAIL_TO || "Sales@zxpapers.com";
   const from =
     process.env.NOTIFY_EMAIL_FROM ||
-    "Zhixin Paper Website <noreply@zhixinpaper.com>";
+    `${COMPANY.name} Website <noreply@zhixinpaper.com>`;
 
   try {
     const resend = new Resend(apiKey);
