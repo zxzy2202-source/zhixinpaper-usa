@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowLeft, CheckCircle, TrendingUp, Users, Package } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { canonicalUrl } from "@/lib/seo";
 
 
 type Props = { params: Promise<{ slug: string }> };
@@ -110,6 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${cs.title} | Case Studies`,
     description: cs.challenge.slice(0, 160),
+    alternates: { canonical: canonicalUrl(`/case-studies/${slug}`) },
   };
 }
 

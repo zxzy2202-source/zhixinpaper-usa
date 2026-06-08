@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "FDA Compliant Thermal Paper | US Food Contact Labels",
   description: "FDA 21 CFR compliant thermal paper and labels for US food contact applications. BPA-free, food-safe thermal paper for US distributors and food manufacturers.",
   keywords: "FDA compliant thermal paper, US food contact labels, FDA 21 CFR thermal paper",
+  alternates: { canonical: canonicalUrl("/compliance/fda-us") },
 };
 
 export default function FDAUSPage() {

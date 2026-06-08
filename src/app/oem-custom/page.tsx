@@ -4,12 +4,14 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, ShieldCheck, Play } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "OEM Thermal Paper — Private Label & Custom Printing",
   description:
     "OEM thermal paper rolls and labels with private label and custom printing. Low MOQ, fast samples, full packaging customization. White label thermal paper manufacturer.",
+  alternates: { canonical: canonicalUrl("/oem-custom") },
 };
 
 export default function OEMPage() {

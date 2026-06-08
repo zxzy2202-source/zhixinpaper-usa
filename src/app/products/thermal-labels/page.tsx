@@ -5,12 +5,14 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { THERMAL_LABELS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Thermal Labels — Direct Thermal, Freezer, High-Temp, Custom Labels Wholesale",
   description:
     "Wholesale thermal labels: direct thermal, thermal transfer, freezer labels, high-temperature labels, wristbands, tamper-evident, synthetic PP, and custom OEM labels. ISO 9001 certified.",
+  alternates: { canonical: canonicalUrl("/products/thermal-labels") },
 };
 
 export default function ThermalLabelsPage() {

@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, FileDown, Filter } from "lucide-react";
 import TrustBadge from "@/components/ui/TrustBadge";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   description:
     "Complete range of thermal paper rolls and thermal labels for wholesale. POS rolls, ATM paper, direct thermal labels, freezer labels, and custom OEM. Request a quote today.",
   keywords: ["thermal paper rolls catalog", "thermal labels wholesale", "BPA free thermal paper rolls", "POS paper rolls supplier", "ATM paper rolls", "thermal labels manufacturer", "direct thermal labels", "thermal transfer labels"],
+  alternates: { canonical: canonicalUrl("/products") },
 };
 
 export default function ProductsPage() {

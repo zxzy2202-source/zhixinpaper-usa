@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 
-const SITE_URL = "https://www.zhixinpaper.com";
-const SITE_NAME = "Zhixin Paper";
+export const SITE_URL = "https://www.zhixinpaper.com";
+export const SITE_NAME = "Zhixin Paper";
+export const CONTACT_EMAIL = "sales@zhixinpaper.com";
+export const SALES_PHONE_E164 = "+8615339247872";
+export const WHATSAPP_PHONE_E164 = "+8618792771927";
 const DEFAULT_IMAGE = "/images/og-default.jpg";
+
+export function canonicalUrl(path = "/") {
+  const normalizedPath = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+  return `${SITE_URL}${normalizedPath}`;
+}
 
 // ─── Core metadata factory ────────────────────────────────────────────────────
 export function buildMetadata({
@@ -20,7 +28,7 @@ export function buildMetadata({
   keywords?: string[];
   noIndex?: boolean;
 }): Metadata {
-  const url = `${SITE_URL}${path}`;
+  const url = canonicalUrl(path);
   // Don't append SITE_NAME here - layout.tsx template already adds "| Zhixin Paper"
   const fullTitle = title;
 
@@ -83,8 +91,8 @@ export function organizationSchema() {
       {
         "@type": "ContactPoint",
         contactType: "sales",
-        telephone: "+8615339247872",
-        email: "Sales@zxpapers.com",
+        telephone: SALES_PHONE_E164,
+        email: CONTACT_EMAIL,
         availableLanguage: ["English", "German", "French"],
         hoursAvailable: {
           "@type": "OpeningHoursSpecification",
@@ -96,7 +104,7 @@ export function organizationSchema() {
       {
         "@type": "ContactPoint",
         contactType: "customer support",
-        telephone: "+8618792771927",
+        telephone: WHATSAPP_PHONE_E164,
         contactOption: "WhatsApp",
       },
     ],
@@ -294,8 +302,8 @@ export function localBusinessSchema(region: "eu" | "us" | "ca") {
     areaServed: data.areaServed,
     priceRange: "$$",
     image: `${SITE_URL}/images/factory-overview.jpg`,
-    telephone: "+8615339247872",
-    email: "Sales@zxpapers.com",
+    telephone: SALES_PHONE_E164,
+    email: CONTACT_EMAIL,
   };
 }
 
@@ -336,7 +344,7 @@ export function manufacturerSchema() {
       postalCode: "710000",
       addressCountry: "CN",
     },
-    telephone: "+8615339247872",
-    email: "Sales@zxpapers.com",
+    telephone: SALES_PHONE_E164,
+    email: CONTACT_EMAIL,
   };
 }

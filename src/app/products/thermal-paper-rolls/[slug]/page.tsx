@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
   Star, Shield, Zap, MessageSquare, Download, Layers, Clock,
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${roll.name} — ${roll.subtitle} | Wholesale Manufacturer`,
     description: `${roll.name} thermal paper rolls wholesale from ISO 9001 certified manufacturer. ${roll.keywords}. BPA-free, FDA-compliant options. MOQ ${roll.moq}. Factory-direct pricing, pallet and container load available. Free samples via DHL/FedEx.`,
     keywords: `${roll.keywords}, thermal paper rolls wholesale, BPA free thermal paper, FDA compliant, factory direct pricing, ${roll.name} manufacturer`,
+    alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
   };
 }
 

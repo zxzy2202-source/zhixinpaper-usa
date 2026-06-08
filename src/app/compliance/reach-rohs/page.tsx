@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "REACH & RoHS Compliance | SVHC Free Thermal Paper",
   description: "REACH SVHC compliant thermal paper and labels. RoHS compliant thermal labels for electronics. Full SVHC screening and compliance documentation available.",
   keywords: "REACH thermal paper, RoHS labels EU, SVHC free thermal paper",
+  alternates: { canonical: canonicalUrl("/compliance/reach-rohs") },
 };
 
 export default function ReachRohsPage() {

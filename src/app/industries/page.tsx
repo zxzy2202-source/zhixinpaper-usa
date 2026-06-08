@@ -5,12 +5,14 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { INDUSTRIES } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Thermal Paper Industry Solutions — Label Solutions by Industry",
   description:
     "Specialized thermal paper rolls and labels for retail POS, lottery & gaming, healthcare, food cold chain, logistics, transportation, cannabis, and more. Industry-specific solutions.",
+  alternates: { canonical: canonicalUrl("/industries") },
 };
 
 export default function IndustriesPage() {

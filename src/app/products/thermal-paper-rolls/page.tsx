@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     "thermal paper rolls manufacturer China",
     "bulk thermal paper rolls USA",
   ],
+  alternates: { canonical: canonicalUrl("/products/thermal-paper-rolls") },
 };
 
 export default function ThermalPaperRollsPage() {

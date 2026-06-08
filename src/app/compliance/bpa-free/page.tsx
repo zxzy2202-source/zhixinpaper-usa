@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "BPA-Free Thermal Paper | Bisphenol-Free Receipt Rolls EU",
   description: "100% BPA-free and BPS-free thermal paper rolls and labels. Compliant with EU REACH regulation and French Grenelle II law. Safe for food contact and retail use.",
   keywords: "BPA free thermal paper, bisphenol free receipt rolls, BPA free thermal paper Europe",
+  alternates: { canonical: canonicalUrl("/compliance/bpa-free") },
 };
 
 export default function BPAFreePage() {

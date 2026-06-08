@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Customer Case Studies | Thermal Paper & Label Solutions",
   description: "Real-world case studies from Zhixin Paper customers across Europe, USA, and Canada. See how distributors and manufacturers solve thermal paper challenges.",
   keywords: "thermal paper case studies, thermal label customer stories, distributor case study",
+  alternates: { canonical: canonicalUrl("/case-studies") },
 };
 
 const caseStudies = [

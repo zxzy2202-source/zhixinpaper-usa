@@ -7,11 +7,27 @@ import {
   COMPLIANCE_ITEMS,
   BLOG_POSTS,
 } from "@/lib/data";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE_URL = "https://www.zhixinpaper.com";
+const BASE_URL = SITE_URL;
+const SITE_LAST_MODIFIED = new Date("2026-06-05T00:00:00.000Z");
+
+type SitemapEntry = MetadataRoute.Sitemap[number];
+
+function uniqueSitemap(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  const seen = new Map<string, SitemapEntry>();
+
+  for (const entry of entries) {
+    if (!seen.has(entry.url)) {
+      seen.set(entry.url, entry);
+    }
+  }
+
+  return Array.from(seen.values());
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = SITE_LAST_MODIFIED;
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
@@ -103,7 +119,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [
+  return uniqueSitemap([
     ...staticPages,
     ...rollPages,
     ...labelPages,
@@ -111,5 +127,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...euCountryPages,
     ...compliancePages,
     ...blogPages,
-  ];
+  ]);
 }

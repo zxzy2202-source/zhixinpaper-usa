@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { canonicalUrl } from "@/lib/seo";
 
 
 const FACTORY_PAGES: Record<string, {
@@ -302,6 +303,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.metaTitle,
     description: page.metaDesc,
+    alternates: { canonical: canonicalUrl(`/factory/${slug}`) },
   };
 }
 

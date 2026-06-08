@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { canonicalUrl } from "@/lib/seo";
 
 
 const OEM_PAGES: Record<string, {
@@ -194,7 +195,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = OEM_PAGES[slug];
   if (!page) return { title: "Not Found" };
-  return { title: page.metaTitle, description: page.metaDesc };
+  return {
+    title: page.metaTitle,
+    description: page.metaDesc,
+    alternates: { canonical: canonicalUrl(`/oem-custom/${slug}`) },
+  };
 }
 
 export default async function OEMSlugPage({ params }: { params: Promise<{ slug: string }> }) {

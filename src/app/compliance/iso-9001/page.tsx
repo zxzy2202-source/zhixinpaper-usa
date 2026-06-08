@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "ISO 9001:2015 Certified Thermal Paper Manufacturer",
   description: "ISO 9001:2015 certified thermal paper and label manufacturer. Full quality management system covering design, production, testing, and delivery.",
   keywords: "ISO 9001 thermal paper manufacturer, quality management thermal paper, ISO certified label manufacturer",
+  alternates: { canonical: canonicalUrl("/compliance/iso-9001") },
 };
 
 export default function ISO9001Page() {

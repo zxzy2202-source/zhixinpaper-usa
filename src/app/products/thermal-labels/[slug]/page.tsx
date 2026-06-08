@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { THERMAL_LABELS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
   Star, Shield, Zap, Tag, MessageSquare, Download, Layers, Clock,
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${label.name} — ${label.subtitle} | Wholesale Manufacturer`,
     description: `${label.name} thermal labels wholesale from ISO 9001 certified manufacturer. ${label.keywords}. BPA-free, FDA-compliant options. MOQ ${label.moq}. Factory-direct pricing, compatible with Zebra, Honeywell, SATO printers. Free samples available.`,
     keywords: `${label.keywords}, thermal labels wholesale, BPA free labels, FDA compliant labels, factory direct pricing, ${label.name} manufacturer`,
+    alternates: { canonical: canonicalUrl(`/products/thermal-labels/${slug}`) },
   };
 }
 

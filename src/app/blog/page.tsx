@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { BLOG_POSTS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import BlogListClient from "./BlogListClient";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     "thermal paper regulations Europe",
     "thermal paper industry news",
   ],
+  alternates: { canonical: canonicalUrl("/blog") },
 };
 
 export const dynamic = "force-dynamic";

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "EU Food Contact Thermal Paper | Food Safe Labels Europe",
   description: "EU food contact compliant thermal paper and labels. Meets EU Regulation 10/2011 and Framework Regulation 1935/2004. BPA-free, food-safe for bakery, deli, and cold chain.",
   keywords: "EU food contact thermal paper, food safe labels Europe, food contact labels EU",
+  alternates: { canonical: canonicalUrl("/compliance/eu-food-contact") },
 };
 
 export default function EUFoodContactPage() {

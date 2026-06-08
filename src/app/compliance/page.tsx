@@ -5,12 +5,14 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { COMPLIANCE_ITEMS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, ShieldCheck, FileCheck, Award, Leaf, UtensilsCrossed, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Thermal Paper Compliance — BPA-Free, REACH, ISO 9001, FDA Certifications",
   description:
     "Zhixin Paper compliance certifications: BPA-free, REACH/RoHS, ISO 9001:2015, FSC, EU food contact, FDA compliant. Download certificates and compliance documentation.",
+  alternates: { canonical: canonicalUrl("/compliance") },
 };
 
 const ICONS: Record<string, React.ReactNode> = {

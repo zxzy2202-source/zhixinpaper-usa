@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "Cannabis Labels USA | Dispensary Thermal Labels | State Compliant",
   description: "FDA-compliant and state-compliant cannabis labels for US dispensaries. Direct thermal and thermal transfer labels meeting California, Colorado, Michigan, New York cannabis regulations.",
   keywords: "cannabis label supplier USA, dispensary thermal labels, cannabis compliance labels, state cannabis label requirements",
+  alternates: { canonical: canonicalUrl("/us/cannabis-labels") },
 };
 
 const states = [

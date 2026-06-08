@@ -4,6 +4,7 @@ import { ArrowRight, ShieldCheck, CheckCircle, FileText, AlertCircle, Package } 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     "food contact thermal paper wholesale",
     "BPA BPS free thermal paper",
   ],
+  alternates: { canonical: canonicalUrl("/us/fda-compliant") },
 };
 
 const FDA_FEATURES = [

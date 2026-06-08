@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface Props {
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${industry.name} Thermal Paper Solutions`,
     description: `${industry.description} ${industry.keywords}. Specialized thermal paper rolls and labels for the ${industry.name} industry.`,
     keywords: industry.keywords,
+    alternates: { canonical: canonicalUrl(`/industries/${slug}`) },
   };
 }
 

@@ -7,6 +7,7 @@ import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
 import SlotImage from "@/components/ui/SlotImage";
 import { COMPANY } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, Award, Settings, BarChart3, Eye } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   description:
     "ISO 9001:2015 certified thermal paper factory in China. Advanced slitting machines, die-cutting equipment, 500M+ rolls annual capacity. Full OEM and private label capabilities.",
   keywords: ["thermal paper factory China", "ISO certified thermal paper manufacturer", "thermal paper manufacturing facility", "OEM thermal paper China", "thermal paper factory tour"],
+  alternates: { canonical: canonicalUrl("/factory") },
 };
 
 export default function FactoryPage() {

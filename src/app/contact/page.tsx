@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
+import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get a Quote or Request Samples",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     "Zhixin Paper contact",
     "thermal paper supplier contact China",
   ],
+  alternates: { canonical: canonicalUrl("/contact") },
 };
 
 export default function ContactPage() {

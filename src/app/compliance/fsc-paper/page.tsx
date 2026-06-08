@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "FSC Certified Thermal Paper | Sustainable Receipt Paper",
   description: "FSC chain of custody certified thermal paper rolls. Responsibly sourced base paper from sustainably managed forests. Available for EU and North American markets.",
   keywords: "FSC thermal paper, sustainable receipt paper, FSC certified label manufacturer",
+  alternates: { canonical: canonicalUrl("/compliance/fsc-paper") },
 };
 
 export default function FSCPaperPage() {

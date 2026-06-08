@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { COMPLIANCE_ITEMS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, Download } from "lucide-react";
 
 interface Props {
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${item.name} Thermal Paper — Certified & Compliant`,
     description: `${item.description} Zhixin Paper ${item.name} certified thermal paper rolls and labels for distributors in Europe, USA, and Canada.`,
+    alternates: { canonical: canonicalUrl(`/compliance/${slug}`) },
   };
 }
 

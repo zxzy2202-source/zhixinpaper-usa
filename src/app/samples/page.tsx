@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SamplesClient from "./SamplesClient";
+import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Request Free Thermal Paper Samples",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     "BPA-free thermal paper sample",
     "thermal paper distributor samples",
   ],
+  alternates: { canonical: canonicalUrl("/samples") },
 };
 
 export default function SamplesPage() {
