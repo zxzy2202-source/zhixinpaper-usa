@@ -38,6 +38,8 @@ const DEFAULT_KEYWORDS = [
   "direct thermal labels",
   "receipt paper rolls",
 ];
+const SEO_TITLE_MAX_LENGTH = 60;
+const SEO_DESCRIPTION_MAX_LENGTH = 160;
 
 interface MediaFile { id: number; url: string; alt: string; filename: string; originalName: string; }
 interface Props { initialData?: Partial<BlogPost>; }
@@ -56,18 +58,23 @@ function normalizeSentence(value: string, maxLength: number) {
   const text = stripMarkdown(value);
   if (text.length <= maxLength) return text;
 
-  const clipped = text.slice(0, maxLength + 1);
+  const suffix = "...";
+  const bodyMaxLength = Math.max(1, maxLength - suffix.length);
+  const clipped = text.slice(0, bodyMaxLength + 1);
   const sentenceEnd = Math.max(clipped.lastIndexOf("."), clipped.lastIndexOf("?"), clipped.lastIndexOf("!"));
   const wordEnd = clipped.lastIndexOf(" ");
-  const cutAt = sentenceEnd >= 80 ? sentenceEnd + 1 : wordEnd >= 80 ? wordEnd : maxLength;
+  const cutAt = Math.min(
+    bodyMaxLength,
+    sentenceEnd >= 80 ? sentenceEnd + 1 : wordEnd >= 80 ? wordEnd : bodyMaxLength
+  );
 
-  return `${clipped.slice(0, cutAt).trim().replace(/[,.!?;:]$/, "")}...`;
+  return `${clipped.slice(0, cutAt).trim().replace(/[,.!?;:]$/, "")}${suffix}`;
 }
 
 function buildSeoTitle(title: string) {
   const cleanTitle = stripMarkdown(title);
   if (!cleanTitle) return "";
-  return cleanTitle.length <= 60 ? cleanTitle : normalizeSentence(cleanTitle, 60);
+  return cleanTitle.length <= SEO_TITLE_MAX_LENGTH ? cleanTitle : normalizeSentence(cleanTitle, SEO_TITLE_MAX_LENGTH);
 }
 
 function buildSeoDescription(excerpt: string, content: string) {
@@ -77,7 +84,7 @@ function buildSeoDescription(excerpt: string, content: string) {
     ? `${cleanExcerpt} ${cleanContent}`
     : cleanExcerpt || cleanContent;
 
-  return normalizeSentence(source, 160);
+  return normalizeSentence(source, SEO_DESCRIPTION_MAX_LENGTH);
 }
 
 function buildSeoKeywords(form: BlogPost) {
@@ -111,7 +118,10 @@ function buildSeoKeywords(form: BlogPost) {
 function buildSeoFields(form: BlogPost) {
   return {
     seoTitle: buildSeoTitle(form.seoTitle || form.title),
-    seoDescription: buildSeoDescription(form.seoDescription || form.excerpt, form.content),
+    seoDescription: normalizeSentence(
+      form.seoDescription || buildSeoDescription(form.excerpt, form.content),
+      SEO_DESCRIPTION_MAX_LENGTH
+    ),
     seoKeywords: form.seoKeywords || buildSeoKeywords(form),
   };
 }
@@ -171,7 +181,7 @@ export default function BlogEditor({ initialData }: Props) {
         ...form,
         status,
         seoTitle: form.seoTitle || generatedSeo.seoTitle,
-        seoDescription: form.seoDescription || generatedSeo.seoDescription,
+        seoDescription: generatedSeo.seoDescription,
         seoKeywords: form.seoKeywords || generatedSeo.seoKeywords,
       });
       setSaved(true);
