@@ -25,10 +25,96 @@ interface BlogPost {
 }
 
 const CATEGORIES = ["Compliance","Education","Industry News","Product Guide","E-Commerce","Sustainability","Technical Tips","Market Insights"];
+const KEYWORD_STOP_WORDS = new Set([
+  "about", "after", "also", "and", "are", "article", "before", "between", "blog", "can", "com", "for",
+  "from", "guide", "has", "have", "how", "into", "its", "may", "more", "not", "our", "paper", "post",
+  "product", "products", "should", "that", "the", "their", "these", "this", "through", "use", "used",
+  "using", "what", "when", "where", "which", "while", "with", "your",
+]);
+const DEFAULT_KEYWORDS = [
+  "thermal paper",
+  "thermal paper manufacturer",
+  "BPA-free thermal paper",
+  "direct thermal labels",
+  "receipt paper rolls",
+];
 
 interface MediaFile { id: number; url: string; alt: string; filename: string; originalName: string; }
 interface Props { initialData?: Partial<BlogPost>; }
 type MediaPickerTarget = "cover" | "content";
+
+function stripMarkdown(value: string) {
+  return value
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)]\([^)]*\)/g, "$1")
+    .replace(/[`*_>#|~\-[\]]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeSentence(value: string, maxLength: number) {
+  const text = stripMarkdown(value);
+  if (text.length <= maxLength) return text;
+
+  const clipped = text.slice(0, maxLength + 1);
+  const sentenceEnd = Math.max(clipped.lastIndexOf("."), clipped.lastIndexOf("?"), clipped.lastIndexOf("!"));
+  const wordEnd = clipped.lastIndexOf(" ");
+  const cutAt = sentenceEnd >= 80 ? sentenceEnd + 1 : wordEnd >= 80 ? wordEnd : maxLength;
+
+  return `${clipped.slice(0, cutAt).trim().replace(/[,.!?;:]$/, "")}...`;
+}
+
+function buildSeoTitle(title: string) {
+  const cleanTitle = stripMarkdown(title);
+  if (!cleanTitle) return "";
+  return cleanTitle.length <= 60 ? cleanTitle : normalizeSentence(cleanTitle, 60);
+}
+
+function buildSeoDescription(excerpt: string, content: string) {
+  const cleanExcerpt = stripMarkdown(excerpt);
+  const cleanContent = stripMarkdown(content);
+  const source = cleanExcerpt && cleanExcerpt.length < 140
+    ? `${cleanExcerpt} ${cleanContent}`
+    : cleanExcerpt || cleanContent;
+
+  return normalizeSentence(source, 160);
+}
+
+function buildSeoKeywords(form: BlogPost) {
+  const phraseCandidates = [
+    form.category,
+    ...form.tags.split(","),
+    ...DEFAULT_KEYWORDS,
+  ];
+  const keywords = new Map<string, number>();
+
+  phraseCandidates.forEach((candidate, index) => {
+    const keyword = stripMarkdown(candidate).toLowerCase();
+    if (keyword && keyword.length >= 3) keywords.set(keyword, (keywords.get(keyword) || 0) + 20 - index);
+  });
+
+  const source = `${form.title} ${form.excerpt} ${form.content}`.toLowerCase();
+  const words = stripMarkdown(source).match(/[a-z][a-z0-9-]{2,}/g) || [];
+
+  words.forEach((word) => {
+    if (KEYWORD_STOP_WORDS.has(word) || /^\d+$/.test(word)) return;
+    keywords.set(word, (keywords.get(word) || 0) + 1);
+  });
+
+  return Array.from(keywords.entries())
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 10)
+    .map(([keyword]) => keyword)
+    .join(", ");
+}
+
+function buildSeoFields(form: BlogPost) {
+  return {
+    seoTitle: buildSeoTitle(form.seoTitle || form.title),
+    seoDescription: buildSeoDescription(form.seoDescription || form.excerpt, form.content),
+    seoKeywords: form.seoKeywords || buildSeoKeywords(form),
+  };
+}
 
 export default function BlogEditor({ initialData }: Props) {
   const router = useRouter();
@@ -69,9 +155,25 @@ export default function BlogEditor({ initialData }: Props) {
     });
   };
 
+  const handleGenerateSeo = () => {
+    setForm((prev) => ({
+      ...prev,
+      seoTitle: buildSeoTitle(prev.title),
+      seoDescription: buildSeoDescription(prev.excerpt, prev.content),
+      seoKeywords: buildSeoKeywords(prev),
+    }));
+  };
+
   const handleSave = (status: "draft" | "published") => {
     startTransition(async () => {
-      await saveBlogPost({ ...form, status });
+      const generatedSeo = buildSeoFields(form);
+      await saveBlogPost({
+        ...form,
+        status,
+        seoTitle: form.seoTitle || generatedSeo.seoTitle,
+        seoDescription: form.seoDescription || generatedSeo.seoDescription,
+        seoKeywords: form.seoKeywords || generatedSeo.seoKeywords,
+      });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
       router.refresh();
@@ -310,6 +412,15 @@ export default function BlogEditor({ initialData }: Props) {
             </div>
           ) : (
             <div className="space-y-4">
+              <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-bold text-slate-900">SEO 自动生成</p>
+                  <p className="text-xs text-slate-500 mt-1">根据文章标题、摘要、分类、标签和正文生成 SEO 标题、Meta 描述与关键词。</p>
+                </div>
+                <button type="button" onClick={handleGenerateSeo} disabled={!form.title && !form.content} className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition-colors disabled:opacity-50">
+                  <Search className="w-4 h-4" />自动生成
+                </button>
+              </div>
               <div className="bg-white border border-slate-200 rounded-2xl p-5">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">SEO 标题</label>
                 <input type="text" value={form.seoTitle} onChange={(e) => handleChange("seoTitle", e.target.value)} placeholder="SEO Title (50-60 characters)" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />

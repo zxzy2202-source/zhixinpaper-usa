@@ -213,6 +213,25 @@ npm run db:init  # 首次启动必跑，否则表单提交 500
 
 > 教训：本仓第一次跑时 SQLite `data/` 都没有 → 前端 `.json()` 解析挂 `Unexpected token '<'`（500 返回的 HTML 错误页）。
 
+### 4.9 全局站点数据定义 ⭐（v2.1 通用化核心）
+
+**原则**：严禁在通知标题、邮件签名、发件人名称中使用硬编码字符串。
+
+在 `src/lib/data.ts` 中维护 `COMPANY` 变量：
+```ts
+export const COMPANY = {
+  name: "Zhixin Paper",
+  email: "Sales@zxpapers.com",
+  whatsapp: "+86 187 9277 1927",
+  // ...
+};
+```
+
+**应用场景**：
+1. **通知标题**：`[${COMPANY.name}][🎯 Quote Request] ...`（方便老板在微信群区分多个站）。
+2. **邮件发件人**：`${COMPANY.name} Website <noreply@...>`。
+3. **自动回复**：正文中的公司名、联系方式全部自动同步。
+
 ---
 
 ## 五、🚀 轻型轨详细方案
