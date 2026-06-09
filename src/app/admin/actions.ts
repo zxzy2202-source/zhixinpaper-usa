@@ -81,6 +81,9 @@ export async function saveBlogPost(data: {
   coverImage?: string;
 }) {
   const now = new Date().toISOString();
+  const previousSlug = data.id
+    ? await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, data.id)).then((rows) => rows[0]?.slug)
+    : null;
 
   if (data.id) {
     await db.update(blogPosts)
@@ -121,12 +124,16 @@ export async function saveBlogPost(data: {
 
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
+  revalidatePath(`/blog/${data.slug}`);
+  if (previousSlug && previousSlug !== data.slug) revalidatePath(`/blog/${previousSlug}`);
 }
 
 export async function deleteBlogPost(id: number) {
+  const existing = await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, id)).then((rows) => rows[0]);
   await db.delete(blogPosts).where(eq(blogPosts.id, id));
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
+  if (existing?.slug) revalidatePath(`/blog/${existing.slug}`);
 }
 
 // ── Product Override Actions ──────────────────────────────────────────────────

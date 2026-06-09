@@ -1,11 +1,12 @@
 "use client";
-import { useState, useTransition, useCallback } from "react";
+import { useRef, useState, useTransition, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { saveBlogPost } from "@/app/admin/actions";
-import { Save, Eye, Loader2, CheckCircle2, ArrowLeft, Image as ImageIcon, X, SplitSquareHorizontal, FileText, Search } from "lucide-react";
+import { Save, Eye, Loader2, CheckCircle2, ArrowLeft, Image as ImageIcon, X, SplitSquareHorizontal, FileText, Search, Bold, Italic, Heading2, Heading3, List, ListOrdered, Quote, Link2, Minus } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
 interface BlogPost {
   id?: number;
@@ -27,14 +28,17 @@ const CATEGORIES = ["Compliance","Education","Industry News","Product Guide","E-
 
 interface MediaFile { id: number; url: string; alt: string; filename: string; originalName: string; }
 interface Props { initialData?: Partial<BlogPost>; }
+type MediaPickerTarget = "cover" | "content";
 
 export default function BlogEditor({ initialData }: Props) {
   const router = useRouter();
+  const contentRef = useRef<HTMLTextAreaElement>(null);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
   const [editorMode, setEditorMode] = useState<"edit" | "preview" | "split">("edit");
   const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [mediaPickerTarget, setMediaPickerTarget] = useState<MediaPickerTarget>("cover");
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
   const [mediaSearch, setMediaSearch] = useState("");
   const [mediaLoading, setMediaLoading] = useState(false);
@@ -74,7 +78,133 @@ export default function BlogEditor({ initialData }: Props) {
     });
   };
 
-  const openMediaPicker = useCallback(async () => {
+  const updateContentSelection = useCallback((nextValue: string, start: number, end: number) => {
+    handleChange("content", nextValue);
+    requestAnimationFrame(() => {
+      contentRef.current?.focus();
+      contentRef.current?.setSelectionRange(start, end);
+    });
+  }, []);
+
+  const insertMarkdown = useCallback((before: string, after = "", placeholder = "") => {
+    const textarea = contentRef.current;
+    const value = form.content;
+    const start = textarea?.selectionStart ?? value.length;
+    const end = textarea?.selectionEnd ?? value.length;
+    const selected = value.slice(start, end) || placeholder;
+    const inserted = `${before}${selected}${after}`;
+    const nextValue = `${value.slice(0, start)}${inserted}${value.slice(end)}`;
+    const selectionStart = start + before.length;
+    const selectionEnd = selectionStart + selected.length;
+
+    updateContentSelection(nextValue, selectionStart, selectionEnd);
+  }, [form.content, updateContentSelection]);
+
+  const replaceSelection = useCallback((inserted: string) => {
+    const textarea = contentRef.current;
+    const value = form.content;
+    const start = textarea?.selectionStart ?? value.length;
+    const end = textarea?.selectionEnd ?? value.length;
+    const nextValue = `${value.slice(0, start)}${inserted}${value.slice(end)}`;
+
+    updateContentSelection(nextValue, start, start + inserted.length);
+  }, [form.content, updateContentSelection]);
+
+  const prefixSelectedLines = useCallback((prefix: string) => {
+    const textarea = contentRef.current;
+    const value = form.content;
+    const start = textarea?.selectionStart ?? value.length;
+    const end = textarea?.selectionEnd ?? value.length;
+    const selected = value.slice(start, end) || "List item";
+    const inserted = selected
+      .split(/\r?\n/)
+      .map((line) => (line.trim() ? `${prefix}${line}` : line))
+      .join("\n");
+    const nextValue = `${value.slice(0, start)}${inserted}${value.slice(end)}`;
+
+    updateContentSelection(nextValue, start, start + inserted.length);
+  }, [form.content, updateContentSelection]);
+
+  const insertImageMarkdown = useCallback((file: MediaFile) => {
+    replaceSelection(`![${file.alt || file.originalName}](${file.url})`);
+  }, [replaceSelection]);
+
+  const convertHtmlToMarkdown = useCallback((html: string) => {
+    const container = document.createElement("div");
+    container.innerHTML = html;
+    container.querySelectorAll("script, style, meta, link").forEach((node) => node.remove());
+
+    const clean = (value: string) => value.replace(/\u00a0/g, " ").replace(/[ \t]+\n/g, "\n");
+    const textOf = (node: Node): string => Array.from(node.childNodes).map(toMarkdown).join("");
+    const block = (value: string) => {
+      const trimmed = clean(value).trim();
+      return trimmed ? `\n\n${trimmed}\n\n` : "";
+    };
+
+    const toMarkdown = (node: Node): string => {
+      if (node.nodeType === Node.TEXT_NODE) return node.textContent || "";
+      if (node.nodeType !== Node.ELEMENT_NODE) return "";
+
+      const element = node as HTMLElement;
+      const tagName = element.tagName.toLowerCase();
+      const children = textOf(element);
+
+      if (/^h[1-6]$/.test(tagName)) return block(`${"#".repeat(Number(tagName[1]))} ${children.trim()}`);
+      if (tagName === "p" || tagName === "div" || tagName === "section" || tagName === "article") return block(children);
+      if (tagName === "br") return "\n";
+      if (tagName === "strong" || tagName === "b") return `**${children.trim()}**`;
+      if (tagName === "em" || tagName === "i") return `*${children.trim()}*`;
+      if (tagName === "blockquote") return block(children.trim().split(/\r?\n/).map((line) => `> ${line}`).join("\n"));
+      if (tagName === "code") return `\`${children.trim()}\``;
+      if (tagName === "pre") return block(`\`\`\`\n${element.textContent?.trim() || ""}\n\`\`\``);
+      if (tagName === "a") {
+        const href = element.getAttribute("href");
+        return href ? `[${children.trim() || href}](${href})` : children;
+      }
+      if (tagName === "img") {
+        const src = element.getAttribute("src");
+        const alt = element.getAttribute("alt") || "";
+        return src ? `\n\n![${alt}](${src})\n\n` : "";
+      }
+      if (tagName === "ul" || tagName === "ol") {
+        const items = Array.from(element.children)
+          .filter((child) => child.tagName.toLowerCase() === "li")
+          .map((child, index) => {
+            const marker = tagName === "ol" ? `${index + 1}. ` : "- ";
+            return `${marker}${clean(textOf(child)).trim()}`;
+          });
+        return block(items.join("\n"));
+      }
+      if (tagName === "hr") return "\n\n---\n\n";
+      if (tagName === "table") {
+        const rows = Array.from(element.querySelectorAll("tr"))
+          .map((row) => Array.from(row.querySelectorAll("th,td")).map((cell) => clean(cell.textContent || "").trim()));
+        if (!rows.length) return "";
+        const header = rows[0];
+        const separator = header.map(() => "---");
+        const body = rows.slice(1);
+        return block([header, separator, ...body].map((row) => `| ${row.join(" | ")} |`).join("\n"));
+      }
+
+      return children;
+    };
+
+    return clean(textOf(container)).replace(/\n{3,}/g, "\n\n").trim();
+  }, []);
+
+  const handleContentPaste = useCallback((event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const html = event.clipboardData.getData("text/html");
+    if (!html) return;
+
+    const markdown = convertHtmlToMarkdown(html);
+    if (!markdown) return;
+
+    event.preventDefault();
+    replaceSelection(markdown);
+  }, [convertHtmlToMarkdown, replaceSelection]);
+
+  const openMediaPicker = useCallback(async (target: MediaPickerTarget = "cover") => {
+    setMediaPickerTarget(target);
     setShowMediaPicker(true);
     setMediaLoading(true);
     try {
@@ -146,14 +276,28 @@ export default function BlogEditor({ initialData }: Props) {
                     <button onClick={() => setEditorMode("preview")} title="预览" className={`p-1.5 rounded-md transition-all ${editorMode === "preview" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><Eye className="w-3.5 h-3.5" /></button>
                   </div>
                 </div>
+                <div className="flex items-center gap-2 px-5 py-2 border-b border-slate-100 overflow-x-auto">
+                  <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg">
+                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading2 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading3 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Bold className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Italic className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><List className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ListOrdered className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Quote className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Link2 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ImageIcon className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Minus className="w-3.5 h-3.5" /></button>
+                  </div>
+                </div>
                 <div className={editorMode === "split" ? "grid grid-cols-2 divide-x divide-slate-100" : ""}>
                   {(editorMode === "edit" || editorMode === "split") && (
-                    <textarea value={form.content} onChange={(e) => handleChange("content", e.target.value)} rows={24} placeholder="# Article Title&#10;&#10;## Introduction&#10;&#10;Write your article content here..." className="w-full p-5 text-sm text-slate-700 border-none outline-none resize-y bg-transparent font-mono leading-relaxed" />
+                    <textarea ref={contentRef} value={form.content} onChange={(e) => handleChange("content", e.target.value)} onPaste={handleContentPaste} rows={24} placeholder="# Article Title&#10;&#10;## Introduction&#10;&#10;Write your article content here..." className="w-full p-5 text-sm text-slate-700 border-none outline-none resize-y bg-transparent font-mono leading-relaxed" />
                   )}
                   {(editorMode === "preview" || editorMode === "split") && (
                     <div className="p-5 overflow-auto max-h-[600px]">
                       <div className="prose prose-slate prose-sm max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{form.content || "*Start typing to see preview...*"}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>{form.content || "*Start typing to see preview...*"}</ReactMarkdown>
                       </div>
                     </div>
                   )}
@@ -229,11 +373,11 @@ export default function BlogEditor({ initialData }: Props) {
                 <button onClick={() => handleChange("coverImage", "")} className="absolute top-2 right-2 w-6 h-6 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors"><X className="w-3 h-3" /></button>
               </div>
             ) : (
-              <button onClick={openMediaPicker} className="w-full h-28 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-colors">
+              <button onClick={() => openMediaPicker("cover")} className="w-full h-28 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-colors">
                 <ImageIcon className="w-6 h-6" /><span className="text-xs font-medium">从图片库选择</span>
               </button>
             )}
-            {form.coverImage && <button onClick={openMediaPicker} className="mt-2 w-full text-xs text-blue-600 hover:underline text-center">更换图片</button>}
+            {form.coverImage && <button onClick={() => openMediaPicker("cover")} className="mt-2 w-full text-xs text-blue-600 hover:underline text-center">更换图片</button>}
           </div>
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">发布检查</p>
@@ -278,7 +422,7 @@ export default function BlogEditor({ initialData }: Props) {
               ) : (
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                   {filteredMedia.map((file) => (
-                    <button key={file.id} onClick={() => { handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square rounded-xl overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
+                    <button key={file.id} onClick={() => { if (mediaPickerTarget === "content") insertImageMarkdown(file); else handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square rounded-xl overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
                       <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                         <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold bg-blue-600 px-2 py-1 rounded-lg transition-opacity">选择</span>

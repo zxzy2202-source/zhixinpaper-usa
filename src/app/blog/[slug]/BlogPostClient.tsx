@@ -7,6 +7,7 @@ import { BLOG_CONTENT } from "@/lib/blog-content";
 import { ArrowRight, Clock, Calendar, CheckCircle, BookOpen, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
 interface DBPost {
   id: number;
@@ -79,7 +80,7 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               <article className="lg:col-span-2">
                 <div className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-slate-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-800 prose-ul:text-slate-600 prose-ol:text-slate-600 prose-li:my-1 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-code:text-blue-700 prose-code:bg-blue-50 prose-code:px-1 prose-code:rounded prose-pre:bg-slate-900 prose-img:rounded-xl prose-img:shadow-md prose-hr:border-slate-200 prose-table:text-sm prose-th:bg-slate-100 prose-th:text-slate-700">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{dbPost.content}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>{dbPost.content}</ReactMarkdown>
                 </div>
                 <div className="mt-12 p-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl text-white">
                   <h3 className="font-bold text-xl mb-2">Need Expert Guidance?</h3>
