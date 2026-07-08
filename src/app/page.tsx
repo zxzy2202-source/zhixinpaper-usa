@@ -1,31 +1,67 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/ui/CTABanner";
-import SectionHeader from "@/components/ui/SectionHeader";
 import SlotImage from "@/components/ui/SlotImage";
-import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
-import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES, COMPLIANCE_ITEMS, BLOG_POSTS, GEO_REGIONS } from "@/lib/data";
-import { getHeroHome } from "@/lib/siteSettings";
+import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
 import {
-  ArrowRight, CheckCircle2, ShieldCheck, FileCheck, Award, Leaf,
-  UtensilsCrossed, Shield, Package, Truck, Clock, Star,
-  ShoppingCart, Ticket, Building2, Heart, Snowflake, Wrench, ChevronRight,
-  Factory, Zap, Globe, BadgeCheck,
+  BLOG_POSTS,
+  COMPANY,
+  COMPLIANCE_ITEMS,
+  GEO_REGIONS,
+  INDUSTRIES,
+  THERMAL_LABELS,
+  THERMAL_PAPER_ROLLS,
+} from "@/lib/data";
+import { BUYING_SCENARIOS, HOMEPAGE_BUYER_PROBLEMS } from "@/lib/marketInsights";
+import {
+  ArrowRight,
+  Award,
+  BadgeCheck,
+  Boxes,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  ClipboardCheck,
+  Clock,
+  Factory,
+  FileCheck,
+  Globe,
+  Heart,
+  Layers3,
+  Leaf,
+  Mail,
+  MapPin,
+  Package,
+  Ruler,
+  Shield,
+  ShieldCheck,
+  ShoppingCart,
+  Snowflake,
+  Star,
+  Ticket,
+  Truck,
+  UtensilsCrossed,
+  Wrench,
+  Zap,
 } from "lucide-react";
 
-// ISR：每 1 小时重新生成首页静态 HTML，TTFB 从 280ms 降到 50ms 左右
-// 后台改 Hero 文案 / SEO 字段后，最长等 1 小时生效（或重新部署立即生效）
+// ISR: homepage content can be refreshed from the admin settings without a full rebuild.
 export const revalidate = 3600;
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Rolls & Labels Manufacturer | BPA-Free Factory Direct Wholesale",
+  title: "Thermal Paper Supplier for Europe, USA & Canada | Zhixin Paper",
   description:
-    "ISO 9001:2015 certified manufacturer of BPA-free, FDA-compliant thermal paper rolls and thermal labels. Factory-direct wholesale for distributors, importers, and e-commerce sellers in USA, Europe & Canada. Pallet pricing, free samples, DDP shipping available.",
+    "Thermal paper rolls and labels for distributors in Europe, the USA, and Canada. Ask for BPA-free grades, REACH, RoHS, FDA, Prop 65, or FSC documents before ordering.",
   path: "/",
   keywords: [
+    "thermal paper supplier Europe",
+    "thermal paper supplier USA",
+    "thermal paper supplier Canada",
+    "thermal paper North America",
+    "BPA free thermal paper Europe",
+    "FDA compliant thermal paper USA",
+    "REACH compliant thermal paper supplier",
     "thermal paper rolls manufacturer",
     "thermal labels supplier",
     "BPA free thermal paper wholesale",
@@ -59,469 +95,365 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const COMPLIANCE_ICONS: Record<string, React.ReactNode> = {
-  ShieldCheck: <ShieldCheck className="w-5 h-5" />,
-  FileCheck: <FileCheck className="w-5 h-5" />,
-  Award: <Award className="w-5 h-5" />,
-  Leaf: <Leaf className="w-5 h-5" />,
-  UtensilsCrossed: <UtensilsCrossed className="w-5 h-5" />,
-  Shield: <Shield className="w-5 h-5" />,
+  ShieldCheck: <ShieldCheck className="h-5 w-5" />,
+  FileCheck: <FileCheck className="h-5 w-5" />,
+  Award: <Award className="h-5 w-5" />,
+  Leaf: <Leaf className="h-5 w-5" />,
+  UtensilsCrossed: <UtensilsCrossed className="h-5 w-5" />,
+  Shield: <Shield className="h-5 w-5" />,
 };
 
 const INDUSTRY_ICONS: Record<string, React.ReactNode> = {
-  ShoppingCart: <ShoppingCart className="w-5 h-5" />,
-  Ticket: <Ticket className="w-5 h-5" />,
-  Coins: <Star className="w-5 h-5" />,
-  Building2: <Building2 className="w-5 h-5" />,
-  Heart: <Heart className="w-5 h-5" />,
-  Snowflake: <Snowflake className="w-5 h-5" />,
-  Package: <Package className="w-5 h-5" />,
-  Bus: <Truck className="w-5 h-5" />,
-  Wrench: <Wrench className="w-5 h-5" />,
-  Calendar: <Clock className="w-5 h-5" />,
-  Scale: <Shield className="w-5 h-5" />,
-  Leaf: <Leaf className="w-5 h-5" />,
+  ShoppingCart: <ShoppingCart className="h-5 w-5" />,
+  Ticket: <Ticket className="h-5 w-5" />,
+  Coins: <Star className="h-5 w-5" />,
+  Building2: <Building2 className="h-5 w-5" />,
+  Heart: <Heart className="h-5 w-5" />,
+  Snowflake: <Snowflake className="h-5 w-5" />,
+  Package: <Package className="h-5 w-5" />,
+  Bus: <Truck className="h-5 w-5" />,
+  Wrench: <Wrench className="h-5 w-5" />,
+  Calendar: <Clock className="h-5 w-5" />,
+  Scale: <Shield className="h-5 w-5" />,
+  Leaf: <Leaf className="h-5 w-5" />,
 };
 
-export default async function HomePage() {
+const TRUST_ITEMS = [
+  { icon: <Award className="h-4 w-4" />, text: "ISO 9001:2015" },
+  { icon: <Leaf className="h-4 w-4" />, text: "BPA-free grades" },
+  { icon: <ClipboardCheck className="h-4 w-4" />, text: "REACH / RoHS" },
+  { icon: <ShieldCheck className="h-4 w-4" />, text: "FSC and FDA files" },
+  { icon: <Globe className="h-4 w-4" />, text: "EU, USA, Canada" },
+  { icon: <Truck className="h-4 w-4" />, text: "FOB, CIF, DDP" },
+];
+
+const HERO_PROOF = [
+  { label: "Standard MOQ", value: "10k rolls", icon: <Boxes className="h-4 w-4" /> },
+  { label: "Quote response", value: "24 hours", icon: <Clock className="h-4 w-4" /> },
+  { label: "Custom sizes", value: "80mm, 57mm, 4x6", icon: <Ruler className="h-4 w-4" /> },
+];
+
+const QUICK_QUOTE_ITEMS = [
+  { icon: <Ruler className="h-4 w-4" />, label: "Size", value: "Width, length, core, label format" },
+  { icon: <Boxes className="h-4 w-4" />, label: "Volume", value: "Trial, pallet, mixed SKU, container" },
+  { icon: <MapPin className="h-4 w-4" />, label: "Destination", value: "EU, USA, Canada, port, DDP" },
+  { icon: <FileCheck className="h-4 w-4" />, label: "Documents", value: "BPA-free, REACH, FDA, FSC, ISO" },
+];
+
+const SERVICE_PROMISES = [
+  {
+    icon: <Clock className="h-5 w-5" />,
+    title: "24-hour quote path",
+    desc: "Send the spec, destination, and monthly volume. We return product options, sample plan, and freight direction.",
+  },
+  {
+    icon: <FileCheck className="h-5 w-5" />,
+    title: "Documents before order",
+    desc: "Check the files your market asks for before deposit, including BPA-free, REACH, RoHS, FDA, Prop 65, FSC, and ISO.",
+  },
+  {
+    icon: <Truck className="h-5 w-5" />,
+    title: "Regional shipping terms",
+    desc: "Quote FOB, CIF, or DDP options for distributors and importers serving Europe, the United States, and Canada.",
+  },
+  {
+    icon: <BadgeCheck className="h-5 w-5" />,
+    title: "OEM-ready packaging",
+    desc: "Plan private-label rolls, cartons, labels, pallet marks, and repeat specs before the bulk run starts.",
+  },
+];
+
+const SOURCING_STEPS = [
+  {
+    title: "Send the buying details",
+    desc: "Share size, quantity, printer model or use case, destination, and the documents your market needs.",
+  },
+  {
+    title: "Confirm sample and documents",
+    desc: "Check roll sensitivity, label adhesive, packaging, certificate files, and carton details before scaling.",
+  },
+  {
+    title: "Lock price and shipping",
+    desc: "Agree pallet pricing, mixed-SKU cartons, container loads, FOB, CIF, or DDP terms around repeat orders.",
+  },
+  {
+    title: "Repeat the approved spec",
+    desc: "Keep batch records, artwork, carton marks, and reorder specs stable for your regional sales channel.",
+  },
+];
+
+export default function HomePage() {
   const featuredRolls = THERMAL_PAPER_ROLLS.slice(0, 6);
   const featuredLabels = THERMAL_LABELS.slice(0, 6);
   const featuredIndustries = INDUSTRIES.slice(0, 8);
   const featuredPosts = BLOG_POSTS.slice(0, 3);
-  const hero = await getHeroHome();
 
-  const jsonLd = [organizationSchema(), breadcrumbSchema([{ name: "Home", url: "/" }])];
+  const jsonLd = [breadcrumbSchema([{ name: "Home", url: "/" }])];
 
   return (
     <>
       <Header />
       {jsonLd.map((schema, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       ))}
-      <main className="pt-[88px]">
-
-        {/* ── HERO ── */}
-        <section className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden bg-blue-950">
-          {/* Background image */}
-          <div className="absolute inset-0 z-0">
+      <main id="main-content" className="pt-[88px]">
+        <section className="relative overflow-hidden bg-[#071525] text-white">
+          <div className="absolute inset-0">
             <SlotImage
               slotKey="home.hero"
               fill
-              className="object-cover object-center opacity-75"
-              priority
-              quality={85}
+              sizes="100vw"
+              className="object-cover object-[58%_center] opacity-[0.74]"
+              preload
+              quality={75}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-950/65 via-blue-900/35 to-transparent" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,10,25,0.96)_0%,rgba(7,21,37,0.78)_46%,rgba(7,21,37,0.22)_100%)]" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#071525] to-transparent" />
           </div>
-          {/* Grid overlay */}
-          <div className="absolute inset-0 z-0 opacity-[0.04]" style={{backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)", backgroundSize: "60px 60px"}} />
 
-          <div className="container-site relative z-10 py-24 flex-1 flex items-center">
+          <div className="container-site relative z-10 flex min-h-[78vh] items-center py-16 lg:py-24">
             <div className="max-w-3xl">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/15 border border-blue-400/25 rounded-full text-blue-300 text-xs font-semibold tracking-widest uppercase mb-8 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                {hero.badge}
+              <div className="mb-7 inline-flex items-center gap-3 border border-white/12 bg-white/[0.08] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-sky-100 backdrop-blur-sm">
+                <span className="h-2 w-2 bg-emerald-400" />
+                ISO 9001 certified manufacturer · Est. 2010
               </div>
 
-              {/* Headline */}
-              <h1 className="font-extrabold text-white text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6">
-                {hero.headlineLine1}{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-200 via-blue-200 to-cyan-200">
-                  {hero.headlineHighlight}
-                </span>
-                <br />
-                {hero.headlineLine2}
-                <br />
-                <span className="text-blue-100">{hero.headlineLine3}</span>
+              <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-normal text-white sm:text-5xl lg:text-7xl">
+                Regional thermal paper supply for Europe, USA and Canada
               </h1>
 
-              {/* Subheadline */}
-              <p className="text-blue-50/90 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
-                {hero.subtitle}
+              <p className="mt-7 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
+                Thermal paper rolls and labels for distributors in Europe, the United States, and Canada. Send your size, volume, destination, and compliance needs. We reply with samples, documents, and shipping options.
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3 mb-12">
-                <Link href={hero.primaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 hover:-translate-y-0.5 text-sm">
-                  {hero.primaryCtaText} <ArrowRight className="w-4 h-4" />
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="/quote"
+                  className="inline-flex items-center justify-center gap-2 bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_45px_rgba(37,99,235,0.28)] transition hover:bg-blue-500"
+                >
+                  Request a Quote
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href={hero.secondaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
-                  {hero.secondaryCtaText}
-                </Link>
-                <Link href={hero.tertiaryCtaHref} className="inline-flex items-center gap-2 px-7 py-3.5 bg-transparent hover:bg-white/5 text-blue-300 font-semibold rounded-xl border border-blue-400/30 hover:border-blue-300/50 transition-all text-sm">
-                  {hero.tertiaryCtaText}
+                <Link
+                  href="/samples"
+                  className="inline-flex items-center justify-center gap-2 border border-white/22 bg-white/[0.08] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/[0.14]"
+                >
+                  Request Free Samples
                 </Link>
               </div>
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-2">
-                {COMPANY.certifications.map((cert) => (
-                  <span key={cert} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 border border-white/15 rounded-lg text-[11px] font-semibold tracking-widest uppercase text-slate-300 backdrop-blur-sm">
-                    <BadgeCheck className="w-3 h-3 text-blue-400" />
-                    {cert}
-                  </span>
+              <div className="mt-10 grid max-w-2xl gap-6 border-t border-white/12 pt-7 sm:grid-cols-3">
+                {HERO_PROOF.map((item) => (
+                  <div key={item.label}>
+                    <div className="text-lg font-extrabold text-white">{item.value}</div>
+                    <div className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-slate-300">
+                      {item.label}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Stats bar */}
-          <div className="relative z-10 bg-white/5 backdrop-blur-md border-t border-white/10">
-            <div className="container-site">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-                {COMPANY.stats.map((stat) => (
-                  <div key={stat.label} className="px-6 py-5 text-center">
-                    <div className="font-extrabold text-white text-3xl md:text-4xl tracking-tight">{stat.value}</div>
-                    <div className="text-[10px] tracking-widest uppercase text-blue-300/70 mt-1 font-medium">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── TRUST BAR ── */}
-        <section className="bg-slate-50 border-b border-slate-200 py-5">
-          <div className="container-site">
-            <div className="flex flex-wrap items-center justify-center gap-8 text-slate-500 text-xs font-semibold tracking-wider uppercase">
-              {[
-                { icon: <Factory className="w-4 h-4" />, text: "Direct Factory Pricing" },
-                { icon: <Zap className="w-4 h-4" />, text: "15-Day Lead Time" },
-                { icon: <Globe className="w-4 h-4" />, text: "80+ Countries Served" },
-                { icon: <BadgeCheck className="w-4 h-4" />, text: "ISO 9001:2015 Certified" },
-                { icon: <Shield className="w-4 h-4" />, text: "BPA-Free Available" },
-                { icon: <Truck className="w-4 h-4" />, text: "EU / US / CA Compliance" },
-              ].map((item) => (
-                <div key={item.text} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
-                  <span className="text-blue-500">{item.icon}</span>
-                  {item.text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── DUAL PRODUCT CATEGORIES ── */}
-        <section className="py-24 bg-white">
-          <div className="container-site">
-            <SectionHeader
-              label="01 — Core Products"
-              title="Thermal Paper Rolls & Labels"
-              subtitle="Two core product lines covering every thermal printing application — from POS receipts to cold-chain labels."
-              className="mb-14"
-            />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Rolls card */}
-              <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all duration-300">
-                <div className="relative h-64 overflow-hidden bg-slate-100">
-                  <SlotImage slotKey="home.product.thermal-rolls" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-800/55 via-slate-800/10 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg uppercase tracking-wider shadow-sm">Thermal Paper Rolls</span>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white/80 text-sm leading-snug">POS · ATM · Lottery · Casino TITO · Medical · Transport · Kiosk</p>
-                  </div>
-                </div>
-                <div className="p-7 bg-white">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="font-bold text-slate-900 text-2xl tracking-tight">Thermal Paper Rolls</h3>
-                    <span className="text-xs text-slate-400 font-medium bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1">9 Products</span>
-                  </div>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-6">From standard POS rolls to specialized casino TITO and medical-grade paper — all available BPA-free with REACH/RoHS compliance documentation.</p>
-                  <div className="grid grid-cols-2 gap-2 mb-7">
-                    {featuredRolls.map((roll) => (
-                      <Link key={roll.slug} href={"/products/thermal-paper-rolls/" + roll.slug} className="flex items-center gap-2 text-xs text-slate-500 hover:text-blue-600 transition-colors group/item font-medium py-1">
-                        <ChevronRight className="w-3 h-3 shrink-0 text-blue-400 group-hover/item:translate-x-0.5 transition-transform" />
-                        {roll.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="flex gap-3">
-                    <Link href="/products/thermal-paper-rolls" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">
-                      All Paper Rolls <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-200 hover:border-blue-300 text-slate-600 hover:text-blue-600 text-sm font-semibold rounded-xl transition-colors">
-                      Get Quote
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Labels card */}
-              <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all duration-300">
-                <div className="relative h-64 overflow-hidden bg-slate-100">
-                  <SlotImage slotKey="home.product.thermal-labels" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-800/55 via-slate-800/10 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg uppercase tracking-wider shadow-sm">Thermal Labels</span>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white/80 text-sm leading-snug">Direct · Transfer · Freezer · High-Temp · Wristband · Tamper-Evident · Synthetic</p>
-                  </div>
-                </div>
-                <div className="p-7 bg-white">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="font-bold text-slate-900 text-2xl tracking-tight">Thermal Labels</h3>
-                    <span className="text-xs text-slate-400 font-medium bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1">11 Products</span>
-                  </div>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-6">From −40°C freezer labels to 150°C high-temperature labels — complete range for logistics, healthcare, food, and industrial applications.</p>
-                  <div className="grid grid-cols-2 gap-2 mb-7">
-                    {featuredLabels.map((label) => (
-                      <Link key={label.slug} href={"/products/thermal-labels/" + label.slug} className="flex items-center gap-2 text-xs text-slate-500 hover:text-blue-600 transition-colors group/item font-medium py-1">
-                        <ChevronRight className="w-3 h-3 shrink-0 text-blue-400 group-hover/item:translate-x-0.5 transition-transform" />
-                        {label.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="flex gap-3">
-                    <Link href="/products/thermal-labels" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">
-                      All Labels <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-200 hover:border-blue-300 text-slate-600 hover:text-blue-600 text-sm font-semibold rounded-xl transition-colors">
-                      Get Quote
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY CHOOSE US ── */}
-        <section className="py-24 bg-slate-50">
-          <div className="container-site">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <SectionHeader
-                  label="02 — Why Zhixin Paper"
-                  title="Reliable Supply. Proven Compliance."
-                  subtitle="Manufacturing precision combined with international compliance expertise for the most demanding markets."
-                />
-                <div className="mt-10 space-y-4">
-                  {[
-                    { title: "ISO 9001:2015 Certified Factory", desc: "Documented quality management system with full traceability from raw material to finished goods. Audit reports available on request." },
-                    { title: "BPA-Free & REACH/RoHS Compliant", desc: "All products available in BPA-free formulation. REACH SVHC tested and certified for EU market entry. RoHS compliant for electronics applications." },
-                    { title: "Custom OEM & Private Label", desc: "Full custom printing, private label, and OEM capabilities. Low MOQ from 10,000 units. Your logo, your brand, our quality." },
-                    { title: "Stable Supply & Fast Delivery", desc: "Large inventory buffer, 15-day standard lead time, dedicated freight forwarding for EU/US/CA markets. DDP available." },
-                  ].map((item, i) => (
-                    <div key={i} className="flex gap-4 p-5 bg-white rounded-xl border border-slate-200 hover:border-blue-200 hover:shadow-md transition-all group">
-                      <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shrink-0 font-bold text-white text-sm group-hover:scale-105 transition-transform">
-                        {String(i + 1).padStart(2, "0")}
+          <div className="container-site relative z-10 pb-8 lg:pb-12">
+            <div className="border border-white/12 bg-white/[0.08] backdrop-blur-md">
+              <div className="grid gap-px bg-white/10 lg:grid-cols-[1fr_auto]">
+                <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+                  {QUICK_QUOTE_ITEMS.map((item) => (
+                    <div key={item.label} className="bg-[#071525]/70 p-4 sm:p-5">
+                      <div className="mb-3 flex h-9 w-9 items-center justify-center bg-white/[0.08] text-sky-200">
+                        {item.icon}
                       </div>
-                      <div>
-                        <h4 className="font-bold text-slate-900 text-base mb-1.5">{item.title}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                      </div>
+                      <div className="text-sm font-bold text-white">{item.label}</div>
+                      <p className="mt-1 text-sm leading-6 text-slate-300">{item.value}</p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 flex gap-3">
-                  <Link href="/factory" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">
-                    Visit Our Factory <ArrowRight className="w-4 h-4" />
+                <div className="flex flex-col justify-center bg-white p-5 text-slate-950 lg:w-72">
+                  <div className="text-xs font-bold uppercase tracking-[0.16em] text-blue-700">Quick Quote</div>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Send specs today. We reply with product options, documents, and shipping terms.
+                  </p>
+                  <Link
+                    href="/quote"
+                    className="mt-4 inline-flex items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                  >
+                    Request a Quote
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/compliance" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-600 font-semibold rounded-xl transition-colors text-sm">
-                    View Certifications
-                  </Link>
-                </div>
-              </div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <SlotImage slotKey="home.factory-overview" width={640} height={480} className="w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 grid grid-cols-3 gap-3">
-                  {[{ v: "15+", l: "Years Exp." }, { v: "500M+", l: "Rolls/Year" }, { v: "80+", l: "Countries" }].map((s) => (
-                    <div key={s.l} className="bg-white/95 backdrop-blur-sm rounded-xl p-3.5 text-center shadow-lg">
-                      <div className="font-extrabold text-blue-600 text-2xl tracking-tight">{s.v}</div>
-                      <div className="text-[9px] tracking-widest uppercase text-slate-500 font-semibold mt-0.5">{s.l}</div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── INDUSTRIES ── */}
-        <section className="py-24 bg-white">
-          <div className="container-site">
-            <SectionHeader
-              label="03 — Industries Served"
-              title="Solutions for Every Sector"
-              subtitle="Specialized thermal consumables engineered for 13+ industries — from retail POS and e-commerce fulfillment to banking, healthcare, and cannabis."
-              className="mb-14"
-            />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {featuredIndustries.map((industry) => (
-                <Link key={industry.slug} href={"/industries/" + industry.slug}
-                  className="p-5 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-200 group"
-                >
-                  <div className="w-11 h-11 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-100 group-hover:scale-110 transition-all">
-                    {INDUSTRY_ICONS[industry.icon] || <Package className="w-5 h-5" />}
-                  </div>
-                  <h3 className="font-bold text-slate-900 text-sm mb-2 leading-snug">{industry.name}</h3>
-                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">{industry.description}</p>
-                  <div className="flex items-center gap-1 text-blue-500 text-xs font-semibold mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    Learn more <ChevronRight className="w-3 h-3" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="mt-10 text-center">
-              <Link href="/industries" className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition-all text-sm">
-                View All 13 Industries <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+        <section className="border-b border-slate-200 bg-white">
+          <div className="container-site grid gap-x-6 gap-y-4 py-6 sm:grid-cols-2 lg:grid-cols-6">
+            {TRUST_ITEMS.map((item) => (
+              <div key={item.text} className="flex items-center gap-3 text-sm font-semibold text-slate-700">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-slate-50 text-blue-700">
+                  {item.icon}
+                </span>
+                {item.text}
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* ── COMPLIANCE ── */}
-        <section className="py-24 bg-gradient-to-br from-blue-50 via-slate-50 to-white">
+        <section className="bg-white py-16 md:py-20">
           <div className="container-site">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="relative">
-                <SlotImage slotKey="home.compliance" width={600} height={450} className="w-full object-cover rounded-2xl shadow-2xl" />
-                <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl border border-slate-200 p-5 max-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span className="font-bold text-slate-900 text-sm">All Markets</span>
-                  </div>
-                  <p className="text-slate-500 text-xs leading-relaxed">EU · USA · Canada compliance documentation included with every order.</p>
-                </div>
-              </div>
+            <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <SectionHeader
-                  label="04 — Compliance"
-                  title="Built for Demanding Markets"
-                  subtitle="Every product tested and certified for Europe, USA, and Canada. Full documentation provided with every shipment."
-                />
-                <div className="mt-10 grid grid-cols-2 gap-3">
-                  {COMPLIANCE_ITEMS.map((item) => (
-                    <Link key={item.slug} href={"/compliance/" + item.slug}
-                      className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all group"
-                    >
-                      <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0 group-hover:bg-blue-100 group-hover:scale-110 transition-all">
-                        {COMPLIANCE_ICONS[item.icon]}
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm">{item.name}</div>
-                        <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{item.description.split(".")[0]}</div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-                <div className="mt-8 flex gap-3">
-                  <Link href="/compliance" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">
-                    View All Certifications <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link href="/compliance/certificates" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-600 font-semibold rounded-xl transition-colors text-sm">
-                    Download Certificates
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── GEO REGIONS ── */}
-        <section className="py-24 bg-white">
-          <div className="container-site">
-            <SectionHeader
-              label="05 — Regional Coverage"
-              title="Serving Europe, USA & Canada"
-              subtitle="Dedicated supply solutions for each market — local compliance, optimized logistics, and regional expertise."
-              className="mb-14"
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {GEO_REGIONS.map((region) => (
-                <Link key={region.slug} href={"/" + region.slug}
-                  className="relative p-8 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -translate-y-16 translate-x-16 group-hover:bg-blue-100 transition-colors" />
-                  <div className="relative">
-                    <div className="text-5xl mb-5">{region.flag}</div>
-                    <h3 className="font-extrabold text-slate-900 text-2xl mb-3 tracking-tight">{region.name}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-6">{region.description}</p>
-                    <div className="flex items-center gap-2 text-blue-600 text-sm font-bold group-hover:gap-3 transition-all">
-                      Explore {region.name} Solutions <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── OEM / CUSTOM ── */}
-        <section className="py-24 bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600 text-white overflow-hidden relative">
-          <div className="absolute inset-0 opacity-5" style={{backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)", backgroundSize: "32px 32px"}} />
-          <div className="container-site relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-semibold tracking-widest uppercase mb-6">
-                  06 — OEM & Custom
-                </div>
-                <h2 className="font-extrabold text-4xl md:text-5xl leading-tight tracking-tight mb-6">
-                  Your Brand.<br />
-                  <span className="text-sky-200">Our Manufacturing.</span>
+                <p className="section-label">Service promise</p>
+                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                  The buyer path is clear before a bulk order.
                 </h2>
-                <p className="text-blue-100 text-lg leading-relaxed mb-10">
-                  Private label thermal paper rolls and labels with your logo, your colors, and your specifications. Low MOQ, fast sampling, full NDA protection.
-                </p>
-                <div className="grid grid-cols-2 gap-4 mb-10">
-                  {[
-                    { title: "Private Label", desc: "Your brand on every roll and label", href: "/oem-custom/private-label" },
-                    { title: "Custom Printing", desc: "Logo, QR codes, variable data", href: "/oem-custom/custom-printing" },
-                    { title: "Low MOQ", desc: "From 10,000 units per SKU", href: "/oem-custom/moq-guide" },
-                    { title: "Free Samples", desc: "Sample process in 5–7 days", href: "/oem-custom/sample-process" },
-                  ].map((item) => (
-                    <Link key={item.title} href={item.href} className="p-4 rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 hover:border-white/40 transition-all group">
-                      <div className="font-bold text-white text-sm mb-1 group-hover:text-blue-200 transition-colors">{item.title}</div>
-                      <div className="text-blue-100/80 text-xs">{item.desc}</div>
-                    </Link>
-                  ))}
+              </div>
+              <p className="max-w-md text-sm leading-7 text-slate-600">
+                Built for distributors and importers who need price, documents, samples, and logistics without extra back-and-forth.
+              </p>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {SERVICE_PROMISES.map((item) => (
+                <div key={item.title} className="border-t border-slate-200 bg-white pt-6">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center bg-slate-50 text-blue-700">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-bold tracking-normal text-slate-950">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
                 </div>
-                <Link href="/oem-custom" className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 text-sm">
-                  Explore OEM Options <ArrowRight className="w-4 h-4" />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-200 bg-slate-950 py-18 text-white md:py-22">
+          <div className="container-site">
+            <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">
+                  Buyer risk map
+                </p>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-5xl">
+                  Problems buyers want solved before they switch suppliers.
+                </h2>
+                <p className="mt-5 text-base leading-8 text-slate-300">
+                  Most importers already know the product name. The real question is whether the roll, label,
+                  paperwork, and carton plan will survive daily use in their market.
+                </p>
+                <Link
+                  href="/quote"
+                  className="mt-8 inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100"
+                >
+                  Request a Quote
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <SlotImage slotKey="home.factory-overview" width={640} height={480} className="w-full object-cover opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-700/30 to-blue-900/45" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-6xl font-extrabold text-white/20 tracking-tighter">OEM</div>
-                    <div className="text-white font-bold text-xl mt-2">Private Label Ready</div>
+
+              <div className="grid gap-px bg-white/10 sm:grid-cols-2">
+                {HOMEPAGE_BUYER_PROBLEMS.map((item) => (
+                  <div key={item.title} className="bg-slate-950 p-6">
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center bg-sky-400/10 text-sky-300">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-xl font-bold tracking-normal text-white">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-400">{item.signal}</p>
+                    <p className="mt-4 border-t border-white/10 pt-4 text-sm font-semibold leading-6 text-slate-200">
+                      {item.response}
+                    </p>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── BLOG ── */}
-        <section className="py-24 bg-slate-50">
+        <section className="bg-slate-50 py-20 md:py-24">
           <div className="container-site">
-            <div className="flex items-end justify-between mb-14">
-              <SectionHeader label="07 — Knowledge Base" title="Thermal Paper Guides & News" subtitle="Technical guides, compliance updates, and industry insights for distributors." />
-              <Link href="/blog" className="hidden md:flex items-center gap-2 text-blue-600 text-sm font-bold hover:gap-3 transition-all shrink-0 ml-8">
-                All Articles <ArrowRight className="w-4 h-4" />
-              </Link>
+            <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="section-label">Product lines</p>
+                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                  Start with the products your customers already reorder.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-7 text-slate-600">
+                Choose the category, then check sizes, materials, certificates, packaging, and repeat-order terms.
+              </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featuredPosts.map((post) => (
-                <Link key={post.slug} href={"/blog/" + post.slug}
-                  className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-200 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group"
+
+            <div className="grid gap-8 xl:grid-cols-2">
+              <ProductPanel
+                accent="blue"
+                href="/products/thermal-paper-rolls"
+                imageSlot="home.product.thermal-rolls"
+                label="Thermal paper rolls"
+                title="Receipt, POS, ATM, lottery, casino, and medical rolls"
+                description="Receipt, ATM, lottery, casino, and medical rolls with BPA-free coating, custom core IDs, black-mark options, and export carton specs."
+                products={featuredRolls.map((item) => ({
+                  name: item.name,
+                  href: `/products/thermal-paper-rolls/${item.slug}`,
+                }))}
+              />
+              <ProductPanel
+                accent="emerald"
+                href="/products/thermal-labels"
+                imageSlot="home.product.thermal-labels"
+                label="Thermal labels"
+                title="Shipping, freezer, food, pharmacy, cannabis, and industrial labels"
+                description="Direct thermal and thermal transfer labels with adhesive choices, die-cut formats, liner options, and printer compatibility for repeat orders."
+                products={featuredLabels.map((item) => ({
+                  name: item.name,
+                  href: `/products/thermal-labels/${item.slug}`,
+                }))}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-20 md:py-24">
+          <div className="container-site">
+            <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="section-label">Choose by buying scenario</p>
+                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                  Start from the job your buyer needs the paper to do.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-7 text-slate-600">
+                Use this path when the visitor knows the use case but not the exact roll grade, coating,
+                certificate, or print option.
+              </p>
+            </div>
+
+            <div className="grid gap-px bg-slate-200 md:grid-cols-2 lg:grid-cols-3">
+              {BUYING_SCENARIOS.map((scenario) => (
+                <Link
+                  key={scenario.title}
+                  href={scenario.href}
+                  className="group bg-white p-6 transition hover:bg-slate-50"
                 >
-                  <div className="p-7 flex flex-col h-full">
-                    <div className="flex items-center gap-3 mb-5">
-                      <span className="px-2.5 py-1 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-full uppercase tracking-wider">{post.category}</span>
-                      <span className="text-slate-400 text-xs">{post.readTime} read</span>
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-xl font-extrabold tracking-normal text-slate-950 transition group-hover:text-blue-700">
+                        {scenario.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">{scenario.subtitle}</p>
                     </div>
-                    <h3 className="font-bold text-slate-900 text-lg leading-snug mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">{post.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-5">{post.excerpt}</p>
-                    <div className="flex items-center gap-2 text-blue-600 text-xs font-bold border-t border-slate-100 pt-4">
-                      Read Article <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-700" />
+                  </div>
+                  <div className="grid gap-2">
+                    {scenario.specs.map((spec) => (
+                      <div key={spec} className="flex items-center gap-2 text-sm text-slate-600">
+                        <span className="h-1.5 w-1.5 shrink-0 bg-blue-600" />
+                        {spec}
+                      </div>
+                    ))}
                   </div>
                 </Link>
               ))}
@@ -529,9 +461,422 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <CTABanner />
+        <section className="bg-slate-950 py-18 text-white md:py-22">
+          <div className="container-site">
+            <div className="mb-12 grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">Sourcing path</p>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-5xl">
+                  Verify the order before it becomes a bulk shipment.
+                </h2>
+              </div>
+              <div className="grid gap-px bg-white/10 md:grid-cols-2 xl:grid-cols-4">
+                {SOURCING_STEPS.map((item, index) => (
+                  <div key={item.title} className="bg-slate-950 p-5">
+                    <div className="mb-5 flex h-9 w-9 items-center justify-center bg-white/[0.08] text-xs font-extrabold text-sky-200">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    <h3 className="text-base font-bold tracking-normal text-white">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-400">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">Factory + documents</p>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-5xl">
+                  Keep the order easy to verify.
+                </h2>
+                <p className="mt-5 text-base leading-8 text-slate-300">
+                  For regional buyers, the paperwork matters almost as much as the roll or label. Samples, batch details, and certificates can be checked before the bulk order is placed.
+                </p>
+                <div className="mt-8 grid grid-cols-3 border border-white/10">
+                  {COMPANY.stats.slice(0, 3).map((stat) => (
+                    <div key={stat.label} className="border-r border-white/10 p-4 last:border-r-0">
+                      <div className="text-2xl font-extrabold text-white">{stat.value}</div>
+                      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-[1.12fr_0.88fr]">
+                <div className="relative min-h-[420px] overflow-hidden bg-slate-900 md:min-h-[520px]">
+                  <SlotImage
+                    slotKey="home.factory-overview"
+                    fill
+                    sizes="(min-width: 1024px) 44vw, (min-width: 768px) 58vw, 100vw"
+                    className="object-cover opacity-95"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-slate-950/82 p-5 backdrop-blur-sm">
+                    <Factory className="mb-3 h-6 w-6 text-sky-300" />
+                    <h3 className="text-xl font-bold text-white">Traceable production</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      Batch codes, material records, roll or label specs, and carton details are kept with the order.
+                    </p>
+                  </div>
+                </div>
+                <div className="border border-white/10 bg-white/[0.04]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
+                    <SlotImage
+                      slotKey="home.compliance"
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 38vw, 100vw"
+                      className="object-cover opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/78 via-slate-950/12 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-200">
+                        Document preview
+                      </p>
+                      <h3 className="mt-2 text-xl font-bold text-white">Certificates before deposit</h3>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <div className="mb-5 flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center bg-emerald-400/10 text-emerald-300">
+                        <CheckCircle2 className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-bold text-white">Documents by market</h3>
+                        <p className="text-xs text-slate-400">Europe, USA, Canada, plus regulated uses</p>
+                      </div>
+                    </div>
+                    <div className="grid gap-3">
+                      {COMPLIANCE_ITEMS.slice(0, 6).map((item) => (
+                        <Link
+                          key={item.slug}
+                          href={`/compliance/${item.slug}`}
+                          className="flex items-center justify-between border border-white/10 bg-slate-900/60 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-300/40 hover:text-white"
+                        >
+                          <span className="flex items-center gap-3">
+                            <span className="text-sky-300">{COMPLIANCE_ICONS[item.icon]}</span>
+                            {item.name}
+                          </span>
+                          <ChevronRight className="h-4 w-4 text-slate-500" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-18 md:py-22">
+          <div className="container-site">
+            <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+              <div>
+                <p className="section-label">Markets & use cases</p>
+                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                  Choose the path closest to your buyer.
+                </h2>
+              </div>
+              <p className="text-sm leading-7 text-slate-600">
+                Some visitors arrive by application. Others arrive by region. This section keeps both paths close together, so distributors can move quickly to the right page.
+              </p>
+            </div>
+
+            <div className="grid gap-10 border-t border-slate-200 pt-8 lg:grid-cols-[1.1fr_0.9fr]">
+              <div>
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <h3 className="text-xl font-extrabold tracking-normal text-slate-950">Industry use cases</h3>
+                  <Link
+                    href="/industries"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 transition hover:text-blue-900"
+                  >
+                    View all
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+                  {featuredIndustries.slice(0, 6).map((industry) => (
+                    <Link
+                      key={industry.slug}
+                      href={`/industries/${industry.slug}`}
+                      className="group flex gap-4 transition"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-slate-100 text-blue-700 transition group-hover:bg-blue-600 group-hover:text-white">
+                        {INDUSTRY_ICONS[industry.icon] || <Package className="h-5 w-5" />}
+                      </span>
+                      <span>
+                        <span className="block text-base font-bold tracking-normal text-slate-950 transition group-hover:text-blue-700">
+                          {industry.name}
+                        </span>
+                        <span className="mt-2 line-clamp-2 block text-sm leading-6 text-slate-600">
+                          {industry.description}
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border border-slate-200 bg-slate-50 p-5">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center bg-white text-blue-700">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-xl font-extrabold tracking-normal text-slate-950">Regional supply pages</h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">Documents, common sizes, and shipping routes by market.</p>
+                  </div>
+                </div>
+                <div className="grid gap-3">
+                  {GEO_REGIONS.map((region) => (
+                    <Link
+                      key={region.slug}
+                      href={`/${region.slug}`}
+                      className="group flex items-center justify-between gap-4 bg-white px-4 py-4 transition hover:bg-blue-50"
+                    >
+                      <span className="flex items-center gap-3">
+                        <span className="text-2xl">{region.flag}</span>
+                        <span>
+                          <span className="block text-sm font-bold text-slate-950">{region.name}</span>
+                          <span className="mt-1 line-clamp-1 block text-xs text-slate-500">{region.description}</span>
+                        </span>
+                      </span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-700" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-50 py-20 md:py-24">
+          <div className="container-site grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            <div>
+              <p className="section-label">OEM & Private Label</p>
+              <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                Put your brand on the roll, label, or carton.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
+                Custom printing, roll wrappers, carton marks, and packing lists can follow your sales channel.
+              </p>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {[
+                  { title: "Private label packs", href: "/oem-custom/private-label" },
+                  { title: "Logo and back-printing", href: "/oem-custom/custom-printing" },
+                  { title: "MOQ and carton planning", href: "/oem-custom/moq-guide" },
+                  { title: "Sample approval process", href: "/oem-custom/sample-process" },
+                ].map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className="flex items-center justify-between border-b border-slate-200 py-4 text-sm font-bold text-slate-800 transition hover:border-blue-300 hover:text-blue-700"
+                  >
+                    {item.title}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-200">
+                <SlotImage
+                  slotKey="home.product.thermal-labels"
+                  fill
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 grid grid-cols-3 gap-px bg-white/15 p-4 backdrop-blur-sm">
+                  {[
+                    { icon: <Layers3 className="h-4 w-4" />, text: "Custom specs" },
+                    { icon: <BadgeCheck className="h-4 w-4" />, text: "NDA support" },
+                    { icon: <Zap className="h-4 w-4" />, text: "Fast samples" },
+                  ].map((item) => (
+                    <div key={item.text} className="bg-slate-950/70 p-3 text-center text-xs font-bold text-white">
+                      <span className="mx-auto mb-2 flex h-8 w-8 items-center justify-center bg-white/[0.1] text-sky-200">
+                        {item.icon}
+                      </span>
+                      {item.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 bg-white py-20 md:py-24">
+          <div className="container-site">
+            <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="section-label">Buying Guides</p>
+                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                  Useful notes before a buyer sends an inquiry.
+                </h2>
+              </div>
+              <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-blue-700">
+                All articles
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {featuredPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group border border-slate-200 bg-white p-6 transition hover:border-blue-300 hover:bg-slate-50"
+                >
+                  <div className="mb-5 flex items-center justify-between gap-3">
+                    <span className="bg-blue-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-blue-700">
+                      {post.category}
+                    </span>
+                    <span className="text-xs font-medium text-slate-400">{post.readTime} read</span>
+                  </div>
+                  <h3 className="line-clamp-2 text-lg font-bold tracking-normal text-slate-950 transition group-hover:text-blue-700">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-600">{post.excerpt}</p>
+                  <div className="mt-6 flex items-center gap-2 text-sm font-bold text-blue-700">
+                    Read guide
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#071525] py-16 text-white">
+          <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="flex items-start gap-5">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-blue-600">
+                <Mail className="h-6 w-6" />
+              </span>
+              <div>
+                <h2 className="text-2xl font-extrabold tracking-normal text-white md:text-3xl">
+                  Send the size, quantity, and destination. We'll take it from there.
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
+                  Include the printer model or label use case if you have it. If not, send a photo of the current roll or label and the destination country.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/quote"
+                className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100"
+              >
+                Request a Quote
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/samples"
+                className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Request Free Samples
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
+  );
+}
+
+function ProductPanel({
+  accent,
+  description,
+  href,
+  imageSlot,
+  label,
+  products,
+  title,
+}: {
+  accent: "blue" | "emerald";
+  description: string;
+  href: string;
+  imageSlot: "home.product.thermal-rolls" | "home.product.thermal-labels";
+  label: string;
+  products: Array<{ href: string; name: string }>;
+  title: string;
+}) {
+  const accentClass =
+    accent === "emerald"
+      ? "bg-emerald-600 text-white hover:bg-emerald-700"
+      : "bg-blue-600 text-white hover:bg-blue-700";
+  const chipClass =
+    accent === "emerald" ? "text-emerald-700" : "text-blue-700";
+
+  return (
+    <article className="group overflow-hidden border border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.06)]">
+      <div className="grid min-h-full lg:grid-cols-[1.04fr_0.96fr] xl:grid-cols-1">
+        <div className="relative aspect-[16/11] min-h-[300px] overflow-hidden bg-slate-100 lg:min-h-[420px] xl:min-h-0">
+          <SlotImage
+            slotKey={imageSlot}
+            fill
+            sizes="(min-width: 1280px) 44vw, (min-width: 1024px) 52vw, 100vw"
+            className="object-cover transition duration-700 group-hover:scale-[1.035]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/18 to-transparent" />
+          <div className="absolute left-5 top-5 bg-white/92 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-slate-950 backdrop-blur-sm">
+            Factory-direct line
+          </div>
+          <div className="absolute inset-x-0 bottom-0 p-6">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-sky-100">
+              {label}
+            </span>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {products.slice(0, 3).map((product) => (
+                <span
+                  key={product.href}
+                  className="bg-white/12 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm"
+                >
+                  {product.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col p-6 md:p-8">
+          <span className={`mb-4 w-fit text-xs font-bold uppercase tracking-[0.14em] ${chipClass}`}>
+            {label}
+          </span>
+          <h3 className="text-2xl font-extrabold tracking-normal text-slate-950 md:text-3xl">{title}</h3>
+          <p className="mt-4 text-sm leading-7 text-slate-600">{description}</p>
+
+          <div className="mt-7 grid gap-x-5 gap-y-3 border-t border-slate-200 pt-6 sm:grid-cols-2">
+            {products.map((product) => (
+              <Link
+                key={product.href}
+                href={product.href}
+                className="flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 bg-blue-600" />
+                {product.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href={href}
+              className={`inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-bold transition ${accentClass}`}
+            >
+              View Product Line
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/quote"
+              className="inline-flex items-center justify-center gap-2 border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-blue-500 hover:text-blue-700"
+            >
+              Request a Quote
+            </Link>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }

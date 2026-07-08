@@ -126,6 +126,7 @@ export async function saveBlogPost(data: {
   revalidatePath("/blog");
   revalidatePath(`/blog/${data.slug}`);
   if (previousSlug && previousSlug !== data.slug) revalidatePath(`/blog/${previousSlug}`);
+  revalidatePath("/sitemap.xml"); // sitemap 含 DB 文章且默认缓存，发布后需刷新
 }
 
 export async function deleteBlogPost(id: number) {
@@ -134,6 +135,7 @@ export async function deleteBlogPost(id: number) {
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
   if (existing?.slug) revalidatePath(`/blog/${existing.slug}`);
+  revalidatePath("/sitemap.xml");
 }
 
 // ── Product Override Actions ──────────────────────────────────────────────────

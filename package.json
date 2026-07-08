@@ -9,7 +9,8 @@
     "lint": "eslint",
     "db:init": "node scripts/init-db.mjs",
     "admin:create": "node scripts/create-admin.mjs",
-    "migrate:r2": "node scripts/migrate-blob-to-r2.mjs"
+    "migrate:r2": "node scripts/migrate-blob-to-r2.mjs",
+    "feishu:read": "node scripts/read-feishu-wiki.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.700.0",

@@ -1,44 +1,152 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { COMPANY, COMPLIANCE_ITEMS } from "@/lib/data";
-import { Phone, Mail, MapPin, ArrowRight, ShieldCheck, FileCheck, Award, Leaf, UtensilsCrossed, Shield, Package } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  FileCheck,
+  Globe2,
+  Leaf,
+  Mail,
+  MapPin,
+  Package,
+  Phone,
+  Send,
+  Shield,
+  ShieldCheck,
+  UtensilsCrossed,
+} from "lucide-react";
 
-const ICONS: Record<string, React.ReactNode> = {
-  ShieldCheck: <ShieldCheck className="w-3.5 h-3.5" />,
-  FileCheck: <FileCheck className="w-3.5 h-3.5" />,
-  Award: <Award className="w-3.5 h-3.5" />,
-  Leaf: <Leaf className="w-3.5 h-3.5" />,
-  UtensilsCrossed: <UtensilsCrossed className="w-3.5 h-3.5" />,
-  Shield: <Shield className="w-3.5 h-3.5" />,
+const ICONS: Record<string, ReactNode> = {
+  ShieldCheck: <ShieldCheck className="h-3.5 w-3.5" />,
+  FileCheck: <FileCheck className="h-3.5 w-3.5" />,
+  Award: <Award className="h-3.5 w-3.5" />,
+  Leaf: <Leaf className="h-3.5 w-3.5" />,
+  UtensilsCrossed: <UtensilsCrossed className="h-3.5 w-3.5" />,
+  Shield: <Shield className="h-3.5 w-3.5" />,
 };
 
-const FooterLinks = ({ links }: { links: { label: string; href: string }[] }) => (
+type FooterLink = {
+  label: string;
+  href: string;
+};
+
+type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+const FOOTER_SECTIONS: FooterSection[] = [
+  {
+    title: "Products",
+    links: [
+      { label: "Thermal Paper Rolls", href: "/products/thermal-paper-rolls" },
+      { label: "Thermal Labels", href: "/products/thermal-labels" },
+      { label: "Standard POS Rolls", href: "/products/thermal-paper-rolls/standard-pos-rolls" },
+      { label: "Direct Thermal Labels", href: "/products/thermal-labels/direct-thermal-labels" },
+      { label: "Custom Printed Rolls", href: "/products/thermal-paper-rolls/custom-printed-rolls" },
+      { label: "OEM / Private Label", href: "/oem-custom" },
+    ],
+  },
+  {
+    title: "Industries",
+    links: [
+      { label: "Retail & POS", href: "/industries/retail-pos" },
+      { label: "Lottery & Gaming", href: "/industries/lottery-gaming" },
+      { label: "Healthcare & Pharma", href: "/industries/healthcare-pharma" },
+      { label: "Food & Cold Chain", href: "/industries/food-cold-chain" },
+      { label: "Logistics & Warehouse", href: "/industries/logistics-warehouse" },
+      { label: "Cannabis & Specialty", href: "/industries/cannabis-specialty" },
+    ],
+  },
+  {
+    title: "Markets",
+    links: [
+      { label: "Europe", href: "/eu" },
+      { label: "United States", href: "/us" },
+      { label: "Canada", href: "/ca" },
+      { label: "FDA Compliant", href: "/us/fda-compliant" },
+      { label: "EU Food Contact", href: "/compliance/eu-food-contact" },
+      { label: "Cannabis Labels", href: "/us/cannabis-labels" },
+    ],
+  },
+  {
+    title: "Factory",
+    links: [
+      { label: "Factory Overview", href: "/factory" },
+      { label: "Quality Control", href: "/factory/quality-control" },
+      { label: "Production Capacity", href: "/factory/capacity" },
+      { label: "Equipment", href: "/factory/equipment" },
+      { label: "Certificates", href: "/compliance/certificates" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Free Samples", href: "/samples" },
+      { label: "Blog", href: "/blog" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Compliance", href: "/compliance" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About Us", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
+      { label: "Sitemap", href: "/sitemap.xml" },
+    ],
+  },
+];
+
+const FooterLinks = ({ links }: { links: FooterLink[] }) => (
   <ul className="space-y-2.5">
     {links.map((link) => (
       <li key={link.href}>
         <Link
           href={link.href}
-          className="text-slate-400 hover:text-blue-400 text-sm transition-colors flex items-center gap-1.5 group"
+          className="group flex min-h-6 items-center gap-2 text-sm leading-6 text-slate-400 transition-colors hover:text-white"
         >
-          <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-          {link.label}
+          <ArrowRight className="h-3 w-3 shrink-0 text-blue-400 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+          <span>{link.label}</span>
         </Link>
       </li>
     ))}
   </ul>
 );
 
+const FooterSection = ({ title, links }: FooterSection) => (
+  <div>
+    <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">
+      {title}
+    </h4>
+    <FooterLinks links={links} />
+  </div>
+);
+
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300">
-      {/* Compliance strip */}
-      <div className="border-b border-slate-700/50 py-4">
-        <div className="container-site">
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-5">
+    <footer className="bg-slate-950 text-slate-300">
+      <div className="border-b border-slate-800 bg-slate-900/45">
+        <div className="container-site flex flex-col gap-4 py-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+              Certified thermal paper supplier
+            </p>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-400">
+              ISO-managed production, BPA-free materials, and export-ready documentation for distributors in Europe and North America.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
             {COMPLIANCE_ITEMS.map((item) => (
               <Link
                 key={item.slug}
                 href={`/compliance/${item.slug}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 text-slate-400 text-[11px] font-semibold tracking-widest uppercase hover:border-blue-500 hover:text-blue-400 transition-all bg-slate-800/50"
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 transition-colors hover:border-blue-400 hover:text-blue-200"
               >
                 {ICONS[item.icon]}
                 {item.name}
@@ -48,118 +156,85 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main footer grid */}
-      <div className="container-site py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-          {/* Brand column */}
-          <div>
-            <Link href="/" className="flex items-center gap-2.5 mb-5 group">
-              <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm group-hover:bg-blue-500 transition-colors">
-                <Package className="w-5 h-5 text-white" />
-              </div>
+      <div className="container-site py-12 lg:py-14">
+        <div className="grid gap-12 lg:grid-cols-[minmax(260px,0.9fr)_minmax(0,1.8fr)]">
+          <div className="max-w-xl lg:max-w-sm">
+            <Link href="/" className="group mb-5 inline-flex items-center gap-2.5" aria-label="Zhi Xin Paper - Home">
+              <Image
+                src="/images/logo.png"
+                alt="Zhi Xin Paper"
+                width={40}
+                height={40}
+                className="h-10 w-auto object-contain"
+              />
               <div>
-                <div className="font-bold text-white text-lg leading-none">Zhixin Paper</div>
-                <div className="text-blue-400 text-[9px] tracking-[0.25em] uppercase font-semibold mt-0.5">Thermal Paper</div>
+                <div className="text-base font-bold leading-none tracking-wide text-white">ZhixinPaper</div>
+                <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-amber-300 opacity-90">
+                  Thermal Solutions Since 2008
+                </div>
               </div>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed mb-5">
-              Professional thermal paper rolls and labels manufacturer. Serving distributors and importers in Europe, USA & Canada. ISO 9001 certified since {COMPANY.founded}.
+
+            <p className="text-sm leading-7 text-slate-400">
+              {COMPANY.description} ISO 9001 certified since {COMPANY.founded}.
             </p>
-            <div className="space-y-2.5 text-sm text-slate-400">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-blue-400/70" />
-                <span>{COMPANY.address}</span>
+
+            <div className="mt-6 space-y-3 text-sm text-slate-400">
+              <div className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-300" />
+                <span className="leading-6">{COMPANY.address}</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 shrink-0 text-blue-400/70" />
-                <a href={`tel:${COMPANY.phone}`} className="hover:text-blue-400 transition-colors">
+              <div className="flex items-center gap-3">
+                <Phone className="h-4 w-4 shrink-0 text-blue-300" />
+                <a href={`tel:${COMPANY.phone}`} className="transition-colors hover:text-white">
                   {COMPANY.phone}
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 shrink-0 text-blue-400/70" />
-                <a href={`mailto:${COMPANY.email}`} className="hover:text-blue-400 transition-colors">
+              <div className="flex items-center gap-3">
+                <Mail className="h-4 w-4 shrink-0 text-blue-300" />
+                <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-white">
                   {COMPANY.email}
                 </a>
               </div>
             </div>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <Link
+                href="/quote"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+              >
+                <Send className="h-4 w-4" />
+                Request Quote
+              </Link>
+              <Link
+                href="/samples"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-slate-700 px-4 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:bg-slate-900"
+              >
+                <Package className="h-4 w-4" />
+                Free Samples
+              </Link>
+            </div>
           </div>
 
-          {/* Products */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Products</h4>
-            <FooterLinks links={[
-              { label: "Thermal Paper Rolls",  href: "/products/thermal-paper-rolls" },
-              { label: "Thermal Labels",        href: "/products/thermal-labels" },
-              { label: "Standard POS Rolls",    href: "/products/thermal-paper-rolls/standard-pos-rolls" },
-              { label: "Direct Thermal Labels", href: "/products/thermal-labels/direct-thermal-labels" },
-              { label: "Custom Printed Rolls",  href: "/products/thermal-paper-rolls/custom-printed-rolls" },
-              { label: "OEM / Private Label",   href: "/oem-custom" },
-              { label: "Free Samples",          href: "/samples" },
-            ]} />
-          </div>
-
-          {/* Industries + Markets */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Industries</h4>
-            <FooterLinks links={[
-              { label: "Retail & POS",         href: "/industries/retail-pos" },
-              { label: "Lottery & Gaming",      href: "/industries/lottery-gaming" },
-              { label: "Healthcare & Pharma",   href: "/industries/healthcare-pharma" },
-              { label: "Food & Cold Chain",     href: "/industries/food-cold-chain" },
-              { label: "Logistics & Warehouse", href: "/industries/logistics-warehouse" },
-              { label: "Cannabis & Specialty",  href: "/industries/cannabis-specialty" },
-              { label: "All Industries",        href: "/industries" },
-            ]} />
-
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mt-7 mb-3">Markets</h4>
-            <FooterLinks links={[
-              { label: "🇪🇺 Europe (EU)",  href: "/eu" },
-              { label: "🇺🇸 United States", href: "/us" },
-              { label: "🇨🇦 Canada",        href: "/ca" },
-            ]} />
-
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mt-7 mb-3">Regional Compliance</h4>
-            <FooterLinks links={[
-              { label: "🇺🇸 FDA Compliant (US)",     href: "/us/fda-compliant" },
-              { label: "🇺🇸 Cannabis Labels (US)",   href: "/us/cannabis-labels" },
-              { label: "🇨🇦 Cannabis Labels (CA)",   href: "/ca/cannabis-labels" },
-              { label: "🇪🇺 EU Food Contact",        href: "/compliance/eu-food-contact" },
-            ]} />
-          </div>
-
-          {/* Company + Resources */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Company</h4>
-            <FooterLinks links={[
-              { label: "About Us",       href: "/about" },
-              { label: "Factory",        href: "/factory" },
-              { label: "Compliance",     href: "/compliance" },
-              { label: "Contact",        href: "/contact" },
-              { label: "Privacy Policy", href: "/privacy-policy" },
-              { label: "Cookie Policy",  href: "/cookie-policy" },
-            ]} />
-
-            <h4 className="font-bold text-white text-sm uppercase tracking-widest mt-7 mb-3">Resources</h4>
-            <FooterLinks links={[
-              { label: "Blog",         href: "/blog" },
-              { label: "Case Studies", href: "/case-studies" },
-              { label: "FAQ",          href: "/faq" },
-            ]} />
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
+            {FOOTER_SECTIONS.map((section) => (
+              <FooterSection key={section.title} {...section} />
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-slate-700/50 py-4 pb-24 md:pb-4">
-        <div className="container-site flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <div className="border-t border-slate-800">
+        <div className="container-site flex flex-col gap-4 py-5 pb-24 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:pb-5">
           <span>© {new Date().getFullYear()} Zhixin Paper. All rights reserved.</span>
-          <div className="flex items-center gap-5">
-            <Link href="/eu" className="hover:text-slate-300 transition-colors">🇪🇺 Europe</Link>
-            <Link href="/us" className="hover:text-slate-300 transition-colors">🇺🇸 USA</Link>
-            <Link href="/ca" className="hover:text-slate-300 transition-colors">🇨🇦 Canada</Link>
-            <Link href="/sitemap.xml" className="hover:text-slate-300 transition-colors">Sitemap</Link>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link href="/eu" className="inline-flex items-center gap-1.5 transition-colors hover:text-slate-300">
+              <Globe2 className="h-3.5 w-3.5" />
+              Europe
+            </Link>
+            <Link href="/us" className="transition-colors hover:text-slate-300">USA</Link>
+            <Link href="/ca" className="transition-colors hover:text-slate-300">Canada</Link>
+            <Link href="/sitemap.xml" className="transition-colors hover:text-slate-300">Sitemap</Link>
           </div>
         </div>
       </div>

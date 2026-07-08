@@ -6,7 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { PRODUCT_BUYER_CHECKS } from "@/lib/marketInsights";
+import { breadcrumbSchema, canonicalUrl, faqSchema, productSchema } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
   Star, Shield, Zap, MessageSquare, Download, Layers, Clock,
@@ -17,6 +18,73 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const STANDARD_POS_PAGE = {
+  title: "POS receipt paper rolls for Europe, USA and Canada",
+  kicker: "BPA-free POS rolls · Factory-direct wholesale",
+  subtitle:
+    "80mm and 57mm thermal receipt rolls for retail distributors, POS suppliers, restaurants, supermarkets, and payment terminal programs.",
+  intro:
+    "Source standard POS thermal paper rolls with clear size control, printer fit, compliance documents, and export packaging for repeat orders across Europe, the United States, and Canada.",
+  buyerTypes: [
+    "Thermal paper distributors and importers",
+    "Retail chain and supermarket procurement teams",
+    "POS equipment resellers and payment terminal suppliers",
+    "Restaurant, QSR, hospitality, and foodservice groups",
+  ],
+  quoteChecklist: [
+    "Roll width, length or outer diameter",
+    "Core ID, winding direction, and carton count",
+    "Printer or terminal model, such as Epson, Star, Bixolon, Clover, Square, or PAX",
+    "BPA-free, REACH, Prop 65, FDA, FSC, or phenol-free document needs",
+    "Destination market, shipping term, and pallet or mixed-SKU plan",
+  ],
+  regionalNotes: [
+    {
+      market: "Europe",
+      href: "/eu",
+      compliance: "BPA-free, REACH, RoHS, FSC, and EU buyer document packs",
+      sourcing: "Common POS roll sizes include 80x80mm and 57mm till rolls for retail and hospitality distributors.",
+      shipping: "FOB Qingdao, CIF Hamburg or Rotterdam, and DDP options on request.",
+    },
+    {
+      market: "United States",
+      href: "/us",
+      compliance: "BPA-free, Prop 65 support, FDA-related document requests, and ISO files",
+      sourcing: "Popular for 3 1/8 inch receipt rolls, payment terminal programs, POS resellers, and retail chains.",
+      shipping: "FOB Qingdao, CIF Los Angeles or Long Beach, plus DDP and LTL planning for repeat orders.",
+    },
+    {
+      market: "Canada",
+      href: "/ca",
+      compliance: "BPA-free, Health Canada oriented document support, and bilingual EN/FR file requests",
+      sourcing: "Built for Canadian distributors serving retail, pharmacy, restaurant, and cannabis-adjacent POS channels.",
+      shipping: "Vancouver, Prince Rupert, Montreal, and DDP Canada routes can be quoted by volume.",
+    },
+  ],
+  faqs: [
+    {
+      question: "What POS receipt roll sizes can Zhixin Paper supply?",
+      answer:
+        "We supply common 57mm and 80mm POS receipt roll sizes, including 57x38mm, 57x40mm, 57x50mm, 80x60mm, and 80x80mm. Custom width, length, core ID, and carton packing can be quoted for distributors.",
+    },
+    {
+      question: "Are these POS thermal paper rolls available as BPA-free?",
+      answer:
+        "Yes. BPA-free POS thermal paper grades are available for Europe, the United States, and Canada. Buyers can request REACH, RoHS, Prop 65, FDA-related, FSC, ISO, or phenol-free document support before ordering.",
+    },
+    {
+      question: "Which POS printers are compatible with these receipt rolls?",
+      answer:
+        "Standard POS rolls are commonly used with Epson, Star, Bixolon, Citizen, Clover, Square, PAX, and similar receipt or payment terminal printers. Share your printer model before sampling so roll width, OD, core, and winding direction can be checked.",
+    },
+    {
+      question: "What information should I send for a POS roll quote?",
+      answer:
+        "Send roll size, target length or outer diameter, core ID, quantity, carton packing, printer model, destination country, compliance documents required, and preferred shipping term such as FOB, CIF, or DDP.",
+    },
+  ],
+};
+
 export async function generateStaticParams() {
   return THERMAL_PAPER_ROLLS.map((roll) => ({ slug: roll.slug }));
 }
@@ -25,6 +93,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const roll = THERMAL_PAPER_ROLLS.find((r) => r.slug === slug);
   if (!roll) return {};
+
+  if (slug === "standard-pos-rolls") {
+    return {
+      title: "POS Receipt Paper Rolls for Europe, USA & Canada | BPA-Free Wholesale",
+      description:
+        "BPA-free POS receipt paper rolls for Europe, USA, and Canada. 80mm and 57mm thermal rolls, printer fit checks, compliance documents, OEM packing, samples, and FOB/CIF/DDP quotes.",
+      keywords:
+        "POS receipt paper rolls Europe, POS receipt paper rolls USA, thermal paper rolls Canada, BPA-free POS rolls wholesale, 80mm thermal receipt rolls, 57mm POS paper rolls, Epson compatible receipt paper, Star printer thermal rolls, receipt paper distributor supplier",
+      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      openGraph: {
+        title: "POS Receipt Paper Rolls for Europe, USA & Canada",
+        description:
+          "Factory-direct BPA-free POS thermal paper rolls with compliance files, printer fit checks, export packing, and regional shipping options.",
+        type: "website",
+        images: [
+          {
+            url: "/images/thermal-rolls-product.jpg",
+            width: 1200,
+            height: 630,
+            alt: "BPA-free POS thermal receipt paper rolls for distributors",
+          },
+        ],
+      },
+    };
+  }
+
   return {
     title: `${roll.name} — ${roll.subtitle} | Wholesale Manufacturer`,
     description: `${roll.name} thermal paper rolls wholesale from ISO 9001 certified manufacturer. ${roll.keywords}. BPA-free, FDA-compliant options. MOQ ${roll.moq}. Factory-direct pricing, pallet and container load available. Free samples via DHL/FedEx.`,
@@ -105,10 +199,38 @@ export default async function RollDetailPage({ params }: Props) {
   const printers = PRINTER_COMPAT[slug] || null;
   const pricing = TIERED_PRICING[slug] || TIERED_PRICING["default"];
   const complianceDocs = COMPLIANCE_DOCS[slug] || COMPLIANCE_DOCS["default"];
+  const buyerChecks = PRODUCT_BUYER_CHECKS[slug] || null;
+  const isStandardPos = slug === "standard-pos-rolls";
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: "Products", url: "/products" },
+      { name: "Thermal Paper Rolls", url: "/products/thermal-paper-rolls" },
+      { name: roll.name, url: `/products/thermal-paper-rolls/${slug}` },
+    ]),
+    productSchema({
+      name: isStandardPos ? "POS Receipt Paper Rolls" : roll.name,
+      description: isStandardPos ? STANDARD_POS_PAGE.intro : descText,
+      image: "/images/thermal-rolls-product.jpg",
+      url: `/products/thermal-paper-rolls/${slug}`,
+      sku: `thermal-roll-${slug}`,
+      category: "Thermal Paper Rolls",
+      keywords: isStandardPos
+        ? "POS receipt paper rolls, BPA-free thermal paper rolls, 80mm receipt rolls, 57mm POS rolls, Europe USA Canada thermal paper supplier"
+        : roll.keywords,
+    }),
+    ...(isStandardPos ? [faqSchema(STANDARD_POS_PAGE.faqs)] : []),
+  ];
 
   return (
     <>
       <Header />
+      {jsonLd.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <main>
 
         {/* ── HERO: Full-width product image with overlay info ── */}
@@ -130,10 +252,10 @@ export default async function RollDetailPage({ params }: Props) {
           <div className="relative w-full" style={{ height: "520px" }}>
             <Image
               src="/images/thermal-rolls-product.jpg"
-              alt={`${roll.name} - Thermal Paper Rolls`}
+              alt={isStandardPos ? "BPA-free POS receipt paper rolls for Europe USA and Canada distributors" : `${roll.name} - Thermal Paper Rolls`}
               fill
               className="object-cover object-center"
-              priority
+              preload
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/92 via-slate-900/55 to-transparent" />
@@ -145,7 +267,9 @@ export default async function RollDetailPage({ params }: Props) {
                 <div className="max-w-xl">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-blue-400">Thermal Paper Rolls</span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-blue-400">
+                      {isStandardPos ? STANDARD_POS_PAGE.kicker : "Thermal Paper Rolls"}
+                    </span>
                     {roll.tag && (
                       <span className={`px-2 py-0.5 text-[9px] tracking-widest uppercase font-bold rounded-full ${
                         roll.tag === "New"
@@ -154,23 +278,25 @@ export default async function RollDetailPage({ params }: Props) {
                       }`}>{roll.tag}</span>
                     )}
                   </div>
-                  <h1 className="font-bold text-white text-5xl md:text-6xl leading-tight mb-3 drop-shadow-lg">
-                    {roll.name}
+                  <h1 className="font-bold text-white text-4xl md:text-6xl leading-tight mb-4 drop-shadow-lg">
+                    {isStandardPos ? STANDARD_POS_PAGE.title : roll.name}
                   </h1>
-                  <p className="text-blue-300 text-xl font-medium mb-5">{roll.subtitle}</p>
-                  <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-md font-light">
-                    {heroText}
+                  <p className="text-blue-300 text-xl font-medium mb-5">
+                    {isStandardPos ? STANDARD_POS_PAGE.subtitle : roll.subtitle}
+                  </p>
+                  <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-xl font-light">
+                    {isStandardPos ? STANDARD_POS_PAGE.intro : heroText}
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-900/40 text-sm">
-                      Request Quote <ArrowRight className="w-4 h-4" />
+                    <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-900/40 text-sm">
+                      Request a Quote <ArrowRight className="w-4 h-4" />
                     </Link>
-                    <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm">
-                      Free Sample
+                    <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm">
+                      Request Free Samples
                     </Link>
                     <a
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm"
                     >
                       <Download className="w-4 h-4" /> Compliance Docs
                     </a>
@@ -188,7 +314,7 @@ export default async function RollDetailPage({ params }: Props) {
                     { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "10–15 Days" },
                     { icon: <Award className="w-4 h-4" />, label: "Certified", value: "ISO 9001" },
                     { icon: <Shield className="w-4 h-4" />, label: "BPA-Free", value: "Available" },
-                    { icon: <Factory className="w-4 h-4" />, label: "Capacity", value: "500M+/yr" },
+                    { icon: <Truck className="w-4 h-4" />, label: "Markets", value: isStandardPos ? "EU / US / CA" : "Global" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-3 px-5 py-3">
                       <span className="text-blue-400">{item.icon}</span>
@@ -224,6 +350,57 @@ export default async function RollDetailPage({ params }: Props) {
           </div>
         </section>
 
+        {isStandardPos && (
+          <section className="bg-white py-14 border-b border-slate-100">
+            <div className="container-site">
+              <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Who this page is for</span>
+                  </div>
+                  <h2 className="text-3xl font-extrabold tracking-normal text-slate-950">
+                    Built for buyers who reorder receipt rolls every month.
+                  </h2>
+                  <p className="mt-4 text-base leading-8 text-slate-600">
+                    If your customer complains about short rolls, printer jams, faded receipts, or crushed cartons,
+                    this page gives your procurement team the checks needed before sampling and bulk order approval.
+                  </p>
+                  <div className="mt-6 grid gap-3">
+                    {STANDARD_POS_PAGE.buyerTypes.map((type) => (
+                      <div key={type} className="flex items-start gap-3 border-t border-slate-200 pt-3 text-sm font-medium text-slate-700">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+                        {type}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border border-slate-200 bg-slate-50 p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <MessageSquare className="w-5 h-5 text-blue-600" />
+                    <h2 className="text-xl font-extrabold tracking-normal text-slate-950">Quote checklist</h2>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {STANDARD_POS_PAGE.quoteChecklist.map((item) => (
+                      <div key={item} className="bg-white p-4 text-sm leading-6 text-slate-700">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                  <Link
+                    href="/quote"
+                    className="mt-6 inline-flex items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                  >
+                    Send POS roll details
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* ── PRODUCT DESCRIPTION ── */}
         <section className="py-12 bg-white border-b border-slate-100">
           <div className="container-site">
@@ -233,11 +410,97 @@ export default async function RollDetailPage({ params }: Props) {
                 <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Product Overview</span>
               </div>
               <p className="text-slate-700 text-lg leading-relaxed">
-                {descText}
+                {isStandardPos ? STANDARD_POS_PAGE.intro : descText}
               </p>
             </div>
           </div>
         </section>
+
+        {buyerChecks && (
+          <section className="bg-slate-950 py-14 text-white">
+            <div className="container-site">
+              <div className="mb-8 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">
+                    Buyer checks before ordering
+                  </p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-4xl">
+                    Confirm the details that usually decide whether the roll works in the field.
+                  </h2>
+                </div>
+                <p className="text-sm leading-7 text-slate-300">
+                  These checks come from repeat buyer questions around fit, documents, scanning, packaging,
+                  and reorder stability. Send what you know; we can help fill the gaps before sampling.
+                </p>
+              </div>
+
+              <div className="grid gap-px bg-white/10 lg:grid-cols-3">
+                {buyerChecks.map((check) => (
+                  <div key={check.title} className="bg-slate-950 p-6">
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center bg-blue-500/10 text-blue-300">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">{check.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-400">{check.whyItMatters}</p>
+                    <div className="mt-5 border-t border-white/10 pt-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-sky-300">Confirm</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-200">{check.whatToConfirm}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+                  Request a Quote
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                  Request Free Samples
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {isStandardPos && (
+          <section className="bg-slate-50 py-14 border-t border-slate-200">
+            <div className="container-site">
+              <div className="mb-8 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div>
+                  <p className="section-label">Regional sourcing notes</p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                    POS receipt rolls quoted for Europe, USA and Canada.
+                  </h2>
+                </div>
+                <p className="text-sm leading-7 text-slate-600">
+                  Regional pages help buyers check compliance files, common sizes, language/document needs,
+                  and shipping routes before asking for landed cost.
+                </p>
+              </div>
+
+              <div className="grid gap-5 lg:grid-cols-3">
+                {STANDARD_POS_PAGE.regionalNotes.map((region) => (
+                  <Link
+                    key={region.market}
+                    href={region.href}
+                    className="group border border-slate-200 bg-white p-6 transition hover:border-blue-300 hover:bg-blue-50"
+                  >
+                    <div className="mb-5 flex items-center justify-between">
+                      <h3 className="text-2xl font-extrabold tracking-normal text-slate-950">{region.market}</h3>
+                      <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-700" />
+                    </div>
+                    <div className="space-y-4 text-sm leading-6 text-slate-600">
+                      <p><span className="font-bold text-slate-950">Compliance:</span> {region.compliance}</p>
+                      <p><span className="font-bold text-slate-950">Sourcing:</span> {region.sourcing}</p>
+                      <p><span className="font-bold text-slate-950">Shipping:</span> {region.shipping}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── SPECS + FEATURES ── */}
         <section className="py-16 bg-white">
@@ -346,10 +609,10 @@ export default async function RollDetailPage({ params }: Props) {
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
                       <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-blue-50 transition-colors text-sm shadow-sm">
-                        Free Sample
+                        Request Free Samples
                       </Link>
                       <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-400 transition-colors text-sm shadow-sm border border-blue-400">
-                        Get Quote <ArrowRight className="w-4 h-4" />
+                        Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
@@ -470,6 +733,27 @@ export default async function RollDetailPage({ params }: Props) {
             </div>
           </div>
         </section>
+
+        {isStandardPos && (
+          <section className="bg-white py-14 border-t border-slate-100">
+            <div className="container-site">
+              <div className="mb-8 max-w-3xl">
+                <p className="section-label">POS roll FAQ</p>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                  Questions buyers ask before ordering POS receipt paper.
+                </h2>
+              </div>
+              <div className="grid gap-px bg-slate-200 md:grid-cols-2">
+                {STANDARD_POS_PAGE.faqs.map((faq) => (
+                  <div key={faq.question} className="bg-white p-6">
+                    <h3 className="text-lg font-bold tracking-normal text-slate-950">{faq.question}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── OEM / PRIVATE LABEL CALLOUT ── */}
         <section className="py-14 bg-white border-t border-slate-100">

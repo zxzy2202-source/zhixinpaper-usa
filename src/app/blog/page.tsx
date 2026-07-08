@@ -20,8 +20,9 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl("/blog") },
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// ISR：列表页静态化，后台 saveBlogPost/deleteBlogPost 里的
+// revalidatePath("/blog") 会在发布/删除时立即刷新
+export const revalidate = 300;
 
 export default async function BlogPage() {
   let dbPosts: {

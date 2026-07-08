@@ -14,12 +14,12 @@
 
 /*
  * DESIGN SYSTEM: Modern Light — Clean & Professional
- * Inter (headings) + Inter (body) — clean sans-serif
+ * System sans-serif for reliable builds and clean B2B typography
  * White/light-gray base + Blue (#1d4ed8) primary + Sky blue (#0ea5e9) accent
  */
 
 :root {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --color-primary: #1d4ed8;
   --color-primary-hover: #1e40af;
   --color-accent: #0ea5e9;
@@ -34,7 +34,10 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: rgba(29, 78, 216, 0.18);
+  }
 
   body {
     background-color: #ffffff;
@@ -44,12 +47,34 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: #0f172a;
+    text-wrap: balance;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
   }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -57,6 +82,17 @@
   ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
   ::selection { background: #dbeafe; color: #1d4ed8; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {

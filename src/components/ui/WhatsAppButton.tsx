@@ -27,13 +27,14 @@ export default function WhatsAppButton() {
 
   return (
     <div
-      className={`fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 ${
+      className={`fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-3 transition-[opacity,transform] duration-500 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
       }`}
     >
       {/* Tooltip bubble */}
       <div
-        className={`transition-all duration-300 ${
+        aria-live="polite"
+        className={`transition-[opacity,transform] duration-300 ${
           showTooltip
             ? "opacity-100 translate-x-0 pointer-events-auto"
             : "opacity-0 translate-x-4 pointer-events-none"
@@ -64,7 +65,7 @@ export default function WhatsAppButton() {
         aria-label="Chat on WhatsApp"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        className="relative flex items-center justify-center w-14 h-14 rounded-full shadow-lg shadow-green-500/40 bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 transition-all duration-200 hover:shadow-green-500/60 hover:shadow-xl"
+        className="relative flex items-center justify-center w-14 h-14 rounded-full shadow-lg shadow-green-500/40 bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 transition-[background-color,box-shadow,transform] duration-200 hover:shadow-green-500/60 hover:shadow-xl"
       >
         {/* Pulse ring */}
         {pulse && (

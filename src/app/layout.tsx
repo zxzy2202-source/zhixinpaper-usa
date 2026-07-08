@@ -1,17 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
-import { Inter } from "next/font/google";
 import { websiteSchema, organizationSchema } from "@/lib/seo";
 import { getSeoGlobal } from "@/lib/siteSettings";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 // 静态默认元数据（运行时会被 generateMetadata 中的 SEO 设置覆盖）
 const DEFAULT_TITLE = "Zhixin Paper — Thermal Paper Rolls & Labels Manufacturer";
@@ -84,10 +76,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
       <head>
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema()) }}
@@ -108,6 +98,12 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-slate-900 antialiased font-sans">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-blue-700 focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
         {children}
         <WhatsAppButton />
         {/* OKKI CRM 访客分析脚本 */}

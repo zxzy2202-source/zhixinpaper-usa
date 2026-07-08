@@ -25,12 +25,12 @@ export type HeroConfig = {
 
 export const DEFAULT_HERO_HOME: HeroConfig = {
   badge: "ISO 9001 Certified Manufacturer · Est. 2010",
-  headlineLine1: "One-Stop",
+  headlineLine1: "Regional",
   headlineHighlight: "Thermal",
-  headlineLine2: "Consumables",
-  headlineLine3: "Platform",
+  headlineLine2: "Paper",
+  headlineLine3: "Supply",
   subtitle:
-    "Thermal paper rolls & thermal labels for distributors, importers, and local factories in Europe, USA & Canada. Custom OEM · BPA-Free · Stable Supply · Full Compliance Documentation.",
+    "Thermal paper rolls and labels for distributors in Europe, the USA, and Canada. Share your size, volume, destination, and certificate needs before ordering.",
   primaryCtaText: "Get a Custom Quote",
   primaryCtaHref: "/quote",
   secondaryCtaText: "Request Free Samples",

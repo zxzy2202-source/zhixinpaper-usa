@@ -8,8 +8,8 @@ import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// ISR：文章页静态化，后台保存时 revalidatePath(`/blog/${slug}`) 即时刷新
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));

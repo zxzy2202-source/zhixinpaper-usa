@@ -54,7 +54,7 @@ function ProductsMegaMenu() {
               <Link
                 key={p.slug}
                 href={`/products/thermal-paper-rolls/${p.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2.5 rounded-lg text-sm transition-all group min-h-[40px] ${
+                className={`flex items-center justify-between px-2.5 py-2.5 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] group min-h-[40px] ${
                   pathname === `/products/thermal-paper-rolls/${p.slug}`
                     ? "bg-blue-50 text-blue-600 font-semibold"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -84,7 +84,7 @@ function ProductsMegaMenu() {
               <Link
                 key={l.slug}
                 href={`/products/thermal-labels/${l.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2.5 rounded-lg text-sm transition-all group min-h-[40px] ${
+                className={`flex items-center justify-between px-2.5 py-2.5 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] group min-h-[40px] ${
                   pathname === `/products/thermal-labels/${l.slug}`
                     ? "bg-blue-50 text-blue-600 font-semibold"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -112,7 +112,7 @@ function ProductsMegaMenu() {
               </Link>
               <Link
                 href="/samples"
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:border-blue-300 hover:text-blue-600 transition-all"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:border-blue-300 hover:text-blue-600 transition-[background-color,border-color,color,box-shadow,transform]"
               >
                 Free Samples →
               </Link>
@@ -120,13 +120,13 @@ function ProductsMegaMenu() {
             <div className="flex gap-2">
               <Link
                 href="/oem-custom/moq-guide"
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-600 text-xs font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-all"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-600 text-xs font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-[background-color,border-color,color,box-shadow,transform]"
               >
                 MOQ Guide
               </Link>
               <Link
                 href="/oem-custom/sample-process"
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-600 text-xs font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-all"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 text-slate-600 text-xs font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-[background-color,border-color,color,box-shadow,transform]"
               >
                 How Sampling Works
               </Link>
@@ -139,7 +139,7 @@ function ProductsMegaMenu() {
       <div className="bg-slate-50 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-xs text-slate-400">BPA-free · ISO 9001 · FSC®</span>
-          <Link href="/samples" className="flex items-center gap-1 text-xs font-semibold text-slate-700 border border-slate-200 px-2.5 py-1 rounded hover:border-blue-300 hover:text-blue-600 transition-all">
+          <Link href="/samples" className="flex items-center gap-1 text-xs font-semibold text-slate-700 border border-slate-200 px-2.5 py-1 rounded hover:border-blue-300 hover:text-blue-600 transition-[background-color,border-color,color,box-shadow,transform]">
             Free Samples
           </Link>
         </div>
@@ -187,7 +187,7 @@ function IndustriesMegaMenu() {
               <Link
                 key={i.slug}
                 href={`/industries/${i.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-all ${
+                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
                   pathname === `/industries/${i.slug}`
                     ? "bg-blue-50 text-blue-600 font-semibold"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -213,7 +213,7 @@ function IndustriesMegaMenu() {
               <Link
                 key={i.slug}
                 href={`/industries/${i.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-all ${
+                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
                   pathname === `/industries/${i.slug}`
                     ? "bg-blue-50 text-blue-600 font-semibold"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -232,7 +232,7 @@ function IndustriesMegaMenu() {
       <div className="bg-slate-50 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-xs text-slate-400">Serving 13+ industries worldwide</span>
-          <Link href="/quote" className="flex items-center gap-1 text-xs font-semibold text-white bg-blue-600 px-2.5 py-1 rounded hover:bg-blue-700 transition-all">
+          <Link href="/quote" className="flex items-center gap-1 text-xs font-semibold text-white bg-blue-600 px-2.5 py-1 rounded hover:bg-blue-700 transition-[background-color,border-color,color,box-shadow,transform]">
             Get a Quote
           </Link>
         </div>
@@ -263,7 +263,7 @@ function FactoryDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all group ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href
                   ? "bg-blue-50 text-blue-600"
                   : "text-slate-700 hover:bg-slate-50"
@@ -314,7 +314,7 @@ function ComplianceDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all group ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href
                   ? "bg-blue-50 text-blue-600"
                   : "text-slate-700 hover:bg-slate-50"
@@ -379,7 +379,7 @@ function ResourcesDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-all group ${
+              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href || pathname.startsWith(item.href + "/")
                   ? "bg-blue-50 text-blue-600"
                   : "text-slate-700 hover:bg-slate-50"
@@ -414,7 +414,7 @@ function AboutDropdown() {
       <div className="p-2">
         <Link
           href="/about"
-          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-all group ${
+          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
             pathname === "/about" ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50"
           }`}
         >
@@ -431,7 +431,7 @@ function AboutDropdown() {
 
         <Link
           href="/contact"
-          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-all group ${
+          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
             pathname === "/contact" ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50"
           }`}
         >
@@ -488,7 +488,7 @@ function MarketsDropdown() {
               <Link
                 key={c.slug}
                 href={`/eu/${c.slug}`}
-                className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-sm transition-all ${
+                className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
                   pathname === `/eu/${c.slug}`
                     ? "bg-blue-50 text-blue-600 font-semibold"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -505,7 +505,7 @@ function MarketsDropdown() {
         <div className="pt-3 border-t border-slate-100 space-y-0.5">
           <Link
             href="/us"
-            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/us")
                 ? "bg-blue-50 text-blue-600 font-semibold"
                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
@@ -517,7 +517,7 @@ function MarketsDropdown() {
           </Link>
           <Link
             href="/ca"
-            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/ca")
                 ? "bg-blue-50 text-blue-600 font-semibold"
                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
@@ -665,7 +665,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
           scrolled
             ? "bg-[#0F2B5B]/98 backdrop-blur-md shadow-sm border-b border-[#1a3a6e]"
             : "bg-[#0F2B5B] border-b border-[#1a3a6e]"
@@ -732,7 +732,7 @@ export default function Header() {
                     href={href}
                     aria-haspopup={hasDrop ? "true" : undefined}
                     aria-expanded={hasDrop && activeMenu === label ? "true" : undefined}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform] ${
                       active
                         ? "text-amber-400 bg-white/10"
                         : "text-white/90 hover:text-white hover:bg-white/10"
@@ -767,7 +767,7 @@ export default function Header() {
             <div className="hidden xl:flex items-center gap-2 shrink-0">
             <Link
               href="/samples"
-              className="px-4 py-2 text-sm font-semibold text-white/80 hover:text-white border border-white/20 rounded-lg hover:border-white/40 transition-all"
+              className="px-4 py-2 text-sm font-semibold text-white/80 hover:text-white border border-white/20 rounded-lg hover:border-white/40 transition-[background-color,border-color,color,box-shadow,transform]"
             >
               Free Samples
             </Link>
@@ -783,9 +783,12 @@ export default function Header() {
           <button
             className="xl:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            type="button"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
           </button>
         </nav>
       </header>
@@ -793,8 +796,13 @@ export default function Header() {
       {/* Mobile menu overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] xl:hidden">
-          <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="absolute top-[72px] left-0 right-0 bg-white border-b border-slate-200 shadow-2xl max-h-[calc(100vh-72px)] overflow-y-auto">
+          <button
+            type="button"
+            className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div id="mobile-navigation" className="absolute top-[72px] left-0 right-0 bg-white border-b border-slate-200 shadow-2xl max-h-[calc(100vh-72px)] overflow-y-auto overscroll-contain">
             <div className="p-4 space-y-1">
               {NAV_LABELS.map((label) => {
                 const href = navHref[label];
@@ -808,9 +816,13 @@ export default function Header() {
                         <button
                           className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                           onClick={() => setMobileExpanded(mobileExpanded === label ? null : label)}
+                          aria-expanded={mobileExpanded === label}
+                          aria-controls={`mobile-submenu-${label.toLowerCase()}`}
+                          type="button"
                         >
                           <span>{label}</span>
                           <ChevronDown
+                            aria-hidden="true"
                             className={`w-4 h-4 transition-transform text-slate-400 ${
                               mobileExpanded === label ? "rotate-180" : ""
                             }`}
@@ -818,7 +830,7 @@ export default function Header() {
                         </button>
 
                         {mobileExpanded === label && (
-                          <div className="ml-4 mt-1 pb-2 space-y-0.5">
+                          <div id={`mobile-submenu-${label.toLowerCase()}`} className="ml-4 mt-1 pb-2 space-y-0.5">
                             {items.map((item) => (
                               <Link
                                 key={item.href}

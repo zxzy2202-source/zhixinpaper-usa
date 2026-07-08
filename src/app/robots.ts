@@ -5,7 +5,7 @@ import type { MetadataRoute } from "next";
  * ─────────────────────────────────────────────────────────────────
  * 策略：
  *   1. 主流搜索引擎（Google/Bing/Yandex/Baidu/DuckDuckGo）全开放
- *   2. 屏蔽无 SEO 价值路径：/api/ /admin/ /_next/ /login 等
+ *   2. 屏蔽无 SEO 价值路径：/api/ /admin/ /login 等（/_next/ 保持开放供渲染）
  *   3. 明确允许图片爬虫抓 R2 上的产品图（图片 SEO 关键）
  *   4. 屏蔽常见 AI 训练爬虫，保护原创内容（OEM/工厂参数等商业资产）
  *   5. 屏蔽垃圾爬虫（SemrushBot/AhrefsBot 等），节省服务器资源
@@ -23,9 +23,9 @@ export default function robots(): MetadataRoute.Robots {
           "/api/",          // 所有 API 端点
           "/admin/",        // 后台管理
           "/login",         // 登录页
-          "/_next/",        // Next.js 内部资源
+          // 注意：不屏蔽 /_next/ — Google 渲染页面需要 CSS/JS，
+          // 屏蔽会导致 Search Console 报"资源被屏蔽"并影响渲染评估
           "/data/",         // 本地 SQLite 文件目录（防意外暴露）
-          "*.json$",        // 屏蔽所有裸 JSON
           "/*?*utm_*",      // 屏蔽 UTM 参数页面（避免重复收录）
           "/*?*ref=*",
           "/*?*fbclid=*",
@@ -37,7 +37,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/"],
-        disallow: ["/api/", "/admin/", "/login", "/_next/static/chunks/"],
+        disallow: ["/api/", "/admin/", "/login"],
       },
       {
         userAgent: "Googlebot-Image",

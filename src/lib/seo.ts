@@ -110,7 +110,8 @@ export function organizationSchema() {
     ],
     sameAs: [
       "https://www.linkedin.com/company/zhixin-paper",
-      "https://www.alibaba.com/",
+      // 如需加 Alibaba，请填店铺完整 URL（如 https://xxx.en.alibaba.com），
+      // 指向 alibaba.com 首页的链接对 SEO 无效
     ],
     hasCredential: [
       { "@type": "EducationalOccupationalCredential", credentialCategory: "ISO 9001:2015" },
@@ -173,19 +174,9 @@ export function productSchema({
       name: SITE_NAME,
       url: SITE_URL,
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: SITE_NAME },
-      priceValidUntil: "2026-12-31",
-      hasMerchantReturnPolicy: {
-        "@type": "MerchantReturnPolicy",
-        applicableCountry: ["US", "DE", "GB", "FR", "NL", "PL", "CA"],
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 30,
-      },
-    },
+    // 不输出 offers：B2B 询价制没有公开价格，缺 price 的 Offer
+    // 会让 Search Console 商家信息校验持续报错
+
     additionalProperty: [
       {
         "@type": "PropertyValue",
@@ -315,14 +306,8 @@ export function websiteSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     description: "ISO 9001 certified manufacturer of BPA-free, FDA-compliant thermal paper rolls and thermal labels. Factory-direct wholesale pricing for distributors in Europe, USA, and Canada. Pallet and container load pricing available.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/products?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+    // 站内没有实现 ?q= 搜索，声明 SearchAction 属于无效结构化数据；
+    // 若日后在 /products 实现搜索，再加回 potentialAction
   };
 }
 
