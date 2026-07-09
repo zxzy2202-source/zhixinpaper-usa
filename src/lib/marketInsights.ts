@@ -36,23 +36,23 @@ export type IndustryBuyerInsight = {
 export const HOMEPAGE_BUYER_PROBLEMS: HomepageBuyerProblem[] = [
   {
     title: "Compliance files before deposit",
-    signal: "EU and North American buyers increasingly ask for BPA-free, REACH, RoHS, FDA, FSC, Prop 65, or phenol-free proof before they approve a new supplier.",
-    response: "We prepare the document pack early so your procurement team can check the grade before the bulk order starts.",
+    signal: "Importers and regulated-use buyers often need BPA-free, REACH, RoHS, FDA, FSC, Prop 65, or phenol-free files before they approve a new thermal paper supplier.",
+    response: "We send the document pack early, so your procurement team can check the grade before the bulk order starts.",
   },
   {
     title: "Roll size and core accuracy",
     signal: "Small errors in width, outer diameter, core ID, or roll length can cause returns, printer jams, and poor marketplace reviews.",
-    response: "We confirm the roll drawing, printer model, packing unit, and tolerance before sampling.",
+    response: "We confirm the roll drawing, printer model, packing unit, and tolerance before samples are made.",
   },
   {
     title: "Print and scan reliability",
-    signal: "Receipt, payment terminal, lottery, casino, parking, and kitchen tickets all fail when barcodes fade, black out, or scan poorly.",
-    response: "We match coating, image life, sensitivity, and top-coat needs to the actual use case.",
+    signal: "Receipt, payment terminal, lottery, casino, parking, and kitchen tickets lose value when barcodes fade, black out, or scan poorly.",
+    response: "We match coating, image life, sensitivity, and top-coat needs to the printer and use case.",
   },
   {
     title: "Packaging and landed-cost control",
-    signal: "Damaged cartons, moisture, crushed rolls, and unclear pallet plans create avoidable cost for importers and FBA sellers.",
-    response: "We quote carton, pallet, mixed-SKU, FOB, CIF, or DDP options with repeat-order packaging details.",
+    signal: "Damaged cartons, moisture, crushed rolls, and unclear pallet plans raise claims and freight costs for importers and FBA sellers.",
+    response: "We quote carton, pallet, mixed-SKU, FOB, CIF, or DDP options with packaging details for repeat orders.",
   },
 ];
 

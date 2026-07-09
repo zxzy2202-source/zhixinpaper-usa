@@ -61,14 +61,14 @@ const FOOTER_SECTIONS: FooterSection[] = [
     ],
   },
   {
-    title: "Markets",
+    title: "Compliance Routes",
     links: [
-      { label: "Europe", href: "/eu" },
-      { label: "United States", href: "/us" },
-      { label: "Canada", href: "/ca" },
-      { label: "FDA Compliant", href: "/us/fda-compliant" },
-      { label: "EU Food Contact", href: "/compliance/eu-food-contact" },
-      { label: "Cannabis Labels", href: "/us/cannabis-labels" },
+      { label: "REACH / RoHS Route", href: "/eu" },
+      { label: "FDA / Prop 65 Route", href: "/us" },
+      { label: "Bilingual Document Route", href: "/ca" },
+      { label: "FDA Documents", href: "/us/fda-compliant" },
+      { label: "Food Contact Files", href: "/compliance/eu-food-contact" },
+      { label: "Specialty Labels", href: "/us/cannabis-labels" },
     ],
   },
   {
@@ -138,7 +138,7 @@ export default function Footer() {
               Certified thermal paper supplier
             </p>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-400">
-              ISO-managed production, BPA-free materials, and export-ready documentation for distributors in Europe and North America.
+              ISO-managed production, BPA-free materials, and export-ready documentation for distributors and importers.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -176,7 +176,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm leading-7 text-slate-400">
-              {COMPANY.description} ISO 9001 certified since {COMPANY.founded}.
+              Manufacturer of thermal paper rolls and thermal labels for distributors, importers, and private-label buyers. ISO 9001 certified since {COMPANY.founded}.
             </p>
 
             <div className="mt-6 space-y-3 text-sm text-slate-400">
@@ -230,10 +230,10 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/eu" className="inline-flex items-center gap-1.5 transition-colors hover:text-slate-300">
               <Globe2 className="h-3.5 w-3.5" />
-              Europe
+              REACH Route
             </Link>
-            <Link href="/us" className="transition-colors hover:text-slate-300">USA</Link>
-            <Link href="/ca" className="transition-colors hover:text-slate-300">Canada</Link>
+            <Link href="/us" className="transition-colors hover:text-slate-300">FDA Route</Link>
+            <Link href="/ca" className="transition-colors hover:text-slate-300">Bilingual Docs</Link>
             <Link href="/sitemap.xml" className="transition-colors hover:text-slate-300">Sitemap</Link>
           </div>
         </div>

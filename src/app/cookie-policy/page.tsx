@@ -32,7 +32,7 @@ export default function CookiePolicyPage() {
               <h2 className="font-bold text-slate-900 text-xl mt-8">Managing Cookies</h2>
               <p>You can control and delete cookies through your browser settings. Note that disabling cookies may affect website functionality.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Contact</h2>
-              <p>For cookie-related inquiries, contact us at sales@zhixinpaper.com.</p>
+              <p>For cookie-related inquiries, contact us at Sales@zxpapers.com.</p>
             </div>
           </div>
         </section>

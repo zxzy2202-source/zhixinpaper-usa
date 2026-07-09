@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES, GEO_REGIONS } from "@/lib/data";
+import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES } from "@/lib/data";
 import {
   ChevronDown, Menu, X, Phone, Mail, ArrowRight,
   Globe, ShieldCheck, BookOpen, Users,
@@ -465,44 +465,24 @@ function AboutDropdown() {
   );
 }
 
-// ─── Markets GEO Dropdown ──────────────────────────────────────────────────────
+// ─── Export Routes Dropdown ────────────────────────────────────────────────────
 function MarketsDropdown() {
   const pathname = usePathname();
-  const eu = GEO_REGIONS.find(r => r.slug === "eu");
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/80 overflow-hidden w-[340px]">
-      <div className="p-4">
-        {/* Europe */}
-        <div className="mb-3">
+      <div className="p-4 space-y-0.5">
           <Link
             href="/eu"
-            className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 hover:text-blue-600 transition-colors"
+            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+              pathname.startsWith("/eu")
+                ? "bg-blue-50 text-blue-600 font-semibold"
+                : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+            }`}
           >
-            <Globe className="w-3.5 h-3.5" />
-            Europe (EU)
-
+            <Globe className="w-4 h-4 text-slate-400" />
+            REACH / RoHS Route
           </Link>
-          <div className="pl-2 space-y-0.5">
-            {eu?.countries?.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/eu/${c.slug}`}
-                className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
-                  pathname === `/eu/${c.slug}`
-                    ? "bg-blue-50 text-blue-600 font-semibold"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-              >
-                <span className="text-base leading-none">{c.flag}</span>
-                {c.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* US & Canada */}
-        <div className="pt-3 border-t border-slate-100 space-y-0.5">
           <Link
             href="/us"
             className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
@@ -511,9 +491,8 @@ function MarketsDropdown() {
                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            <span className="text-base leading-none">🇺🇸</span>
-            United States (US)
-
+            <FileText className="w-4 h-4 text-slate-400" />
+            FDA / Prop 65 Route
           </Link>
           <Link
             href="/ca"
@@ -523,11 +502,9 @@ function MarketsDropdown() {
                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            <span className="text-base leading-none">🇨🇦</span>
-            Canada (CA)
-
+            <BookOpen className="w-4 h-4 text-slate-400" />
+            Bilingual Document Route
           </Link>
-        </div>
       </div>
     </div>
   );
@@ -535,7 +512,7 @@ function MarketsDropdown() {
 
 // ─── Nav config ───────────────────────────────────────────────────────────────
 // Top-level nav labels
-const NAV_LABELS = ["Home", "Products", "Industries", "Factory", "Compliance", "Resources", "About", "Markets"] as const;
+const NAV_LABELS = ["Home", "Products", "Industries", "Factory", "Compliance", "Resources", "About", "Export"] as const;
 type NavLabel = typeof NAV_LABELS[number];
 
 // Dropdown alignment: "center" | "left" | "right"
@@ -547,7 +524,7 @@ const NAV_ALIGN: Record<NavLabel, "center" | "left" | "right"> = {
   Compliance: "center",
   Resources:  "center",
   About:      "right",
-  Markets:    "right",
+  Export:     "right",
 };
 
 // Mobile items
@@ -592,10 +569,10 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "About Us", href: "/about" },
     { label: "Contact",  href: "/contact", tag: "P1" },
   ],
-  Markets: [
-    { label: "🇪🇺 Europe (EU)",        href: "/eu" },
-    { label: "🇺🇸 United States (US)", href: "/us" },
-    { label: "🇨🇦 Canada (CA)",        href: "/ca" },
+  Export: [
+    { label: "REACH / RoHS Route",        href: "/eu" },
+    { label: "FDA / Prop 65 Route",       href: "/us" },
+    { label: "Bilingual Document Route",  href: "/ca" },
   ],
 };
 
@@ -638,7 +615,7 @@ export default function Header() {
     Compliance: "/compliance",
     Resources:  "/blog",
     About:      "/about",
-    Markets:    "/eu",
+    Export:     "/eu",
   };
 
   const renderDropdown = (label: NavLabel) => {
@@ -649,7 +626,7 @@ export default function Header() {
       case "Compliance":  return <ComplianceDropdown />;
       case "Resources":   return <ResourcesDropdown />;
       case "About":       return <AboutDropdown />;
-      case "Markets":     return <MarketsDropdown />;
+      case "Export":      return <MarketsDropdown />;
       default:            return null;
     }
   };
@@ -719,7 +696,7 @@ export default function Header() {
               const hasDrop = hasDropdown(label);
               const active = label === "Home"
                 ? pathname === "/"
-                : isActive(href) || (label === "Markets" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca")));
+                : isActive(href) || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca")));
 
               return (
                 <div

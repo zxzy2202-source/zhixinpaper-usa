@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://www.zhixinpaper.com";
 export const SITE_NAME = "Zhixin Paper";
-export const CONTACT_EMAIL = "sales@zhixinpaper.com";
+export const CONTACT_EMAIL = "Sales@zxpapers.com";
 export const SALES_PHONE_E164 = "+8615339247872";
 export const WHATSAPP_PHONE_E164 = "+8618792771927";
 const DEFAULT_IMAGE = "/images/og-default.jpg";

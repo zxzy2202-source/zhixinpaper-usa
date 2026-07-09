@@ -29,9 +29,9 @@ export default function PrivacyPolicyPage() {
               <h2 className="font-bold text-slate-900 text-xl mt-8">How We Use Your Information</h2>
               <p>We use the information we collect to respond to your inquiries, process quote requests, send product samples, and provide customer support. We do not sell your personal information to third parties.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">GDPR Rights</h2>
-              <p>If you are located in the European Union, you have certain rights under the General Data Protection Regulation (GDPR), including the right to access, correct, or delete your personal data. To exercise these rights, please contact us at sales@zhixinpaper.com.</p>
+              <p>If you are located in the European Union, you have certain rights under the General Data Protection Regulation (GDPR), including the right to access, correct, or delete your personal data. To exercise these rights, please contact us at Sales@zxpapers.com.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Contact</h2>
-              <p>For privacy-related inquiries, contact us at sales@zhixinpaper.com.</p>
+              <p>For privacy-related inquiries, contact us at Sales@zxpapers.com.</p>
             </div>
           </div>
         </section>

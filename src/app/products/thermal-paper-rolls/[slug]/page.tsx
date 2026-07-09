@@ -85,6 +85,65 @@ const STANDARD_POS_PAGE = {
   ],
 };
 
+const STANDARD_POS_HERO_PROOFS = [
+  "Measured roll length before shipment",
+  "BPA-free, REACH and Prop 65 files",
+  "Fit check for Epson, Star, Clover and PAX",
+  "Shrink-wrap cartons for moisture control",
+];
+
+const STANDARD_POS_RFQ_FIELDS = [
+  "Roll width + target length or OD",
+  "Core ID, winding direction and carton count",
+  "Printer / payment terminal model",
+  "Destination market + document pack required",
+];
+
+const STANDARD_POS_DECISION_CARDS = [
+  {
+    label: "Specification lock",
+    title: "Confirm the roll before you confirm the price.",
+    body: "Width, OD, real length, core ID, paper GSM, winding direction and carton count are checked before sampling.",
+  },
+  {
+    label: "Field reliability",
+    title: "Built around the complaints buyers actually see.",
+    body: "Low dust coating, stable diameter and clean slitting help reduce jams, fading, short rolls and counter returns.",
+  },
+  {
+    label: "Import approval",
+    title: "Compliance files travel with the quote.",
+    body: "BPA-free, REACH, RoHS, Prop 65, FSC, ISO and TDS files can be prepared before your internal approval.",
+  },
+];
+
+const STANDARD_POS_RISK_MAP = [
+  {
+    risk: "Short rolls",
+    proof: "Measured length, OD and carton count locked on the quote sheet.",
+  },
+  {
+    risk: "Printer jams",
+    proof: "Core ID, width tolerance, winding direction and target printer model checked before sampling.",
+  },
+  {
+    risk: "Fading receipts",
+    proof: "Thermal coating, storage conditions and image-life expectation documented in the TDS.",
+  },
+  {
+    risk: "Chemical claims",
+    proof: "BPA-free, BPS-free or phenol-free document routes prepared for EU, US and Canada buyers.",
+  },
+  {
+    risk: "Crushed cartons",
+    proof: "Shrink wrap, export cartons and pallet plan matched to LCL, pallet or container shipping.",
+  },
+  {
+    risk: "Approval delays",
+    proof: "SGS, Intertek, ISO, REACH and FSC file requests collected at the RFQ stage.",
+  },
+];
+
 export async function generateStaticParams() {
   return THERMAL_PAPER_ROLLS.map((roll) => ({ slug: roll.slug }));
 }
@@ -231,6 +290,24 @@ export default async function RollDetailPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
+      {isStandardPos && (
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .standard-pos-hero-grid {
+                display: grid;
+                gap: 2rem;
+              }
+              @media (min-width: 1024px) {
+                .standard-pos-hero-grid {
+                  grid-template-columns: minmax(0, 1fr) minmax(340px, 410px);
+                  align-items: center;
+                }
+              }
+            `,
+          }}
+        />
+      )}
       <main>
 
         {/* ── HERO: Full-width product image with overlay info ── */}
@@ -249,7 +326,7 @@ export default async function RollDetailPage({ params }: Props) {
           </div>
 
           {/* Large product image */}
-          <div className="relative w-full" style={{ height: "520px" }}>
+          <div className="relative overflow-hidden">
             <Image
               src="/images/thermal-rolls-product.jpg"
               alt={isStandardPos ? "BPA-free POS receipt paper rolls for Europe USA and Canada distributors" : `${roll.name} - Thermal Paper Rolls`}
@@ -258,13 +335,14 @@ export default async function RollDetailPage({ params }: Props) {
               preload
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/92 via-slate-900/55 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/78 to-slate-900/42" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
             {/* Overlay content */}
-            <div className="absolute inset-0 flex items-center">
-              <div className="container-site">
-                <div className="max-w-xl">
+            <div className="relative z-10">
+              <div className="container-site py-10 md:py-14 lg:py-16">
+                <div className="standard-pos-hero-grid">
+                  <div className="max-w-3xl">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
                     <span className="text-[10px] font-bold tracking-widest uppercase text-blue-400">
@@ -278,52 +356,104 @@ export default async function RollDetailPage({ params }: Props) {
                       }`}>{roll.tag}</span>
                     )}
                   </div>
-                  <h1 className="font-bold text-white text-4xl md:text-6xl leading-tight mb-4 drop-shadow-lg">
+                  <h1 className="font-bold text-white text-4xl md:text-5xl xl:text-6xl leading-tight mb-4 drop-shadow-lg">
                     {isStandardPos ? STANDARD_POS_PAGE.title : roll.name}
                   </h1>
-                  <p className="text-blue-300 text-xl font-medium mb-5">
+                  <p className="max-w-xl text-blue-300 text-xl font-medium mb-5">
                     {isStandardPos ? STANDARD_POS_PAGE.subtitle : roll.subtitle}
                   </p>
                   <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-xl font-light">
                     {isStandardPos ? STANDARD_POS_PAGE.intro : heroText}
                   </p>
+                  {isStandardPos && (
+                    <div className="mb-8 grid gap-2 sm:grid-cols-2">
+                      {STANDARD_POS_HERO_PROOFS.map((proof) => (
+                        <div key={proof} className="flex min-h-11 items-center gap-2 border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-slate-100 backdrop-blur-sm">
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-300" />
+                          <span>{proof}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-900/40 text-sm">
+                    <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/40 transition-all hover:bg-blue-500">
                       Request a Quote <ArrowRight className="w-4 h-4" />
                     </Link>
-                    <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm">
+                    <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
                       Request Free Samples
                     </Link>
                     <a
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm"
+                      className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20"
                     >
                       <Download className="w-4 h-4" /> Compliance Docs
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Bottom stats bar */}
-            <div className="absolute bottom-0 left-0 right-0">
-              <div className="container-site">
-                <div className="grid grid-cols-2 md:flex md:flex-row md:items-center gap-0 bg-white/10 backdrop-blur-md border-t border-white/10 divide-x divide-white/10 rounded-t-xl overflow-hidden w-fit">
-                  {[
-                    { icon: <Package className="w-4 h-4" />, label: "MOQ", value: roll.moq },
-                    { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "10–15 Days" },
-                    { icon: <Award className="w-4 h-4" />, label: "Certified", value: "ISO 9001" },
-                    { icon: <Shield className="w-4 h-4" />, label: "BPA-Free", value: "Available" },
-                    { icon: <Truck className="w-4 h-4" />, label: "Markets", value: isStandardPos ? "EU / US / CA" : "Global" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center gap-3 px-5 py-3">
-                      <span className="text-blue-400">{item.icon}</span>
-                      <div>
-                        <div className="text-[9px] tracking-widest uppercase text-slate-400 leading-none mb-0.5">{item.label}</div>
-                        <div className="font-bold text-white text-sm leading-none">{item.value}</div>
+                  <div className="border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-950/30 md:p-6">
+                    {isStandardPos ? (
+                      <>
+                        <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-5">
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">RFQ starter pack</p>
+                            <h2 className="mt-2 text-2xl font-extrabold tracking-normal text-slate-950">
+                              Send four details. Get a usable landed-cost quote.
+                            </h2>
+                          </div>
+                          <div className="hidden h-11 w-11 shrink-0 items-center justify-center bg-blue-600 text-white sm:flex">
+                            <MessageSquare className="h-5 w-5" />
+                          </div>
+                        </div>
+                        <div className="mt-5 grid gap-3">
+                          {STANDARD_POS_RFQ_FIELDS.map((field, index) => (
+                            <div key={field} className="flex items-start gap-3 bg-slate-50 p-3">
+                              <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-slate-950 text-xs font-bold text-white">
+                                {index + 1}
+                              </span>
+                              <span className="text-sm font-semibold leading-6 text-slate-700">{field}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-5 grid grid-cols-3 gap-2 border-t border-slate-200 pt-5 text-center">
+                          {[
+                            ["MOQ", roll.moq],
+                            ["Lead", "10-15 days"],
+                            ["Markets", "EU / US / CA"],
+                          ].map(([label, value]) => (
+                            <div key={label} className="bg-blue-50 px-2 py-3">
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700">{label}</p>
+                              <p className="mt-1 text-sm font-extrabold text-slate-950">{value}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <Link
+                          href="/quote"
+                          className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                        >
+                          Start POS roll quote
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </>
+                    ) : (
+                      <div className="grid gap-3">
+                        {[
+                          { icon: <Package className="w-4 h-4" />, label: "MOQ", value: roll.moq },
+                          { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "10-15 Days" },
+                          { icon: <Award className="w-4 h-4" />, label: "Certified", value: "ISO 9001" },
+                          { icon: <Shield className="w-4 h-4" />, label: "BPA-Free", value: "Available" },
+                        ].map((item) => (
+                          <div key={item.label} className="flex items-center gap-3 bg-slate-50 p-4">
+                            <span className="text-blue-600">{item.icon}</span>
+                            <div>
+                              <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{item.label}</div>
+                              <div className="text-sm font-bold text-slate-950">{item.value}</div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-                  ))}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -353,23 +483,39 @@ export default async function RollDetailPage({ params }: Props) {
         {isStandardPos && (
           <section className="bg-white py-14 border-b border-slate-100">
             <div className="container-site">
-              <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+              <div className="mb-8 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
                 <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Users className="w-5 h-5 text-blue-600" />
-                    <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Who this page is for</span>
-                  </div>
-                  <h2 className="text-3xl font-extrabold tracking-normal text-slate-950">
-                    Built for buyers who reorder receipt rolls every month.
+                  <p className="section-label">POS roll buying cockpit</p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                    Move from sample request to reorder without hidden roll risks.
                   </h2>
-                  <p className="mt-4 text-base leading-8 text-slate-600">
-                    If your customer complains about short rolls, printer jams, faded receipts, or crushed cartons,
-                    this page gives your procurement team the checks needed before sampling and bulk order approval.
-                  </p>
-                  <div className="mt-6 grid gap-3">
+                </div>
+                <p className="text-sm leading-7 text-slate-600">
+                  This page is structured for distributors, POS equipment resellers and retail buyers who need
+                  a stable repeat-order thermal receipt roll, not a one-time commodity quote.
+                </p>
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-3">
+                {STANDARD_POS_DECISION_CARDS.map((card) => (
+                  <div key={card.label} className="border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/50">
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">{card.label}</p>
+                    <h3 className="mt-3 text-xl font-extrabold tracking-normal text-slate-950">{card.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{card.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
+                <div className="bg-slate-950 p-6 text-white">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-sky-300" />
+                    <h3 className="text-lg font-extrabold tracking-normal text-white">Built for monthly reorder buyers</h3>
+                  </div>
+                  <div className="mt-5 grid gap-3">
                     {STANDARD_POS_PAGE.buyerTypes.map((type) => (
-                      <div key={type} className="flex items-start gap-3 border-t border-slate-200 pt-3 text-sm font-medium text-slate-700">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+                      <div key={type} className="flex items-start gap-3 border-t border-white/10 pt-3 text-sm leading-6 text-slate-200">
+                        <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-300" />
                         {type}
                       </div>
                     ))}
@@ -377,20 +523,25 @@ export default async function RollDetailPage({ params }: Props) {
                 </div>
 
                 <div className="border border-slate-200 bg-slate-50 p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <MessageSquare className="w-5 h-5 text-blue-600" />
-                    <h2 className="text-xl font-extrabold tracking-normal text-slate-950">Quote checklist</h2>
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <MessageSquare className="h-5 w-5 text-blue-600" />
+                      <h3 className="text-lg font-extrabold tracking-normal text-slate-950">Quote checklist</h3>
+                    </div>
+                    <span className="hidden text-xs font-bold uppercase tracking-widest text-slate-400 sm:inline">
+                      24h response
+                    </span>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {STANDARD_POS_PAGE.quoteChecklist.map((item) => (
-                      <div key={item} className="bg-white p-4 text-sm leading-6 text-slate-700">
+                      <div key={item} className="min-h-20 bg-white p-4 text-sm font-medium leading-6 text-slate-700">
                         {item}
                       </div>
                     ))}
                   </div>
                   <Link
                     href="/quote"
-                    className="mt-6 inline-flex items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                    className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
                   >
                     Send POS roll details
                     <ArrowRight className="w-4 h-4" />
@@ -401,22 +552,66 @@ export default async function RollDetailPage({ params }: Props) {
           </section>
         )}
 
-        {/* ── PRODUCT DESCRIPTION ── */}
-        <section className="py-12 bg-white border-b border-slate-100">
-          <div className="container-site">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-2 mb-4">
-                <MessageSquare className="w-5 h-5 text-blue-600" />
-                <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Product Overview</span>
+        {!isStandardPos && (
+          <section className="py-12 bg-white border-b border-slate-100">
+            <div className="container-site">
+              <div className="max-w-3xl">
+                <div className="flex items-center gap-2 mb-4">
+                  <MessageSquare className="w-5 h-5 text-blue-600" />
+                  <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Product Overview</span>
+                </div>
+                <p className="text-slate-700 text-lg leading-relaxed">
+                  {descText}
+                </p>
               </div>
-              <p className="text-slate-700 text-lg leading-relaxed">
-                {isStandardPos ? STANDARD_POS_PAGE.intro : descText}
-              </p>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {buyerChecks && (
+        {isStandardPos && (
+          <section className="bg-slate-950 py-14 text-white">
+            <div className="container-site">
+              <div className="mb-8 grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">
+                    VoC risk map
+                  </p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-4xl">
+                    Turn common receipt-roll complaints into pre-shipment checks.
+                  </h2>
+                </div>
+                <p className="text-sm leading-7 text-slate-300">
+                  The goal is simple: remove the reasons a distributor loses trust after the first pallet.
+                  We document fit, length, coating, chemical status and packing before the order moves.
+                </p>
+              </div>
+
+              <div className="grid gap-px bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+                {STANDARD_POS_RISK_MAP.map((item) => (
+                  <div key={item.risk} className="bg-slate-950 p-6">
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <h3 className="text-xl font-extrabold tracking-normal text-white">{item.risk}</h3>
+                      <Shield className="h-5 w-5 text-emerald-300" />
+                    </div>
+                    <p className="text-sm leading-7 text-slate-300">{item.proof}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/quote" className="inline-flex min-h-11 items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+                  Request a POS Roll Quote
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link href="/samples" className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                  Test Samples First
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {buyerChecks && !isStandardPos && (
           <section className="bg-slate-950 py-14 text-white">
             <div className="container-site">
               <div className="mb-8 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
