@@ -34,6 +34,7 @@ export default async function IndustryDetailPage({ params }: Props) {
   const industry = INDUSTRIES.find((i) => i.slug === slug);
   if (!industry) notFound();
   const insight = INDUSTRY_BUYER_INSIGHTS[slug] || null;
+  const isPilot = slug === "casino";
 
   const relatedProducts = [
     ...THERMAL_PAPER_ROLLS.filter((r) =>
@@ -49,7 +50,7 @@ export default async function IndustryDetailPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">

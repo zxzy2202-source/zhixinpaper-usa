@@ -9,7 +9,7 @@ interface TrustBadgeProps {
 }
 
 const BADGE_CONFIG: Record<BadgeVariant, { icon: React.ElementType; label: string; color: string }> = {
-  iso:   { icon: Award,        label: "ISO 9001:2015",   color: "bg-blue-50 text-blue-700 border-blue-100" },
+  iso:   { icon: Award,        label: "ISO 9001:2015",   color: "bg-[#f4f0e8] text-[#0f5f5c] border-[#ded6c8]" },
   bpa:   { icon: ShieldCheck,  label: "BPA-Free",        color: "bg-green-50 text-green-700 border-green-100" },
   fsc:   { icon: Leaf,         label: "FSC Certified",   color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
   fda:   { icon: FileCheck,    label: "FDA Compliant",   color: "bg-sky-50 text-sky-700 border-sky-100" },

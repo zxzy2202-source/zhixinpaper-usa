@@ -83,19 +83,19 @@ export default function ContactClient() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-slate-50 flex items-center justify-center px-6 py-20">
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-10 max-w-lg w-full text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-              <CheckCircle2 className="w-8 h-8 text-green-600" />
+        <main className="flex min-h-screen items-center justify-center bg-[#f4f0e8] px-6 py-20">
+          <div className="w-full max-w-lg border border-[#ded6c8] bg-[#fbfaf6] p-10 text-center shadow-sm">
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center border border-[#0f5f5c]/25 bg-[#0f5f5c]/10">
+              <CheckCircle2 className="h-8 w-8 text-[#0f5f5c]" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-800 mb-3">
-              Message Sent Successfully!
+            <h1 className="text-2xl font-bold text-[#33413e] mb-3">
+              Message sent successfully
             </h1>
-            <p className="text-slate-600 mb-2">
+            <p className="text-[#4f5f5a] mb-2">
               Thank you for reaching out. Our sales team will respond within{" "}
               <strong>24 business hours</strong>.
             </p>
-            <p className="text-slate-500 text-sm mb-8">
+            <p className="text-[#4f5f5a] text-sm mb-8">
               A confirmation email has been sent to{" "}
               <strong>{form.email}</strong>. Please check your spam folder if
               you don&apos;t see it within 10 minutes.
@@ -103,13 +103,13 @@ export default function ContactClient() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/products"
-                className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                className="bg-[#b9822f] px-6 py-3 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
               >
                 Browse Products
               </Link>
               <Link
                 href="/quote"
-                className="border border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-lg hover:bg-slate-50 transition-colors"
+                className="border border-[#ded6c8] px-6 py-3 font-semibold text-[#33413e] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f4f0e8] active:translate-y-px"
               >
                 Request a Quote
               </Link>
@@ -126,22 +126,22 @@ export default function ContactClient() {
       <Header />
       <main>
         {/* Page Hero */}
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
+        <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-              <span className="text-xs font-bold tracking-widest uppercase text-blue-600">
+              <span className="h-0.5 w-8 bg-[#b9822f]" />
+              <span className="text-xs font-bold text-[#0f5f5c]">
                 Contact
               </span>
             </div>
-            <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">
-              Get in Touch
+            <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
+              Talk to a paper specialist
             </h1>
-            <p className="text-slate-500 text-lg max-w-2xl mb-6">
+            <p className="text-[#4f5f5a] text-lg max-w-2xl mb-6">
               Contact our sales team for quotes, samples, compliance
               documentation, or technical support. We respond within 24 hours.
             </p>
-            <div className="flex flex-wrap gap-4 text-xs text-slate-500">
+            <div className="flex flex-wrap gap-4 text-xs text-[#4f5f5a]">
               {[
                 "ISO 9001:2015 Certified",
                 "Quote within 24 h",
@@ -149,7 +149,7 @@ export default function ContactClient() {
                 "NDA available on request",
               ].map((t) => (
                 <div key={t} className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />
+                  <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />
                   <span>{t}</span>
                 </div>
               ))}
@@ -158,12 +158,12 @@ export default function ContactClient() {
         </section>
 
         {/* Contact Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-[#fbfaf6]">
           <div className="container-site">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Info */}
               <div>
-                <h2 className="font-bold text-slate-900 text-3xl mb-8">
+                <h2 className="font-bold text-[#14211f] text-3xl mb-8">
                   Contact Information
                 </h2>
                 <div className="space-y-5 mb-10">
@@ -213,24 +213,24 @@ export default function ContactClient() {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-start gap-4 p-4 bg-white border border-slate-200"
+                      className="flex items-start gap-4 p-4 bg-[#fbfaf6] border border-[#ded6c8]"
                     >
-                      <div className="w-10 h-10 bg-blue-600/15 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-600">
+                      <div className="w-10 h-10 bg-[#b9822f]/15 border border-[#0f5f5c]/25 flex items-center justify-center shrink-0 text-[#0f5f5c]">
                         {item.icon}
                       </div>
                       <div>
-                        <div className="font-bold text-blue-600 text-xs tracking-widest uppercase mb-1">
+                        <div className="mb-1 text-xs font-bold text-[#0f5f5c]">
                           {item.label}
                         </div>
                         {item.href ? (
                           <a
                             href={item.href}
-                            className="text-slate-500 hover:text-slate-900 transition-colors text-sm"
+                            className="text-[#4f5f5a] hover:text-[#14211f] transition-colors text-sm"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <span className="text-slate-500 text-sm">
+                          <span className="text-[#4f5f5a] text-sm">
                             {item.value}
                           </span>
                         )}
@@ -241,13 +241,13 @@ export default function ContactClient() {
               </div>
 
               {/* Contact form */}
-              <div className="bg-white border border-slate-200 p-5 sm:p-8">
-                <h2 className="font-bold text-slate-900 text-2xl mb-6">
+              <div className="bg-[#fbfaf6] border border-[#ded6c8] p-5 sm:p-8">
+                <h2 className="font-bold text-[#14211f] text-2xl mb-6">
                   Send a Message
                 </h2>
 
                 {error && (
-                  <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
+                  <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200  mb-6">
                     <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-red-700 text-sm font-medium">
@@ -270,71 +270,71 @@ export default function ContactClient() {
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="contact-first-name" className="block text-xs font-semibold text-[#87918c] mb-2">
                         First Name *
                       </label>
-                      <input
+                      <input id="contact-first-name"
                         type="text"
                         name="firstName"
                         required
                         value={form.firstName}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                         placeholder="John"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="contact-last-name" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Last Name *
                       </label>
-                      <input
+                      <input id="contact-last-name"
                         type="text"
                         name="lastName"
                         required
                         value={form.lastName}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                         placeholder="Smith"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                    <label htmlFor="contact-company" className="block text-xs font-semibold text-[#87918c] mb-2">
                       Company *
                     </label>
-                    <input
+                    <input id="contact-company"
                       type="text"
                       name="company"
                       required
                       value={form.company}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       placeholder="Your Company"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                    <label htmlFor="contact-email" className="block text-xs font-semibold text-[#87918c] mb-2">
                       Email *
                     </label>
-                    <input
+                    <input id="contact-email"
                       type="email"
                       name="email"
                       required
                       value={form.email}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       placeholder="john@company.com"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                    <label htmlFor="contact-country" className="block text-xs font-semibold text-[#87918c] mb-2">
                       Country
                     </label>
-                    <select
+                    <select id="contact-country"
                       name="country"
                       value={form.country}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                     >
                       <option value="">Select Country</option>
                       <option>Germany</option>
@@ -348,36 +348,36 @@ export default function ContactClient() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                    <label htmlFor="contact-subject" className="block text-xs font-semibold text-[#87918c] mb-2">
                       Subject
                     </label>
-                    <input
+                    <input id="contact-subject"
                       type="text"
                       name="subject"
                       value={form.subject}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       placeholder="e.g. Thermal paper rolls inquiry"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                    <label htmlFor="contact-message" className="block text-xs font-semibold text-[#87918c] mb-2">
                       Message *
                     </label>
-                    <textarea
+                    <textarea id="contact-message"
                       name="message"
                       required
                       rows={5}
                       value={form.message}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                      className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors resize-none"
                       placeholder="Tell us about your requirements..."
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-colors shadow-sm text-sm w-full justify-center"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] disabled:bg-[#b9822f]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
                   >
                     {loading ? (
                       <>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "Custom Printed Thermal Paper | Logo Printed Receipt Rolls",
   description: "Custom printed thermal paper rolls and labels with your logo, promotional messaging, and QR codes. Full-color flexographic printing from 50,000 rolls.",
   keywords: "custom printed thermal paper, logo printed receipt rolls, custom thermal paper printing",
+  alternates: { canonical: canonicalUrl("/oem-custom/custom-printing") },
 };
 
 const printOptions = [
@@ -26,8 +28,8 @@ export default function CustomPrintingPage() {
 
     <>
       <Header />
-      <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
+      <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
+      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-blue-300 text-sm mb-6">
             <Link href="/" className="hover:text-white">Home</Link>

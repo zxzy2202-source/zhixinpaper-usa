@@ -17,7 +17,7 @@ const FACTORY_PAGES: Record<string, {
   overview: {
     title: "Factory Overview",
     metaTitle: "Thermal Paper Manufacturing Plant | ISO Certified Factory | Zhixin Paper",
-    metaDesc: "Tour our ISO 9001:2015 certified thermal paper manufacturing facility in China. 30 tonnes/day capacity, 200,000 rolls/day output, serving 80+ countries.",
+    metaDesc: "Tour our ISO 9001:2015 certified thermal paper manufacturing facility in China, with 500M+ rolls annual capacity serving distributors worldwide.",
     hero: "bg-gradient-to-br from-slate-800 to-slate-600",
     subtitle: "ISO 9001:2015 Certified Manufacturing Excellence",
     content: (
@@ -26,7 +26,7 @@ const FACTORY_PAGES: Record<string, {
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-4">About Our Manufacturing Facility</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Established in 2008, our manufacturing facility in Xi'an, Shaanxi, China spans 25,000 m² and houses state-of-the-art thermal paper production equipment. We operate 4 paper coating lines and 15 precision slitting machines, producing 30 tonnes of thermal paper and 200,000 rolls per day.
+              Established in 2008, our manufacturing facility in Xi'an, Shaanxi, China spans 25,000 m² and houses state-of-the-art thermal paper production equipment. Dedicated coating and precision slitting lines support annual capacity of more than 500 million finished rolls.
             </p>
             <p className="text-slate-600 leading-relaxed">
               Our facility is ISO 9001:2015 certified, with full traceability from raw material receipt to finished goods dispatch. Every batch is tested against our internal quality standards before shipment.
@@ -40,7 +40,7 @@ const FACTORY_PAGES: Record<string, {
                 ["Established", "2008"],
                 ["Coating Lines", "4 production lines"],
                 ["Slitting Machines", "15 precision slitters"],
-                ["Daily Output", "30T paper / 200K rolls"],
+                ["Annual Capacity", "500M+ finished rolls"],
                 ["Employees", "320+ staff"],
                 ["Certifications", "ISO 9001:2015, FSC, BPA-Free"],
                 ["Export Markets", "80+ countries"],
@@ -129,19 +129,19 @@ const FACTORY_PAGES: Record<string, {
   },
   capacity: {
     title: "Production Capacity",
-    metaTitle: "Thermal Paper Production Capacity | 30T/Day | 200,000 Rolls/Day | Zhixin Paper",
-    metaDesc: "Zhixin Paper produces 30 tonnes of thermal paper and 200,000 rolls per day. Large inventory buffer ensures stable supply for distributors worldwide.",
+    metaTitle: "Thermal Paper Production Capacity | 500M+ Rolls/Year | Zhixin Paper",
+    metaDesc: "Zhixin Paper supports 500M+ rolls annual production capacity with inventory planning and stable supply for distributors worldwide.",
     hero: "bg-gradient-to-br from-green-800 to-green-600",
-    subtitle: "30 Tonnes/Day · 200,000 Rolls/Day · 15-Day Lead Time",
+    subtitle: "500M+ Rolls/Year · Inventory Planning · 15-Day Standard Lead Time",
     content: (
       <div className="space-y-12">
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Annual Production Capacity</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
             {[
-              { value: "30T", label: "Thermal Paper / Day", sub: "10,950 tonnes/year" },
-              { value: "200K", label: "Rolls / Day", sub: "73M rolls/year" },
-              { value: "500M+", label: "Labels / Year", sub: "All formats combined" },
+              { value: "500M+", label: "Rolls / Year", sub: "Annual converting capacity" },
+              { value: "20+", label: "Slitting Lines", sub: "Precision converting" },
+              { value: "30 Days", label: "Buffer Programme", sub: "For selected core SKUs" },
               { value: "15 Days", label: "Standard Lead Time", sub: "Ex-factory, FOB Qingdao" },
             ].map((stat) => (
               <div key={stat.label} className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm text-center">

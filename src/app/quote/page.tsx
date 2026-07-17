@@ -4,7 +4,21 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { COMPANY } from "@/lib/data";
-import { CheckCircle2, Clock, Package, Truck, Shield, Loader2, AlertCircle } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  FileCheck,
+  Loader2,
+  LockKeyhole,
+  Mail,
+  MessageSquare,
+  Package,
+  Phone,
+  Shield,
+  Truck,
+} from "lucide-react";
 
 const COUNTRIES = [
   "Germany", "United Kingdom", "France", "Netherlands", "Poland", "Belgium",
@@ -37,6 +51,21 @@ const PRODUCTS = [
   { id: "oem", label: "OEM / Private Label" },
 ];
 
+const RFQ_ASSURANCE = [
+  {
+    icon: <LockKeyhole className="h-4 w-4" />,
+    text: "Your buyer data stays confidential. NDA available on request.",
+  },
+  {
+    icon: <Clock className="h-4 w-4" />,
+    text: "Sales reply within 24 business hours, often the same day.",
+  },
+  {
+    icon: <FileCheck className="h-4 w-4" />,
+    text: "Samples and files are matched to the roll grade before production.",
+  },
+];
+
 export default function QuotePage() {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
@@ -60,6 +89,10 @@ export default function QuotePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (selectedProducts.length === 0) {
+      setSubmitError("Please select at least one product so we can route the RFQ to the right sales team.");
+      return;
+    }
     setLoading(true);
     setSubmitError(null);
     try {
@@ -87,27 +120,59 @@ export default function QuotePage() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-slate-50 flex items-center justify-center px-6 py-20">
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-10 max-w-lg w-full text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-              <CheckCircle2 className="w-8 h-8 text-green-600" />
+        <main className="min-h-screen bg-[#f4f0e8] px-6 py-24">
+          <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-stretch">
+            <div className="border border-[#ded6c8] bg-white p-8 shadow-[0_18px_44px_rgba(20,33,31,0.08)] sm:p-10">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center bg-[#e7eee9] text-[#0f5f5c]">
+                <CheckCircle2 className="h-7 w-7" />
+              </div>
+              <h1 className="max-w-2xl text-3xl font-bold text-[#14211f] md:text-4xl">
+                Quote request received
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-8 text-[#4f5f5a]">
+                Our sales team will review the roll spec, destination, compliance needs, and sample plan before replying within 24 business hours.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/products"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#0f5f5c] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#0a4745] active:translate-y-px"
+                >
+                  Browse Products
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/samples"
+                  className="inline-flex min-h-12 items-center justify-center border border-[#c8bcaa] bg-white px-6 py-3 text-sm font-semibold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:text-[#0f5f5c] active:translate-y-px"
+                >
+                  Request Samples
+                </Link>
+              </div>
             </div>
-            <h1 className="text-2xl font-bold text-slate-800 mb-3">Quote Request Received!</h1>
-            <p className="text-slate-600 mb-2">
-              Thank you for your enquiry. Our sales team will review your requirements and respond within{" "}
-              <strong>24 hours</strong> (business days).
-            </p>
-            <p className="text-slate-500 text-sm mb-8">
-              A confirmation email has been sent. Please check your spam folder if you don&apos;t see it within 10 minutes.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/products" className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                Browse Products
-              </Link>
-              <Link href="/samples" className="border border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-lg hover:bg-slate-50 transition-colors">
-                Request Samples
-              </Link>
-            </div>
+
+            <aside className="border border-[#ded6c8] bg-white p-8 shadow-[0_18px_44px_rgba(20,33,31,0.06)]">
+              <h2 className="text-lg font-bold text-[#14211f]">What happens next</h2>
+              <div className="mt-5 grid gap-4">
+                {[
+                  "Confirm size, core, coating, carton count, and printer fit.",
+                  "Match compliance files such as BPA-free, REACH, Prop 65, FDA, FSC, or ISO.",
+                  "Reply with sample plan, lead time, packing notes, and freight option.",
+                ].map((item) => (
+                  <div key={item} className="grid grid-cols-[32px_minmax(0,1fr)] gap-3 text-sm leading-6 text-[#4f5f5a]">
+                    <span className="flex h-8 w-8 items-center justify-center bg-[#e7eee9] text-[#0f5f5c]">
+                      <CheckCircle2 className="h-4 w-4" />
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 border-t border-[#ded6c8] pt-5 text-sm leading-6 text-[#4f5f5a]">
+                Need to add drawings or artwork? Email files to{" "}
+                <a href={`mailto:${COMPANY.email}`} className="font-semibold text-[#0f5f5c] hover:underline">
+                  {COMPANY.email}
+                </a>
+                .
+              </p>
+            </aside>
           </div>
         </main>
         <Footer />
@@ -118,61 +183,85 @@ export default function QuotePage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-slate-50">
+      <main className="min-h-screen bg-[#f4f0e8]">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-blue-800 to-blue-600 text-white pt-32 pb-14">
-          <div className="max-w-5xl mx-auto px-6">
-            <nav className="text-blue-300 text-sm mb-5 flex items-center gap-2">
+        <section className="paper-noise bg-[#101b19] pb-12 pt-28 text-white">
+          <div className="mx-auto max-w-6xl px-6">
+            <nav className="mb-5 flex items-center gap-2 text-sm text-slate-400">
               <Link href="/" className="hover:text-white">Home</Link>
               <span>/</span>
               <span className="text-white">Request a Quote</span>
             </nav>
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">Request a Custom Quote</h1>
-            <p className="text-blue-100 text-lg max-w-2xl">
-              Fill in your requirements below and receive a detailed quote within 24 hours. Free samples available for qualified distributors.
-            </p>
-            <div className="flex flex-wrap gap-5 mt-6 text-sm">
-              {["Response within 24h", "Free samples available", "ISO 9001 certified", "BPA-free options"].map((item) => (
-                <span key={item} className="flex items-center gap-1.5 text-blue-200">
-                  <span className="text-green-400">✓</span> {item}
-                </span>
+            <div className="max-w-3xl">
+              <p className="mb-4 text-xs font-semibold text-[#d6b273]">
+                RFQ intake
+              </p>
+              <h1 className="text-4xl font-bold text-white md:text-5xl">
+                Request a quote with the details buyers actually check
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-8 text-[#c7d0cb] md:text-lg">
+                Share product, destination, volume, and compliance needs. We will match roll spec, files, samples, and freight terms.
+              </p>
+            </div>
+            <div className="mt-7 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-4">
+              {["24-hour reply", "Samples available", "ISO 9001 system", "BPA-free options"].map((item) => (
+                <div key={item} className="flex items-center gap-3 bg-[#08110f]/70 px-4 py-4 text-sm font-semibold text-[#d9dfda]">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d6b273]" />
+                  {item}
+                </div>
               ))}
             </div>
           </div>
         </section>
 
+        <section className="border-b border-[#ded6c8] bg-[#fbfaf6]">
+          <div className="mx-auto grid max-w-6xl gap-px bg-[#ded6c8] px-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { label: "Product", text: "Rolls, labels, OEM, or mixed program" },
+              { label: "Fit", text: "Width, OD, core, printer model, coating" },
+              { label: "Files", text: "REACH, FDA, Prop 65, FSC, ISO, BPA-free" },
+              { label: "Route", text: "FOB, CIF, DDP, pallet, or container terms" },
+            ].map((item) => (
+              <div key={item.label} className="bg-[#fbfaf6] px-5 py-5">
+                <div className="text-sm font-bold text-[#14211f]">{item.label}</div>
+                <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Form + Sidebar */}
-        <section className="max-w-5xl mx-auto px-6 py-12">
-          <div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-8">
+        <section className="mx-auto max-w-6xl px-6 py-12">
+          <div className="flex flex-col-reverse gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_340px]">
             {/* Form */}
-            <div className="lg:col-span-2">
+            <div>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Step 1: Contact */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
-                  <h2 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2">
-                    <span className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                    Contact Information
+                <div className="border border-[#ded6c8] bg-white p-6 shadow-sm sm:p-7">
+                  <h2 className="mb-5 flex items-center gap-3 text-lg font-bold text-[#14211f]">
+                    <span className="flex h-8 w-8 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">1</span>
+                    Contact details
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Full Name <span className="text-red-500">*</span></label>
-                      <input type="text" name="firstName" required autoComplete="given-name" placeholder="John Smith" value={formData.firstName} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all" />
+                      <label htmlFor="quote-first-name" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Full Name <span className="text-red-500">*</span></label>
+                      <input id="quote-first-name" type="text" name="firstName" required autoComplete="given-name" placeholder="Maria Keller" value={formData.firstName} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Company Name <span className="text-red-500">*</span></label>
-                      <input type="text" name="company" required autoComplete="organization" placeholder="Acme Distribution GmbH" value={formData.company} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all" />
+                      <label htmlFor="quote-company" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Company Name <span className="text-red-500">*</span></label>
+                      <input id="quote-company" type="text" name="company" required autoComplete="organization" placeholder="Nordline Distributors GmbH" value={formData.company} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Business Email <span className="text-red-500">*</span></label>
-                      <input type="email" name="email" required autoComplete="email" placeholder="john@company.com" value={formData.email} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all" />
+                      <label htmlFor="quote-email" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Business Email <span className="text-red-500">*</span></label>
+                      <input id="quote-email" type="email" name="email" required autoComplete="email" placeholder="maria@company.com" value={formData.email} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Phone Number</label>
-                      <input type="tel" name="phone" autoComplete="tel" placeholder="+49 30 1234 5678" value={formData.phone} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all" />
+                      <label htmlFor="quote-phone" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Phone Number</label>
+                      <input id="quote-phone" type="tel" name="phone" autoComplete="tel" placeholder="+49 30 1234 5678" value={formData.phone} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Country <span className="text-red-500">*</span></label>
-                      <select name="country" required value={formData.country} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all">
+                      <label htmlFor="quote-country" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Country <span className="text-red-500">*</span></label>
+                      <select id="quote-country" name="country" required value={formData.country} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
                         <option value="">Select your country...</option>
                         {COUNTRIES.map((c) => (
                           <option key={c} value={c}>{c}</option>
@@ -183,96 +272,102 @@ export default function QuotePage() {
                 </div>
 
                 {/* Step 2: Products */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
-                  <h2 className="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
-                    <span className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                    Product Interest <span className="text-red-500">*</span>
+                <div className="border border-[#ded6c8] bg-white p-6 shadow-sm sm:p-7">
+                  <h2 className="mb-2 flex items-center gap-3 text-lg font-bold text-[#14211f]">
+                    <span className="flex h-8 w-8 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">2</span>
+                    Product interest <span className="text-red-500">*</span>
                   </h2>
                   <p className="text-slate-500 text-sm mb-5">Select all products you are interested in sourcing.</p>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {PRODUCTS.map((product) => (
                       <label
                         key={product.id}
-                        className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                        className={`flex cursor-pointer items-center gap-3 border p-3 transition ${
                           selectedProducts.includes(product.id)
-                            ? "border-blue-500 bg-blue-50 text-blue-800"
-                            : "border-slate-200 hover:border-slate-300 text-slate-700"
+                            ? "border-[#0f5f5c] bg-[#e7eee9] text-[#0f5f5c]"
+                            : "border-[#ded6c8] text-[#4f5f5a] hover:border-[#0f5f5c]/40 hover:bg-[#fbfaf6]"
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={selectedProducts.includes(product.id)}
                           onChange={() => toggleProduct(product.id)}
-                          className="w-4 h-4 text-blue-600 rounded accent-blue-600"
+                          className="h-4 w-4 accent-[#0f5f5c]"
                         />
                         <span className="text-sm font-medium">{product.label}</span>
                       </label>
                     ))}
                   </div>
+                  {submitError && selectedProducts.length === 0 && (
+                    <p className="mt-3 text-sm font-medium text-red-600">
+                      Please select at least one product before submitting.
+                    </p>
+                  )}
                 </div>
 
                 {/* Step 3: Order Details */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
-                  <h2 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2">
-                    <span className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                    Order Details
+                <div className="border border-[#ded6c8] bg-white p-6 shadow-sm sm:p-7">
+                  <h2 className="mb-5 flex items-center gap-3 text-lg font-bold text-[#14211f]">
+                    <span className="flex h-8 w-8 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">3</span>
+                    Order details
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Annual Volume</label>
-                      <select name="quantity" value={formData.quantity} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all">
+                      <label htmlFor="quote-quantity" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Annual Volume</label>
+                      <select id="quote-quantity" name="quantity" value={formData.quantity} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
                         <option value="">Select volume range...</option>
-                        <option value="1-5-pallets">1–5 pallets / year (trial)</option>
-                        <option value="6-20-pallets">6–20 pallets / year</option>
-                        <option value="1x20-container">1 × 20&apos; container / year</option>
-                        <option value="1x40-container">1 × 40&apos; container / year</option>
+                        <option value="1-5-pallets">1-5 pallets / year (trial)</option>
+                        <option value="6-20-pallets">6-20 pallets / year</option>
+                        <option value="1x20-container">1 x 20&apos; container / year</option>
+                        <option value="1x40-container">1 x 40&apos; container / year</option>
                         <option value="multi-container">Multiple containers / year</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Preferred Incoterm</label>
-                      <select name="incoterms" value={formData.incoterms} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all">
+                      <label htmlFor="quote-incoterms" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Preferred Incoterm</label>
+                      <select id="quote-incoterms" name="incoterms" value={formData.incoterms} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
                         <option value="">Select incoterm...</option>
-                        <option value="ddp">DDP — Delivered Duty Paid (USA/EU/CA)</option>
+                        <option value="ddp">DDP - Delivered Duty Paid (USA/EU/CA)</option>
                         <option value="fob">FOB Qingdao</option>
                         <option value="cif">CIF Destination Port</option>
                         <option value="exw">EXW Factory</option>
-                        <option value="unsure">Not sure — please advise</option>
+                        <option value="unsure">Not sure - please advise</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Specifications <span className="text-slate-400 font-normal normal-case">(width × diameter, core, gsm)</span></label>
-                      <input type="text" name="specifications" value={formData.specifications} onChange={handleChange} placeholder="e.g. 80×80mm, 12mm core, BPA-free, 55g/m²" className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all" />
+                      <label htmlFor="quote-specifications" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Specifications <span className="font-normal normal-case text-slate-400">(width × diameter, core, gsm)</span></label>
+                      <input id="quote-specifications" type="text" name="specifications" value={formData.specifications} onChange={handleChange} placeholder="80 x 80mm, 12mm core, BPA-free, 55gsm" className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Custom Printing / OEM?</label>
-                      <select name="customPrinting" value={formData.customPrinting} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all">
-                        <option value="no">No — standard product</option>
-                        <option value="logo">Yes — logo / brand printing</option>
-                        <option value="private-label">Yes — private label / OEM</option>
-                        <option value="variable">Yes — variable data printing</option>
+                      <label htmlFor="quote-custom-printing" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Custom Printing / OEM?</label>
+                      <select id="quote-custom-printing" name="customPrinting" value={formData.customPrinting} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
+                        <option value="no">No - standard product</option>
+                        <option value="logo">Yes - logo / brand printing</option>
+                        <option value="private-label">Yes - private label / OEM</option>
+                        <option value="variable">Yes - variable data printing</option>
                       </select>
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Additional Requirements</label>
-                      <textarea name="notes" rows={4} value={formData.notes} onChange={handleChange} placeholder="Certifications needed (BPA-free, REACH, FDA, Prop 65), printer brand/model, temperature range, packaging requirements, target price..." className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all resize-none" />
+                      <label htmlFor="quote-notes" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Additional Requirements</label>
+                      <textarea id="quote-notes" name="notes" rows={4} value={formData.notes} onChange={handleChange} placeholder="Certificates needed, printer brand, storage conditions, carton marks, pallet plan, target price" className="w-full resize-none border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                     </div>
                     <div className="sm:col-span-2">
-                      <div className="flex items-center gap-3 p-4 bg-slate-50 border border-dashed border-slate-300 rounded-lg text-sm text-slate-500">
+                      <div className="flex items-center gap-3 border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
                         <Package className="w-5 h-5 text-slate-400 shrink-0" aria-hidden="true" />
-                        <span>Have spec sheets or artwork files? Email them to <a href={`mailto:${COMPANY.email}`} className="text-blue-600 hover:underline font-medium">{COMPANY.email}</a> — reference your company name in the subject line.</span>
+                        <span>Have spec sheets or artwork files? Email them to <a href={`mailto:${COMPANY.email}`} className="font-medium text-[#0f5f5c] hover:underline">{COMPANY.email}</a> and reference your company name.</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Step 4: Attribution */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
-                  <h2 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2">
-                    <span className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">4</span>
-                    How Did You Find Us?
+                <div className="border border-[#ded6c8] bg-white p-6 shadow-sm sm:p-7">
+                  <h2 className="mb-5 flex items-center gap-3 text-lg font-bold text-[#14211f]">
+                    <span className="flex h-8 w-8 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">4</span>
+                    Source
                   </h2>
-                  <select name="source" value={formData.source} onChange={handleChange} className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50 transition-all">
+                  <label htmlFor="quote-source" className="sr-only">How did you hear about us?</label>
+                  <select id="quote-source" name="source" value={formData.source} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
                     <option value="">Select an option...</option>
                     <option value="google">Google Search</option>
                     <option value="linkedin">LinkedIn</option>
@@ -287,8 +382,8 @@ export default function QuotePage() {
                 </div>
 
                 {/* Submit */}
-                {submitError && (
-                  <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
+                {submitError && selectedProducts.length > 0 && (
+                  <div className="flex items-start gap-3 border border-red-200 bg-red-50 p-4">
                     <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-red-700 text-sm font-medium">Submission failed</p>
@@ -298,23 +393,19 @@ export default function QuotePage() {
                   </div>
                 )}
                 {/* Trust assurance before submit */}
-                <div className="grid sm:grid-cols-3 gap-3 text-xs text-slate-500">
-                  {[
-                    { icon: "🔒", text: "Your data is confidential. NDA available on request." },
-                    { icon: "⚡", text: "Response within 24 business hours, often same day." },
-                    { icon: "📦", text: "Free samples dispatched within 24h for qualified buyers." },
-                  ].map((item) => (
-                    <div key={item.text} className="flex items-start gap-2 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                      <span className="text-base leading-none">{item.icon}</span>
+                <div className="grid gap-3 text-xs text-slate-600 sm:grid-cols-3">
+                  {RFQ_ASSURANCE.map((item) => (
+                    <div key={item.text} className="flex items-start gap-2 border border-[#ded6c8] bg-white p-3">
+                      <span className="mt-0.5 text-[#0f5f5c]">{item.icon}</span>
                       <span>{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-blue-600 text-white font-bold px-10 py-4 rounded-xl hover:bg-blue-700 disabled:opacity-60 transition-all shadow-lg hover:shadow-xl flex items-center gap-2"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#b9822f] px-8 py-4 text-sm font-bold text-white shadow-[0_16px_38px_rgba(185,130,47,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {loading ? (
                       <>
@@ -322,15 +413,18 @@ export default function QuotePage() {
                         Submitting...
                       </>
                     ) : (
-                      "Submit Quote Request →"
+                      <>
+                        Submit quote request
+                        <ArrowRight className="h-4 w-4" />
+                      </>
                     )}
                   </button>
                   <div className="space-y-1">
                     <p className="text-slate-400 text-xs leading-relaxed max-w-xs">
                       By submitting, you agree to our{" "}
-                      <Link href="/privacy-policy" className="text-blue-500 hover:underline">Privacy Policy</Link>. We never share your information.
+                      <Link href="/privacy-policy" className="text-[#0f5f5c] hover:underline">Privacy Policy</Link>. We never share your information.
                     </p>
-                    <p className="text-slate-400 text-xs">Prefer direct contact? <a href={`mailto:${COMPANY.email}`} className="text-blue-500 hover:underline">{COMPANY.email}</a> or WhatsApp {COMPANY.whatsapp}</p>
+                    <p className="text-slate-400 text-xs">Prefer direct contact? <a href={`mailto:${COMPANY.email}`} className="text-[#0f5f5c] hover:underline">{COMPANY.email}</a> or WhatsApp {COMPANY.whatsapp}</p>
                   </div>
                 </div>
               </form>
@@ -338,18 +432,18 @@ export default function QuotePage() {
 
             {/* Sidebar */}
             <div className="space-y-5">
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-                <h3 className="font-bold text-slate-800 text-base mb-4">What to Expect</h3>
+              <div className="border border-[#ded6c8] bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-base font-bold text-[#14211f]">What to expect</h3>
                 <div className="space-y-4">
                   {[
-                    { icon: <Clock className="w-4 h-4" />, title: "24-Hour Response", desc: "Quote within one business day" },
-                    { icon: <Package className="w-4 h-4" />, title: "Free Samples", desc: "For qualified distributors" },
-                    { icon: <Truck className="w-4 h-4" />, title: "15-Day Lead Time", desc: "Standard production" },
-                    { icon: <CheckCircle2 className="w-4 h-4" />, title: "Full Documentation", desc: "Compliance certificates included" },
+                    { icon: <Clock className="w-4 h-4" />, title: "24-hour response", desc: "Quote within one business day" },
+                    { icon: <Package className="w-4 h-4" />, title: "Sample plan", desc: "For qualified distributors" },
+                    { icon: <Truck className="w-4 h-4" />, title: "Freight options", desc: "FOB, CIF, DDP, pallet, or container" },
+                    { icon: <CheckCircle2 className="w-4 h-4" />, title: "Document pack", desc: "Compliance files matched to grade" },
                     { icon: <Shield className="w-4 h-4" />, title: "Confidential", desc: "NDA available on request" },
                   ].map((item) => (
                     <div key={item.title} className="flex items-start gap-3">
-                      <div className="text-blue-600 mt-0.5">{item.icon}</div>
+                      <div className="mt-0.5 text-[#0f5f5c]">{item.icon}</div>
                       <div>
                         <div className="font-semibold text-slate-800 text-sm">{item.title}</div>
                         <div className="text-slate-400 text-xs">{item.desc}</div>
@@ -359,29 +453,29 @@ export default function QuotePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-                <h3 className="font-bold text-slate-800 text-base mb-4">Direct Contact</h3>
+              <div className="border border-[#ded6c8] bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-base font-bold text-[#14211f]">Direct contact</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-2 text-slate-600">
-                    <span>📧</span>
-                    <a href={`mailto:${COMPANY.email}`} className="text-blue-600 hover:underline">{COMPANY.email}</a>
+                    <Mail className="h-4 w-4 text-[#0f5f5c]" />
+                    <a href={`mailto:${COMPANY.email}`} className="text-[#0f5f5c] hover:underline">{COMPANY.email}</a>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
-                    <span>📞</span>
+                    <Phone className="h-4 w-4 text-[#0f5f5c]" />
                     <span>{COMPANY.phone}</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
-                    <span>💬</span>
+                    <MessageSquare className="h-4 w-4 text-[#0f5f5c]" />
                     <span>WhatsApp: {COMPANY.whatsapp}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-blue-50 rounded-2xl border border-blue-100 p-6">
-                <h3 className="font-bold text-slate-800 text-base mb-2">Need Samples First?</h3>
+              <div className="border border-[#c8bcaa] bg-[#f4f0e8] p-6">
+                <h3 className="mb-2 text-base font-bold text-[#14211f]">Need samples first?</h3>
                 <p className="text-slate-600 text-sm mb-4">Test our quality before placing a bulk order. Free sample packs for qualified distributors.</p>
-                <Link href="/samples" className="block text-center bg-white border border-blue-300 text-blue-700 font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-50 transition-colors text-sm">
-                  Request Free Samples →
+                <Link href="/samples" className="block border border-[#c8bcaa] bg-white px-4 py-3 text-center text-sm font-semibold text-[#0f5f5c] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:bg-[#fbfaf6] active:translate-y-px">
+                  Request Samples
                 </Link>
               </div>
             </div>

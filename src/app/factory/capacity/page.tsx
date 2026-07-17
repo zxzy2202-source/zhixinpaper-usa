@@ -3,23 +3,25 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
 export const metadata: Metadata = {
-  title: "Production Capacity | Thermal Paper Daily Output & Lead Times",
+  title: "Production Capacity | Thermal Paper Lead Times & MOQ",
   description: "500M+ rolls annual capacity, 15-day standard lead time, 30-day custom OEM. Flexible MOQ from 5,000 rolls. Reliable supply chain for European and North American distributors.",
-  keywords: "thermal paper production capacity, daily output, lead time thermal paper, MOQ thermal labels",
+  keywords: "thermal paper production capacity, lead time thermal paper, MOQ thermal labels",
+  alternates: { canonical: canonicalUrl("/factory/capacity") },
 };
 
 const capacityData = [
-  { product: "Standard POS Rolls", daily: "2,000,000 rolls", annual: "500M+ rolls", leadTime: "10–15 days", moq: "10,000 rolls" },
-  { product: "ATM Paper Rolls", daily: "500,000 rolls", annual: "120M+ rolls", leadTime: "10–15 days", moq: "5,000 rolls" },
-  { product: "Lottery / Casino Rolls", daily: "800,000 rolls", annual: "200M+ rolls", leadTime: "15–20 days", moq: "10,000 rolls" },
-  { product: "Custom Printed Rolls", daily: "300,000 rolls", annual: "80M+ rolls", leadTime: "20–30 days", moq: "50,000 rolls" },
-  { product: "Direct Thermal Labels", daily: "5,000,000 labels", annual: "1.2B+ labels", leadTime: "10–15 days", moq: "50,000 labels" },
-  { product: "Specialty Labels (HT/Cryo/PP)", daily: "1,000,000 labels", annual: "250M+ labels", leadTime: "15–25 days", moq: "20,000 labels" },
-  { product: "Custom Printed Labels", daily: "500,000 labels", annual: "120M+ labels", leadTime: "20–30 days", moq: "50,000 labels" },
+  { product: "Standard POS Rolls", availability: "Stock programme", leadTime: "10–15 days", moq: "10,000 rolls" },
+  { product: "ATM Paper Rolls", availability: "Scheduled by SKU", leadTime: "10–15 days", moq: "5,000 rolls" },
+  { product: "Lottery / Casino Rolls", availability: "Scheduled by SKU", leadTime: "15–20 days", moq: "10,000 rolls" },
+  { product: "Custom Printed Rolls", availability: "Made to order", leadTime: "20–30 days", moq: "50,000 rolls" },
+  { product: "Direct Thermal Labels", availability: "Stock programme", leadTime: "10–15 days", moq: "50,000 labels" },
+  { product: "Specialty Labels (HT/Cryo/PP)", availability: "Made to order", leadTime: "15–25 days", moq: "20,000 labels" },
+  { product: "Custom Printed Labels", availability: "Made to order", leadTime: "20–30 days", moq: "50,000 labels" },
 ];
 
 export default function FactoryCapacityPage() {
@@ -27,8 +29,8 @@ export default function FactoryCapacityPage() {
 
     <>
       <Header />
-      <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
+      <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
+      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-blue-300 text-sm mb-6">
             <Link href="/" className="hover:text-white">Home</Link>
@@ -63,8 +65,7 @@ export default function FactoryCapacityPage() {
               <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
                 <tr>
                   <th className="text-left px-6 py-4">Product</th>
-                  <th className="text-left px-6 py-4">Daily Output</th>
-                  <th className="text-left px-6 py-4">Annual Capacity</th>
+                  <th className="text-left px-6 py-4">Availability</th>
                   <th className="text-left px-6 py-4">Standard Lead Time</th>
                   <th className="text-left px-6 py-4">MOQ</th>
                 </tr>
@@ -73,8 +74,7 @@ export default function FactoryCapacityPage() {
                 {capacityData.map((row, i) => (
                   <tr key={i} className="hover:bg-blue-50/40 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-800">{row.product}</td>
-                    <td className="px-6 py-4 text-slate-600">{row.daily}</td>
-                    <td className="px-6 py-4 text-blue-600 font-semibold">{row.annual}</td>
+                    <td className="px-6 py-4 text-[#0f5f5c] font-semibold">{row.availability}</td>
                     <td className="px-6 py-4 text-slate-600">{row.leadTime}</td>
                     <td className="px-6 py-4 text-slate-600">{row.moq}</td>
                   </tr>

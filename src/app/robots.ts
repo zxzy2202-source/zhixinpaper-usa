@@ -7,7 +7,7 @@ import type { MetadataRoute } from "next";
  *   1. 主流搜索引擎（Google/Bing/Yandex/Baidu/DuckDuckGo）全开放
  *   2. 屏蔽无 SEO 价值路径：/api/ /admin/ /login 等（/_next/ 保持开放供渲染）
  *   3. 明确允许图片爬虫抓 R2 上的产品图（图片 SEO 关键）
- *   4. 屏蔽常见 AI 训练爬虫，保护原创内容（OEM/工厂参数等商业资产）
+ *   4. 开放 AI 搜索与用户请求抓取，继续屏蔽纯训练爬虫
  *   5. 屏蔽垃圾爬虫（SemrushBot/AhrefsBot 等），节省服务器资源
  */
 export default function robots(): MetadataRoute.Robots {
@@ -52,9 +52,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin/", "/login"],
       },
 
-      // ─── 屏蔽 AI 训练爬虫（保护原创内容/产品资料） ───
+      // ─── AI 搜索与用户请求开放，纯训练抓取继续屏蔽 ───
+      { userAgent: "OAI-SearchBot", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
+      { userAgent: "ChatGPT-User", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
       { userAgent: "GPTBot", disallow: ["/"] },
-      { userAgent: "ChatGPT-User", disallow: ["/"] },
       { userAgent: "CCBot", disallow: ["/"] },                  // Common Crawl
       { userAgent: "anthropic-ai", disallow: ["/"] },           // Claude
       { userAgent: "Claude-Web", disallow: ["/"] },

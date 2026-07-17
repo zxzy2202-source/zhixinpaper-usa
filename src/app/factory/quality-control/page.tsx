@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "Quality Control | ISO 9001 Thermal Paper Manufacturer",
   description: "ISO 9001:2015 certified quality management system. 100% inline inspection, incoming material testing, and full batch traceability for thermal paper and labels.",
   keywords: "thermal paper quality testing, ISO 9001 label manufacturer, quality management thermal paper",
+  alternates: { canonical: canonicalUrl("/factory/quality-control") },
 };
 
 const qcSteps = [
@@ -26,8 +28,8 @@ export default function QualityControlPage() {
 
     <>
       <Header />
-      <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
+      <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
+      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-blue-300 text-sm mb-6">
             <Link href="/" className="hover:text-white">Home</Link>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "Private Label Thermal Paper | White Label Receipt Rolls Manufacturer",
   description: "Private label thermal paper rolls and labels under your brand. Custom packaging, branded cores, and full white-label service from 50,000 rolls. ISO 9001 certified.",
   keywords: "private label thermal paper, white label receipt rolls, OEM thermal paper manufacturer",
+  alternates: { canonical: canonicalUrl("/oem-custom/private-label") },
 };
 
 const benefits = [
@@ -26,8 +28,8 @@ export default function PrivateLabelPage() {
 
     <>
       <Header />
-      <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
+      <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
+      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-blue-300 text-sm mb-6">
             <Link href="/" className="hover:text-white">Home</Link>

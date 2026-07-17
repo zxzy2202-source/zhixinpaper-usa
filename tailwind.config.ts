@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["Inter", "sans-serif"],
-        body: ["Inter", "sans-serif"],
-        sans: ["Inter", "sans-serif"],
+        heading: ["var(--font-sans)"],
+        body: ["var(--font-sans)"],
+        sans: ["var(--font-sans)"],
       },
       colors: {
         brand: {

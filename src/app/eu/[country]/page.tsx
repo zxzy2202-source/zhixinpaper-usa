@@ -186,11 +186,12 @@ export default async function EUCountryPage({ params }: Props) {
   const logisticsSteps = LOGISTICS_STEPS[country] || LOGISTICS_STEPS["default"];
   const popularProductLinks = POPULAR_PRODUCTS_LINKS[country] || POPULAR_PRODUCTS_LINKS["default"];
   const faq = COUNTRY_FAQ[country] || COUNTRY_FAQ["default"];
+  const isPilot = country === "uk";
 
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
 
         {/* ── HERO ── */}
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
@@ -202,7 +203,7 @@ export default async function EUCountryPage({ params }: Props) {
               <ChevronRight className="w-3 h-3" />
               <span className="text-slate-500">{c.name}</span>
             </nav>
-            <div className="flex items-center gap-4 mb-4">
+            <div className={isPilot ? "mb-4 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center" : "flex items-center gap-4 mb-4"}>
               <span className="text-5xl">{c.flag}</span>
               <div>
                 <div className="flex items-center gap-3 mb-2">
@@ -231,7 +232,7 @@ export default async function EUCountryPage({ params }: Props) {
                 Get {c.name} Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
-                Free Samples
+                {isPilot ? "Request Samples" : "Free Samples"}
               </Link>
               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
                 <Download className="w-4 h-4" /> Compliance Docs

@@ -1,4 +1,5 @@
 interface SectionHeaderProps {
+  as?: "h1" | "h2";
   label?: string;
   title: string;
   subtitle?: string;
@@ -8,6 +9,7 @@ interface SectionHeaderProps {
 }
 
 export default function SectionHeader({
+  as: Heading = "h2",
   label,
   title,
   subtitle,
@@ -24,17 +26,17 @@ export default function SectionHeader({
           <span className="section-label">{label}</span>
         </div>
       )}
-      <h2
-        className={`font-bold text-4xl md:text-5xl leading-tight tracking-tight ${
-          dark ? "text-white" : "text-slate-900"
+      <Heading
+        className={`font-bold text-4xl md:text-5xl leading-tight ${
+          dark ? "text-white" : "text-[#14211f]"
         }`}
       >
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p
           className={`mt-4 text-lg leading-relaxed ${isCenter ? "max-w-2xl mx-auto" : "max-w-xl"} ${
-            dark ? "text-blue-200" : "text-slate-500"
+            dark ? "text-[#c7d0cb]" : "text-[#4f5f5a]"
           }`}
         >
           {subtitle}

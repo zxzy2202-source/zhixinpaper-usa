@@ -30,6 +30,8 @@ interface Props {
 }
 
 export default function BlogPostClient({ slug, dbPost }: Props) {
+  const isPilot = slug === "what-is-thermal-paper";
+
   if (dbPost) {
     const publishDate = dbPost.publishedAt || dbPost.createdAt;
     const formattedDate = new Date(publishDate).toLocaleDateString("en-US", {
@@ -41,7 +43,7 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
     const related = BLOG_POSTS.filter((p) => p.category === dbPost.category).slice(0, 3);
 
     return (
-      <main>
+      <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50 border-b border-slate-200">
           <div className="max-w-6xl mx-auto px-6">
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">
@@ -140,7 +142,7 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
   const otherPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
-    <main>
+    <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
       <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">

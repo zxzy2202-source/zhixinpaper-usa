@@ -84,7 +84,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Resources",
     links: [
-      { label: "Free Samples", href: "/samples" },
+      { label: "Request Samples", href: "/samples" },
       { label: "Blog", href: "/blog" },
       { label: "Case Studies", href: "/case-studies" },
       { label: "FAQ", href: "/faq" },
@@ -111,7 +111,7 @@ const FooterLinks = ({ links }: { links: FooterLink[] }) => (
           href={link.href}
           className="group flex min-h-6 items-center gap-2 text-sm leading-6 text-slate-400 transition-colors hover:text-white"
         >
-          <ArrowRight className="h-3 w-3 shrink-0 text-blue-400 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+          <ArrowRight className="h-3 w-3 shrink-0 text-[#d6b273] opacity-50 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
           <span>{link.label}</span>
         </Link>
       </li>
@@ -121,7 +121,7 @@ const FooterLinks = ({ links }: { links: FooterLink[] }) => (
 
 const FooterSection = ({ title, links }: FooterSection) => (
   <div>
-    <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">
+    <h4 className="mb-4 text-xs font-bold text-[#efe7d6]">
       {title}
     </h4>
     <FooterLinks links={links} />
@@ -130,14 +130,14 @@ const FooterSection = ({ title, links }: FooterSection) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-300">
-      <div className="border-b border-slate-800 bg-slate-900/45">
+    <footer className="paper-noise bg-[#101b19] text-[#c7d0cb]">
+      <div className="border-b border-white/10 bg-[#08110f]/70">
         <div className="container-site flex flex-col gap-4 py-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+            <p className="text-xs font-semibold text-[#d6b273]">
               Certified thermal paper supplier
             </p>
-            <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-400">
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-[#aebbb5]">
               ISO-managed production, BPA-free materials, and export-ready documentation for distributors and importers.
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function Footer() {
               <Link
                 key={item.slug}
                 href={`/compliance/${item.slug}`}
-                className="inline-flex items-center gap-1.5 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 transition-colors hover:border-blue-400 hover:text-blue-200"
+                className="inline-flex items-center gap-1.5 border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[11px] font-semibold text-[#c7d0cb] transition-colors hover:border-[#d6b273]/40 hover:text-white"
               >
                 {ICONS[item.icon]}
                 {item.name}
@@ -168,30 +168,30 @@ export default function Footer() {
                 className="h-10 w-auto object-contain"
               />
               <div>
-                <div className="text-base font-bold leading-none tracking-wide text-white">ZhixinPaper</div>
-                <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-amber-300 opacity-90">
+                <div className="text-base font-bold leading-none text-white">ZhixinPaper</div>
+                <div className="mt-1 text-[10px] font-semibold text-[#d6b273] opacity-90">
                   Thermal Solutions Since 2008
                 </div>
               </div>
             </Link>
 
-            <p className="text-sm leading-7 text-slate-400">
+            <p className="text-sm leading-7 text-[#aebbb5]">
               Manufacturer of thermal paper rolls and thermal labels for distributors, importers, and private-label buyers. ISO 9001 certified since {COMPANY.founded}.
             </p>
 
-            <div className="mt-6 space-y-3 text-sm text-slate-400">
+            <div className="mt-6 space-y-3 text-sm text-[#aebbb5]">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-300" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#d6b273]" />
                 <span className="leading-6">{COMPANY.address}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4 shrink-0 text-blue-300" />
+                <Phone className="h-4 w-4 shrink-0 text-[#d6b273]" />
                 <a href={`tel:${COMPANY.phone}`} className="transition-colors hover:text-white">
                   {COMPANY.phone}
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="h-4 w-4 shrink-0 text-blue-300" />
+                <Mail className="h-4 w-4 shrink-0 text-[#d6b273]" />
                 <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-white">
                   {COMPANY.email}
                 </a>
@@ -201,17 +201,17 @@ export default function Footer() {
             <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <Link
                 href="/quote"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+                className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#b9822f] px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
               >
                 <Send className="h-4 w-4" />
-                Request Quote
+                Request a Quote
               </Link>
               <Link
                 href="/samples"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-slate-700 px-4 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:bg-slate-900"
+                className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/14 px-4 py-2.5 text-sm font-semibold text-[#efe7d6] transition duration-200 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.06] active:translate-y-px"
               >
                 <Package className="h-4 w-4" />
-                Free Samples
+                Request Samples
               </Link>
             </div>
           </div>
@@ -224,17 +224,17 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-slate-800">
-        <div className="container-site flex flex-col gap-4 py-5 pb-24 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:pb-5">
+      <div className="border-t border-white/10">
+        <div className="container-site flex flex-col gap-4 py-5 pb-24 text-xs text-[#7f8c86] md:flex-row md:items-center md:justify-between md:pb-5">
           <span>© {new Date().getFullYear()} Zhixin Paper. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/eu" className="inline-flex items-center gap-1.5 transition-colors hover:text-slate-300">
+            <Link href="/eu" className="inline-flex items-center gap-1.5 transition-colors hover:text-[#efe7d6]">
               <Globe2 className="h-3.5 w-3.5" />
               REACH Route
             </Link>
-            <Link href="/us" className="transition-colors hover:text-slate-300">FDA Route</Link>
-            <Link href="/ca" className="transition-colors hover:text-slate-300">Bilingual Docs</Link>
-            <Link href="/sitemap.xml" className="transition-colors hover:text-slate-300">Sitemap</Link>
+            <Link href="/us" className="transition-colors hover:text-[#efe7d6]">FDA Route</Link>
+            <Link href="/ca" className="transition-colors hover:text-[#efe7d6]">Bilingual Docs</Link>
+            <Link href="/sitemap.xml" className="transition-colors hover:text-[#efe7d6]">Sitemap</Link>
           </div>
         </div>
       </div>

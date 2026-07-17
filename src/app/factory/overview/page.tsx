@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { canonicalUrl } from "@/lib/seo";
 
 
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: "Manufacturing Plant Overview | ISO Certified Thermal Paper Factory",
   description: "Tour our ISO 9001:2015 certified thermal paper manufacturing facility in Xi'an, Shaanxi, China. 50,000 sqm production floor, 20+ slitting lines, 500M+ rolls annual capacity.",
   keywords: "thermal paper manufacturing plant, ISO certified factory, thermal paper factory China",
+  alternates: { canonical: canonicalUrl("/factory/overview") },
 };
 
 export default function FactoryOverviewPage() {
@@ -45,9 +47,9 @@ export default function FactoryOverviewPage() {
 
     <>
       <Header />
-      <main className="min-h-screen bg-white">
+      <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
+      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-blue-300 text-sm mb-6">
             <Link href="/" className="hover:text-white">Home</Link>

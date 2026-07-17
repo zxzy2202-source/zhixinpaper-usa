@@ -133,11 +133,11 @@ export default async function LabelDetailPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content" className="product-detail">
 
         {/* ── HERO ── */}
-        <section className="pt-[72px] relative bg-slate-900 overflow-hidden">
-          <div className="relative z-10 bg-slate-900/80 backdrop-blur-sm border-b border-white/10">
+        <section className="relative overflow-hidden bg-[#101b19] pt-[72px]">
+          <div className="relative z-10 border-b border-white/10 bg-[#101b19]/85 backdrop-blur-sm">
             <div className="container-site py-3">
               <nav className="flex items-center gap-1.5 text-xs text-slate-400">
                 <Link href="/products" className="hover:text-white transition-colors">Products</Link>
@@ -149,7 +149,7 @@ export default async function LabelDetailPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="relative w-full" style={{ height: "520px" }}>
+          <div className="relative min-h-[560px] w-full">
             <Image
               src="/images/thermal-labels-product.jpg"
               alt={`${label.name} - Thermal Labels`}
@@ -158,38 +158,26 @@ export default async function LabelDetailPage({ params }: Props) {
               priority
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-slate-900/95 via-slate-900/85 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.82)_54%,rgba(8,20,18,0.24)_100%)]" />
 
             <div className="absolute inset-0 flex items-center">
               <div className="container-site">
-                <div className="ml-auto max-w-xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="w-8 h-0.5 bg-emerald-400 rounded-full" />
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-400">Thermal Labels</span>
-                    {label.tag && (
-                      <span className={`px-2 py-0.5 text-[9px] tracking-widest uppercase font-bold rounded-full ${
-                        label.tag === "New"
-                          ? "bg-emerald-400/20 text-emerald-300 border border-emerald-400/30"
-                          : "bg-blue-400/20 text-blue-300 border border-blue-400/30"
-                      }`}>{label.tag}</span>
-                    )}
-                  </div>
+                <div className="max-w-xl py-14">
                   <h1 className="font-bold text-white text-5xl md:text-6xl leading-tight mb-3 drop-shadow-lg">
                     {label.name}
                   </h1>
-                  <p className="text-emerald-300 text-xl font-medium mb-5">{label.subtitle}</p>
+                  <p className="mb-5 text-xl font-medium text-[#d6b273]">{label.subtitle}</p>
                   <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-md font-light">
                     {heroText}
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-900/40 text-sm">
-                      Request Quote <ArrowRight className="w-4 h-4" />
+                    <Link href="/quote" className="inline-flex items-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#9f6e25]">
+                      Request a Quote <ArrowRight className="w-4 h-4" />
                     </Link>
-                    <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm">
-                      Free Sample
+                    <Link href="/samples" className="inline-flex items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
+                      Request Samples
                     </Link>
-                    <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all text-sm backdrop-blur-sm">
+                    <a href="/contact" className="inline-flex items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
                       <Download className="w-4 h-4" /> Compliance Docs
                     </a>
                   </div>
@@ -197,48 +185,6 @@ export default async function LabelDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Bottom stats bar */}
-            <div className="absolute bottom-0 left-0 right-0">
-              <div className="container-site">
-                <div className="grid grid-cols-2 md:flex md:flex-row md:items-center gap-0 bg-white/10 backdrop-blur-md border-t border-white/10 rounded-t-xl overflow-hidden w-fit">
-                  {[
-                    { icon: <Package className="w-4 h-4" />, label: "MOQ", value: label.moq },
-                    { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "10–15 Days" },
-                    { icon: <Award className="w-4 h-4" />, label: "Certified", value: "ISO 9001" },
-                    { icon: <Shield className="w-4 h-4" />, label: "Custom OEM", value: "Available" },
-                    { icon: <Factory className="w-4 h-4" />, label: "Capacity", value: "500M+/yr" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center gap-3 px-5 py-3 divide-x divide-white/10">
-                      <span className="text-emerald-400">{item.icon}</span>
-                      <div className="pl-3">
-                        <div className="text-[9px] tracking-widest uppercase text-slate-400 leading-none mb-0.5">{item.label}</div>
-                        <div className="font-bold text-white text-sm leading-none">{item.value}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── TRUST SIGNAL BAR ── */}
-        <section className="py-4 bg-slate-800 border-b border-slate-700">
-          <div className="container-site">
-            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
-              {[
-                { icon: <Factory className="w-3.5 h-3.5 text-emerald-400" />, text: "500M+ labels/year production capacity" },
-                { icon: <FileCheck className="w-3.5 h-3.5 text-emerald-400" />, text: "SGS & TÜV compliance reports available" },
-                { icon: <Truck className="w-3.5 h-3.5 text-blue-400" />, text: "FOB Qingdao · DDP Europe/USA" },
-                { icon: <Users className="w-3.5 h-3.5 text-amber-400" />, text: "Trusted by 500+ distributors in 80+ countries" },
-                { icon: <Clock className="w-3.5 h-3.5 text-blue-400" />, text: "24-hour quote response" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-1.5">
-                  {item.icon}
-                  <span>{item.text}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -280,12 +226,12 @@ export default async function LabelDetailPage({ params }: Props) {
 
                 <div className="bg-white border border-slate-200 rounded-2xl p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-blue-600" />
+                    <Zap className="w-5 h-5 text-[#0f5f5c]" />
                     Applications
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {label.applications.map((app) => (
-                      <span key={app} className="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg uppercase tracking-wide">
+                      <span key={app} className="px-3 py-1.5 bg-[#b9822f] text-white text-xs font-bold rounded-lg uppercase tracking-wide">
                         {app}
                       </span>
                     ))}
@@ -294,12 +240,12 @@ export default async function LabelDetailPage({ params }: Props) {
 
                 <div className="bg-white border border-slate-200 rounded-2xl p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
-                    <Tag className="w-5 h-5 text-blue-600" />
+                    <Tag className="w-5 h-5 text-[#0f5f5c]" />
                     Available Sizes
                   </h2>
                   <div className="grid grid-cols-2 gap-2">
                     {label.sizes.map((size) => (
-                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-center text-sm font-semibold text-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-default">
+                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-center text-sm font-semibold text-slate-700 hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8] transition-all cursor-default">
                         {size}
                       </div>
                     ))}
@@ -317,7 +263,7 @@ export default async function LabelDetailPage({ params }: Props) {
                     </div>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm shrink-0"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-[#0f5f5c]/40 hover:text-[#0f5f5c] transition-colors shadow-sm shrink-0"
                     >
                       <Download className="w-4 h-4" />
                       Download TDS
@@ -353,17 +299,17 @@ export default async function LabelDetailPage({ params }: Props) {
                     </table>
                   </div>
 
-                  <div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-blue-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="px-8 py-6 bg-gradient-to-r from-[#0f5f5c] to-[#101b19] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <p className="font-bold text-white text-base">Need a custom label solution?</p>
-                      <p className="text-blue-200 text-sm">Custom sizes, adhesives, and print options available with low MOQ.</p>
+                      <p className="text-[#d6b273] text-sm">Custom sizes, adhesives, and print options available with low MOQ.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
-                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-blue-50 transition-colors text-sm shadow-sm">
-                        Free Sample
+                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold rounded-xl hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
+                        Request Samples
                       </Link>
-                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-400 transition-colors text-sm shadow-sm border border-blue-400">
-                        Get Quote <ArrowRight className="w-4 h-4" />
+                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] text-white font-bold rounded-xl hover:bg-[#9f6e25] transition-colors text-sm shadow-sm border border-[#b9822f]">
+                        Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
@@ -400,7 +346,7 @@ export default async function LabelDetailPage({ params }: Props) {
               ))}
             </div>
             <p className="text-xs text-slate-400">
-              Not seeing your printer? <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link> — we test compatibility on request.
+              Not seeing your printer? <Link href="/contact" className="text-[#0f5f5c] hover:underline">Contact us</Link> — we test compatibility on request.
             </p>
           </div>
         </section>
@@ -451,7 +397,7 @@ export default async function LabelDetailPage({ params }: Props) {
         <section className="py-14 bg-slate-50 border-t border-slate-200">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <TrendingUp className="w-5 h-5 text-[#0f5f5c]" />
               <h2 className="font-bold text-slate-900 text-2xl">Volume Pricing</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
@@ -484,8 +430,8 @@ export default async function LabelDetailPage({ params }: Props) {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
-                Get Exact Pricing <ArrowRight className="w-4 h-4" />
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
+                Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-slate-400 text-xs">Response within 24 hours · No commitment required</p>
             </div>
@@ -496,7 +442,7 @@ export default async function LabelDetailPage({ params }: Props) {
         <section className="py-14 bg-white border-t border-slate-100">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-2">
-              <FileCheck className="w-5 h-5 text-blue-600" />
+              <FileCheck className="w-5 h-5 text-[#0f5f5c]" />
               <h2 className="font-bold text-slate-900 text-2xl">Compliance Documents</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
@@ -504,16 +450,16 @@ export default async function LabelDetailPage({ params }: Props) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
-                <div key={doc.name} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all group">
-                  <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-100 transition-colors">
-                    <Download className="w-4 h-4 text-blue-600" />
+                <div key={doc.name} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#0f5f5c]/40 hover:shadow-sm transition-all group">
+                  <div className="w-9 h-9 bg-[#f4f0e8] rounded-lg flex items-center justify-center mb-3 group-hover:bg-[#e7eee9] transition-colors">
+                    <Download className="w-4 h-4 text-[#0f5f5c]" />
                   </div>
                   <p className="font-bold text-slate-900 text-sm mb-1 leading-snug">{doc.name}</p>
                   <p className="text-slate-500 text-xs leading-relaxed">{doc.desc}</p>
                 </div>
               ))}
             </div>
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="bg-[#f4f0e8] border border-[#0f5f5c]/25 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Request Full Compliance Pack</p>
                 <p className="text-slate-500 text-xs">
@@ -522,7 +468,7 @@ export default async function LabelDetailPage({ params }: Props) {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
               >
                 <Download className="w-4 h-4" /> Request Docs
               </Link>
@@ -534,14 +480,14 @@ export default async function LabelDetailPage({ params }: Props) {
         <section className="py-10 bg-slate-50 border-t border-slate-200">
           <div className="container-site">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-4 p-6 bg-[#f4f0e8] rounded-2xl border border-[#ded6c8]">
+                <div className="w-10 h-10 bg-[#b9822f] rounded-xl flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-sm mb-1">Request Free Samples</p>
+                  <p className="font-bold text-slate-900 text-sm mb-1">Request Samples</p>
                   <p className="text-slate-500 text-xs mb-3">Test print quality and adhesion before bulk order. Shipped within 3 days.</p>
-                  <Link href="/samples" className="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1">
+                  <Link href="/samples" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
                     Request Now <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
@@ -584,7 +530,7 @@ export default async function LabelDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="flex items-center justify-between mb-8">
               <h2 className="font-bold text-slate-900 text-3xl">Related Labels</h2>
-              <Link href="/products/thermal-labels" className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center gap-1">
+              <Link href="/products/thermal-labels" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-sm flex items-center gap-1">
                 All Labels <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -593,12 +539,12 @@ export default async function LabelDetailPage({ params }: Props) {
                 <Link
                   key={l.slug}
                   href={`/products/thermal-labels/${l.slug}`}
-                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-lg transition-all"
+                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
                 >
                   <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-100 transition-colors">
                     <Tag className="w-5 h-5 text-emerald-600" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-blue-600 transition-colors leading-snug">{l.name}</h3>
+                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{l.name}</h3>
                   <p className="text-slate-400 text-xs">{l.subtitle}</p>
                 </Link>
               ))}

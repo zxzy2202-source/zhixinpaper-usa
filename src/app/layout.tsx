@@ -1,12 +1,25 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import Script from "next/script";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { websiteSchema, organizationSchema } from "@/lib/seo";
 import { getSeoGlobal } from "@/lib/siteSettings";
 import "./globals.css";
 
+const geistSans = localFont({
+  src: "../../node_modules/next/dist/next-devtools/server/font/geist-latin.woff2",
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const geistDisplay = localFont({
+  src: "../../node_modules/next/dist/next-devtools/server/font/geist-latin-ext.woff2",
+  variable: "--font-display",
+  display: "swap",
+});
+
 // 静态默认元数据（运行时会被 generateMetadata 中的 SEO 设置覆盖）
-const DEFAULT_TITLE = "Zhixin Paper — Thermal Paper Rolls & Labels Manufacturer";
+const DEFAULT_TITLE = "Zhixin Paper | Thermal Paper Rolls & Labels Manufacturer";
 const DEFAULT_DESC =
   "ISO 9001:2015 certified manufacturer of BPA-free thermal paper rolls and thermal labels. Factory-direct wholesale for distributors and importers in Europe, USA & Canada. FOB Qingdao.";
 
@@ -65,8 +78,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#1e293b" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf6" },
+    { media: "(prefers-color-scheme: dark)", color: "#101b19" },
   ],
 };
 
@@ -76,7 +89,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistDisplay.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <script
           type="application/ld+json"

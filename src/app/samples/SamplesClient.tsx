@@ -85,32 +85,32 @@ export default function SamplesClient() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-slate-50 flex items-center justify-center px-6 py-20">
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-10 max-w-lg w-full text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-              <CheckCircle2 className="w-8 h-8 text-green-600" />
+        <main className="flex min-h-screen items-center justify-center bg-[#f4f0e8] px-6 py-20">
+          <div className="w-full max-w-lg border border-[#ded6c8] bg-[#fbfaf6] p-10 text-center shadow-sm">
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center border border-[#0f5f5c]/25 bg-[#0f5f5c]/10">
+              <CheckCircle2 className="h-8 w-8 text-[#0f5f5c]" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-800 mb-3">
-              Sample Request Confirmed!
+            <h1 className="text-2xl font-bold text-[#33413e] mb-3">
+              Sample request confirmed
             </h1>
-            <p className="text-slate-600 mb-2">
+            <p className="text-[#4f5f5a] mb-2">
               Thank you, <strong>{form.firstName}</strong>! Our team will prepare
               your sample kit within <strong>2–3 business days</strong>.
             </p>
-            <p className="text-slate-500 text-sm mb-8">
+            <p className="text-[#4f5f5a] text-sm mb-8">
               A confirmation email has been sent to <strong>{form.email}</strong>.
               We will contact you with shipping details once dispatched.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/products"
-                className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                className="bg-[#b9822f] text-white font-semibold px-6 py-3  hover:bg-[#9f6e25] transition-colors"
               >
                 Browse Products
               </Link>
               <Link
                 href="/quote"
-                className="border border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-lg hover:bg-slate-50 transition-colors"
+                className="border border-[#ded6c8] text-[#33413e] font-semibold px-6 py-3  hover:bg-[#f4f0e8] transition-colors"
               >
                 Request a Quote
               </Link>
@@ -126,18 +126,18 @@ export default function SamplesClient() {
     <>
       <Header />
       <main>
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
+        <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-              <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600">
+              <span className="h-0.5 w-8 bg-[#b9822f]" />
+              <span className="text-xs font-bold text-[#0f5f5c]">
                 Free Samples
               </span>
             </div>
-            <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">
-              Request Free Samples
+            <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
+              Request production samples before bulk order
             </h1>
-            <p className="text-slate-500 text-lg max-w-2xl">
+            <p className="text-[#4f5f5a] text-lg max-w-2xl">
               Test our thermal paper rolls and labels before placing a bulk
               order. Free samples available for qualified distributors and
               importers in Europe, USA, and Canada.
@@ -145,17 +145,17 @@ export default function SamplesClient() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-[#fbfaf6]">
           <div className="container-site">
             <div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
-                <div className="bg-white border border-slate-200 p-5 sm:p-8">
-                  <h2 className="font-bold text-slate-900 text-2xl mb-6">
+                <div className="bg-[#fbfaf6] border border-[#ded6c8] p-5 sm:p-8">
+                  <h2 className="font-bold text-[#14211f] text-2xl mb-6">
                     Sample Request Form
                   </h2>
 
                   {submitError && (
-                    <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
+                    <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200  mb-6">
                       <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                       <div>
                         <p className="text-red-700 text-sm font-medium">
@@ -178,81 +178,81 @@ export default function SamplesClient() {
                   <form className="space-y-5" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                        <label htmlFor="sample-first-name" className="block text-xs font-semibold text-[#87918c] mb-2">
                           First Name *
                         </label>
-                        <input
+                        <input id="sample-first-name"
                           type="text"
                           name="firstName"
                           required
                           value={form.firstName}
                           onChange={handleChange}
-                          className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                          className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                        <label htmlFor="sample-last-name" className="block text-xs font-semibold text-[#87918c] mb-2">
                           Last Name *
                         </label>
-                        <input
+                        <input id="sample-last-name"
                           type="text"
                           name="lastName"
                           required
                           value={form.lastName}
                           onChange={handleChange}
-                          className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                          className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-company" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Company *
                       </label>
-                      <input
+                      <input id="sample-company"
                         type="text"
                         name="company"
                         required
                         value={form.company}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-email" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Business Email *
                       </label>
-                      <input
+                      <input id="sample-email"
                         type="email"
                         name="email"
                         required
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-phone" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Phone
                       </label>
-                      <input
+                      <input id="sample-phone"
                         type="tel"
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                         placeholder="+49 30 1234 5678"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-country" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Country *
                       </label>
-                      <select
+                      <select id="sample-country"
                         name="country"
                         required
                         value={form.country}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors"
                       >
                         <option value="">Select Country</option>
                         <option>Germany</option>
@@ -266,23 +266,23 @@ export default function SamplesClient() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-address" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Shipping Address *
                       </label>
-                      <textarea
+                      <textarea id="sample-address"
                         name="address"
                         rows={3}
                         required
                         value={form.address}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors resize-none"
                         placeholder="Full shipping address including country"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <div className="block text-xs font-semibold text-[#87918c] mb-2">
                         Sample Products Requested
-                      </label>
+                      </div>
                       <div className="space-y-2">
                         {SAMPLE_PRODUCTS.map((item) => (
                           <label
@@ -293,30 +293,30 @@ export default function SamplesClient() {
                               type="checkbox"
                               checked={selectedProducts.includes(item)}
                               onChange={() => toggleProduct(item)}
-                              className="w-4 h-4 accent-blue-600"
+                              className="w-4 h-4 accent-[#0f5f5c]"
                             />
-                            <span className="text-slate-500 text-sm">{item}</span>
+                            <span className="text-[#4f5f5a] text-sm">{item}</span>
                           </label>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-widest uppercase text-slate-400 mb-2">
+                      <label htmlFor="sample-notes" className="block text-xs font-semibold text-[#87918c] mb-2">
                         Additional Notes
                       </label>
-                      <textarea
+                      <textarea id="sample-notes"
                         name="notes"
                         rows={3}
                         value={form.notes}
                         onChange={handleChange}
-                        className="w-full bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                        className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors resize-none"
                         placeholder="Specific sizes, certifications needed, or other requirements..."
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-colors shadow-sm text-sm w-full justify-center"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] disabled:bg-[#b9822f]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
                     >
                       {loading ? (
                         <>
@@ -332,8 +332,8 @@ export default function SamplesClient() {
               </div>
 
               <div>
-                <div className="bg-white border border-slate-200 p-6 mb-5">
-                  <h3 className="font-bold text-slate-900 text-lg mb-4">
+                <div className="bg-[#fbfaf6] border border-[#ded6c8] p-6 mb-5">
+                  <h3 className="font-bold text-[#14211f] text-lg mb-4">
                     Sample Policy
                   </h3>
                   <div className="space-y-4">
@@ -360,12 +360,12 @@ export default function SamplesClient() {
                       },
                     ].map((item) => (
                       <div key={item.title} className="flex items-start gap-3">
-                        <div className="text-blue-600 mt-0.5">{item.icon}</div>
+                        <div className="text-[#0f5f5c] mt-0.5">{item.icon}</div>
                         <div>
-                          <div className="font-bold text-slate-900 text-sm">
+                          <div className="font-bold text-[#14211f] text-sm">
                             {item.title}
                           </div>
-                          <div className="text-slate-400 text-xs">{item.desc}</div>
+                          <div className="text-[#87918c] text-xs">{item.desc}</div>
                         </div>
                       </div>
                     ))}

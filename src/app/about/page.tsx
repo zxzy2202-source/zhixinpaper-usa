@@ -43,6 +43,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <SectionHeader
+                  as="h1"
                   label="Our Story"
                   title="A Legacy of Precision in Thermal Manufacturing"
                   subtitle={"Founded in " + COMPANY.founded + ", Zhixin Paper has grown from a local coating facility to a global leader in thermal paper consumables."}
@@ -114,7 +115,7 @@ export default function AboutPage() {
                   { year: "2009", title: "Inception", desc: "Established our first thermal coating facility with a focus on local retail markets." },
                   { year: "2014", title: "ISO Certification", desc: "Achieved ISO 9001:2015 certification and expanded into high-speed slitting technology." },
                   { year: "2018", title: "International Expansion", desc: "Launched dedicated export division for the USA and European markets." },
-                  { year: "2023", title: "Next-Gen Facility", desc: "Inaugurated our 150,000 rolls/day automated facility with BPA-free coating lines." },
+                  { year: "2023", title: "Next-Gen Facility", desc: "Expanded automated BPA-free coating and converting capacity for international distribution." },
                 ].map((m, i) => (
                   <div key={i} className={"relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group " + (i % 2 === 0 ? "is-active" : "")}>
                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">

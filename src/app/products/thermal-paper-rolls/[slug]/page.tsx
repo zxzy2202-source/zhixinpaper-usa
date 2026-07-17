@@ -5,6 +5,8 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import StandardPosRollPage from "@/components/products/StandardPosRollPage";
+import AtmBankingRollPage from "@/components/products/AtmBankingRollPage";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
 import { PRODUCT_BUYER_CHECKS } from "@/lib/marketInsights";
 import { breadcrumbSchema, canonicalUrl, faqSchema, productSchema } from "@/lib/seo";
@@ -99,6 +101,25 @@ const STANDARD_POS_RFQ_FIELDS = [
   "Destination market + document pack required",
 ];
 
+const ATM_BANKING_FAQS = [
+  {
+    question: "Which ATM and banking terminal brands can these rolls support?",
+    answer: "We supply rolls for Diebold Nixdorf, NCR, Wincor, Hyosung, bank teller terminals, and financial kiosks. Send the exact terminal model so width, OD, core ID, winding direction, and feed requirements can be checked before sampling.",
+  },
+  {
+    question: "How is the seven-year image-life requirement confirmed?",
+    answer: "Archival performance depends on the selected grade and storage environment. We can provide an archival-grade test report and document the expected heat, humidity, light, and handling conditions on the technical data sheet.",
+  },
+  {
+    question: "Can regulatory disclosures be printed on the reverse side?",
+    answer: "Yes. Optional black or blue back print is available for disclosures, terms, support information, or multilingual content. Artwork revision, print side, ink color, and approval records are confirmed before production.",
+  },
+  {
+    question: "What information is needed for an ATM roll quotation?",
+    answer: "Send the terminal brand and model, roll width, OD or length, core ID, winding direction, quantity, image-life target, back-print requirement, destination, Incoterm, and required compliance documents.",
+  },
+];
+
 const STANDARD_POS_DECISION_CARDS = [
   {
     label: "Specification lock",
@@ -174,6 +195,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             alt: "BPA-free POS thermal receipt paper rolls for distributors",
           },
         ],
+      },
+    };
+  }
+
+  if (slug === "atm-banking-rolls") {
+    return {
+      title: { absolute: "ATM Receipt Paper Rolls | Zhixin Paper" },
+      description:
+        "BPA-free ATM receipt paper rolls with anti-static coating, up to 7-year image life, terminal fit checks, optional back print, and compliance files.",
+      keywords:
+        "ATM receipt paper rolls, archival thermal paper, bank receipt rolls, Diebold Nixdorf paper, NCR ATM paper, anti-static thermal paper, ATM back print paper",
+      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      openGraph: {
+        title: "ATM Receipt Paper Rolls for Banking Terminals",
+        description:
+          "Archival-grade, anti-static ATM receipt paper with terminal fit checks, compliance files, and optional regulatory back print.",
+        type: "website",
+        images: [{ url: "/images/thermal-rolls-product.jpg", width: 1200, height: 630, alt: "ATM and bank receipt thermal paper rolls" }],
       },
     };
   }
@@ -260,25 +299,102 @@ export default async function RollDetailPage({ params }: Props) {
   const complianceDocs = COMPLIANCE_DOCS[slug] || COMPLIANCE_DOCS["default"];
   const buyerChecks = PRODUCT_BUYER_CHECKS[slug] || null;
   const isStandardPos = slug === "standard-pos-rolls";
+  const isAtmBanking = slug === "atm-banking-rolls";
+  const productJsonLd = productSchema({
+    name: isStandardPos ? "POS Receipt Paper Rolls" : roll.name,
+    description: isStandardPos ? STANDARD_POS_PAGE.intro : descText,
+    image: "/images/thermal-rolls-product.jpg",
+    url: `/products/thermal-paper-rolls/${slug}`,
+    sku: `thermal-roll-${slug}`,
+    category: "Thermal Paper Rolls",
+    keywords: isStandardPos
+      ? "POS receipt paper rolls, BPA-free thermal paper rolls, 80mm receipt rolls, 57mm POS rolls, Europe USA Canada thermal paper supplier"
+      : roll.keywords,
+  });
+
+  const atmProductJsonLd = {
+    ...productJsonLd,
+    "@id": `${canonicalUrl(`/products/thermal-paper-rolls/${slug}`)}#product`,
+    name: "ATM Receipt Paper Rolls",
+    alternateName: ["ATM Thermal Paper Rolls", "Bank Receipt Paper Rolls", "Archival ATM Paper"],
+    description:
+      "BPA-free, anti-static ATM receipt paper rolls with up to 7-year image life, optional regulatory back print, and fit checks for major banking terminal platforms.",
+    material: "Archival-grade thermal paper",
+    model: "57mm, 80mm and 82.5mm ATM roll formats",
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Common widths", value: "57mm, 80mm, 82.5mm" },
+      { "@type": "PropertyValue", name: "Image life", value: "Up to 7 years under specified storage conditions" },
+      { "@type": "PropertyValue", name: "Anti-static coating", value: "Standard" },
+      { "@type": "PropertyValue", name: "Print speed", value: "Up to 300mm/sec" },
+      { "@type": "PropertyValue", name: "Back print", value: "Optional black or blue ink" },
+      { "@type": "PropertyValue", name: "BPA status", value: "BPA-free standard" },
+      { "@type": "PropertyValue", name: "Minimum order quantity", value: roll.moq },
+      { "@type": "PropertyValue", name: "Compatible platforms", value: "Diebold Nixdorf, NCR, Wincor, Hyosung" },
+    ],
+  };
+
+  const atmRelatedProductsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Related thermal paper products for banking buyers",
+    itemListElement: [
+      ["Back Print Thermal Rolls", "/products/thermal-paper-rolls/back-print-thermal-rolls"],
+      ["Kiosk and Vending Rolls", "/products/thermal-paper-rolls/kiosk-vending-rolls"],
+      ["Standard POS Rolls", "/products/thermal-paper-rolls/standard-pos-rolls"],
+      ["Custom Printed Rolls", "/products/thermal-paper-rolls/custom-printed-rolls"],
+    ].map(([name, path], index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name,
+      url: canonicalUrl(path),
+    })),
+  };
+
   const jsonLd = [
     breadcrumbSchema([
       { name: "Products", url: "/products" },
       { name: "Thermal Paper Rolls", url: "/products/thermal-paper-rolls" },
       { name: roll.name, url: `/products/thermal-paper-rolls/${slug}` },
     ]),
-    productSchema({
-      name: isStandardPos ? "POS Receipt Paper Rolls" : roll.name,
-      description: isStandardPos ? STANDARD_POS_PAGE.intro : descText,
-      image: "/images/thermal-rolls-product.jpg",
-      url: `/products/thermal-paper-rolls/${slug}`,
-      sku: `thermal-roll-${slug}`,
-      category: "Thermal Paper Rolls",
-      keywords: isStandardPos
-        ? "POS receipt paper rolls, BPA-free thermal paper rolls, 80mm receipt rolls, 57mm POS rolls, Europe USA Canada thermal paper supplier"
-        : roll.keywords,
-    }),
+    isAtmBanking ? atmProductJsonLd : productJsonLd,
+    ...(isAtmBanking ? [atmRelatedProductsJsonLd] : []),
     ...(isStandardPos ? [faqSchema(STANDARD_POS_PAGE.faqs)] : []),
+    ...(isAtmBanking ? [faqSchema(ATM_BANKING_FAQS)] : []),
   ];
+
+  if (isStandardPos) {
+    return (
+      <>
+        <Header />
+        {jsonLd.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+        <StandardPosRollPage
+          roll={roll}
+          faqs={STANDARD_POS_PAGE.faqs}
+          regionalNotes={STANDARD_POS_PAGE.regionalNotes}
+        />
+        <Footer />
+      </>
+    );
+  }
+
+  if (isAtmBanking) {
+    return (
+      <>
+        <Header />
+        {jsonLd.map((schema, i) => (
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+        ))}
+        <AtmBankingRollPage roll={roll} faqs={ATM_BANKING_FAQS} />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -308,12 +424,12 @@ export default async function RollDetailPage({ params }: Props) {
           }}
         />
       )}
-      <main>
+      <main id="main-content" className="product-detail">
 
         {/* ── HERO: Full-width product image with overlay info ── */}
-        <section className="pt-[72px] relative bg-slate-900 overflow-hidden">
+        <section className="relative overflow-hidden bg-[#101b19] pt-[72px]">
           {/* Breadcrumb bar */}
-          <div className="relative z-10 bg-slate-900/80 backdrop-blur-sm border-b border-white/10">
+          <div className="relative z-10 border-b border-white/10 bg-[#101b19]/85 backdrop-blur-sm">
             <div className="container-site py-3">
               <nav className="flex items-center gap-1.5 text-xs text-slate-400">
                 <Link href="/products" className="hover:text-white transition-colors">Products</Link>
@@ -335,31 +451,17 @@ export default async function RollDetailPage({ params }: Props) {
               preload
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/78 to-slate-900/42" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.82)_54%,rgba(8,20,18,0.24)_100%)]" />
 
             {/* Overlay content */}
             <div className="relative z-10">
               <div className="container-site py-10 md:py-14 lg:py-16">
                 <div className="standard-pos-hero-grid">
                   <div className="max-w-3xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-blue-400">
-                      {isStandardPos ? STANDARD_POS_PAGE.kicker : "Thermal Paper Rolls"}
-                    </span>
-                    {roll.tag && (
-                      <span className={`px-2 py-0.5 text-[9px] tracking-widest uppercase font-bold rounded-full ${
-                        roll.tag === "New"
-                          ? "bg-emerald-400/20 text-emerald-300 border border-emerald-400/30"
-                          : "bg-blue-400/20 text-blue-300 border border-blue-400/30"
-                      }`}>{roll.tag}</span>
-                    )}
-                  </div>
                   <h1 className="font-bold text-white text-4xl md:text-5xl xl:text-6xl leading-tight mb-4 drop-shadow-lg">
                     {isStandardPos ? STANDARD_POS_PAGE.title : roll.name}
                   </h1>
-                  <p className="max-w-xl text-blue-300 text-xl font-medium mb-5">
+                  <p className="max-w-xl text-[#d6b273] text-xl font-medium mb-5">
                     {isStandardPos ? STANDARD_POS_PAGE.subtitle : roll.subtitle}
                   </p>
                   <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-xl font-light">
@@ -369,18 +471,18 @@ export default async function RollDetailPage({ params }: Props) {
                     <div className="mb-8 grid gap-2 sm:grid-cols-2">
                       {STANDARD_POS_HERO_PROOFS.map((proof) => (
                         <div key={proof} className="flex min-h-11 items-center gap-2 border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-slate-100 backdrop-blur-sm">
-                          <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-300" />
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d6b273]" />
                           <span>{proof}</span>
                         </div>
                       ))}
                     </div>
                   )}
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/40 transition-all hover:bg-blue-500">
+                    <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#9f6e25]">
                       Request a Quote <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
-                      Request Free Samples
+                      Request Samples
                     </Link>
                     <a
                       href="/contact"
@@ -396,12 +498,12 @@ export default async function RollDetailPage({ params }: Props) {
                       <>
                         <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-5">
                           <div>
-                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">RFQ starter pack</p>
+                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f5f5c]">RFQ starter pack</p>
                             <h2 className="mt-2 text-2xl font-extrabold tracking-normal text-slate-950">
                               Send four details. Get a usable landed-cost quote.
                             </h2>
                           </div>
-                          <div className="hidden h-11 w-11 shrink-0 items-center justify-center bg-blue-600 text-white sm:flex">
+                          <div className="hidden h-11 w-11 shrink-0 items-center justify-center bg-[#b9822f] text-white sm:flex">
                             <MessageSquare className="h-5 w-5" />
                           </div>
                         </div>
@@ -421,17 +523,17 @@ export default async function RollDetailPage({ params }: Props) {
                             ["Lead", "10-15 days"],
                             ["Markets", "EU / US / CA"],
                           ].map(([label, value]) => (
-                            <div key={label} className="bg-blue-50 px-2 py-3">
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700">{label}</p>
+                            <div key={label} className="bg-[#f4f0e8] px-2 py-3">
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-[#0f5f5c]">{label}</p>
                               <p className="mt-1 text-sm font-extrabold text-slate-950">{value}</p>
                             </div>
                           ))}
                         </div>
                         <Link
                           href="/quote"
-                          className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                          className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#9f6e25]"
                         >
-                          Start POS roll quote
+                          Request a Quote
                           <ArrowRight className="h-4 w-4" />
                         </Link>
                       </>
@@ -444,7 +546,7 @@ export default async function RollDetailPage({ params }: Props) {
                           { icon: <Shield className="w-4 h-4" />, label: "BPA-Free", value: "Available" },
                         ].map((item) => (
                           <div key={item.label} className="flex items-center gap-3 bg-slate-50 p-4">
-                            <span className="text-blue-600">{item.icon}</span>
+                            <span className="text-[#0f5f5c]">{item.icon}</span>
                             <div>
                               <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{item.label}</div>
                               <div className="text-sm font-bold text-slate-950">{item.value}</div>
@@ -465,11 +567,11 @@ export default async function RollDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
               {[
-                { icon: <Factory className="w-3.5 h-3.5 text-blue-400" />, text: "500M+ rolls/year factory capacity" },
+                { icon: <Factory className="w-3.5 h-3.5 text-[#d6b273]" />, text: "500M+ rolls/year factory capacity" },
                 { icon: <FileCheck className="w-3.5 h-3.5 text-emerald-400" />, text: "SGS & TÜV test reports available" },
-                { icon: <Truck className="w-3.5 h-3.5 text-blue-400" />, text: "FOB Qingdao · DDP Europe/USA" },
+                { icon: <Truck className="w-3.5 h-3.5 text-[#d6b273]" />, text: "FOB Qingdao · DDP Europe/USA" },
                 { icon: <Users className="w-3.5 h-3.5 text-amber-400" />, text: "Trusted by 500+ distributors in 80+ countries" },
-                { icon: <Clock className="w-3.5 h-3.5 text-blue-400" />, text: "24-hour quote response" },
+                { icon: <Clock className="w-3.5 h-3.5 text-[#d6b273]" />, text: "24-hour quote response" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   {item.icon}
@@ -499,7 +601,7 @@ export default async function RollDetailPage({ params }: Props) {
               <div className="grid gap-4 lg:grid-cols-3">
                 {STANDARD_POS_DECISION_CARDS.map((card) => (
                   <div key={card.label} className="border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/50">
-                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">{card.label}</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f5f5c]">{card.label}</p>
                     <h3 className="mt-3 text-xl font-extrabold tracking-normal text-slate-950">{card.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-slate-600">{card.body}</p>
                   </div>
@@ -525,7 +627,7 @@ export default async function RollDetailPage({ params }: Props) {
                 <div className="border border-slate-200 bg-slate-50 p-6">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <MessageSquare className="h-5 w-5 text-blue-600" />
+                      <MessageSquare className="h-5 w-5 text-[#0f5f5c]" />
                       <h3 className="text-lg font-extrabold tracking-normal text-slate-950">Quote checklist</h3>
                     </div>
                     <span className="hidden text-xs font-bold uppercase tracking-widest text-slate-400 sm:inline">
@@ -541,9 +643,9 @@ export default async function RollDetailPage({ params }: Props) {
                   </div>
                   <Link
                     href="/quote"
-                    className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                    className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#9f6e25]"
                   >
-                    Send POS roll details
+                    Request a Quote
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -557,8 +659,8 @@ export default async function RollDetailPage({ params }: Props) {
             <div className="container-site">
               <div className="max-w-3xl">
                 <div className="flex items-center gap-2 mb-4">
-                  <MessageSquare className="w-5 h-5 text-blue-600" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-blue-600">Product Overview</span>
+                  <MessageSquare className="w-5 h-5 text-[#0f5f5c]" />
+                  <span className="text-xs font-bold tracking-widest uppercase text-[#0f5f5c]">Product Overview</span>
                 </div>
                 <p className="text-slate-700 text-lg leading-relaxed">
                   {descText}
@@ -600,7 +702,7 @@ export default async function RollDetailPage({ params }: Props) {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/quote" className="inline-flex min-h-11 items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
-                  Request a POS Roll Quote
+                  Request a Quote
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/samples" className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
@@ -632,7 +734,7 @@ export default async function RollDetailPage({ params }: Props) {
               <div className="grid gap-px bg-white/10 lg:grid-cols-3">
                 {buyerChecks.map((check) => (
                   <div key={check.title} className="bg-slate-950 p-6">
-                    <div className="mb-5 flex h-10 w-10 items-center justify-center bg-blue-500/10 text-blue-300">
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center bg-[#b9822f]/10 text-[#d6b273]">
                       <CheckCircle2 className="h-5 w-5" />
                     </div>
                     <h3 className="text-xl font-bold text-white">{check.title}</h3>
@@ -651,7 +753,7 @@ export default async function RollDetailPage({ params }: Props) {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                  Request Free Samples
+                  Request Samples
                 </Link>
               </div>
             </div>
@@ -679,11 +781,11 @@ export default async function RollDetailPage({ params }: Props) {
                   <Link
                     key={region.market}
                     href={region.href}
-                    className="group border border-slate-200 bg-white p-6 transition hover:border-blue-300 hover:bg-blue-50"
+                    className="group border border-slate-200 bg-white p-6 transition hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8]"
                   >
                     <div className="mb-5 flex items-center justify-between">
                       <h3 className="text-2xl font-extrabold tracking-normal text-slate-950">{region.market}</h3>
-                      <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-700" />
+                      <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#0f5f5c]" />
                     </div>
                     <div className="space-y-4 text-sm leading-6 text-slate-600">
                       <p><span className="font-bold text-slate-950">Compliance:</span> {region.compliance}</p>
@@ -706,15 +808,15 @@ export default async function RollDetailPage({ params }: Props) {
               <div className="lg:col-span-1 space-y-6">
 
                 {/* Quick highlights */}
-                <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+                <div className="bg-[#f4f0e8] border border-[#ded6c8] rounded-2xl p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-blue-600" />
+                    <Star className="w-5 h-5 text-[#0f5f5c]" />
                     Key Features
                   </h2>
                   <div className="space-y-3">
                     {roll.features.map((f) => (
                       <div key={f} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-[#0f5f5c] shrink-0 mt-0.5" />
                         <span className="text-slate-700 text-sm leading-snug">{f}</span>
                       </div>
                     ))}
@@ -724,12 +826,12 @@ export default async function RollDetailPage({ params }: Props) {
                 {/* Applications */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-blue-600" />
+                    <Zap className="w-5 h-5 text-[#0f5f5c]" />
                     Applications
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {roll.applications.map((app) => (
-                      <span key={app} className="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg uppercase tracking-wide">
+                      <span key={app} className="px-3 py-1.5 bg-[#b9822f] text-white text-xs font-bold rounded-lg uppercase tracking-wide">
                         {app}
                       </span>
                     ))}
@@ -741,7 +843,7 @@ export default async function RollDetailPage({ params }: Props) {
                   <h2 className="font-bold text-slate-900 text-lg mb-4">Available Sizes</h2>
                   <div className="grid grid-cols-2 gap-2">
                     {roll.sizes.map((size) => (
-                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-center text-sm font-semibold text-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-default">
+                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-center text-sm font-semibold text-slate-700 hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8] transition-all cursor-default">
                         {size}
                       </div>
                     ))}
@@ -760,7 +862,7 @@ export default async function RollDetailPage({ params }: Props) {
                     </div>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm shrink-0"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-[#0f5f5c]/40 hover:text-[#0f5f5c] transition-colors shadow-sm shrink-0"
                     >
                       <Download className="w-4 h-4" />
                       Download TDS
@@ -797,16 +899,16 @@ export default async function RollDetailPage({ params }: Props) {
                   </div>
 
                   {/* CTA inside spec panel */}
-                  <div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-blue-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="px-8 py-6 bg-gradient-to-r from-[#0f5f5c] to-[#101b19] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <p className="font-bold text-white text-base">Need a custom specification?</p>
-                      <p className="text-blue-200 text-sm">Our team can tailor any product to your exact requirements.</p>
+                      <p className="text-[#d6b273] text-sm">Our team can tailor any product to your exact requirements.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
-                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-blue-50 transition-colors text-sm shadow-sm">
-                        Request Free Samples
+                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold rounded-xl hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
+                        Request Samples
                       </Link>
-                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-400 transition-colors text-sm shadow-sm border border-blue-400">
+                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] text-white font-bold rounded-xl hover:bg-[#9f6e25] transition-colors text-sm shadow-sm border border-[#b9822f]">
                         Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
@@ -822,7 +924,7 @@ export default async function RollDetailPage({ params }: Props) {
           <section className="py-14 bg-slate-50 border-t border-slate-200">
             <div className="container-site">
               <div className="flex items-center gap-3 mb-2">
-                <Layers className="w-5 h-5 text-blue-600" />
+                <Layers className="w-5 h-5 text-[#0f5f5c]" />
                 <h2 className="font-bold text-slate-900 text-2xl">Printer Compatibility</h2>
               </div>
               <p className="text-slate-500 text-sm mb-8 max-w-2xl">
@@ -830,9 +932,9 @@ export default async function RollDetailPage({ params }: Props) {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {printers.map((p) => (
-                  <div key={p.brand} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                  <div key={p.brand} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#0f5f5c]/40 hover:shadow-sm transition-all">
+                    <div className="w-8 h-8 bg-[#e7eee9] rounded-lg flex items-center justify-center mb-3">
+                      <CheckCircle2 className="w-4 h-4 text-[#0f5f5c]" />
                     </div>
                     <p className="font-bold text-slate-900 text-sm mb-1">{p.brand}</p>
                     <p className="text-slate-500 text-xs leading-relaxed">{p.models}</p>
@@ -840,7 +942,7 @@ export default async function RollDetailPage({ params }: Props) {
                 ))}
               </div>
               <p className="text-xs text-slate-400 mt-4">
-                Not seeing your printer model? <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link> — we test compatibility on request.
+                Not seeing your printer model? <Link href="/contact" className="text-[#0f5f5c] hover:underline">Contact us</Link> — we test compatibility on request.
               </p>
             </div>
           </section>
@@ -850,7 +952,7 @@ export default async function RollDetailPage({ params }: Props) {
         <section className="py-14 bg-white border-t border-slate-100">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <TrendingUp className="w-5 h-5 text-[#0f5f5c]" />
               <h2 className="font-bold text-slate-900 text-2xl">Volume Pricing</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
@@ -862,12 +964,12 @@ export default async function RollDetailPage({ params }: Props) {
                   key={tier.tier}
                   className={`rounded-2xl p-6 border-2 transition-all ${
                     i === 2
-                      ? "border-blue-500 bg-blue-50 shadow-md shadow-blue-100"
-                      : "border-slate-200 bg-white hover:border-blue-200"
+                      ? "border-[#0f5f5c] bg-[#f4f0e8] shadow-md shadow-[#0f5f5c]/10"
+                      : "border-slate-200 bg-white hover:border-[#0f5f5c]/25"
                   }`}
                 >
                   {i === 2 && (
-                    <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-600 text-white text-[9px] font-bold tracking-widest uppercase rounded-full mb-3">
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#b9822f] text-white text-[9px] font-bold tracking-widest uppercase rounded-full mb-3">
                       Most Popular
                     </div>
                   )}
@@ -883,8 +985,8 @@ export default async function RollDetailPage({ params }: Props) {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
-                Get Exact Pricing <ArrowRight className="w-4 h-4" />
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
+                Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-slate-400 text-xs">Response within 24 hours · No commitment required</p>
             </div>
@@ -895,7 +997,7 @@ export default async function RollDetailPage({ params }: Props) {
         <section className="py-14 bg-slate-50 border-t border-slate-200">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-2">
-              <FileCheck className="w-5 h-5 text-blue-600" />
+              <FileCheck className="w-5 h-5 text-[#0f5f5c]" />
               <h2 className="font-bold text-slate-900 text-2xl">Compliance Documents</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
@@ -903,16 +1005,16 @@ export default async function RollDetailPage({ params }: Props) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
-                <div key={doc.name} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all group">
-                  <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-100 transition-colors">
-                    <Download className="w-4 h-4 text-blue-600" />
+                <div key={doc.name} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#0f5f5c]/40 hover:shadow-sm transition-all group">
+                  <div className="w-9 h-9 bg-[#f4f0e8] rounded-lg flex items-center justify-center mb-3 group-hover:bg-[#e7eee9] transition-colors">
+                    <Download className="w-4 h-4 text-[#0f5f5c]" />
                   </div>
                   <p className="font-bold text-slate-900 text-sm mb-1 leading-snug">{doc.name}</p>
                   <p className="text-slate-500 text-xs leading-relaxed">{doc.desc}</p>
                 </div>
               ))}
             </div>
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="bg-[#f4f0e8] border border-[#0f5f5c]/25 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Request Full Compliance Pack</p>
                 <p className="text-slate-500 text-xs">
@@ -921,7 +1023,7 @@ export default async function RollDetailPage({ params }: Props) {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
               >
                 <Download className="w-4 h-4" /> Request Docs
               </Link>
@@ -988,7 +1090,7 @@ export default async function RollDetailPage({ params }: Props) {
                   </Link>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8 border border-slate-200">
+              <div className="bg-gradient-to-br from-emerald-50 to-[#f4f0e8] rounded-2xl p-8 border border-slate-200">
                 <h3 className="font-bold text-slate-900 text-lg mb-5">OEM Service at a Glance</h3>
                 <div className="space-y-4">
                   {[
@@ -1015,14 +1117,14 @@ export default async function RollDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Free Sample Card */}
-              <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-4 p-6 bg-[#f4f0e8] rounded-2xl border border-[#ded6c8]">
+                <div className="w-10 h-10 bg-[#b9822f] rounded-xl flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-sm mb-1">Request Free Samples</p>
+                  <p className="font-bold text-slate-900 text-sm mb-1">Request Samples</p>
                   <p className="text-slate-500 text-xs mb-3">Test quality before you order. Shipped via DHL/FedEx within 3 business days.</p>
-                  <Link href="/samples" className="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1">
+                  <Link href="/samples" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
                     Request Now <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
@@ -1067,7 +1169,7 @@ export default async function RollDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="flex items-center justify-between mb-8">
               <h2 className="font-bold text-slate-900 text-3xl">Related Products</h2>
-              <Link href="/products/thermal-paper-rolls" className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center gap-1">
+              <Link href="/products/thermal-paper-rolls" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-sm flex items-center gap-1">
                 All Rolls <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -1076,12 +1178,12 @@ export default async function RollDetailPage({ params }: Props) {
                 <Link
                   key={r.slug}
                   href={`/products/thermal-paper-rolls/${r.slug}`}
-                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-lg transition-all"
+                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
                 >
-                  <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors">
-                    <Package className="w-5 h-5 text-blue-600" />
+                  <div className="w-10 h-10 bg-[#f4f0e8] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#e7eee9] transition-colors">
+                    <Package className="w-5 h-5 text-[#0f5f5c]" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-blue-600 transition-colors leading-snug">{r.name}</h3>
+                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{r.name}</h3>
                   <p className="text-slate-400 text-xs">{r.subtitle}</p>
                 </Link>
               ))}

@@ -12,6 +12,7 @@ const nextConfig = {
     // Enable Next.js image optimization for CDN caching
     unoptimized: false,
     formats: ["image/avif", "image/webp"],
+    qualities: [68, 72, 74, 75, 76, 78, 88],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year cache for optimized images
@@ -54,16 +55,6 @@ const nextConfig = {
       // Long-term cache for static assets (images, fonts, icons)
       {
         source: "/images/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // Long-term cache for Next.js static files
-      {
-        source: "/_next/static/:path*",
         headers: [
           {
             key: "Cache-Control",

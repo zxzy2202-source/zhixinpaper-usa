@@ -445,7 +445,7 @@ export default function FactoryPage() {
             {[
               { icon: Boxes, title: "Thermal paper rolls", href: "/products/thermal-paper-rolls" },
               { icon: BadgeCheck, title: "Compliance", href: "/compliance" },
-              { icon: Truck, title: "Export supply", href: "/export" },
+              { icon: Truck, title: "Export supply", href: "/eu" },
               { icon: ShieldCheck, title: COMPANY.certifications[0], href: "/compliance/iso-9001" },
             ].map((item) => {
               const Icon = item.icon;
