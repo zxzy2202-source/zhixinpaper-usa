@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { SITE_NAME, breadcrumbSchema, canonicalUrl, faqSchema } from "@/lib/seo";
 import {
   ArrowRight,
   Boxes,
@@ -19,10 +19,12 @@ import {
   Truck,
 } from "lucide-react";
 
+const productPageDescription =
+  "Browse wholesale thermal paper rolls and labels by use case, size, compliance files, packing, and RFQ details for repeat import orders.";
+
 export const metadata: Metadata = {
   title: "Thermal Paper Products | Rolls, Labels & Custom OEM Supply",
-  description:
-    "Browse factory-direct thermal paper products for wholesale buyers: POS rolls, ATM paper, lottery tickets, direct thermal labels, freezer labels, custom printed rolls, and OEM packaging. Request samples, documents, and a bulk quote.",
+  description: productPageDescription,
   keywords: [
     "thermal paper products",
     "thermal paper rolls wholesale",
@@ -206,24 +208,139 @@ const quoteFields = [
 
 const quoteOutcomes = ["Sample plan", "Document list", "Packing option", "Shipping term"];
 
+const sourcingSummary = [
+  {
+    term: "Main product families",
+    detail: "Thermal paper rolls for POS, ATM, lottery, casino, transport, medical, kiosk, and custom receipt programs; thermal labels for shipping, barcode, cold-chain, retail, wristband, synthetic, tamper-evident, and industrial use.",
+  },
+  {
+    term: "Best RFQ starting point",
+    detail: "Start with application, size, core or label format, monthly quantity, destination, compliance files, and packing requirements. These details affect paper grade, adhesive, carton pack, pallet plan, and freight terms.",
+  },
+  {
+    term: "Buyer fit",
+    detail: "Built for distributors, importers, POS paper resellers, label converters, warehouse suppliers, retail chains, logistics operators, and OEM private-label programs.",
+  },
+];
+
+const productDirectory = [
+  {
+    title: "Thermal paper rolls",
+    href: "/products/thermal-paper-rolls",
+    description: "Receipt and ticket rolls grouped by terminal, printer fit, image life, core, OD, and carton plan.",
+    items: THERMAL_PAPER_ROLLS.map((item) => ({
+      name: item.name,
+      href: `/products/thermal-paper-rolls/${item.slug}`,
+      detail: item.applications.slice(0, 3).join(" / "),
+      spec: item.sizes.slice(0, 4).join(" / "),
+      moq: item.moq,
+    })),
+  },
+  {
+    title: "Thermal labels",
+    href: "/products/thermal-labels",
+    description: "Direct thermal and thermal transfer labels grouped by adhesive, facestock, liner, barcode use, and environment.",
+    items: THERMAL_LABELS.map((item) => ({
+      name: item.name,
+      href: `/products/thermal-labels/${item.slug}`,
+      detail: item.applications.slice(0, 3).join(" / "),
+      spec: item.sizes.slice(0, 4).join(" / "),
+      moq: item.moq,
+    })),
+  },
+] as const;
+
+const productFaqs = [
+  {
+    question: "What thermal paper products does Zhixin Paper manufacture?",
+    answer:
+      "Zhixin Paper manufactures wholesale thermal paper rolls and thermal labels, including POS receipt rolls, ATM receipt paper, lottery and casino ticket rolls, medical and transport rolls, direct thermal labels, thermal transfer labels, freezer labels, removable labels, synthetic labels, wristband labels, and custom printed OEM products.",
+  },
+  {
+    question: "How should buyers choose between thermal paper rolls and thermal labels?",
+    answer:
+      "Choose thermal paper rolls when the printer outputs receipts, tickets, transaction records, or terminal slips. Choose thermal labels when the application needs adhesive, liner, barcode tracking, shipping labels, cold-chain identification, retail pricing, or product labeling.",
+  },
+  {
+    question: "What information is needed for an accurate bulk quote?",
+    answer:
+      "A strong RFQ includes product use case, width, roll OD, core ID, label size, facestock or adhesive, monthly quantity, destination country, incoterm, certificate needs, carton marks, pallet plan, and any private-label artwork or back-print requirements.",
+  },
+  {
+    question: "Are compliance documents available for product categories?",
+    answer:
+      "Yes. Depending on the product and destination market, buyers can request BPA-free, REACH/RoHS, FDA, FSC, ISO 9001, food-contact, image-life, and material test files before placing a bulk order.",
+  },
+  {
+    question: "Can one order mix several roll or label SKUs?",
+    answer:
+      "Yes. Mixed-SKU programs are available for distributors and importers. Confirm each SKU size, quantity, carton count, pallet requirement, warehouse label, and destination so the packing plan can be quoted accurately.",
+  },
+] as const;
+
 export default function ProductsPage() {
   const paperRollCount = THERMAL_PAPER_ROLLS.length;
   const labelCount = THERMAL_LABELS.length;
+  const allDirectoryItems = productDirectory.flatMap((group) => group.items);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Thermal paper products",
-    itemListElement: [...THERMAL_PAPER_ROLLS, ...THERMAL_LABELS].slice(0, 12).map((item, index) => ({
+    name: "Thermal paper products directory",
+    numberOfItems: paperRollCount + labelCount,
+    itemListElement: allDirectoryItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      url: canonicalUrl(
-        index < paperRollCount
-          ? `/products/thermal-paper-rolls/${item.slug}`
-          : `/products/thermal-labels/${item.slug}`,
-      ),
+      url: canonicalUrl(item.href),
     })),
+  };
+
+  const collectionPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Thermal Paper Products",
+    headline: "Thermal paper rolls and labels for repeat wholesale orders",
+    description: productPageDescription,
+    url: canonicalUrl("/products"),
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: canonicalUrl("/"),
+    },
+    about: [
+      "Thermal paper rolls",
+      "Thermal labels",
+      "POS receipt paper",
+      "ATM receipt paper",
+      "Direct thermal labels",
+      "Custom printed thermal paper",
+      "BPA-free thermal paper",
+    ],
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Thermal paper product categories",
+      numberOfItems: productLines.length,
+      itemListElement: productLines.map((line, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: line.title,
+        url: canonicalUrl(line.href),
+      })),
+    },
+  };
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      collectionPageJsonLd,
+      breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Products", url: "/products" },
+      ]),
+      itemListJsonLd,
+      faqSchema(productFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))),
+    ],
   };
 
   return (
@@ -232,7 +349,7 @@ export default function ProductsPage() {
       <main id="main-content">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
         <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-32 text-white">
@@ -263,6 +380,20 @@ export default function ProductsPage() {
                 <p className="mt-6 max-w-2xl text-base leading-8 text-[#c7d0cb] md:text-lg">
                   Choose the product line first. We help confirm size, coating or adhesive, printer fit, documents, packing, and freight terms before bulk production.
                 </p>
+                <dl className="mt-8 grid gap-px overflow-hidden border border-white/10 bg-white/10 text-left md:grid-cols-3">
+                  <div className="bg-[#101b19]/70 p-4">
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Roll categories</dt>
+                    <dd className="mt-2 text-2xl font-bold text-white">{paperRollCount}</dd>
+                  </div>
+                  <div className="bg-[#101b19]/70 p-4">
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Label categories</dt>
+                    <dd className="mt-2 text-2xl font-bold text-white">{labelCount}</dd>
+                  </div>
+                  <div className="bg-[#101b19]/70 p-4">
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Quote path</dt>
+                    <dd className="mt-2 text-2xl font-bold text-white">Spec first</dd>
+                  </div>
+                </dl>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link href="#product-lines" className="inline-flex items-center justify-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px">
                     Choose a Product Line
@@ -273,6 +404,27 @@ export default function ProductsPage() {
                   </Link>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="product-sourcing-summary" className="bg-[#f4f0e8] py-14">
+          <div className="container-site">
+            <div className="grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-start">
+              <div>
+                <p className="section-label">Product sourcing summary</p>
+                <h2 id="product-sourcing-summary" className="mt-3 max-w-2xl text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
+                  Short answers for buyers, search engines, and AI summaries.
+                </h2>
+              </div>
+              <dl className="grid gap-px overflow-hidden border border-[#ded6c8] bg-[#ded6c8]">
+                {sourcingSummary.map((item) => (
+                  <div key={item.term} className="grid gap-3 bg-[#fbfaf6] p-5 md:grid-cols-[220px_1fr]">
+                    <dt className="text-sm font-bold text-[#14211f]">{item.term}</dt>
+                    <dd className="text-sm leading-7 text-[#4f5f5a]">{item.detail}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </section>
@@ -435,6 +587,58 @@ export default function ProductsPage() {
           </div>
         </section>
 
+        <section aria-labelledby="complete-product-directory" className="bg-[#f4f0e8] py-18">
+          <div className="container-site">
+            <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1fr] lg:items-end">
+              <div>
+                <p className="section-label">Complete product directory</p>
+                <h2 id="complete-product-directory" className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
+                  Every product category linked from one crawlable hub.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-sm leading-7 text-[#4f5f5a] lg:justify-self-end">
+                Use this directory when you already know the product family. Each link opens a dedicated page with application notes, sizes, specifications, MOQ, and RFQ guidance.
+              </p>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {productDirectory.map((group) => (
+                <section key={group.title} aria-labelledby={`${group.title.toLowerCase().replaceAll(" ", "-")}-directory`} className="border border-[#ded6c8] bg-[#fbfaf6]">
+                  <div className="border-b border-[#ded6c8] p-6">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h3 id={`${group.title.toLowerCase().replaceAll(" ", "-")}-directory`} className="text-2xl font-bold text-[#14211f]">{group.title}</h3>
+                        <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{group.description}</p>
+                      </div>
+                      <Link href={group.href} className="inline-flex shrink-0 items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
+                        View category
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="divide-y divide-[#ded6c8]">
+                    {group.items.map((item) => (
+                      <Link key={item.href} href={item.href} className="group grid gap-3 p-5 transition-colors hover:bg-white md:grid-cols-[1fr_1fr_auto] md:items-center">
+                        <div>
+                          <h4 className="text-base font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{item.name}</h4>
+                          <p className="mt-1 text-xs leading-5 text-[#687772]">{item.detail}</p>
+                        </div>
+                        <div className="text-xs leading-5 text-[#4f5f5a]">
+                          <span className="font-bold text-[#33413e]">Common specs: </span>
+                          {item.spec}
+                          {item.moq ? <span className="block pt-1"><span className="font-bold text-[#33413e]">MOQ: </span>{item.moq}</span> : null}
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-[#87918c] transition-transform group-hover:translate-x-1 group-hover:text-[#0f5f5c]" aria-hidden="true" />
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="bg-[#fbfaf6] py-16">
           <div className="container-site">
             <div className="overflow-hidden bg-[#101b19] text-white">
@@ -552,6 +756,30 @@ export default function ProductsPage() {
                 </Link>
               );
             })}
+          </div>
+        </section>
+
+        <section aria-labelledby="products-faq" className="bg-[#f4f0e8] py-18">
+          <div className="container-site">
+            <div className="grid gap-10 lg:grid-cols-[0.75fr_1fr]">
+              <div>
+                <p className="section-label">Product sourcing FAQ</p>
+                <h2 id="products-faq" className="mt-3 text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
+                  Answers buyers often need before opening product pages.
+                </h2>
+                <p className="mt-5 text-sm leading-7 text-[#4f5f5a]">
+                  These answers are written in plain language so buyers, search engines, and AI answer engines can understand the category before a quote request.
+                </p>
+              </div>
+              <div className="divide-y divide-[#ded6c8] border border-[#ded6c8] bg-[#fbfaf6]">
+                {productFaqs.map((faq) => (
+                  <article key={faq.question} className="p-6">
+                    <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
+                    <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
