@@ -112,7 +112,7 @@ function CategoryModal({
   };
 
   const FormBlock = ({ isNew }: { isNew: boolean }) => (
-    <div className={`rounded-xl p-4 space-y-3 border-2 ${isNew ? "border-emerald-300 bg-emerald-50" : "border-blue-300 bg-blue-50"}`}>
+    <div className={` p-4 space-y-3 border-2 ${isNew ? "border-emerald-300 bg-emerald-50" : "border-blue-300 bg-blue-50"}`}>
       {isNew && <p className="text-sm font-semibold text-emerald-700">新建分类</p>}
       <div className="grid grid-cols-2 gap-3">
         <div>
@@ -123,16 +123,16 @@ function CategoryModal({
               const slug = name.toLowerCase().replace(/[\u4e00-\u9fa5]/g, "").replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") || "category";
               setForm({ ...form, name, slug });
             } else setForm({ ...form, name });
-          }} className="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="如：产品图片" autoFocus={isNew} />
+          }} className="w-full border border-slate-300  px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="如：产品图片" autoFocus={isNew} />
         </div>
         <div>
           <label className="block text-xs font-medium text-slate-600 mb-1">标识符 *</label>
-          <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })} className="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="如：products" />
+          <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })} className="w-full border border-slate-300  px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="如：products" />
         </div>
       </div>
       <div>
         <label className="block text-xs font-medium text-slate-600 mb-1">描述（可选）</label>
-        <input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="分类描述" />
+        <input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="w-full border border-slate-300  px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="分类描述" />
       </div>
       <div>
         <label className="block text-xs font-medium text-slate-600 mb-2">颜色标签</label>
@@ -146,9 +146,9 @@ function CategoryModal({
       </div>
       {error && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
       <div className="flex gap-2 justify-end pt-1">
-        <button onClick={cancelEdit} className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white/60 rounded-lg transition-colors">取消</button>
+        <button onClick={cancelEdit} className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white/60  transition-colors">取消</button>
         <button onClick={handleSave} disabled={saving}
-          className={`px-4 py-1.5 text-sm text-white rounded-lg disabled:opacity-50 flex items-center gap-1.5 transition-colors ${isNew ? "bg-emerald-600 hover:bg-emerald-700" : "bg-blue-600 hover:bg-blue-700"}`}>
+          className={`px-4 py-1.5 text-sm text-white  disabled:opacity-50 flex items-center gap-1.5 transition-colors ${isNew ? "bg-emerald-600 hover:bg-emerald-700" : "bg-blue-600 hover:bg-blue-700"}`}>
           {saving && <Loader2 className="w-3 h-3 animate-spin" />}
           {isNew ? "创建分类" : "保存修改"}
         </button>
@@ -158,15 +158,15 @@ function CategoryModal({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col">
+      <div className="bg-white  shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
-            <div className="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="w-7 h-7 bg-blue-100  flex items-center justify-center">
               <Tag className="w-4 h-4 text-blue-600" />
             </div>
             管理图片分类
           </h2>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center  text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -181,8 +181,8 @@ function CategoryModal({
           {categories.map((cat) => (
             <div key={cat.id}>
               {editingId === cat.id ? <FormBlock isNew={false} /> : (
-                <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 group transition-colors">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: cat.color + "20" }}>
+                <div className="flex items-center gap-3 px-3 py-2.5  hover:bg-slate-50 group transition-colors">
+                  <div className="w-8 h-8  flex items-center justify-center shrink-0" style={{ backgroundColor: cat.color + "20" }}>
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -190,10 +190,10 @@ function CategoryModal({
                     <p className="text-xs text-slate-400">{cat.slug} · {cat.imageCount} 张图片</p>
                   </div>
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => startEdit(cat)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <button onClick={() => startEdit(cat)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50  transition-colors">
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
-                    <button onClick={() => handleDelete(cat)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                    <button onClick={() => handleDelete(cat)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50  transition-colors">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -206,10 +206,10 @@ function CategoryModal({
 
         <div className="px-6 py-4 border-t border-slate-100 flex justify-between items-center">
           <button onClick={startCreate} disabled={creating || editingId !== null}
-            className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-900 text-white rounded-xl hover:bg-slate-700 disabled:opacity-40 transition-colors">
+            className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-900 text-white  hover:bg-slate-700 disabled:opacity-40 transition-colors">
             <Plus className="w-4 h-4" />新建分类
           </button>
-          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors">完成</button>
+          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-500 hover:text-slate-700 hover:bg-slate-100  transition-colors">完成</button>
         </div>
       </div>
     </div>
@@ -254,14 +254,14 @@ function ImageDetailModal({
 
   return (
     <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-white  shadow-2xl w-full max-w-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
         <div className="flex h-[480px]">
           {/* 左侧：图片预览 */}
           <div className="w-56 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center shrink-0 relative">
             <img src={file.url} alt={file.alt || file.originalName}
               className="max-w-full max-h-full object-contain p-4" />
             <div className="absolute bottom-3 left-3 right-3">
-              <div className="bg-black/50 backdrop-blur-sm rounded-lg px-2.5 py-1.5 text-white text-xs">
+              <div className="bg-black/50 backdrop-blur-sm  px-2.5 py-1.5 text-white text-xs">
                 {file.width && file.height ? `${file.width} x ${file.height} px` : "尺寸未知"}
               </div>
             </div>
@@ -275,7 +275,7 @@ function ImageDetailModal({
                 <p className="text-sm font-semibold text-slate-800 truncate">{file.originalName}</p>
                 <p className="text-xs text-slate-400 mt-0.5">{formatFileSize(file.size)} · {formatDate(file.createdAt)}</p>
               </div>
-              <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors shrink-0">
+              <button onClick={onClose} className="w-7 h-7 flex items-center justify-center  text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors shrink-0">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -286,7 +286,7 @@ function ImageDetailModal({
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">所属分类</label>
                 <select value={categoryId ?? ""} onChange={(e) => setCategoryId(e.target.value ? parseInt(e.target.value) : null)}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors">
+                  className="w-full border border-slate-200  px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors">
                   <option value="">未分类</option>
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -304,7 +304,7 @@ function ImageDetailModal({
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Alt 描述 <span className="text-slate-400 font-normal normal-case">(SEO 优化)</span></label>
                 <textarea value={alt} onChange={(e) => setAlt(e.target.value)} rows={2}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors resize-none"
+                  className="w-full border border-slate-200  px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors resize-none"
                   placeholder="描述图片内容，有助于搜索引擎理解" />
               </div>
 
@@ -312,12 +312,12 @@ function ImageDetailModal({
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">图片链接</label>
                 <div className="flex gap-2">
-                  <div className="flex-1 flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 min-w-0">
+                  <div className="flex-1 flex items-center gap-2 bg-slate-50 border border-slate-200  px-3 py-2 min-w-0">
                     <Link2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span className="text-xs text-slate-600 truncate">{file.url}</span>
                   </div>
                   <button onClick={copyUrl}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 shrink-0 transition-all ${copied ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200"}`}>
+                    className={`px-3 py-2  text-xs font-medium flex items-center gap-1.5 shrink-0 transition-all ${copied ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200"}`}>
                     {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     {copied ? "已复制" : "复制"}
                   </button>
@@ -328,12 +328,12 @@ function ImageDetailModal({
             {/* Footer */}
             <div className="px-5 py-4 border-t border-slate-100 flex gap-2">
               <button onClick={handleSave} disabled={saving}
-                className={`flex-1 py-2.5 text-sm font-medium rounded-xl flex items-center justify-center gap-2 transition-all ${saved ? "bg-emerald-600 text-white" : "bg-slate-900 text-white hover:bg-slate-700"} disabled:opacity-50`}>
+                className={`flex-1 py-2.5 text-sm font-medium  flex items-center justify-center gap-2 transition-all ${saved ? "bg-emerald-600 text-white" : "bg-slate-900 text-white hover:bg-slate-700"} disabled:opacity-50`}>
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <Check className="w-4 h-4" /> : null}
                 {saving ? "保存中..." : saved ? "已保存" : "保存修改"}
               </button>
               <button onClick={() => { if (confirm("确定删除此图片？此操作不可撤销。")) { onDelete(file.id); } }}
-                className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl border border-slate-200 transition-colors">
+                className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50  border border-slate-200 transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -372,16 +372,16 @@ function UploadPreviewModal({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col">
+      <div className="bg-white  shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
-            <div className="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="w-7 h-7 bg-blue-100  flex items-center justify-center">
               <Upload className="w-4 h-4 text-blue-600" />
             </div>
             {allDone ? "上传完成" : uploading ? "正在上传..." : `确认上传 ${items.length} 张图片`}
           </h2>
-          <button onClick={onClose} disabled={uploading} className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-30">
+          <button onClick={onClose} disabled={uploading} className="w-7 h-7 flex items-center justify-center  text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-30">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -391,7 +391,7 @@ function UploadPreviewModal({
           <div className="px-6 py-3 border-b border-slate-100 flex items-center gap-3">
             <span className="text-xs font-semibold text-slate-500">上传到分类：</span>
             <select value={uploadCategoryId ?? ""} onChange={(e) => onChangeCategory(e.target.value ? parseInt(e.target.value) : null)}
-              className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              className="border border-slate-200  px-3 py-1.5 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">未分类</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -404,7 +404,7 @@ function UploadPreviewModal({
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {items.map((item, idx) => (
-              <div key={idx} className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-50">
+              <div key={idx} className="relative  border border-slate-200 overflow-hidden bg-slate-50">
                 {/* 预览图 */}
                 <div className="aspect-square relative">
                   <img src={item.preview} alt={item.file.name} className="w-full h-full object-cover" />
@@ -481,7 +481,7 @@ function UploadPreviewModal({
                   {totalSaved > 0 && <span className="text-emerald-600 ml-1">· 自动压缩节省 {formatFileSize(totalSaved)}</span>}
                 </span>
               </div>
-              <button onClick={onClose} className="px-5 py-2.5 text-sm font-medium bg-slate-900 text-white rounded-xl hover:bg-slate-700 transition-colors">
+              <button onClick={onClose} className="px-5 py-2.5 text-sm font-medium bg-slate-900 text-white  hover:bg-slate-700 transition-colors">
                 完成
               </button>
             </div>
@@ -505,10 +505,10 @@ function UploadPreviewModal({
                 · 上传后自动压缩优化
               </p>
               <div className="flex gap-2">
-                <button onClick={onClose} className="px-4 py-2.5 text-sm text-slate-500 hover:bg-slate-100 rounded-xl transition-colors">
+                <button onClick={onClose} className="px-4 py-2.5 text-sm text-slate-500 hover:bg-slate-100  transition-colors">
                   取消
                 </button>
-                <button onClick={onConfirm} className="px-5 py-2.5 text-sm font-medium bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2">
+                <button onClick={onConfirm} className="px-5 py-2.5 text-sm font-medium bg-blue-600 text-white  hover:bg-blue-700 transition-colors flex items-center gap-2">
                   <Upload className="w-4 h-4" />
                   开始上传
                 </button>
@@ -754,17 +754,17 @@ export default function MediaManager() {
         <div className="flex items-center justify-between px-1 mb-1">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">分类</span>
           <button onClick={() => setShowCategoryModal(true)}
-            className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="管理分类">
+            className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50  transition-colors" title="管理分类">
             <Settings2 className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* 全部 */}
         <button onClick={() => setSelectedCategory("all")}
-          className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${selectedCategory === "all" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}>
+          className={`w-full flex items-center gap-2.5 px-3 py-2.5  text-sm font-medium transition-all ${selectedCategory === "all" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}>
           <FolderOpen className={`w-4 h-4 shrink-0 ${selectedCategory === "all" ? "text-white" : "text-slate-400"}`} />
           <span className="flex-1 text-left">全部图片</span>
-          <span className={`text-xs px-1.5 py-0.5 rounded-md font-normal ${selectedCategory === "all" ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+          <span className={`text-xs px-1.5 py-0.5  font-normal ${selectedCategory === "all" ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
             {totalAllFiles}
           </span>
         </button>
@@ -772,11 +772,11 @@ export default function MediaManager() {
         {/* 各分类 */}
         {categories.map((cat) => (
           <button key={cat.id} onClick={() => setSelectedCategory(cat.id)}
-            className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${selectedCategory === cat.id ? "shadow-sm text-white" : "text-slate-600 hover:bg-slate-100"}`}
+            className={`w-full flex items-center gap-2.5 px-3 py-2.5  text-sm font-medium transition-all ${selectedCategory === cat.id ? "shadow-sm text-white" : "text-slate-600 hover:bg-slate-100"}`}
             style={selectedCategory === cat.id ? { backgroundColor: cat.color } : {}}>
             <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: selectedCategory === cat.id ? "rgba(255,255,255,0.8)" : cat.color }} />
             <span className="flex-1 text-left truncate">{cat.name}</span>
-            <span className={`text-xs px-1.5 py-0.5 rounded-md font-normal ${selectedCategory === cat.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+            <span className={`text-xs px-1.5 py-0.5  font-normal ${selectedCategory === cat.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
               {cat.imageCount}
             </span>
           </button>
@@ -784,7 +784,7 @@ export default function MediaManager() {
 
         {/* 未分类 */}
         <button onClick={() => setSelectedCategory("uncategorized")}
-          className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${selectedCategory === "uncategorized" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}>
+          className={`w-full flex items-center gap-2.5 px-3 py-2.5  text-sm font-medium transition-all ${selectedCategory === "uncategorized" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}>
           <ImageIcon className={`w-4 h-4 shrink-0 ${selectedCategory === "uncategorized" ? "text-white" : "text-slate-400"}`} />
           <span className="flex-1 text-left">未分类</span>
         </button>
@@ -792,7 +792,7 @@ export default function MediaManager() {
         {/* 分隔线 + 管理入口 */}
         <div className="pt-2 border-t border-slate-200">
           <button onClick={() => setShowCategoryModal(true)}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+            className="w-full flex items-center gap-2 px-3 py-2  text-xs text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
             <Plus className="w-3.5 h-3.5" />
             管理分类
           </button>
@@ -802,10 +802,10 @@ export default function MediaManager() {
       {/* ── 右侧主区域 ── */}
       <div className="flex-1 min-w-0 space-y-3">
         {/* 顶部工具栏 */}
-        <div className="bg-white rounded-2xl border border-slate-200 px-4 py-3 flex items-center gap-3 flex-wrap">
+        <div className="bg-white  border border-slate-200 px-4 py-3 flex items-center gap-3 flex-wrap">
           {/* 上传按钮 */}
           <button onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-700 transition-colors shadow-sm">
+            className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium  hover:bg-slate-700 transition-colors shadow-sm">
             <Upload className="w-4 h-4" />
             上传图片
           </button>
@@ -815,7 +815,7 @@ export default function MediaManager() {
           <div className="relative">
             <select value={uploadCategoryId ?? ""}
               onChange={(e) => setUploadCategoryId(e.target.value ? parseInt(e.target.value) : null)}
-              className="appearance-none pl-3 pr-8 py-2 border border-slate-200 rounded-xl text-sm text-slate-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+              className="appearance-none pl-3 pr-8 py-2 border border-slate-200  text-sm text-slate-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
               <option value="">上传到：未分类</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>上传到：{cat.name}</option>
@@ -831,7 +831,7 @@ export default function MediaManager() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
             <input value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="搜索图片名称..."
-              className="pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-44 bg-slate-50 focus:bg-white transition-colors" />
+              className="pl-9 pr-3 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-44 bg-slate-50 focus:bg-white transition-colors" />
             {search && (
               <button onClick={() => setSearch("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                 <X className="w-3.5 h-3.5" />
@@ -840,12 +840,12 @@ export default function MediaManager() {
           </div>
 
           {/* 刷新 */}
-          <button onClick={fetchFiles} className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl border border-slate-200 transition-colors" title="刷新">
+          <button onClick={fetchFiles} className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100  border border-slate-200 transition-colors" title="刷新">
             <RefreshCw className="w-4 h-4" />
           </button>
 
           {/* 视图切换 */}
-          <div className="flex border border-slate-200 rounded-xl overflow-hidden">
+          <div className="flex border border-slate-200  overflow-hidden">
             <button onClick={() => setViewMode("grid")}
               className={`w-9 h-9 flex items-center justify-center transition-colors ${viewMode === "grid" ? "bg-slate-900 text-white" : "text-slate-400 hover:bg-slate-50"}`} title="网格视图">
               <Grid3X3 className="w-4 h-4" />
@@ -859,28 +859,28 @@ export default function MediaManager() {
 
         {/* 批量操作栏 */}
         {selectedIds.size > 0 && (
-          <div className="bg-blue-50 border border-blue-200 rounded-2xl px-4 py-3 flex items-center gap-3">
+          <div className="bg-blue-50 border border-blue-200  px-4 py-3 flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-blue-600 rounded flex items-center justify-center">
+              <div className="w-5 h-5 bg-blue-600  flex items-center justify-center">
                 <Check className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-blue-800">已选 {selectedIds.size} 张</span>
             </div>
             <div className="flex items-center gap-2">
               <select value={batchMoveCat} onChange={(e) => setBatchMoveCat(e.target.value)}
-                className="border border-blue-200 rounded-lg px-2.5 py-1.5 text-sm bg-white text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                className="border border-blue-200  px-2.5 py-1.5 text-sm bg-white text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">移动到分类...</option>
                 <option value="0">未分类</option>
                 {categories.map((cat) => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
               </select>
               {batchMoveCat !== "" && (
-                <button onClick={batchMove} className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <button onClick={batchMove} className="px-3 py-1.5 text-sm bg-blue-600 text-white  hover:bg-blue-700 transition-colors">
                   确认移动
                 </button>
               )}
             </div>
             <div className="flex-1" />
-            <button onClick={batchDelete} className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-red-200">
+            <button onClick={batchDelete} className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50  transition-colors border border-red-200">
               <Trash2 className="w-3.5 h-3.5" />
               批量删除
             </button>
@@ -896,8 +896,8 @@ export default function MediaManager() {
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`border-2 border-dashed rounded-2xl py-5 px-6 flex items-center gap-4 cursor-pointer transition-all ${isDragging ? "border-blue-400 bg-blue-50 scale-[1.01]" : "border-slate-200 hover:border-blue-300 hover:bg-slate-50/50"}`}>
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isDragging ? "bg-blue-100" : "bg-slate-100"}`}>
+          className={`border-2 border-dashed  py-5 px-6 flex items-center gap-4 cursor-pointer transition-all ${isDragging ? "border-blue-400 bg-blue-50 scale-[1.01]" : "border-slate-200 hover:border-blue-300 hover:bg-slate-50/50"}`}>
+          <div className={`w-10 h-10  flex items-center justify-center shrink-0 transition-colors ${isDragging ? "bg-blue-100" : "bg-slate-100"}`}>
             <Upload className={`w-5 h-5 ${isDragging ? "text-blue-600" : "text-slate-400"}`} />
           </div>
           <div>
@@ -912,7 +912,7 @@ export default function MediaManager() {
           {filtered.length > 0 && (
             <div className="ml-auto flex items-center gap-2">
               <button onClick={(e) => { e.stopPropagation(); selectAll(); }}
-                className="text-xs text-slate-500 hover:text-blue-600 px-2.5 py-1 rounded-lg hover:bg-blue-50 transition-colors border border-slate-200">
+                className="text-xs text-slate-500 hover:text-blue-600 px-2.5 py-1  hover:bg-blue-50 transition-colors border border-slate-200">
                 {selectedIds.size === filtered.length ? "取消全选" : "全选"}
               </button>
             </div>
@@ -927,7 +927,7 @@ export default function MediaManager() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 gap-3">
-            <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-slate-100  flex items-center justify-center">
               <ImageIcon className="w-8 h-8 text-slate-300" />
             </div>
             <p className="text-sm font-medium text-slate-500">暂无图片</p>
@@ -943,7 +943,7 @@ export default function MediaManager() {
               const isSelected = selectedIds.has(file.id);
               return (
                 <div key={file.id} onClick={() => setSelectedFile(file)}
-                  className={`group relative bg-white border-2 rounded-xl overflow-hidden cursor-pointer transition-all hover:shadow-md ${isSelected ? "border-blue-500 shadow-md" : "border-transparent hover:border-slate-200"}`}>
+                  className={`group relative bg-white border-2  overflow-hidden cursor-pointer transition-all hover:shadow-md ${isSelected ? "border-blue-500 shadow-md" : "border-transparent hover:border-slate-200"}`}>
                   {/* 图片 */}
                   <div className="aspect-square bg-slate-100 overflow-hidden">
                     <img src={file.url} alt={file.alt || file.originalName}
@@ -953,7 +953,7 @@ export default function MediaManager() {
 
                   {/* 选择框 */}
                   <div onClick={(e) => toggleSelect(file.id, e)}
-                    className={`absolute top-1.5 left-1.5 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all cursor-pointer ${isSelected ? "bg-blue-600 border-blue-600" : "bg-white/80 border-slate-300 opacity-0 group-hover:opacity-100"}`}>
+                    className={`absolute top-1.5 left-1.5 w-5 h-5  border-2 flex items-center justify-center transition-all cursor-pointer ${isSelected ? "bg-blue-600 border-blue-600" : "bg-white/80 border-slate-300 opacity-0 group-hover:opacity-100"}`}>
                     {isSelected && <Check className="w-3 h-3 text-white" />}
                   </div>
 
@@ -967,7 +967,7 @@ export default function MediaManager() {
                   {/* Hover 操作层 */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex gap-1.5">
-                      <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                      <div className="w-7 h-7 bg-white  flex items-center justify-center shadow-sm">
                         <ZoomIn className="w-3.5 h-3.5 text-slate-700" />
                       </div>
                     </div>
@@ -983,13 +983,13 @@ export default function MediaManager() {
           </div>
         ) : (
           /* 列表视图 */
-          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+          <div className="bg-white  border border-slate-200 overflow-hidden">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
                   <th className="w-10 px-4 py-3">
                     <div onClick={selectAll}
-                      className={`w-4 h-4 rounded border-2 cursor-pointer flex items-center justify-center transition-colors ${selectedIds.size === filtered.length && filtered.length > 0 ? "bg-blue-600 border-blue-600" : "border-slate-300 hover:border-blue-400"}`}>
+                      className={`w-4 h-4  border-2 cursor-pointer flex items-center justify-center transition-colors ${selectedIds.size === filtered.length && filtered.length > 0 ? "bg-blue-600 border-blue-600" : "border-slate-300 hover:border-blue-400"}`}>
                       {selectedIds.size === filtered.length && filtered.length > 0 && <Check className="w-2.5 h-2.5 text-white" />}
                     </div>
                   </th>
@@ -1009,12 +1009,12 @@ export default function MediaManager() {
                   return (
                     <tr key={file.id} className={`hover:bg-slate-50 transition-colors ${isSelected ? "bg-blue-50" : ""}`}>
                       <td className="px-4 py-3" onClick={(e) => toggleSelect(file.id, e)}>
-                        <div className={`w-4 h-4 rounded border-2 cursor-pointer flex items-center justify-center transition-colors ${isSelected ? "bg-blue-600 border-blue-600" : "border-slate-300 hover:border-blue-400"}`}>
+                        <div className={`w-4 h-4  border-2 cursor-pointer flex items-center justify-center transition-colors ${isSelected ? "bg-blue-600 border-blue-600" : "border-slate-300 hover:border-blue-400"}`}>
                           {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
                         </div>
                       </td>
                       <td className="px-3 py-3 cursor-pointer" onClick={() => setSelectedFile(file)}>
-                        <div className="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden">
+                        <div className="w-12 h-12 bg-slate-100  overflow-hidden">
                           <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" loading="lazy" />
                         </div>
                       </td>
@@ -1036,11 +1036,11 @@ export default function MediaManager() {
                       <td className="px-3 py-3 text-slate-500 text-xs whitespace-nowrap">{formatDate(file.createdAt)}</td>
                       <td className="px-3 py-3">
                         <div className="flex gap-1">
-                          <button onClick={() => setSelectedFile(file)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="编辑">
+                          <button onClick={() => setSelectedFile(file)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50  transition-colors" title="编辑">
                             <Pencil className="w-3.5 h-3.5" />
                           </button>
                           <button onClick={() => { if (confirm("确定删除此图片？")) handleDelete(file.id); }}
-                            className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="删除">
+                            className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50  transition-colors" title="删除">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>

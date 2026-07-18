@@ -405,7 +405,7 @@ export default function QuotePage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#b9822f] px-8 py-4 text-sm font-bold text-white shadow-[0_16px_38px_rgba(185,130,47,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-8 py-4 text-sm font-bold text-white shadow-[0_16px_38px_rgba(185,130,47,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {loading ? (
                       <>

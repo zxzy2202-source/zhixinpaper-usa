@@ -201,7 +201,7 @@ export default function Footer() {
             <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <Link
                 href="/quote"
-                className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#b9822f] px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
+                className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
               >
                 <Send className="h-4 w-4" />
                 Request a Quote

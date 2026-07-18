@@ -51,8 +51,8 @@ export default function USCannabisLabelsPage() {
               State-compliant thermal labels for every US cannabis market. From California to New York, our labels meet the specific requirements of each state's regulatory framework — with track-and-trace barcodes, universal symbols, and compliant adhesives.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/quote" className="bg-white text-green-700 font-bold px-8 py-3 rounded-lg hover:bg-green-50 transition-colors">Get a Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/quote" className="bg-white text-green-700 font-bold px-8 py-3  hover:bg-green-50 transition-colors">Get a Quote</Link>
+              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function USCannabisLabelsPage() {
               { icon: "📦", title: "Batch & Lot Number", desc: "Links product to cultivation/manufacturing records for recall and compliance purposes." },
               { icon: "📅", title: "Expiration / Best By Date", desc: "Required for edibles and most processed products. Format varies by state." },
             ].map((item) => (
-              <div key={item.title} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+              <div key={item.title} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-2xl mb-3">{item.icon}</div>
                 <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
@@ -87,7 +87,7 @@ export default function USCannabisLabelsPage() {
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">State-by-State Overview</h2>
           <p className="text-slate-500 text-center mb-10">Key regulatory agencies and track-and-trace systems by state.</p>
-          <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <div className="overflow-x-auto  border border-slate-200">
             <table className="w-full text-sm">
               <thead className="bg-slate-50">
                 <tr>
@@ -123,7 +123,7 @@ export default function USCannabisLabelsPage() {
               { name: "Synthetic PP Labels", use: "Moisture-resistant product labels, outdoor applications", href: "/products/thermal-labels/synthetic-paper-labels" },
               { name: "Tamper-Evident Labels", use: "Child-resistant packaging seals, security labels", href: "/products/thermal-labels/tamper-evident-labels" },
             ].map((p) => (
-              <Link key={p.name} href={p.href} className="bg-white rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all group">
+              <Link key={p.name} href={p.href} className="bg-white  p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all group">
                 <h3 className="font-bold text-slate-800 mb-2 group-hover:text-green-700">{p.name}</h3>
                 <p className="text-slate-500 text-sm mb-3">{p.use}</p>
                 <span className="text-green-600 text-xs font-semibold">View Product →</span>
@@ -139,8 +139,8 @@ export default function USCannabisLabelsPage() {
           <h2 className="text-3xl font-bold mb-4">Need State-Specific Cannabis Labels?</h2>
           <p className="text-green-100 mb-8">Our compliance team can review your state's requirements and recommend the right label specification. Free consultation available.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-green-700 font-bold px-10 py-4 rounded-lg hover:bg-green-50 transition-colors">Talk to Compliance Team</Link>
-            <Link href="/blog/cannabis-label-requirements-usa" className="border-2 border-white text-white font-semibold px-10 py-4 rounded-lg hover:bg-white/10 transition-colors">Read US State Guide</Link>
+            <Link href="/contact" className="bg-white text-green-700 font-bold px-10 py-4  hover:bg-green-50 transition-colors">Talk to Compliance Team</Link>
+            <Link href="/blog/cannabis-label-requirements-usa" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Read US State Guide</Link>
           </div>
         </div>
       </section>

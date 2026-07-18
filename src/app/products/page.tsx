@@ -208,6 +208,12 @@ const quoteFields = [
 
 const quoteOutcomes = ["Sample plan", "Document list", "Packing option", "Shipping term"];
 
+const sourcingProof = [
+  { value: "2", label: "main product lines", text: "Rolls and labels are routed separately for cleaner RFQs." },
+  { value: "24 h", label: "quote response", text: "Spec review, document check, and packing route in one reply." },
+  { value: "OEM", label: "repeat programs", text: "Carton marks, private label, and mixed-SKU export packing." },
+] as const;
+
 const sourcingSummary = [
   {
     term: "Main product families",
@@ -352,7 +358,7 @@ export default function ProductsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-32 text-white">
+        <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-28 text-white md:pt-32">
           <div className="absolute inset-0">
             <SlotImage
               slotKey="home.hero"
@@ -360,42 +366,28 @@ export default function ProductsPage() {
               fill
               priority
               sizes="100vw"
-              className="object-cover opacity-45"
+              className="object-cover opacity-70"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(185,130,47,0.2),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.97)_0%,rgba(16,27,25,0.86)_54%,rgba(16,27,25,0.44)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(185,130,47,0.12),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.96)_0%,rgba(16,27,25,0.78)_48%,rgba(16,27,25,0.22)_100%)]" />
           </div>
 
-          <div className="container-site relative pb-14">
+          <div className="container-site relative pb-16">
             <nav className="mb-8 flex items-center gap-2 text-xs font-semibold text-[#c7d0cb]/70">
               <Link href="/" className="hover:text-white">Home</Link>
               <span>/</span>
               <span className="text-white">Products</span>
             </nav>
 
-            <div className="max-w-4xl">
-              <div>
-                <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] text-white md:text-6xl lg:text-7xl">
-                  Thermal paper rolls and labels for repeat wholesale orders.
+            <div className="grid gap-10 lg:grid-cols-[1.08fr_0.64fr] lg:items-end">
+              <div className="max-w-4xl">
+                <h1 className="max-w-4xl text-4xl font-bold leading-[1.04] text-white md:text-5xl">
+                  Thermal paper rolls and labels for wholesale reorders.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-[#c7d0cb] md:text-lg">
                   Choose the product line first. We help confirm size, coating or adhesive, printer fit, documents, packing, and freight terms before bulk production.
                 </p>
-                <dl className="mt-8 grid gap-px overflow-hidden border border-white/10 bg-white/10 text-left md:grid-cols-3">
-                  <div className="bg-[#101b19]/70 p-4">
-                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Roll categories</dt>
-                    <dd className="mt-2 text-2xl font-bold text-white">{paperRollCount}</dd>
-                  </div>
-                  <div className="bg-[#101b19]/70 p-4">
-                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Label categories</dt>
-                    <dd className="mt-2 text-2xl font-bold text-white">{labelCount}</dd>
-                  </div>
-                  <div className="bg-[#101b19]/70 p-4">
-                    <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#d6b273]">Quote path</dt>
-                    <dd className="mt-2 text-2xl font-bold text-white">Spec first</dd>
-                  </div>
-                </dl>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Link href="#product-lines" className="inline-flex items-center justify-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px">
+                  <Link href="#product-lines" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                     Choose a Product Line
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
@@ -404,22 +396,54 @@ export default function ProductsPage() {
                   </Link>
                 </div>
               </div>
+
+              <aside className="border border-white/12 bg-[#0b1513]/86 p-5 shadow-[0_24px_80px_rgba(5,16,14,0.38)] backdrop-blur-sm md:p-6">
+                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+                  <div>
+                    <p className="text-xs font-bold text-[#d6b273]">Route buyers faster</p>
+                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white">Pick the stock family, then quote the spec.</h2>
+                  </div>
+                  <Boxes className="h-6 w-6 shrink-0 text-[#d6b273]" aria-hidden="true" />
+                </div>
+                <div className="mt-5 grid gap-3">
+                  {productLines.map((line) => (
+                    <Link key={line.title} href={line.href} className="group grid grid-cols-[1fr_auto] gap-4 border border-white/10 bg-white/[0.04] p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[#d6b273]/40 hover:bg-white/[0.07]">
+                      <div>
+                        <h3 className="text-base font-bold text-white">{line.title}</h3>
+                        <p className="mt-1 text-sm leading-6 text-[#c7d0cb]">{line.specs.slice(0, 2).join(" / ")}</p>
+                      </div>
+                      <ArrowRight className="mt-1 h-4 w-4 text-[#d6b273] transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-5 grid gap-px bg-white/10 sm:grid-cols-3">
+                  {sourcingProof.map((item) => (
+                    <div key={item.label} className="bg-[#101b19]/80 p-4">
+                      <p className="text-2xl font-bold text-white">{item.value}</p>
+                      <p className="mt-1 text-xs font-bold text-[#d6b273]">{item.label}</p>
+                      <p className="mt-2 text-xs leading-5 text-[#c7d0cb]/78">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </aside>
             </div>
           </div>
         </section>
 
         <section aria-labelledby="product-sourcing-summary" className="bg-[#f4f0e8] py-14">
           <div className="container-site">
-            <div className="grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-start">
+            <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-start">
               <div>
-                <p className="section-label">Product sourcing summary</p>
                 <h2 id="product-sourcing-summary" className="mt-3 max-w-2xl text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
-                  Short answers for buyers, search engines, and AI summaries.
+                  Quick answers before you choose a product line.
                 </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-[#4f5f5a]">
+                  This hub helps buyers move from broad search intent to the quote details that affect price, documents, and repeat packing.
+                </p>
               </div>
-              <dl className="grid gap-px overflow-hidden border border-[#ded6c8] bg-[#ded6c8]">
+              <dl className="grid gap-4">
                 {sourcingSummary.map((item) => (
-                  <div key={item.term} className="grid gap-3 bg-[#fbfaf6] p-5 md:grid-cols-[220px_1fr]">
+                  <div key={item.term} className="border-l-2 border-[#0f5f5c] bg-[#fbfaf6] p-5 shadow-[0_14px_34px_rgba(20,33,31,0.06)] md:grid md:grid-cols-[210px_1fr] md:gap-5">
                     <dt className="text-sm font-bold text-[#14211f]">{item.term}</dt>
                     <dd className="text-sm leading-7 text-[#4f5f5a]">{item.detail}</dd>
                   </div>
@@ -431,14 +455,13 @@ export default function ProductsPage() {
 
         <section id="product-lines" className="bg-[#fbfaf6] py-20 md:py-24">
           <div className="container-site">
-            <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-end">
+            <div className="mb-10 max-w-3xl">
               <div>
-                <p className="section-label">Choose a product line</p>
                 <h2 className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
                   Start with the material your customer reorders every month.
                 </h2>
               </div>
-              <p className="max-w-2xl text-sm leading-7 text-[#4f5f5a] lg:justify-self-end">
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
                 Rolls and labels are quoted differently. Pick the closest product line first, then confirm size, adhesive, printer fit, documents, carton pack, and repeat-order terms.
               </p>
             </div>
@@ -456,11 +479,11 @@ export default function ProductsPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#101b19]/80 via-[#101b19]/20 to-transparent" />
                     <div className="absolute bottom-5 left-5 right-5">
-                      <p className="text-xs font-bold text-[#d6b273]">{line.label}</p>
-                      <h3 className="mt-2 text-3xl font-bold text-white">{line.title}</h3>
+                      <h3 className="text-3xl font-bold text-white">{line.title}</h3>
                     </div>
                   </div>
                   <div className="p-6 md:p-8">
+                    <p className="text-xs font-bold text-[#b9822f]">{line.label}</p>
                     <p className="text-sm leading-7 text-[#4f5f5a]">{line.description}</p>
                     <div className="mt-6 grid gap-3 sm:grid-cols-2">
                       {line.specs.map((spec) => (
@@ -490,7 +513,7 @@ export default function ProductsPage() {
                   High-repeat SKUs buyers usually quote first.
                 </h2>
               </div>
-              <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#101b19] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#9f6e25] lg:shrink-0">
+              <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#101b19] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16] lg:shrink-0">
                 Send product specs
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -536,9 +559,8 @@ export default function ProductsPage() {
 
         <section className="bg-[#fbfaf6] py-18">
           <div className="container-site">
-            <div className="grid gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+            <div className="grid gap-10 lg:grid-cols-[0.72fr_1fr] lg:items-start">
               <div>
-                <p className="section-label">Buyer checks</p>
                 <h2 className="mt-3 text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
                   Compare by purchasing risk, not by product name only.
                 </h2>
@@ -561,26 +583,28 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              <div className="overflow-hidden border border-[#ded6c8] bg-[#fbfaf6]">
-                <div className="grid grid-cols-[1fr_1fr] bg-[#101b19] text-white md:grid-cols-[1.1fr_1.1fr_1.1fr_0.9fr]">
-                  {["Buyer need", "Typical spec", "Risk to avoid", "Recommended page"].map((head) => (
-                    <div key={head} className="border-r border-white/10 px-4 py-4 text-xs font-bold last:border-r-0">
-                      {head}
-                    </div>
-                  ))}
-                </div>
+              <div className="grid gap-4">
                 {compareRows.map((row) => (
-                  <div key={row.need} className="grid border-t border-[#ded6c8] md:grid-cols-[1.1fr_1.1fr_1.1fr_0.9fr]">
-                    <div className="px-4 py-5 text-sm font-bold text-[#14211f]">{row.need}</div>
-                    <div className="px-4 py-5 text-sm leading-6 text-[#4f5f5a]">{row.spec}</div>
-                    <div className="px-4 py-5 text-sm leading-6 text-[#4f5f5a]">{row.risk}</div>
-                    <div className="px-4 py-5">
-                      <Link href={row.href} className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
+                  <article key={row.need} className="border border-[#ded6c8] bg-[#fbfaf6] p-5 shadow-[0_14px_34px_rgba(20,33,31,0.05)]">
+                    <div className="grid gap-5 md:grid-cols-[1fr_1.1fr_1.1fr_auto] md:items-start">
+                      <div>
+                        <p className="text-xs font-bold text-[#b9822f]">Buyer need</p>
+                        <h3 className="mt-2 text-base font-bold text-[#14211f]">{row.need}</h3>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-[#87918c]">Typical spec</p>
+                        <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{row.spec}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-[#87918c]">Risk to avoid</p>
+                        <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{row.risk}</p>
+                      </div>
+                      <Link href={row.href} className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745] md:justify-self-end">
                         {row.product}
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </Link>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -589,14 +613,13 @@ export default function ProductsPage() {
 
         <section aria-labelledby="complete-product-directory" className="bg-[#f4f0e8] py-18">
           <div className="container-site">
-            <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1fr] lg:items-end">
+            <div className="mb-10 max-w-3xl">
               <div>
-                <p className="section-label">Complete product directory</p>
                 <h2 id="complete-product-directory" className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
                   Every product category linked from one crawlable hub.
                 </h2>
               </div>
-              <p className="max-w-2xl text-sm leading-7 text-[#4f5f5a] lg:justify-self-end">
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
                 Use this directory when you already know the product family. Each link opens a dedicated page with application notes, sizes, specifications, MOQ, and RFQ guidance.
               </p>
             </div>
@@ -617,19 +640,22 @@ export default function ProductsPage() {
                     </div>
                   </div>
 
-                  <div className="divide-y divide-[#ded6c8]">
+                  <div className="grid gap-3 p-4 sm:grid-cols-2">
                     {group.items.map((item) => (
-                      <Link key={item.href} href={item.href} className="group grid gap-3 p-5 transition-colors hover:bg-white md:grid-cols-[1fr_1fr_auto] md:items-center">
+                      <Link key={item.href} href={item.href} className="group flex min-h-full flex-col justify-between border border-[#e7dfd1] bg-white/55 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c]/40 hover:bg-white">
                         <div>
                           <h4 className="text-base font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{item.name}</h4>
                           <p className="mt-1 text-xs leading-5 text-[#687772]">{item.detail}</p>
                         </div>
-                        <div className="text-xs leading-5 text-[#4f5f5a]">
+                        <div className="mt-4 text-xs leading-5 text-[#4f5f5a]">
                           <span className="font-bold text-[#33413e]">Common specs: </span>
                           {item.spec}
                           {item.moq ? <span className="block pt-1"><span className="font-bold text-[#33413e]">MOQ: </span>{item.moq}</span> : null}
                         </div>
-                        <ArrowRight className="h-4 w-4 text-[#87918c] transition-transform group-hover:translate-x-1 group-hover:text-[#0f5f5c]" aria-hidden="true" />
+                        <div className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
+                          Open page
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        </div>
                       </Link>
                     ))}
                   </div>
@@ -677,7 +703,7 @@ export default function ProductsPage() {
                         ))}
                       </div>
                       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                        <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px">
+                        <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                           Request a Quote
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
                         </Link>

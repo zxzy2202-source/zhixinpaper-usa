@@ -111,7 +111,7 @@ export default function BlogListClient({ posts }: Props) {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm ${
+                  className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all  ${
                     activeCategory === cat
                       ? "bg-blue-600 text-white"
                       : "bg-white border border-slate-200 text-slate-500 hover:border-blue-400 hover:text-blue-600"
@@ -140,7 +140,7 @@ export default function BlogListClient({ posts }: Props) {
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className="rounded-xl border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all group overflow-hidden"
+                    className=" border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all group overflow-hidden"
                   >
                     {/* Cover image */}
                     {post.coverImage ? (

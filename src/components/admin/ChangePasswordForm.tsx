@@ -38,13 +38,13 @@ export default function ChangePasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {result?.error && (
-        <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
+        <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700  px-4 py-3 text-sm">
           <AlertCircle className="w-4 h-4 shrink-0" />
           {result.error}
         </div>
       )}
       {result?.success && (
-        <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl px-4 py-3 text-sm">
+        <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700  px-4 py-3 text-sm">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           密码修改成功。
         </div>
@@ -58,7 +58,7 @@ export default function ChangePasswordForm() {
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             required
-            className="w-full px-3 py-2.5 pr-10 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2.5 pr-10 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
             {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -75,7 +75,7 @@ export default function ChangePasswordForm() {
             onChange={(e) => setNewPassword(e.target.value)}
             required
             minLength={8}
-            className="w-full px-3 py-2.5 pr-10 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2.5 pr-10 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
             {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -90,14 +90,14 @@ export default function ChangePasswordForm() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
-          className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2.5 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+        className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
       >
         {isPending ? <><Loader2 className="w-4 h-4 animate-spin" /> 更新中...</> : "确认修改密码"}
       </button>

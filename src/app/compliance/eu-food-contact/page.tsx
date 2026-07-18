@@ -75,7 +75,7 @@ export default function EUFoodContactPage() {
                   { app: "Receipt Paper (Food Service)", desc: "POS receipt paper for restaurants, cafes, and food service operations." },
                   { app: "Packaging Labels", desc: "Labels applied to food packaging materials including plastic, glass, and metal containers." },
                 ].map((item, i) => (
-                  <div key={i} className="bg-teal-50 rounded-xl p-4 border border-teal-100">
+                  <div key={i} className="bg-teal-50  p-4 border border-teal-100">
                     <h3 className="font-semibold text-slate-800 text-sm mb-1">{item.app}</h3>
                     <p className="text-slate-500 text-sm">{item.desc}</p>
                   </div>
@@ -91,8 +91,8 @@ export default function EUFoodContactPage() {
           <h2 className="text-3xl font-bold mb-4">Request Food Contact Documentation</h2>
           <p className="text-teal-100 mb-8">Our food contact declarations and test reports are available for all food-safe product grades.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-teal-700 font-semibold px-8 py-3 rounded-lg hover:bg-teal-50 transition-colors">Download Certificates</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
+            <Link href="/compliance/certificates" className="bg-white text-teal-700 font-semibold px-8 py-3  hover:bg-teal-50 transition-colors">Download Certificates</Link>
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
           </div>
         </div>
       </section>

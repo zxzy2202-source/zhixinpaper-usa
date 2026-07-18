@@ -91,13 +91,13 @@ export default function HeroEditor({
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 rounded-lg hover:border-blue-300 hover:text-blue-600 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200  hover:border-blue-300 hover:text-blue-600 transition"
           >
             <Eye className="w-4 h-4" /> 预览前台
           </Link>
           <button
             onClick={handleResetDefaults}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-lg hover:border-amber-300 hover:text-amber-600 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200  hover:border-amber-300 hover:text-amber-600 transition"
           >
             <RotateCcw className="w-4 h-4" /> 恢复默认
           </button>
@@ -105,7 +105,7 @@ export default function HeroEditor({
       </div>
 
       {/* 提示 */}
-      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 rounded-xl p-4 mb-6 text-sm flex gap-3">
+      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100  p-4 mb-6 text-sm flex gap-3">
         <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
         <div className="text-slate-700">
           <b className="text-slate-900">写文案小贴士：</b>
@@ -119,7 +119,7 @@ export default function HeroEditor({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* 左：图片卡 */}
         <div className="lg:col-span-1 space-y-5">
-          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+          <div className="bg-white border border-slate-200  overflow-hidden">
             <div className="relative aspect-video bg-slate-100">
               {currentImage ? (
                 <Image
@@ -148,7 +148,7 @@ export default function HeroEditor({
               </p>
               <Link
                 href="/admin/image-slots#home.hero"
-                className="w-full inline-flex items-center justify-center gap-1.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition"
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold  transition"
               >
                 换图 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
@@ -156,7 +156,7 @@ export default function HeroEditor({
           </div>
 
           {/* 实时预览 */}
-          <div className="bg-slate-900 rounded-2xl p-5 text-white relative overflow-hidden">
+          <div className="bg-slate-900  p-5 text-white relative overflow-hidden">
             <p className="text-xs font-bold text-slate-300 mb-3 uppercase tracking-wide">实时预览</p>
             <div className="inline-block px-2 py-1 bg-blue-500/15 border border-blue-400/25 rounded-full text-blue-300 text-[10px] font-semibold mb-3">
               {hero.badge || "—"}
@@ -173,15 +173,15 @@ export default function HeroEditor({
             </p>
             <p className="text-blue-100/80 text-xs leading-relaxed mb-3 line-clamp-3">{hero.subtitle}</p>
             <div className="flex flex-wrap gap-1.5">
-              <span className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded">{hero.primaryCtaText}</span>
-              <span className="px-2 py-1 bg-white/10 text-white text-[10px] font-semibold rounded border border-white/20">{hero.secondaryCtaText}</span>
-              <span className="px-2 py-1 text-blue-300 text-[10px] font-semibold rounded border border-blue-400/30">{hero.tertiaryCtaText}</span>
+              <span className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold ">{hero.primaryCtaText}</span>
+              <span className="px-2 py-1 bg-white/10 text-white text-[10px] font-semibold  border border-white/20">{hero.secondaryCtaText}</span>
+              <span className="px-2 py-1 text-blue-300 text-[10px] font-semibold  border border-blue-400/30">{hero.tertiaryCtaText}</span>
             </div>
           </div>
         </div>
 
         {/* 右：表单 */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="lg:col-span-2 bg-white border border-slate-200  p-6">
           <h2 className="font-bold text-slate-900 text-base mb-5">📝 文案编辑</h2>
           <div className="space-y-5">
             {FIELDS.map((f) => (
@@ -198,7 +198,7 @@ export default function HeroEditor({
                     onChange={(e) => setField(f.key, e.target.value)}
                     placeholder={f.placeholder}
                     rows={3}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+                    className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
                   />
                 ) : (
                   <input
@@ -206,7 +206,7 @@ export default function HeroEditor({
                     value={hero[f.key]}
                     onChange={(e) => setField(f.key, e.target.value)}
                     placeholder={f.placeholder}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+                    className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
                   />
                 )}
               </div>
@@ -225,7 +225,7 @@ export default function HeroEditor({
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold rounded-lg text-sm transition shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold  text-sm transition shadow-sm"
         >
           <Save className="w-4 h-4" />
           {saving ? "保存中..." : "保存全部"}

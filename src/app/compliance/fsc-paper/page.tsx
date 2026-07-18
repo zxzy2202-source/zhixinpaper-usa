@@ -50,7 +50,7 @@ export default function FSCPaperPage() {
               <p className="text-slate-600 leading-relaxed mb-4">
                 Our FSC Chain of Custody (CoC) certification covers the full supply chain from forest to finished product, ensuring that FSC-certified raw materials are tracked and segregated throughout our manufacturing process.
               </p>
-              <div className="bg-green-50 rounded-2xl p-6 border border-green-100">
+              <div className="bg-green-50  p-6 border border-green-100">
                 <h3 className="font-semibold text-slate-800 mb-3">FSC Certificate Details</h3>
                 <div className="space-y-2 text-sm">
                   {[
@@ -78,8 +78,8 @@ export default function FSCPaperPage() {
                   { title: "Customer Demand", desc: "Respond to growing consumer and B2B customer demand for sustainably sourced products." },
                   { title: "No Performance Compromise", desc: "FSC-certified thermal paper delivers identical print quality and performance to standard grades." },
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 items-start bg-white border border-slate-200 rounded-xl p-4">
-                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div key={i} className="flex gap-4 items-start bg-white border border-slate-200  p-4">
+                    <div className="w-8 h-8 bg-green-100  flex items-center justify-center flex-shrink-0">
                       <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg>
                     </div>
                     <div>
@@ -99,8 +99,8 @@ export default function FSCPaperPage() {
           <h2 className="text-3xl font-bold mb-4">Request FSC-Certified Products</h2>
           <p className="text-green-100 mb-8">FSC-certified grades are available for most standard products. Contact us to discuss availability and pricing for your requirements.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-green-700 font-semibold px-8 py-3 rounded-lg hover:bg-green-50 transition-colors">Get FSC Quote</Link>
-            <Link href="/compliance/certificates" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Download FSC Certificate</Link>
+            <Link href="/quote" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Get FSC Quote</Link>
+            <Link href="/compliance/certificates" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Download FSC Certificate</Link>
           </div>
         </div>
       </section>

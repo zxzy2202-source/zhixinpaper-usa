@@ -67,7 +67,7 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
   ];
 
   return (
-    <main id="main-content" className="bg-[#fbfaf6] pt-[64px] lg:pt-[88px]">
+    <main id="main-content" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
       <section className="border-b border-[#203531] bg-[#101b19] text-white">
         <div className="container-site py-4">
           <nav className="flex items-center gap-1.5 text-xs font-semibold text-[#aebbb5]" aria-label="Breadcrumb">
@@ -91,7 +91,7 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
               Confirm real roll length, printer fit, paper grade, compliance files, carton packing, and delivery terms before bulk production.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#b9822f] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px">
+              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10 active:translate-y-px">
@@ -261,7 +261,7 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
         </div>
       </section>
 
-      <section className="bg-[#b9822f] py-14 text-white">
+      <section className="bg-[#9c661d] py-14 text-white">
         <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <h2 className="text-3xl font-bold text-white">Send the roll size, printer, volume, and destination.</h2>

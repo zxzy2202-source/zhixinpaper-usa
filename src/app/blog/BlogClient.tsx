@@ -42,7 +42,7 @@ export default function BlogClient() {
             <div className="flex flex-wrap gap-3 mb-12">
               <button
                 onClick={() => setActiveCategory("ALL")}
-                className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm ${
+                className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all  ${
                   activeCategory === "ALL"
                     ? "bg-blue-600 text-white"
                     : "bg-white border border-slate-200 text-slate-500 hover:border-blue-400 hover:text-blue-600"
@@ -54,7 +54,7 @@ export default function BlogClient() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm ${
+                  className={`px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all  ${
                     activeCategory === cat
                       ? "bg-blue-600 text-white"
                       : "bg-white border border-slate-200 text-slate-500 hover:border-blue-400 hover:text-blue-600"
@@ -76,7 +76,7 @@ export default function BlogClient() {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="rounded-xl border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-6 group"
+                  className=" border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-6 group"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <span className="px-2 py-0.5 bg-blue-600/10 border border-blue-500/20 text-[10px] tracking-widest uppercase text-blue-600">

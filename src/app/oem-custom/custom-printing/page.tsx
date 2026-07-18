@@ -45,8 +45,8 @@ export default function CustomPrintingPage() {
               Turn every receipt into a brand touchpoint. Our full-color flexographic printing service puts your logo, messaging, and QR codes on every roll — with no compromise on thermal print quality.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Get Printing Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Print Samples</Link>
+              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Get Printing Quote</Link>
+              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Print Samples</Link>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function CustomPrintingPage() {
           <p className="text-slate-500 mb-12 max-w-2xl">We offer a full range of custom printing options for thermal paper rolls and labels, from simple logo printing to complex multi-color designs.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {printOptions.map((opt, i) => (
-              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div key={i} className="bg-white border border-slate-200  p-6 shadow-sm hover:shadow-md transition-shadow">
                 <h3 className="font-semibold text-slate-800 mb-2">{opt.name}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{opt.desc}</p>
               </div>
@@ -70,7 +70,7 @@ export default function CustomPrintingPage() {
       <section className="bg-slate-50 py-16">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-8">Technical Specifications</h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-x-auto  border border-slate-200 bg-white shadow-sm">
             <table className="w-full text-sm">
               <tbody className="divide-y divide-slate-100">
                 {[
@@ -98,7 +98,7 @@ export default function CustomPrintingPage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Print Your Brand?</h2>
           <p className="text-blue-100 mb-8">Send us your artwork and requirements for a custom printing quote within 24 hours.</p>
-          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-lg hover:bg-blue-50 transition-colors inline-block">Request Custom Print Quote</Link>
+          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Request Custom Print Quote</Link>
         </div>
       </section>
     </main>

@@ -52,7 +52,7 @@ export default async function SamplesPage() {
           { label: "已发货", value: counts.shipped, color: "text-purple-600" },
           { label: "已转化", value: counts.converted, color: "text-emerald-600" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white border border-slate-200 rounded-xl p-4">
+          <div key={stat.label} className="bg-white border border-slate-200  p-4">
             <p className="text-slate-500 text-xs mb-1">{stat.label}</p>
             <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
           </div>
@@ -60,7 +60,7 @@ export default async function SamplesPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+      <div className="bg-white border border-slate-200  overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

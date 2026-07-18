@@ -77,8 +77,8 @@ export default async function IndustryDetailPage({ params }: Props) {
                   Zhixin Paper provides specialized thermal consumables tailored to the {industry.name} industry. We help buyers confirm the operating risk, required documents, product fit, packaging, and repeat-order plan before bulk production.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">Get Industry Quote <ArrowRight className="w-4 h-4" /></Link>
-                  <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Samples</Link>
+                  <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Get Industry Quote <ArrowRight className="w-4 h-4" /></Link>
+                  <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Samples</Link>
                 </div>
               </div>
 
@@ -169,7 +169,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                   <Link
                     key={p.slug}
                     href={`/products/${"moq" in p && p.moq ? (p.slug.includes("label") ? "thermal-labels" : "thermal-paper-rolls") : "thermal-paper-rolls"}/${p.slug}`}
-                    className="rounded-xl border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-5 group"
+                    className=" border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-5 group"
                   >
                     <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-blue-600 transition-colors">{p.name}</h3>
                     <p className="text-slate-400 text-xs">{p.subtitle}</p>

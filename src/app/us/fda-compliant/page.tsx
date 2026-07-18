@@ -74,7 +74,7 @@ export default function FDACompliantPage() {
             <span>FDA Compliant</span>
           </div>
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-white/20  flex items-center justify-center">
               <ShieldCheck className="w-7 h-7 text-white" />
             </div>
             <span className="text-blue-200 font-semibold text-sm uppercase tracking-widest">US Compliance</span>
@@ -87,10 +87,10 @@ export default function FDACompliantPage() {
             Every thermal product we supply to US distributors and importers meets FDA food contact regulations. BPA-free formulations, 21 CFR documentation, and full traceability — so you can sell with confidence.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors">
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3  hover:bg-blue-50 transition-colors">
               Request FDA Documentation <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/samples" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-colors">
+            <Link href="/samples" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-6 py-3  hover:bg-white/10 transition-colors">
               Request Free Samples
             </Link>
           </div>
@@ -103,8 +103,8 @@ export default function FDACompliantPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-10 text-center">Our FDA Compliance Framework</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {FDA_FEATURES.map((f) => (
-              <div key={f.title} className="flex gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+              <div key={f.title} className="flex gap-4 p-6 bg-slate-50  border border-slate-100">
+                <div className="w-12 h-12 bg-blue-100  flex items-center justify-center text-blue-600 shrink-0">
                   {f.icon}
                 </div>
                 <div>
@@ -123,8 +123,8 @@ export default function FDACompliantPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-8">FDA-Compliant Products</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {PRODUCTS.map((p) => (
-              <Link key={p.href} href={p.href} className="flex items-start gap-4 p-5 bg-white rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group">
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
+              <Link key={p.href} href={p.href} className="flex items-start gap-4 p-5 bg-white  border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group">
+                <div className="w-10 h-10 bg-blue-50  flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
                   <Package className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
@@ -144,10 +144,10 @@ export default function FDACompliantPage() {
           <h2 className="text-3xl font-extrabold mb-4">Ready to Source FDA-Compliant Thermal Products?</h2>
           <p className="text-blue-100 mb-8">Get a custom quote with full compliance documentation included.</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors">
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">
               Get a Quote <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/compliance/certificates" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/10 transition-colors">
+            <Link href="/compliance/certificates" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">
               Download Certificates
             </Link>
           </div>

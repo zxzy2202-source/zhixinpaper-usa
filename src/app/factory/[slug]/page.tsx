@@ -32,7 +32,7 @@ const FACTORY_PAGES: Record<string, {
               Our facility is ISO 9001:2015 certified, with full traceability from raw material receipt to finished goods dispatch. Every batch is tested against our internal quality standards before shipment.
             </p>
           </div>
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+          <div className="bg-slate-50  p-6 border border-slate-200">
             <h3 className="font-bold text-slate-800 mb-4">Facility at a Glance</h3>
             <div className="space-y-3">
               {[
@@ -62,7 +62,7 @@ const FACTORY_PAGES: Record<string, {
               { icon: "🏷️", title: "Label Die-Cutting", desc: "Rotary die-cutting equipment for custom label shapes, perforations, and fanfold configurations." },
               { icon: "🖨️", title: "Custom Printing", desc: "1–4 color flexographic printing for logos, barcodes, and custom designs on rolls and labels." },
             ].map((item) => (
-              <div key={item.title} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+              <div key={item.title} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
@@ -106,10 +106,10 @@ const FACTORY_PAGES: Record<string, {
                 desc: "Flexographic printing lines apply logos, barcodes, and custom designs. UV and water-based inks available, with Pantone color matching for brand consistency.",
               },
             ].map((eq) => (
-              <div key={eq.name} className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+              <div key={eq.name} className="bg-white  p-6 border border-slate-200 shadow-sm">
                 <h3 className="font-bold text-slate-800 text-lg mb-3">{eq.name}</h3>
                 <p className="text-slate-600 text-sm leading-relaxed mb-4">{eq.desc}</p>
-                <div className="bg-slate-50 rounded-lg p-3">
+                <div className="bg-slate-50  p-3">
                   <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Key Specifications</div>
                   <ul className="space-y-1">
                     {eq.specs.map((s) => (
@@ -144,14 +144,14 @@ const FACTORY_PAGES: Record<string, {
               { value: "30 Days", label: "Buffer Programme", sub: "For selected core SKUs" },
               { value: "15 Days", label: "Standard Lead Time", sub: "Ex-factory, FOB Qingdao" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm text-center">
+              <div key={stat.label} className="bg-white  p-6 border border-slate-200 shadow-sm text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-1">{stat.value}</div>
                 <div className="font-semibold text-slate-800 text-sm mb-1">{stat.label}</div>
                 <div className="text-slate-400 text-xs">{stat.sub}</div>
               </div>
             ))}
           </div>
-          <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+          <div className="bg-blue-50  p-6 border border-blue-100">
             <h3 className="font-bold text-slate-800 mb-3">Inventory Buffer Policy</h3>
             <p className="text-slate-600 leading-relaxed">
               We maintain a 30-day finished goods inventory buffer for our top-selling SKUs, ensuring immediate availability for urgent orders. For custom specifications, we recommend placing orders 21 days in advance to guarantee on-time delivery.
@@ -164,10 +164,10 @@ const FACTORY_PAGES: Record<string, {
             <table className="w-full text-sm border-collapse">
               <thead>
                 <tr className="bg-slate-800 text-white">
-                  <th className="text-left p-3 rounded-tl-lg">Product Type</th>
+                  <th className="text-left p-3 ">Product Type</th>
                   <th className="text-left p-3">Standard MOQ</th>
                   <th className="text-left p-3">Custom Print MOQ</th>
-                  <th className="text-left p-3 rounded-tr-lg">Sample</th>
+                  <th className="text-left p-3 ">Sample</th>
                 </tr>
               </thead>
               <tbody>
@@ -215,7 +215,7 @@ const FACTORY_PAGES: Record<string, {
               { step: "05", title: "Archival Life Test", desc: "Accelerated ageing tests verify image stability at 60°C/50% RH for 72 hours, equivalent to 5+ years storage." },
               { step: "06", title: "Final Release", desc: "QC manager sign-off required before goods are released. Certificate of Analysis available for every shipment." },
             ].map((item) => (
-              <div key={item.step} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+              <div key={item.step} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-blue-600 font-bold text-sm mb-2">STEP {item.step}</div>
                 <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
@@ -223,7 +223,7 @@ const FACTORY_PAGES: Record<string, {
             ))}
           </div>
         </section>
-        <section className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+        <section className="bg-slate-50  p-8 border border-slate-200">
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Certifications & Test Reports</h2>
           <p className="text-slate-600 mb-6">All certificates are available for download. Third-party test reports from SGS, Intertek, and Bureau Veritas available on request.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -233,7 +233,7 @@ const FACTORY_PAGES: Record<string, {
               { name: "REACH/RoHS", issuer: "Intertek", href: "/compliance/reach-rohs" },
               { name: "FSC Chain of Custody", issuer: "FSC International", href: "/compliance/fsc-paper" },
             ].map((cert) => (
-              <Link key={cert.name} href={cert.href} className="bg-white rounded-xl p-4 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all text-center group">
+              <Link key={cert.name} href={cert.href} className="bg-white  p-4 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all text-center group">
                 <div className="text-2xl mb-2">📋</div>
                 <div className="font-bold text-slate-800 text-sm group-hover:text-blue-600">{cert.name}</div>
                 <div className="text-slate-400 text-xs mt-1">{cert.issuer}</div>
@@ -257,7 +257,7 @@ const FACTORY_PAGES: Record<string, {
           <p className="text-slate-600 leading-relaxed mb-8">
             Can't visit in person? Our virtual factory tour gives you a comprehensive view of our manufacturing capabilities, quality control processes, and warehouse operations. Schedule a live video tour with our team, or browse the facility highlights below.
           </p>
-          <div className="bg-slate-800 rounded-2xl aspect-video flex items-center justify-center mb-8">
+          <div className="bg-slate-800  aspect-video flex items-center justify-center mb-8">
             <div className="text-center text-white">
               <div className="text-6xl mb-4">▶</div>
               <div className="text-xl font-bold mb-2">Factory Tour Video</div>
@@ -273,17 +273,17 @@ const FACTORY_PAGES: Record<string, {
               { area: "Finished Goods Warehouse", desc: "Temperature-controlled warehouse with 30-day buffer stock for key SKUs." },
               { area: "Shipping & Logistics", desc: "Daily container loading for EU, US, and CA markets. FOB Qingdao." },
             ].map((area) => (
-              <div key={area.area} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+              <div key={area.area} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <h3 className="font-bold text-slate-800 mb-2">{area.area}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{area.desc}</p>
               </div>
             ))}
           </div>
         </section>
-        <section className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
+        <section className="bg-blue-50  p-8 border border-blue-100 text-center">
           <h2 className="text-2xl font-bold text-slate-800 mb-3">Schedule a Live Video Tour</h2>
           <p className="text-slate-600 mb-6">Our team can arrange a live video walkthrough of the facility via Zoom or Teams. Available Monday–Friday, 9:00–17:00 CST.</p>
-          <Link href="/contact" className="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+          <Link href="/contact" className="inline-block bg-blue-600 text-white font-bold px-8 py-3  hover:bg-blue-700 transition-colors">
             Request a Video Tour
           </Link>
         </section>
@@ -348,7 +348,7 @@ export default async function FactorySlugPage({ params }: { params: Promise<{ sl
               <Link
                 key={p.slug}
                 href={`/factory/${p.slug}`}
-                className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 text-sm font-medium  whitespace-nowrap transition-colors ${
                   p.slug === slug
                     ? "bg-blue-600 text-white"
                     : "text-slate-600 hover:bg-slate-100"
@@ -372,8 +372,8 @@ export default async function FactorySlugPage({ params }: { params: Promise<{ sl
           <h2 className="text-3xl font-bold mb-4">Ready to Visit or Partner With Us?</h2>
           <p className="text-blue-100 mb-8">Contact our team to arrange a factory visit, request a video tour, or discuss OEM partnership opportunities.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-blue-700 font-bold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Contact Us</Link>
-            <Link href="/oem-custom" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">OEM Services</Link>
+            <Link href="/contact" className="bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">Contact Us</Link>
+            <Link href="/oem-custom" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">OEM Services</Link>
           </div>
         </div>
       </section>

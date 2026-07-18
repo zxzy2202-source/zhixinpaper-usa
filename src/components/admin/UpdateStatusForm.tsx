@@ -27,7 +27,7 @@ export default function UpdateStatusForm({ id, currentStatus, currentNotes, type
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-5">
+    <div className="bg-white border border-slate-200  p-5">
       <h2 className="font-bold text-xs text-slate-500 uppercase tracking-wide mb-4">更新状态</h2>
       <div className="space-y-3">
         <div>
@@ -35,7 +35,7 @@ export default function UpdateStatusForm({ id, currentStatus, currentNotes, type
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {statusOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -49,13 +49,13 @@ export default function UpdateStatusForm({ id, currentStatus, currentNotes, type
             onChange={(e) => setNotes(e.target.value)}
             rows={4}
             placeholder="添加关于此线索的内部备注..."
-            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
         </div>
         <button
           onClick={handleSave}
           disabled={isPending}
-          className="w-full py-2 bg-slate-900 hover:bg-slate-700 text-white font-bold rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+          className="w-full py-2 bg-slate-900 hover:bg-slate-700 text-white font-bold  text-sm transition-colors flex items-center justify-center gap-2"
         >
           {isPending ? (
             <><Loader2 className="w-3.5 h-3.5 animate-spin" /> 保存中...</>

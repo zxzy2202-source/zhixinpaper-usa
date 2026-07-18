@@ -49,10 +49,10 @@ export default function MOQGuidePage() {
               We work with distributors at all stages of growth. Our MOQ structure is designed to be accessible for new accounts while offering significant volume discounts for established partners.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="px-8 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-sm">
+              <Link href="/quote" className="px-8 py-3 bg-white text-blue-700 font-bold  hover:bg-blue-50 transition-colors shadow-sm">
                 Discuss Your MOQ
               </Link>
-              <Link href="/samples" className="px-8 py-3 bg-transparent text-white font-semibold rounded-lg border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all">
+              <Link href="/samples" className="px-8 py-3 bg-transparent text-white font-semibold  border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all">
                 Request Free Samples
               </Link>
             </div>
@@ -63,7 +63,7 @@ export default function MOQGuidePage() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-8">MOQ by Product Category</h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+          <div className="overflow-x-auto  border border-slate-200 shadow-sm">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
                 <tr>
@@ -87,17 +87,17 @@ export default function MOQGuidePage() {
           </div>
 
           <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+            <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">New Distributor?</h3>
               <p className="text-slate-500 text-sm mb-4">We offer reduced MOQ for first orders from new distributor accounts to help you test our products with your customers.</p>
               <Link href="/contact" className="text-blue-600 font-medium text-sm hover:text-blue-800">Talk to our sales team →</Link>
             </div>
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+            <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Volume Discounts</h3>
               <p className="text-slate-500 text-sm mb-4">Orders above 5× MOQ qualify for volume pricing. Contact us for a tiered pricing schedule based on your annual volume.</p>
               <Link href="/quote" className="text-blue-600 font-medium text-sm hover:text-blue-800">Request volume pricing →</Link>
             </div>
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+            <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Mixed Container Orders</h3>
               <p className="text-slate-500 text-sm mb-4">Combine multiple products in a single FCL container to meet MOQ requirements across your full product range.</p>
               <Link href="/contact" className="text-blue-600 font-medium text-sm hover:text-blue-800">Ask about mixed orders →</Link>
@@ -111,8 +111,8 @@ export default function MOQGuidePage() {
           <h2 className="text-3xl font-bold mb-4">Ready to Place Your First Order?</h2>
           <p className="text-blue-100 mb-8">Request a quote with your specific product requirements and we'll confirm MOQ, pricing, and lead time within 24 hours.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Request a Quote</Link>
-            <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Order Free Samples First</Link>
+            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request a Quote</Link>
+            <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Order Free Samples First</Link>
           </div>
         </div>
       </section>

@@ -107,7 +107,7 @@ export default function ProductEditor({ slug, productType, baseProduct, override
     rows?: number;
     mono?: boolean;
   }) => (
-    <div className="bg-white border border-slate-200 rounded-2xl p-5">
+    <div className="bg-white border border-slate-200  p-5">
       <div className="flex items-center justify-between mb-2">
         <label className="text-xs font-bold uppercase tracking-wide text-slate-400">{label}</label>
         <button
@@ -153,7 +153,7 @@ export default function ProductEditor({ slug, productType, baseProduct, override
         <button
           onClick={handleSave}
           disabled={isPending}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors shadow-sm disabled:opacity-50"
         >
           {saved ? (
             <><CheckCircle2 className="w-4 h-4" /> 已保存！</>
@@ -165,7 +165,7 @@ export default function ProductEditor({ slug, productType, baseProduct, override
         </button>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-xs text-blue-700">
+      <div className="bg-blue-50 border border-blue-200  px-4 py-3 mb-5 text-xs text-blue-700">
         此处的修改将覆盖产品默认内容。点击"恢复默认"可撤销单个字段的修改。
       </div>
 
@@ -174,7 +174,7 @@ export default function ProductEditor({ slug, productType, baseProduct, override
         <Field label="副标题" field="subtitle" />
         <Field label="首屏描述" field="heroDesc" multiline rows={3} />
         <Field label="完整描述" field="description" multiline rows={6} />
-        <div className="bg-white border border-slate-200 rounded-2xl p-5">
+        <div className="bg-white border border-slate-200  p-5">
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold uppercase tracking-wide text-slate-400">产品特性（每行一条）</label>
             <button
@@ -195,7 +195,7 @@ export default function ProductEditor({ slug, productType, baseProduct, override
           />
         </div>
         <Field label="最小起订量 (MOQ)" field="moq" />
-        <div className="bg-white border border-slate-200 rounded-2xl p-5">
+        <div className="bg-white border border-slate-200  p-5">
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold uppercase tracking-wide text-slate-400">规格参数（JSON 格式）</label>
             <button

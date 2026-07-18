@@ -343,14 +343,14 @@ export default function BlogEditor({ initialData }: Props) {
         <div className="flex items-center gap-3">
           {saved && <span className="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><CheckCircle2 className="w-4 h-4" />已保存</span>}
           {form.slug && form.status === "published" && (
-            <Link href={`/blog/${form.slug}`} target="_blank" className="inline-flex items-center gap-1.5 px-3 py-2 text-slate-600 hover:text-blue-600 border border-slate-200 rounded-xl text-sm font-medium transition-colors">
+            <Link href={`/blog/${form.slug}`} target="_blank" className="inline-flex items-center gap-1.5 px-3 py-2 text-slate-600 hover:text-blue-600 border border-slate-200  text-sm font-medium transition-colors">
               <Eye className="w-4 h-4" />预览前台
             </Link>
           )}
-          <button onClick={() => handleSave("draft")} disabled={isPending || !form.title || !form.content} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors disabled:opacity-50">
+          <button onClick={() => handleSave("draft")} disabled={isPending || !form.title || !form.content} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-sm transition-colors disabled:opacity-50">
             {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}存为草稿
           </button>
-          <button onClick={() => handleSave("published")} disabled={isPending || !form.title || !form.content || !form.slug} className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors disabled:opacity-50 shadow-sm">
+          <button onClick={() => handleSave("published")} disabled={isPending || !form.title || !form.content || !form.slug} className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors disabled:opacity-50 shadow-sm">
             {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}发布文章
           </button>
         </div>
@@ -358,7 +358,7 @@ export default function BlogEditor({ initialData }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded-2xl p-5">
+          <div className="bg-white border border-slate-200  p-5">
             <input type="text" value={form.title} onChange={(e) => handleChange("title", e.target.value)} placeholder="Article title (English, for international customers)..." className="w-full text-2xl font-bold text-slate-900 border-none outline-none bg-transparent placeholder:text-slate-300" />
             <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2">
               <span className="text-xs text-slate-400 shrink-0">URL:</span>
@@ -367,39 +367,39 @@ export default function BlogEditor({ initialData }: Props) {
             </div>
           </div>
 
-          <div className="flex gap-1 bg-slate-100 p-1 rounded-xl w-fit">
-            <button onClick={() => setActiveTab("content")} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${activeTab === "content" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>内容</button>
-            <button onClick={() => setActiveTab("seo")} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${activeTab === "seo" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>SEO</button>
+          <div className="flex gap-1 bg-slate-100 p-1  w-fit">
+            <button onClick={() => setActiveTab("content")} className={`px-4 py-1.5  text-sm font-semibold transition-all ${activeTab === "content" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>内容</button>
+            <button onClick={() => setActiveTab("seo")} className={`px-4 py-1.5  text-sm font-semibold transition-all ${activeTab === "seo" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>SEO</button>
           </div>
 
           {activeTab === "content" ? (
             <div className="space-y-4">
-              <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="bg-white border border-slate-200  p-5">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">摘要</label>
                 <textarea value={form.excerpt} onChange={(e) => handleChange("excerpt", e.target.value)} rows={3} placeholder="Article summary in English (100-200 characters)..." className="w-full text-sm text-slate-700 border-none outline-none resize-none bg-transparent" />
                 <p className="text-xs text-slate-400 mt-1">{form.excerpt.length} 字符</p>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+              <div className="bg-white border border-slate-200  overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3 border-b border-slate-100">
                   <label className="text-xs font-bold uppercase tracking-wide text-slate-400">正文内容（Markdown）</label>
-                  <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg">
-                    <button onClick={() => setEditorMode("edit")} title="编辑" className={`p-1.5 rounded-md transition-all ${editorMode === "edit" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><FileText className="w-3.5 h-3.5" /></button>
-                    <button onClick={() => setEditorMode("split")} title="分屏" className={`p-1.5 rounded-md transition-all ${editorMode === "split" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><SplitSquareHorizontal className="w-3.5 h-3.5" /></button>
-                    <button onClick={() => setEditorMode("preview")} title="预览" className={`p-1.5 rounded-md transition-all ${editorMode === "preview" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><Eye className="w-3.5 h-3.5" /></button>
+                  <div className="flex gap-1 bg-slate-100 p-0.5 ">
+                    <button onClick={() => setEditorMode("edit")} title="编辑" className={`p-1.5  transition-all ${editorMode === "edit" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><FileText className="w-3.5 h-3.5" /></button>
+                    <button onClick={() => setEditorMode("split")} title="分屏" className={`p-1.5  transition-all ${editorMode === "split" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><SplitSquareHorizontal className="w-3.5 h-3.5" /></button>
+                    <button onClick={() => setEditorMode("preview")} title="预览" className={`p-1.5  transition-all ${editorMode === "preview" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><Eye className="w-3.5 h-3.5" /></button>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-5 py-2 border-b border-slate-100 overflow-x-auto">
-                  <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg">
-                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading2 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading3 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Bold className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Italic className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><List className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ListOrdered className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Quote className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Link2 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ImageIcon className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5 rounded-md text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Minus className="w-3.5 h-3.5" /></button>
+                  <div className="flex gap-1 bg-slate-100 p-0.5 ">
+                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading2 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading3 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Bold className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Italic className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><List className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ListOrdered className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Quote className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Link2 className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ImageIcon className="w-3.5 h-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Minus className="w-3.5 h-3.5" /></button>
                   </div>
                 </div>
                 <div className={editorMode === "split" ? "grid grid-cols-2 divide-x divide-slate-100" : ""}>
@@ -415,23 +415,23 @@ export default function BlogEditor({ initialData }: Props) {
                   )}
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="bg-white border border-slate-200  p-4">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">标签（逗号分隔）</label>
                 <input type="text" value={form.tags} onChange={(e) => handleChange("tags", e.target.value)} placeholder="BPA-free, thermal paper, compliance, EU regulations" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
               </div>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex items-center justify-between gap-4">
+              <div className="bg-blue-50 border border-blue-100  p-4 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-bold text-slate-900">SEO 自动生成</p>
                   <p className="text-xs text-slate-500 mt-1">根据文章标题、摘要、分类、标签和正文生成 SEO 标题、Meta 描述与关键词。</p>
                 </div>
-                <button type="button" onClick={handleGenerateSeo} disabled={!form.title && !form.content} className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition-colors disabled:opacity-50">
+                <button type="button" onClick={handleGenerateSeo} disabled={!form.title && !form.content} className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold  text-sm transition-colors disabled:opacity-50">
                   <Search className="w-4 h-4" />自动生成
                 </button>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="bg-white border border-slate-200  p-5">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">SEO 标题</label>
                 <input type="text" value={form.seoTitle} onChange={(e) => handleChange("seoTitle", e.target.value)} placeholder="SEO Title (50-60 characters)" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
                 <div className="flex justify-between mt-1">
@@ -439,7 +439,7 @@ export default function BlogEditor({ initialData }: Props) {
                   <p className={`text-xs ${form.seoTitle.length > 60 ? "text-red-500" : form.seoTitle.length >= 50 ? "text-emerald-600" : "text-slate-400"}`}>{form.seoTitle.length > 60 ? "过长" : form.seoTitle.length >= 50 ? "✓ 合适" : "建议 50-60"}</p>
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="bg-white border border-slate-200  p-5">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">Meta 描述</label>
                 <textarea value={form.seoDescription} onChange={(e) => handleChange("seoDescription", e.target.value)} rows={3} placeholder="Meta description (150-160 characters)" className="w-full text-sm text-slate-700 border-none outline-none resize-none bg-transparent" />
                 <div className="flex justify-between mt-1">
@@ -447,12 +447,12 @@ export default function BlogEditor({ initialData }: Props) {
                   <p className={`text-xs ${form.seoDescription.length > 160 ? "text-red-500" : form.seoDescription.length >= 150 ? "text-emerald-600" : "text-slate-400"}`}>{form.seoDescription.length > 160 ? "过长" : form.seoDescription.length >= 150 ? "✓ 合适" : "建议 150-160"}</p>
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="bg-white border border-slate-200  p-5">
                 <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">关键词</label>
                 <input type="text" value={form.seoKeywords} onChange={(e) => handleChange("seoKeywords", e.target.value)} placeholder="thermal paper manufacturer, BPA-free receipt paper" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
               </div>
               {(form.seoTitle || form.title) && (
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <div className="bg-slate-50 border border-slate-200  p-5">
                   <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Google 搜索预览</p>
                   <p className="text-blue-700 text-base font-medium truncate">{form.seoTitle || form.title} | Zhixin Paper</p>
                   <p className="text-green-700 text-xs mt-0.5">www.zhixinpaper.com › blog › {form.slug || "slug"}</p>
@@ -464,43 +464,43 @@ export default function BlogEditor({ initialData }: Props) {
         </div>
 
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded-2xl p-4">
+          <div className="bg-white border border-slate-200  p-4">
             <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">发布状态</label>
-            <select value={form.status} onChange={(e) => handleChange("status", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={form.status} onChange={(e) => handleChange("status", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="draft">草稿</option>
               <option value="published">已发布</option>
               <option value="archived">已归档</option>
             </select>
           </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4">
+          <div className="bg-white border border-slate-200  p-4">
             <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">分类</label>
-            <select value={form.category} onChange={(e) => handleChange("category", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={form.category} onChange={(e) => handleChange("category", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">选择分类...</option>
               {CATEGORIES.map((cat) => (<option key={cat} value={cat}>{cat}</option>))}
             </select>
           </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4">
+          <div className="bg-white border border-slate-200  p-4">
             <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">阅读时长</label>
-            <input type="text" value={form.readTime} onChange={(e) => handleChange("readTime", e.target.value)} placeholder="例：5 min read" className="w-full text-sm text-slate-700 border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="text" value={form.readTime} onChange={(e) => handleChange("readTime", e.target.value)} placeholder="例：5 min read" className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
             {form.content && !form.readTime && (
               <button type="button" onClick={() => { const mins = Math.max(1, Math.round(form.content.split(/\s+/).length / 200)); handleChange("readTime", `${mins} min read`); }} className="mt-2 text-xs text-blue-600 hover:underline">自动计算</button>
             )}
           </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4">
+          <div className="bg-white border border-slate-200  p-4">
             <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">封面图</label>
             {form.coverImage ? (
               <div className="relative">
-                <img src={form.coverImage} alt="封面图" className="w-full h-36 object-cover rounded-xl" />
+                <img src={form.coverImage} alt="封面图" className="w-full h-36 object-cover " />
                 <button onClick={() => handleChange("coverImage", "")} className="absolute top-2 right-2 w-6 h-6 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors"><X className="w-3 h-3" /></button>
               </div>
             ) : (
-              <button onClick={() => openMediaPicker("cover")} className="w-full h-28 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-colors">
+              <button onClick={() => openMediaPicker("cover")} className="w-full h-28 border-2 border-dashed border-slate-200  flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-colors">
                 <ImageIcon className="w-6 h-6" /><span className="text-xs font-medium">从图片库选择</span>
               </button>
             )}
             {form.coverImage && <button onClick={() => openMediaPicker("cover")} className="mt-2 w-full text-xs text-blue-600 hover:underline text-center">更换图片</button>}
           </div>
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+          <div className="bg-slate-50 border border-slate-200  p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">发布检查</p>
             <div className="space-y-2">
               {[
@@ -524,15 +524,15 @@ export default function BlogEditor({ initialData }: Props) {
 
       {showMediaPicker && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col">
+          <div className="bg-white  shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col">
             <div className="flex items-center justify-between p-5 border-b border-slate-200">
               <h3 className="font-bold text-slate-900">选择封面图</h3>
-              <button onClick={() => setShowMediaPicker(false)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"><X className="w-4 h-4" /></button>
+              <button onClick={() => setShowMediaPicker(false)} className="w-8 h-8 flex items-center justify-center  hover:bg-slate-100 transition-colors"><X className="w-4 h-4" /></button>
             </div>
             <div className="p-4 border-b border-slate-100">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input type="text" value={mediaSearch} onChange={(e) => setMediaSearch(e.target.value)} placeholder="搜索图片..." className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" value={mediaSearch} onChange={(e) => setMediaSearch(e.target.value)} placeholder="搜索图片..." className="w-full pl-9 pr-4 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
@@ -543,10 +543,10 @@ export default function BlogEditor({ initialData }: Props) {
               ) : (
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                   {filteredMedia.map((file) => (
-                    <button key={file.id} onClick={() => { if (mediaPickerTarget === "content") insertImageMarkdown(file); else handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square rounded-xl overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
+                    <button key={file.id} onClick={() => { if (mediaPickerTarget === "content") insertImageMarkdown(file); else handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square  overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
                       <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold bg-blue-600 px-2 py-1 rounded-lg transition-opacity">选择</span>
+                        <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold bg-blue-600 px-2 py-1  transition-opacity">选择</span>
                       </div>
                     </button>
                   ))}

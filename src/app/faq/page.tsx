@@ -143,7 +143,7 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS }) {
               return (
                 <div
                   key={i}
-                  className={`bg-white border transition-colors rounded-xl overflow-hidden ${isOpen ? "border-blue-300 shadow-sm" : "border-slate-200 hover:border-blue-200"}`}
+                  className={`bg-white border transition-colors  overflow-hidden ${isOpen ? "border-blue-300 shadow-sm" : "border-slate-200 hover:border-blue-200"}`}
                 >
                   <button
                     className="flex items-center justify-between w-full p-6 text-left"
@@ -175,7 +175,7 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS }) {
         </div>
       ))}
 
-      <div className="bg-gradient-to-br from-blue-50 to-slate-50 border border-blue-100 rounded-2xl p-8 mt-8">
+      <div className="bg-gradient-to-br from-blue-50 to-slate-50 border border-blue-100  p-8 mt-8">
         <h3 className="font-bold text-slate-900 text-xl mb-3">Still have questions?</h3>
         <p className="text-slate-500 text-sm mb-5">
           Our technical team is ready to help with specific product questions, compliance requirements, or custom solutions.
@@ -183,19 +183,19 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS }) {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm"
           >
             Contact Us <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="/quote"
-            className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm"
           >
             Get a Quote
           </Link>
           <Link
             href="/samples"
-            className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm"
           >
             Request Samples
           </Link>
@@ -241,7 +241,7 @@ export default function FAQPage() {
             {/* Quick nav */}
             <div className="flex flex-wrap gap-2 mt-6">
               {FAQ_ITEMS.map(s => (
-                <span key={s.category} className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-600">
+                <span key={s.category} className="px-3 py-1.5 bg-white border border-slate-200  text-xs font-semibold text-slate-600">
                   {s.category}
                 </span>
               ))}

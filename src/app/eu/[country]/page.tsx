@@ -221,23 +221,23 @@ export default async function EUCountryPage({ params }: Props) {
             {/* Compliance badges */}
             <div className="flex flex-wrap gap-2 mb-6">
               {compliance.map((badge: string) => (
-                <span key={badge} className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-xs tracking-wide uppercase text-slate-600 rounded-lg shadow-sm">
+                <span key={badge} className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-xs tracking-wide uppercase text-slate-600  shadow-sm">
                   <CheckCircle2 className="w-3 h-3 text-blue-600" />
                   {badge}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">
+              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">
                 Get {c.name} Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
+              <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
                 {isPilot ? "Request Samples" : "Free Samples"}
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
+              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
                 <Download className="w-4 h-4" /> Compliance Docs
               </Link>
-              <Link href="/eu" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition-all text-sm">
+              <Link href="/eu" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-blue-600 text-blue-600 font-bold  hover:bg-blue-600 hover:text-white transition-all text-sm">
                 All EU Markets
               </Link>
             </div>
@@ -281,7 +281,7 @@ export default async function EUCountryPage({ params }: Props) {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {marketInsights.map((item) => (
-                  <div key={item.label} className="bg-blue-50 border border-blue-100 rounded-xl p-5 text-center">
+                  <div key={item.label} className="bg-blue-50 border border-blue-100  p-5 text-center">
                     <p className="font-bold text-blue-700 text-2xl mb-1">{item.stat}</p>
                     <p className="text-slate-500 text-xs">{item.label}</p>
                   </div>
@@ -316,7 +316,7 @@ export default async function EUCountryPage({ params }: Props) {
                     { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "80+", sub: "Countries supplied" },
                     { icon: <Star className="w-4 h-4 text-blue-600" />, label: "15+", sub: "Years experience" },
                   ].map((item) => (
-                    <div key={item.label} className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                    <div key={item.label} className="bg-slate-50 border border-slate-200  p-4 text-center">
                       <div className="flex justify-center mb-2">{item.icon}</div>
                       <p className="font-bold text-slate-900 text-lg">{item.label}</p>
                       <p className="text-slate-500 text-xs">{item.sub}</p>
@@ -329,7 +329,7 @@ export default async function EUCountryPage({ params }: Props) {
               <div className="space-y-5">
 
                 {/* Popular Products with direct links */}
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                <div className="bg-slate-50 border border-slate-200  p-6">
                   <div className="flex items-center gap-2 mb-4">
                     <Package className="w-4 h-4 text-blue-600" />
                     <h3 className="font-bold text-slate-900 text-base">Popular in {c.name}</h3>
@@ -356,7 +356,7 @@ export default async function EUCountryPage({ params }: Props) {
                 </div>
 
                 {/* Quick Links */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-6">
+                <div className="bg-white border border-slate-200  p-6">
                   <div className="flex items-center gap-2 mb-4">
                     <ShieldCheck className="w-4 h-4 text-blue-600" />
                     <h3 className="font-bold text-slate-900 text-base">Quick Links</h3>
@@ -380,7 +380,7 @@ export default async function EUCountryPage({ params }: Props) {
                 </div>
 
                 {/* WhatsApp CTA */}
-                <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5">
+                <div className="bg-emerald-50 border border-emerald-200  p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <Phone className="w-4 h-4 text-emerald-600" />
                     <h3 className="font-bold text-slate-900 text-sm">Talk to a Specialist</h3>
@@ -392,7 +392,7 @@ export default async function EUCountryPage({ params }: Props) {
                     href="https://wa.me/8618792771927"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs transition-colors w-full justify-center"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold  text-xs transition-colors w-full justify-center"
                   >
                     WhatsApp Now <ArrowRight className="w-3 h-3" />
                   </a>
@@ -432,14 +432,14 @@ export default async function EUCountryPage({ params }: Props) {
                 ))}
               </div>
             </div>
-            <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="mt-8 bg-blue-50 border border-blue-200  p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Need faster delivery?</p>
                 <p className="text-slate-500 text-xs">Air freight available for urgent orders. Contact us for air freight pricing and availability.</p>
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs transition-colors shrink-0"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-xs transition-colors shrink-0"
               >
                 Contact Us <ArrowRight className="w-3 h-3" />
               </Link>
@@ -468,7 +468,7 @@ export default async function EUCountryPage({ params }: Props) {
                 { label: "EU Food Contact", desc: "Food-safe labeling compliant", href: "/compliance/eu-food-contact" },
                 { label: "SGS / Intertek", desc: "Third-party test reports", href: "/compliance/certificates" },
               ].map((item) => (
-                <Link key={item.label} href={item.href} className="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all group text-center">
+                <Link key={item.label} href={item.href} className="bg-slate-50 border border-slate-200  p-4 hover:border-blue-300 hover:shadow-sm transition-all group text-center">
                   <div className="flex justify-center mb-2">
                     <CheckCircle2 className="w-5 h-5 text-blue-600" />
                   </div>
@@ -479,7 +479,7 @@ export default async function EUCountryPage({ params }: Props) {
             </div>
 
             {/* Compliance pack CTA */}
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="bg-blue-50 border border-blue-200  p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-base mb-1">Request Full {c.name} Compliance Pack</p>
                 <p className="text-slate-500 text-sm">
@@ -488,7 +488,7 @@ export default async function EUCountryPage({ params }: Props) {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors shrink-0 shadow-sm"
               >
                 <Download className="w-4 h-4" /> Request Docs
               </Link>
@@ -525,11 +525,11 @@ export default async function EUCountryPage({ params }: Props) {
                     </div>
                   ))}
                 </div>
-                <Link href="/oem-custom/private-label" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
+                <Link href="/oem-custom/private-label" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold  text-sm transition-colors shadow-sm">
                   Explore OEM Options <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+              <div className="bg-white border border-slate-200  p-8">
                 <h3 className="font-bold text-slate-900 text-lg mb-5">OEM Service Summary</h3>
                 <div className="space-y-4">
                   {[
@@ -564,7 +564,7 @@ export default async function EUCountryPage({ params }: Props) {
             </p>
             <div className="space-y-4 max-w-3xl">
               {faq.map((item, i) => (
-                <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+                <div key={i} className="bg-slate-50 border border-slate-200  p-6">
                   <p className="font-bold text-slate-900 text-sm mb-2">{item.q}</p>
                   <p className="text-slate-600 text-sm leading-relaxed">{item.a}</p>
                 </div>

@@ -20,7 +20,7 @@ export default async function SettingsPage() {
 
       <div className="space-y-5">
         {/* SEO 评分卡 */}
-        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 rounded-2xl p-6 flex items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100  p-6 flex items-center justify-between gap-4">
           <div>
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">SEO 健康度</p>
             <p className="text-3xl font-extrabold text-slate-900 tabular-nums">
@@ -45,7 +45,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* SEO 字段编辑 */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="bg-white border border-slate-200  p-6">
           <div className="flex items-center gap-2 mb-5">
             <Search className="w-5 h-5 text-blue-600" />
             <h2 className="font-bold text-slate-900">SEO 元数据</h2>
@@ -54,7 +54,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* Change Password */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="bg-white border border-slate-200  p-6">
           <div className="flex items-center gap-2 mb-5">
             <Shield className="w-5 h-5 text-blue-600" />
             <h2 className="font-bold text-slate-900">修改密码</h2>
@@ -63,7 +63,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* System Info */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="bg-white border border-slate-200  p-6">
           <div className="flex items-center gap-2 mb-4">
             <Database className="w-5 h-5 text-slate-400" />
             <h2 className="font-bold text-slate-900">系统信息</h2>

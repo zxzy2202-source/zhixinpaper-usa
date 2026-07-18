@@ -50,7 +50,7 @@ export default function FDAUSPage() {
               <p className="text-slate-600 leading-relaxed mb-4">
                 Our FDA-compliant grades use only substances listed in the relevant 21 CFR sections, ensuring that migration to food does not exceed safe limits under intended conditions of use.
               </p>
-              <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 mt-6">
+              <div className="bg-blue-50  p-6 border border-blue-100 mt-6">
                 <h3 className="font-semibold text-slate-800 mb-3">Applicable Regulations</h3>
                 <div className="space-y-2 text-sm text-slate-600">
                   {[
@@ -78,7 +78,7 @@ export default function FDAUSPage() {
                   { app: "Cold Chain & Distribution", desc: "Shipping labels and temperature-indicator labels for US cold chain logistics." },
                   { app: "Cannabis Dispensary Labels", desc: "Compliant labels for cannabis products in US states with food contact requirements." },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                  <div key={i} className="bg-white border border-slate-200  p-4 shadow-sm">
                     <h3 className="font-semibold text-slate-800 text-sm mb-1">{item.app}</h3>
                     <p className="text-slate-500 text-sm">{item.desc}</p>
                   </div>
@@ -94,8 +94,8 @@ export default function FDAUSPage() {
           <h2 className="text-3xl font-bold mb-4">FDA Compliance Documentation</h2>
           <p className="text-blue-100 mb-8">Our FDA compliance letters and test reports are available for all food-contact grade products. Contact our compliance team for documentation.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Download Certificates</Link>
-            <Link href="/us" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">US Market Overview</Link>
+            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificates</Link>
+            <Link href="/us" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">US Market Overview</Link>
           </div>
         </div>
       </section>

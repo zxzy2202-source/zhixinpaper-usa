@@ -26,7 +26,7 @@ export default function DeleteBlogButton({ id, title }: Props) {
     <button
       onClick={handleDelete}
       disabled={isPending}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg text-xs transition-colors disabled:opacity-50"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold  text-xs transition-colors disabled:opacity-50"
     >
       {isPending ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
       删除

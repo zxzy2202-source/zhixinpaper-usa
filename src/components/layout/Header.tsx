@@ -56,7 +56,7 @@ function ProductsMegaMenu() {
         </div>
         <Link
           href="/quote"
-          className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#b9822f] px-5 py-3 text-sm font-bold text-white shadow-[0_16px_34px_rgba(185,130,47,0.26)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
+          className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-5 py-3 text-sm font-bold text-white shadow-[0_16px_34px_rgba(185,130,47,0.26)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
         >
           Request a Quote <ArrowRight className="h-4 w-4" />
         </Link>
@@ -170,7 +170,7 @@ function ProductsMegaMenu() {
           <div className="mt-5 grid gap-2">
             <Link
               href="/quote"
-              className="inline-flex min-h-10 items-center justify-center gap-2 bg-[#b9822f] px-4 py-2.5 text-xs font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.20)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
+              className="inline-flex min-h-10 items-center justify-center gap-2 bg-[#9c661d] px-4 py-2.5 text-xs font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.20)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
             >
               Request a Quote <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -235,7 +235,7 @@ function IndustriesMegaMenu() {
         {/* High-value verticals */}
         <div className="pr-5">
           <div className="mb-3 flex items-center gap-1.5 text-[10px] font-bold text-[#87918c]">
-            <span className="inline-block h-2 w-2 bg-[#b9822f]" />
+            <span className="inline-block h-2 w-2 bg-[#9c661d]" />
             High-value verticals
           </div>
           <div className="space-y-0.5">
@@ -243,7 +243,7 @@ function IndustriesMegaMenu() {
               <Link
                 key={i.slug}
                 href={`/industries/${i.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
+                className={`flex items-center justify-between px-2.5 py-2  text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
                   pathname === `/industries/${i.slug}`
                     ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                     : "text-[#4f5f5a] hover:bg-white hover:text-[#14211f]"
@@ -269,7 +269,7 @@ function IndustriesMegaMenu() {
               <Link
                 key={i.slug}
                 href={`/industries/${i.slug}`}
-                className={`flex items-center justify-between px-2.5 py-2 rounded-lg text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
+                className={`flex items-center justify-between px-2.5 py-2  text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
                   pathname === `/industries/${i.slug}`
                     ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                     : "text-[#4f5f5a] hover:bg-white hover:text-[#14211f]"
@@ -319,13 +319,13 @@ function FactoryDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
+              className={`flex items-center gap-3 px-3 py-2.5  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href
                   ? "bg-[#e7eee9] text-[#0f5f5c]"
                   : "text-[#33413e] hover:bg-white"
               }`}
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+              <div className={`w-8 h-8  flex items-center justify-center shrink-0 ${
                 pathname === item.href ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
               }`}>
                 <Icon className={`w-4 h-4 ${pathname === item.href ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
@@ -370,13 +370,13 @@ function ComplianceDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
+              className={`flex items-center gap-3 px-3 py-2.5  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href
                   ? "bg-[#e7eee9] text-[#0f5f5c]"
                   : "text-[#33413e] hover:bg-white"
               }`}
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+              <div className={`w-8 h-8  flex items-center justify-center shrink-0 ${
                 pathname === item.href ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
               }`}>
                 <Icon className={`w-4 h-4 ${pathname === item.href ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
@@ -435,13 +435,13 @@ function ResourcesDropdown() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
+              className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
                 pathname === item.href || pathname.startsWith(item.href + "/")
                   ? "bg-[#e7eee9] text-[#0f5f5c]"
                   : "text-[#33413e] hover:bg-white"
               }`}
             >
-              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+              <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
                 pathname === item.href || pathname.startsWith(item.href + "/") ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
               }`}>
                 <Icon className={`w-4.5 h-4.5 ${
@@ -470,11 +470,11 @@ function AboutDropdown() {
       <div className="p-2">
         <Link
           href="/about"
-          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
+          className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
             pathname === "/about" ? "bg-[#e7eee9] text-[#0f5f5c]" : "text-[#33413e] hover:bg-white"
           }`}
         >
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+          <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
             pathname === "/about" ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
           }`}>
             <Info className={`w-4 h-4 ${pathname === "/about" ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
@@ -487,11 +487,11 @@ function AboutDropdown() {
 
         <Link
           href="/contact"
-          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
+          className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
             pathname === "/contact" ? "bg-[#e7eee9] text-[#0f5f5c]" : "text-[#33413e] hover:bg-white"
           }`}
         >
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+          <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
             pathname === "/contact" ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
           }`}>
             <MessageSquare className={`w-4 h-4 ${pathname === "/contact" ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
@@ -530,7 +530,7 @@ function MarketsDropdown() {
       <div className="p-4 space-y-0.5">
           <Link
             href="/eu"
-            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+            className={`flex items-center gap-2.5 px-2.5 py-2  text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/eu")
                 ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                 : "text-[#33413e] hover:bg-white hover:text-[#14211f]"
@@ -541,7 +541,7 @@ function MarketsDropdown() {
           </Link>
           <Link
             href="/us"
-            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+            className={`flex items-center gap-2.5 px-2.5 py-2  text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/us")
                 ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                 : "text-[#33413e] hover:bg-white hover:text-[#14211f]"
@@ -552,7 +552,7 @@ function MarketsDropdown() {
           </Link>
           <Link
             href="/ca"
-            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+            className={`flex items-center gap-2.5 px-2.5 py-2  text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/ca")
                 ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                 : "text-[#33413e] hover:bg-white hover:text-[#14211f]"
@@ -771,7 +771,7 @@ export default function Header() {
                     aria-haspopup={hasDrop ? "true" : undefined}
                     aria-expanded={hasDrop && activeMenu === label ? "true" : undefined}
                     onFocus={() => hasDrop && openMenu(label)}
-                    className={`flex items-center gap-1.5 px-2 py-2 text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform] 2xl:rounded-lg 2xl:px-3 ${
+                    className={`flex items-center gap-1.5 px-2 py-2 text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform]  2xl:px-3 ${
                       active
                         ? "bg-white/10 text-[#d6b273]"
                         : "text-white/90 hover:text-white hover:bg-white/10"
@@ -812,7 +812,7 @@ export default function Header() {
             </Link>
             <Link
               href="/quote"
-              className="flex items-center gap-1.5 bg-[#b9822f] px-4 py-2 text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px 2xl:px-5"
+              className="flex items-center gap-1.5 bg-[#9c661d] px-4 py-2 text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px 2xl:px-5"
             >
               Request a Quote <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -911,7 +911,7 @@ export default function Header() {
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setMobileOpen(false)}
-                                className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition-colors ${
+                                className={`flex items-center justify-between px-4 py-2.5  text-sm transition-colors ${
                                   item.label.endsWith("›")
                                     ? "text-[#87918c] font-bold text-xs hover:text-[#0f5f5c]"
                                     : "text-[#4f5f5a] hover:text-[#0f5f5c] hover:bg-white"
@@ -949,8 +949,8 @@ export default function Header() {
                 );
               })}
 
-              {/* Mobile CTAs */}
-              <div className="space-y-2 border-t border-[#ded6c8] pt-4">
+              {/* Mobile secondary CTA — primary "Request a Quote" lives in the sticky bar below */}
+              <div className="border-t border-[#ded6c8] pt-4">
                 <Link
                   href="/samples"
                   onClick={() => setMobileOpen(false)}
@@ -958,20 +958,13 @@ export default function Header() {
                 >
                   Request Samples
                 </Link>
-                <Link
-                  href="/quote"
-                  onClick={() => setMobileOpen(false)}
-                  className="block w-full bg-[#b9822f] py-3 text-center text-sm font-bold text-white transition-colors hover:bg-[#9f6e25]"
-                >
-                  Request a Quote
-                </Link>
               </div>
-              {/* Sticky bottom CTA for long scroll */}
+              {/* Sticky bottom CTA — stays visible while the menu scrolls */}
               <div className="sticky bottom-0 mt-2 border-t border-[#ded6c8] bg-[#fbfaf6] pb-3 pt-2">
                 <Link
                   href="/quote"
                   onClick={() => setMobileOpen(false)}
-                  className="block w-full bg-[#b9822f] py-3 text-center text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.22)] transition-colors hover:bg-[#9f6e25]"
+                  className="block w-full bg-[#9c661d] py-3 text-center text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.22)] transition-colors hover:bg-[#7d4f16]"
                 >
                   Request a Quote
                 </Link>

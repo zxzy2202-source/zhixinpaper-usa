@@ -62,7 +62,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
       )}>
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-800">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 bg-blue-600  flex items-center justify-center shrink-0">
             <Globe className="w-4 h-4 text-white" />
           </div>
           <div className="min-w-0">
@@ -89,7 +89,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                     href={item.href}
                     onClick={() => setSidebarOpen(false)}
                     className={clsx(
-                      "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all",
+                      "flex items-center gap-3 px-3 py-2.5  text-sm font-medium transition-all",
                       active
                         ? "bg-blue-600 text-white shadow-sm"
                         : "text-slate-400 hover:text-white hover:bg-slate-800"
@@ -109,7 +109,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
           <Link
             href="/"
             target="_blank"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
+            className="flex items-center gap-3 px-3 py-2.5  text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
           >
             <ExternalLink className="w-4 h-4 shrink-0" />
             查看前台网站
@@ -119,7 +119,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
               await fetch("/api/admin/logout", { method: "POST" });
               router.push("/admin/login");
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2.5  text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-all"
           >
             <LogOut className="w-4 h-4 shrink-0" />
             退出登录

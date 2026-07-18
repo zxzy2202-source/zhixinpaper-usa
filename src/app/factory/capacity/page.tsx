@@ -46,10 +46,10 @@ export default function FactoryCapacityPage() {
               With 500M+ rolls annual production capacity and dedicated inventory for key SKUs, we deliver consistent, on-time supply to distributors and importers worldwide.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="px-8 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-sm">
+              <Link href="/quote" className="px-8 py-3 bg-white text-blue-700 font-bold  hover:bg-blue-50 transition-colors shadow-sm">
                 Request a Quote
               </Link>
-              <Link href="/contact" className="px-8 py-3 bg-transparent text-white font-semibold rounded-lg border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all">
+              <Link href="/contact" className="px-8 py-3 bg-transparent text-white font-semibold  border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all">
                 Contact Sales
               </Link>
             </div>
@@ -60,7 +60,7 @@ export default function FactoryCapacityPage() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-8">Capacity by Product Category</h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+          <div className="overflow-x-auto  border border-slate-200 shadow-sm">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
                 <tr>
@@ -84,15 +84,15 @@ export default function FactoryCapacityPage() {
           </div>
 
           <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Buffer Stock Programme</h3>
               <p className="text-slate-500 text-sm">We maintain 30-day buffer stock for top-selling SKUs, enabling same-week dispatch for urgent orders from established distributors.</p>
             </div>
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Flexible MOQ</h3>
               <p className="text-slate-500 text-sm">Standard products from 5,000 rolls. Custom OEM from 50,000 rolls. We work with distributors at all stages of growth.</p>
             </div>
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Dedicated Account Management</h3>
               <p className="text-slate-500 text-sm">Each distributor account is assigned a dedicated production planner to coordinate forecasts, rush orders, and seasonal demand peaks.</p>
             </div>
@@ -105,8 +105,8 @@ export default function FactoryCapacityPage() {
           <h2 className="text-3xl font-bold mb-4">Discuss Your Volume Requirements</h2>
           <p className="text-blue-100 mb-8">Our sales team will provide a customised supply proposal based on your volume, frequency, and delivery requirements.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Request a Quote</Link>
-            <Link href="/oem-custom/moq-guide" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">View MOQ Guide</Link>
+            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request a Quote</Link>
+            <Link href="/oem-custom/moq-guide" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">View MOQ Guide</Link>
           </div>
         </div>
       </section>

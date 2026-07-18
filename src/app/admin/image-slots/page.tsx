@@ -267,7 +267,7 @@ export default function ImageSlotsPage() {
           <button
             key={f.key}
             onClick={() => setFilter(f.key as FilterMode)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            className={`px-4 py-2  text-sm font-medium transition ${
               filter === f.key
                 ? "bg-slate-900 text-white"
                 : "bg-white border border-slate-200 text-slate-700 hover:border-slate-400"
@@ -279,7 +279,7 @@ export default function ImageSlotsPage() {
         <div className="flex-1" />
         <Link
           href="/admin/media"
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-white border border-slate-200 text-slate-700 hover:border-slate-400 flex items-center gap-1.5"
+          className="px-4 py-2  text-sm font-medium bg-white border border-slate-200 text-slate-700 hover:border-slate-400 flex items-center gap-1.5"
         >
           <FolderOpen className="w-4 h-4" /> 完整媒体库
         </Link>
@@ -301,7 +301,7 @@ export default function ImageSlotsPage() {
               return (
                 <div
                   key={slot.key}
-                  className={`bg-white rounded-xl border-2 transition overflow-hidden ${
+                  className={`bg-white  border-2 transition overflow-hidden ${
                     isCustom ? "border-blue-200" : "border-slate-200"
                   } ${isSuccess ? "ring-2 ring-emerald-400" : ""}`}
                 >
@@ -321,12 +321,12 @@ export default function ImageSlotsPage() {
                       </div>
                     )}
                     {isCustom && (
-                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded text-xs font-medium bg-blue-600 text-white">
+                      <div className="absolute top-2 left-2 px-2 py-0.5  text-xs font-medium bg-blue-600 text-white">
                         已自定义
                       </div>
                     )}
                     {!isCustom && (
-                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded text-xs font-medium bg-amber-500 text-white">
+                      <div className="absolute top-2 left-2 px-2 py-0.5  text-xs font-medium bg-amber-500 text-white">
                         默认图
                       </div>
                     )}
@@ -367,7 +367,7 @@ export default function ImageSlotsPage() {
                       <button
                         onClick={() => fileInputs.current[slot.key]?.click()}
                         disabled={isSaving}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium  transition disabled:opacity-50"
                       >
                         <Upload size={14} /> 换图
                       </button>
@@ -375,7 +375,7 @@ export default function ImageSlotsPage() {
                         onClick={() => setPicker(slot)}
                         disabled={isSaving}
                         title="从媒体库选已有图"
-                        className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 disabled:opacity-50"
+                        className="p-2 border border-slate-200 hover:bg-slate-50  text-slate-600 disabled:opacity-50"
                       >
                         <FolderOpen size={14} />
                       </button>
@@ -384,7 +384,7 @@ export default function ImageSlotsPage() {
                           onClick={() => handleUnbind(slot.key)}
                           disabled={isSaving}
                           title="恢复默认图"
-                          className="p-2 border border-slate-200 hover:bg-red-50 hover:border-red-200 hover:text-red-600 rounded-lg text-slate-600 disabled:opacity-50"
+                          className="p-2 border border-slate-200 hover:bg-red-50 hover:border-red-200 hover:text-red-600  text-slate-600 disabled:opacity-50"
                         >
                           <RotateCcw size={14} />
                         </button>
@@ -421,7 +421,7 @@ export default function ImageSlotsPage() {
       {/* ── Toast ── */}
       {toast && (
         <div
-          className={`fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm z-50 flex items-center gap-2 ${
+          className={`fixed bottom-6 right-6 px-4 py-3  shadow-2xl text-sm z-50 flex items-center gap-2 ${
             toast.type === "ok" ? "bg-emerald-600 text-white" : "bg-red-600 text-white"
           }`}
         >
@@ -448,7 +448,7 @@ function UploadDialog({
   return (
     <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4" onClick={onCancel}>
       <div
-        className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-auto shadow-2xl"
+        className="bg-white  max-w-2xl w-full max-h-[90vh] overflow-auto shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
@@ -465,7 +465,7 @@ function UploadDialog({
 
         <div className="p-6 space-y-4">
           {/* 预览 */}
-          <div className="bg-slate-100 rounded-lg overflow-hidden">
+          <div className="bg-slate-100  overflow-hidden">
             {/* 这里用原生 <img> 是因为 blob: URL Next/Image 不认 */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={state.previewUrl} alt="preview" className="w-full max-h-80 object-contain" />
@@ -473,15 +473,15 @@ function UploadDialog({
 
           {/* 元信息 */}
           <div className="grid grid-cols-3 gap-2 text-xs">
-            <div className="bg-slate-50 rounded p-2">
+            <div className="bg-slate-50  p-2">
               <div className="text-slate-400">尺寸</div>
               <div className="font-mono text-slate-700 mt-0.5">{state.width}×{state.height}</div>
             </div>
-            <div className="bg-slate-50 rounded p-2">
+            <div className="bg-slate-50  p-2">
               <div className="text-slate-400">原始大小</div>
               <div className="font-mono text-slate-700 mt-0.5">{formatBytes(state.originalSize)}</div>
             </div>
-            <div className="bg-emerald-50 rounded p-2">
+            <div className="bg-emerald-50  p-2">
               <div className="text-emerald-600">推荐</div>
               <div className="font-mono text-emerald-700 mt-0.5">{state.slot.recommendedSize || "无限制"}</div>
             </div>
@@ -489,7 +489,7 @@ function UploadDialog({
 
           {/* 比例警告 */}
           {state.warning && (
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-sm flex items-start gap-2">
+            <div className="p-3 bg-amber-50 border border-amber-200  text-amber-800 text-sm flex items-start gap-2">
               <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
               <div>
                 <div className="font-medium">比例不匹配</div>
@@ -508,7 +508,7 @@ function UploadDialog({
               value={state.alt}
               onChange={(e) => onAltChange(e.target.value)}
               placeholder="如：zhixin-factory-aerial-view"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-slate-400 mt-1">
               上传后服务端会自动压缩、生成缩略图（WebP）并存入媒体库。
@@ -520,14 +520,14 @@ function UploadDialog({
           <button
             onClick={onCancel}
             disabled={isUploading}
-            className="flex-1 py-2 px-4 border border-slate-200 hover:bg-white text-slate-700 text-sm font-medium rounded-lg transition"
+            className="flex-1 py-2 px-4 border border-slate-200 hover:bg-white text-slate-700 text-sm font-medium  transition"
           >
             取消
           </button>
           <button
             onClick={onConfirm}
             disabled={isUploading}
-            className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50 flex items-center justify-center gap-1.5"
+            className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium  transition disabled:opacity-50 flex items-center justify-center gap-1.5"
           >
             {isUploading ? (
               <><Loader2 className="animate-spin" size={14} /> 上传中</>
@@ -569,7 +569,7 @@ function MediaPicker({
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-2xl w-full max-w-5xl max-h-[85vh] flex flex-col"
+        className="bg-white  w-full max-w-5xl max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-4 border-b border-slate-200">
@@ -599,7 +599,7 @@ function MediaPicker({
                 <button
                   key={f.id}
                   onClick={() => onPick(f.id)}
-                  className="group relative aspect-square bg-slate-100 rounded-xl overflow-hidden border-2 border-transparent hover:border-blue-600 transition-colors"
+                  className="group relative aspect-square bg-slate-100  overflow-hidden border-2 border-transparent hover:border-blue-600 transition-colors"
                   title={f.originalName}
                 >
                   <Image
@@ -610,7 +610,7 @@ function MediaPicker({
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/20 transition-colors flex items-center justify-center">
-                    <span className="px-3 py-1.5 text-xs font-medium bg-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="px-3 py-1.5 text-xs font-medium bg-white  opacity-0 group-hover:opacity-100 transition-opacity">
                       选择
                     </span>
                   </div>

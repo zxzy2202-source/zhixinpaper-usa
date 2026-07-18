@@ -91,8 +91,8 @@ export default function FactoryOverviewPage() {
           <p className="text-slate-500 mb-12 max-w-2xl">Our facility is organized into specialized production divisions, each equipped with dedicated machinery and staffed by experienced technicians.</p>
           <div className="grid md:grid-cols-2 gap-8">
             {sections.map((s, i) => (
-              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+              <div key={i} className="bg-white border border-slate-200  p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-blue-100  flex items-center justify-center mb-4">
                   <span className="text-blue-600 font-bold text-lg">{i + 1}</span>
                 </div>
                 <h3 className="text-xl font-semibold text-slate-800 mb-3">{s.title}</h3>
@@ -109,10 +109,10 @@ export default function FactoryOverviewPage() {
           <h2 className="text-3xl font-bold mb-4">Ready to Visit Our Factory?</h2>
           <p className="text-blue-100 mb-8 text-lg">We welcome distributor visits and factory audits. Contact our team to arrange an in-person or virtual tour.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">
+            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">
               Take Virtual Tour
             </Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">
               Schedule Factory Visit
             </Link>
           </div>

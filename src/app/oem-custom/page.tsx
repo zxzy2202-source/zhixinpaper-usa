@@ -32,8 +32,8 @@ export default function OEMPage() {
               Private label, custom printing, and OEM capabilities for distributors who want their own branded thermal consumables. Low MOQ, fast samples, full packaging customization.
             </p>
             <div className="flex flex-wrap gap-3 mb-6">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">Start OEM Project <ArrowRight className="w-4 h-4" /></Link>
-              <Link href="/oem-custom/sample-process" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Sample Process</Link>
+              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Start OEM Project <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/oem-custom/sample-process" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Sample Process</Link>
             </div>
             {/* Trust strip */}
             <div className="flex flex-wrap gap-4 text-xs text-slate-500">
@@ -79,7 +79,7 @@ export default function OEMPage() {
                   note: "LCL available · FCL freight-optimized MOQs available",
                 },
               ].map((item) => (
-                <Link key={item.href} href={item.href} className="rounded-xl border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-8 group">
+                <Link key={item.href} href={item.href} className=" border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-8 group">
                   <div className="font-bold text-blue-600 text-xs tracking-widest mb-4">{item.num}</div>
                   <h3 className="font-bold text-slate-900 text-2xl mb-3 group-hover:text-blue-600 transition-colors">{item.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed mb-5">{item.desc}</p>
@@ -102,7 +102,7 @@ export default function OEMPage() {
             {/* Factory video placeholder */}
             <div className="mt-16 mb-16">
               <SectionHeader label="Factory" title="See Our Production Capabilities" className="mb-8" />
-              <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-video max-w-3xl mx-auto flex items-center justify-center border border-slate-700">
+              <div className="relative  overflow-hidden bg-slate-900 aspect-video max-w-3xl mx-auto flex items-center justify-center border border-slate-700">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-slate-900/80" />
                 <div className="relative text-center">
                   <div className="w-16 h-16 rounded-full bg-white/10 border-2 border-white/30 flex items-center justify-center mx-auto mb-4 hover:bg-white/20 transition-colors cursor-pointer">
@@ -110,7 +110,7 @@ export default function OEMPage() {
                   </div>
                   <p className="text-white font-semibold text-lg">Factory Tour Video</p>
                   <p className="text-slate-400 text-sm mt-1">Watch our production line in action</p>
-                  <Link href="/factory/virtual-tour" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm rounded-lg border border-white/20 transition-colors">
+                  <Link href="/factory/virtual-tour" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm  border border-white/20 transition-colors">
                     View Virtual Tour <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

@@ -27,7 +27,7 @@ export default function ThermalLabelsPage() {
               <span className="text-[#4f5f5a]">Thermal Labels</span>
             </nav>
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-0.5 w-8 bg-[#b9822f]" />
+              <span className="h-0.5 w-8 bg-[#9c661d]" />
               <span className="text-xs font-bold text-[#0f5f5c]">Thermal Labels</span>
             </div>
             <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">

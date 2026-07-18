@@ -26,7 +26,7 @@ export default async function ProductsAdminPage() {
           热敏纸卷
           <span className="text-xs font-normal text-slate-400">（共 {THERMAL_PAPER_ROLLS.length} 款产品）</span>
         </h2>
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div className="bg-white border border-slate-200  overflow-hidden">
           <div className="divide-y divide-slate-100">
             {THERMAL_PAPER_ROLLS.map((product) => {
               const hasOverride = overrideMap.has(product.slug);
@@ -36,7 +36,7 @@ export default async function ProductsAdminPage() {
                     <div className="flex items-center gap-2 mb-0.5">
                       <h3 className="font-semibold text-slate-900 text-sm">{product.name}</h3>
                       {hasOverride && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold ">
                           <CheckCircle2 className="w-2.5 h-2.5" />
                           已自定义
                         </span>
@@ -46,7 +46,7 @@ export default async function ProductsAdminPage() {
                   </div>
                   <Link
                     href={`/admin/products/${product.slug}?type=roll`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-xs transition-colors"
                   >
                     <Pencil className="w-3 h-3" />
                     编辑
@@ -65,7 +65,7 @@ export default async function ProductsAdminPage() {
           热敏标签
           <span className="text-xs font-normal text-slate-400">（共 {THERMAL_LABELS.length} 款产品）</span>
         </h2>
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div className="bg-white border border-slate-200  overflow-hidden">
           <div className="divide-y divide-slate-100">
             {THERMAL_LABELS.map((product) => {
               const hasOverride = overrideMap.has(product.slug);
@@ -75,7 +75,7 @@ export default async function ProductsAdminPage() {
                     <div className="flex items-center gap-2 mb-0.5">
                       <h3 className="font-semibold text-slate-900 text-sm">{product.name}</h3>
                       {hasOverride && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-purple-100 text-purple-700 text-[10px] font-bold rounded">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-purple-100 text-purple-700 text-[10px] font-bold ">
                           <CheckCircle2 className="w-2.5 h-2.5" />
                           已自定义
                         </span>
@@ -85,7 +85,7 @@ export default async function ProductsAdminPage() {
                   </div>
                   <Link
                     href={`/admin/products/${product.slug}?type=label`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-xs transition-colors"
                   >
                     <Pencil className="w-3 h-3" />
                     编辑

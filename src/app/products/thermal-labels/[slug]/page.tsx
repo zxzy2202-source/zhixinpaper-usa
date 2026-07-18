@@ -171,7 +171,7 @@ export default async function LabelDetailPage({ params }: Props) {
                     {heroText}
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex items-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#9f6e25]">
+                    <Link href="/quote" className="inline-flex items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
                       Request a Quote <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link href="/samples" className="inline-flex items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
@@ -209,7 +209,7 @@ export default async function LabelDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
               <div className="lg:col-span-1 space-y-6">
-                <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
+                <div className="bg-emerald-50 border border-emerald-100  p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
                     <Star className="w-5 h-5 text-emerald-600" />
                     Key Features
@@ -224,28 +224,28 @@ export default async function LabelDetailPage({ params }: Props) {
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-2xl p-6">
+                <div className="bg-white border border-slate-200  p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
                     <Zap className="w-5 h-5 text-[#0f5f5c]" />
                     Applications
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {label.applications.map((app) => (
-                      <span key={app} className="px-3 py-1.5 bg-[#b9822f] text-white text-xs font-bold rounded-lg uppercase tracking-wide">
+                      <span key={app} className="px-3 py-1.5 bg-[#9c661d] text-white text-xs font-bold  uppercase tracking-wide">
                         {app}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-2xl p-6">
+                <div className="bg-white border border-slate-200  p-6">
                   <h2 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
                     <Tag className="w-5 h-5 text-[#0f5f5c]" />
                     Available Sizes
                   </h2>
                   <div className="grid grid-cols-2 gap-2">
                     {label.sizes.map((size) => (
-                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-center text-sm font-semibold text-slate-700 hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8] transition-all cursor-default">
+                      <div key={size} className="px-3 py-2.5 bg-slate-50 border border-slate-200  text-center text-sm font-semibold text-slate-700 hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8] transition-all cursor-default">
                         {size}
                       </div>
                     ))}
@@ -255,7 +255,7 @@ export default async function LabelDetailPage({ params }: Props) {
               </div>
 
               <div className="lg:col-span-2">
-                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                <div className="bg-white border border-slate-200  overflow-hidden">
                   <div className="px-8 py-6 border-b border-slate-100 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                       <h2 className="font-bold text-slate-900 text-2xl">Product Specifications</h2>
@@ -263,7 +263,7 @@ export default async function LabelDetailPage({ params }: Props) {
                     </div>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-[#0f5f5c]/40 hover:text-[#0f5f5c] transition-colors shadow-sm shrink-0"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-semibold  hover:border-[#0f5f5c]/40 hover:text-[#0f5f5c] transition-colors shadow-sm shrink-0"
                     >
                       <Download className="w-4 h-4" />
                       Download TDS
@@ -275,8 +275,8 @@ export default async function LabelDetailPage({ params }: Props) {
                         {(label as unknown as { specifications?: Record<string, string> }).specifications ? (
                           Object.entries((label as unknown as { specifications: Record<string, string> }).specifications).map(([key, val], i) => (
                             <tr key={key} className={i % 2 === 0 ? "bg-slate-50/50" : "bg-white"}>
-                              <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 rounded-l-lg">{key}</td>
-                              <td className="py-3.5 px-4 text-slate-800 text-sm font-medium rounded-r-lg">{val}</td>
+                              <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 ">{key}</td>
+                              <td className="py-3.5 px-4 text-slate-800 text-sm font-medium ">{val}</td>
                             </tr>
                           ))
                         ) : (
@@ -290,8 +290,8 @@ export default async function LabelDetailPage({ params }: Props) {
                             ["Quality Certification", "ISO 9001:2015"],
                           ].map(([key, val], i) => (
                             <tr key={key} className={i % 2 === 0 ? "bg-slate-50/50" : "bg-white"}>
-                              <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 rounded-l-lg">{key}</td>
-                              <td className="py-3.5 px-4 text-slate-800 text-sm font-medium rounded-r-lg">{val}</td>
+                              <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 ">{key}</td>
+                              <td className="py-3.5 px-4 text-slate-800 text-sm font-medium ">{val}</td>
                             </tr>
                           ))
                         )}
@@ -305,10 +305,10 @@ export default async function LabelDetailPage({ params }: Props) {
                       <p className="text-[#d6b273] text-sm">Custom sizes, adhesives, and print options available with low MOQ.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
-                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold rounded-xl hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
+                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
                         Request Samples
                       </Link>
-                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] text-white font-bold rounded-xl hover:bg-[#9f6e25] transition-colors text-sm shadow-sm border border-[#b9822f]">
+                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] text-white font-bold  hover:bg-[#7d4f16] transition-colors text-sm shadow-sm border border-[#b9822f]">
                         Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
@@ -331,8 +331,8 @@ export default async function LabelDetailPage({ params }: Props) {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
               {printers.map((p) => (
-                <div key={p.brand} className="bg-white border border-slate-200 rounded-xl p-4 hover:border-emerald-300 hover:shadow-sm transition-all text-center">
-                  <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center mx-auto mb-2">
+                <div key={p.brand} className="bg-white border border-slate-200  p-4 hover:border-emerald-300 hover:shadow-sm transition-all text-center">
+                  <div className="w-8 h-8 bg-emerald-50  flex items-center justify-center mx-auto mb-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   </div>
                   <p className="font-bold text-slate-900 text-xs mb-1">{p.brand}</p>
@@ -364,7 +364,7 @@ export default async function LabelDetailPage({ params }: Props) {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {platforms.map((p) => (
-                  <div key={p.name} className="bg-amber-50 border border-amber-100 rounded-xl p-4 hover:border-amber-300 hover:shadow-sm transition-all">
+                  <div key={p.name} className="bg-amber-50 border border-amber-100  p-4 hover:border-amber-300 hover:shadow-sm transition-all">
                     <div className="flex items-center gap-2 mb-2">
                       <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0" />
                       <p className="font-bold text-slate-900 text-sm">{p.name}</p>
@@ -374,7 +374,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 ))}
               </div>
               {isEcommerceLabel && (
-                <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="mt-6 bg-amber-50 border border-amber-200  p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="flex-1">
                     <p className="font-bold text-slate-900 text-sm mb-1">Amazon FBA Seller?</p>
                     <p className="text-slate-500 text-xs">
@@ -383,7 +383,7 @@ export default async function LabelDetailPage({ params }: Props) {
                   </div>
                   <Link
                     href="/industries/ecommerce"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold  text-sm transition-colors shrink-0 shadow-sm"
                   >
                     FBA Label Guide <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -407,7 +407,7 @@ export default async function LabelDetailPage({ params }: Props) {
               {pricing.map((tier, i) => (
                 <div
                   key={tier.tier}
-                  className={`rounded-2xl p-6 border-2 transition-all ${
+                  className={` p-6 border-2 transition-all ${
                     i === 2
                       ? "border-emerald-500 bg-emerald-50 shadow-md shadow-emerald-100"
                       : "border-slate-200 bg-white hover:border-emerald-200"
@@ -430,7 +430,7 @@ export default async function LabelDetailPage({ params }: Props) {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
                 Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-slate-400 text-xs">Response within 24 hours · No commitment required</p>
@@ -450,8 +450,8 @@ export default async function LabelDetailPage({ params }: Props) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
-                <div key={doc.name} className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#0f5f5c]/40 hover:shadow-sm transition-all group">
-                  <div className="w-9 h-9 bg-[#f4f0e8] rounded-lg flex items-center justify-center mb-3 group-hover:bg-[#e7eee9] transition-colors">
+                <div key={doc.name} className="bg-white border border-slate-200  p-5 hover:border-[#0f5f5c]/40 hover:shadow-sm transition-all group">
+                  <div className="w-9 h-9 bg-[#f4f0e8]  flex items-center justify-center mb-3 group-hover:bg-[#e7eee9] transition-colors">
                     <Download className="w-4 h-4 text-[#0f5f5c]" />
                   </div>
                   <p className="font-bold text-slate-900 text-sm mb-1 leading-snug">{doc.name}</p>
@@ -459,7 +459,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 </div>
               ))}
             </div>
-            <div className="bg-[#f4f0e8] border border-[#0f5f5c]/25 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="bg-[#f4f0e8] border border-[#0f5f5c]/25  p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Request Full Compliance Pack</p>
                 <p className="text-slate-500 text-xs">
@@ -468,7 +468,7 @@ export default async function LabelDetailPage({ params }: Props) {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] text-white font-bold rounded-xl text-sm transition-colors shrink-0 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shrink-0 shadow-sm"
               >
                 <Download className="w-4 h-4" /> Request Docs
               </Link>
@@ -480,8 +480,8 @@ export default async function LabelDetailPage({ params }: Props) {
         <section className="py-10 bg-slate-50 border-t border-slate-200">
           <div className="container-site">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-4 p-6 bg-[#f4f0e8] rounded-2xl border border-[#ded6c8]">
-                <div className="w-10 h-10 bg-[#b9822f] rounded-xl flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-4 p-6 bg-[#f4f0e8]  border border-[#ded6c8]">
+                <div className="w-10 h-10 bg-[#9c661d]  flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -492,8 +492,8 @@ export default async function LabelDetailPage({ params }: Props) {
                   </Link>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-6 bg-amber-50 rounded-2xl border border-amber-100">
-                <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-4 p-6 bg-amber-50  border border-amber-100">
+                <div className="w-10 h-10 bg-amber-500  flex items-center justify-center shrink-0">
                   <ShoppingCart className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -504,8 +504,8 @@ export default async function LabelDetailPage({ params }: Props) {
                   </Link>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                <div className="w-10 h-10 bg-slate-700 rounded-xl flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-4 p-6 bg-slate-50  border border-slate-200">
+                <div className="w-10 h-10 bg-slate-700  flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -539,9 +539,9 @@ export default async function LabelDetailPage({ params }: Props) {
                 <Link
                   key={l.slug}
                   href={`/products/thermal-labels/${l.slug}`}
-                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
+                  className="group bg-white border border-slate-200  p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
                 >
-                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-100 transition-colors">
+                  <div className="w-10 h-10 bg-emerald-50  flex items-center justify-center mb-4 group-hover:bg-emerald-100 transition-colors">
                     <Tag className="w-5 h-5 text-emerald-600" />
                   </div>
                   <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{l.name}</h3>

@@ -42,7 +42,7 @@ export default async function BlogAdminPage() {
         </div>
         <Link
           href="/admin/blog/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors shadow-sm"
         >
           <Plus className="w-4 h-4" />
           新建文章
@@ -50,7 +50,7 @@ export default async function BlogAdminPage() {
       </div>
 
       {/* Built-in articles notice */}
-      <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+      <div className="flex items-start gap-3 bg-blue-50 border border-blue-200  p-4 mb-6">
         <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
         <div>
           <p className="text-blue-800 text-sm font-medium">前台博客包含 11 篇内置文章</p>
@@ -67,7 +67,7 @@ export default async function BlogAdminPage() {
           { label: "已发布", value: counts.published, color: "text-emerald-600" },
           { label: "草稿", value: counts.draft, color: "text-slate-500" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white border border-slate-200 rounded-xl p-4">
+          <div key={stat.label} className="bg-white border border-slate-200  p-4">
             <p className="text-slate-500 text-xs mb-1">{stat.label}</p>
             <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
           </div>
@@ -75,7 +75,7 @@ export default async function BlogAdminPage() {
       </div>
 
       {/* Posts List */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+      <div className="bg-white border border-slate-200  overflow-hidden">
         {posts.length === 0 ? (
           <div className="text-center py-16 text-slate-400">
             <FileText className="w-10 h-10 mx-auto mb-3 opacity-30" />
@@ -109,7 +109,7 @@ export default async function BlogAdminPage() {
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/admin/blog/${post.id}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-xs transition-colors"
                   >
                     <Pencil className="w-3 h-3" />
                     编辑

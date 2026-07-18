@@ -61,7 +61,7 @@ export default async function SampleDetailPage({ params }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         {/* Contact Info */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-5">
+        <div className="bg-white border border-slate-200  p-5">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-4">联系与收货信息</p>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default async function SampleDetailPage({ params }: Props) {
       </div>
 
       {/* Products Requested */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-5">
+      <div className="bg-white border border-slate-200  p-5 mb-5">
         <div className="flex items-center gap-2 mb-3">
           <Package className="w-4 h-4 text-slate-400" />
           <p className="text-xs font-bold uppercase tracking-wide text-slate-400">申请产品清单</p>

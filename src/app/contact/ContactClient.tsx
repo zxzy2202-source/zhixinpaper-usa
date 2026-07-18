@@ -103,7 +103,7 @@ export default function ContactClient() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/products"
-                className="bg-[#b9822f] px-6 py-3 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
+                className="bg-[#9c661d] px-6 py-3 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
               >
                 Browse Products
               </Link>
@@ -129,7 +129,7 @@ export default function ContactClient() {
         <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-0.5 w-8 bg-[#b9822f]" />
+              <span className="h-0.5 w-8 bg-[#9c661d]" />
               <span className="text-xs font-bold text-[#0f5f5c]">
                 Contact
               </span>
@@ -215,7 +215,7 @@ export default function ContactClient() {
                       key={item.label}
                       className="flex items-start gap-4 p-4 bg-[#fbfaf6] border border-[#ded6c8]"
                     >
-                      <div className="w-10 h-10 bg-[#b9822f]/15 border border-[#0f5f5c]/25 flex items-center justify-center shrink-0 text-[#0f5f5c]">
+                      <div className="w-10 h-10 bg-[#9c661d]/15 border border-[#0f5f5c]/25 flex items-center justify-center shrink-0 text-[#0f5f5c]">
                         {item.icon}
                       </div>
                       <div>
@@ -377,7 +377,7 @@ export default function ContactClient() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] disabled:bg-[#b9822f]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] hover:bg-[#7d4f16] disabled:bg-[#9c661d]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
                   >
                     {loading ? (
                       <>

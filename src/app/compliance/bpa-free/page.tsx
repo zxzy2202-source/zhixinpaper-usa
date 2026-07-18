@@ -63,7 +63,7 @@ export default function BPAFreePage() {
                 { title: "REACH Compliant", desc: "Full compliance with EU REACH Regulation (EU) 2016/2235 and all subsequent amendments." },
                 { title: "Full Documentation", desc: "BPA-free declarations available for all products, suitable for use in your own compliance submissions." },
               ].map((item, i) => (
-                <div key={i} className="flex gap-4 items-start bg-green-50 rounded-xl p-4 border border-green-100">
+                <div key={i} className="flex gap-4 items-start bg-green-50  p-4 border border-green-100">
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/></svg>
                   </div>
@@ -81,7 +81,7 @@ export default function BPAFreePage() {
       <section className="bg-slate-50 py-16">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-8">Regulatory Compliance Summary</h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-x-auto  border border-slate-200 bg-white shadow-sm">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
                 <tr>
@@ -102,7 +102,7 @@ export default function BPAFreePage() {
                     <td className="px-6 py-4 font-medium text-slate-800">{reg}</td>
                     <td className="px-6 py-4 text-slate-500">{jur}</td>
                     <td className="px-6 py-4 text-slate-500">{req}</td>
-                    <td className="px-6 py-4"><span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded">{status}</span></td>
+                    <td className="px-6 py-4"><span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 ">{status}</span></td>
                   </tr>
                 ))}
               </tbody>
@@ -116,8 +116,8 @@ export default function BPAFreePage() {
           <h2 className="text-3xl font-bold mb-4">Download Our BPA-Free Declaration</h2>
           <p className="text-green-100 mb-8">Our BPA-free declaration is available for all products and can be used in your own compliance submissions to customers and regulators.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-green-700 font-semibold px-8 py-3 rounded-lg hover:bg-green-50 transition-colors">Download Certificate</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
+            <Link href="/compliance/certificates" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Download Certificate</Link>
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
           </div>
         </div>
       </section>

@@ -124,10 +124,10 @@ export default async function AdminDashboard() {
           <Link
             key={c.label}
             href={c.href}
-            className="group bg-white border border-slate-200 rounded-2xl p-5 hover:border-blue-300 hover:shadow-md transition-all"
+            className="group bg-white border border-slate-200  p-5 hover:border-blue-300 hover:shadow-md transition-all"
           >
             <div className="flex items-start justify-between mb-6">
-              <div className={`w-11 h-11 ${c.iconBg} rounded-xl flex items-center justify-center`}>
+              <div className={`w-11 h-11 ${c.iconBg}  flex items-center justify-center`}>
                 <c.icon className={`w-5 h-5 ${c.iconColor}`} />
               </div>
               <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
@@ -145,7 +145,7 @@ export default async function AdminDashboard() {
       {/* 快速开始 + 图片进度 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* 快速开始 */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="lg:col-span-2 bg-white border border-slate-200  p-6">
           <h2 className="font-bold text-slate-900 text-base mb-5 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-500" />
             快速开始
@@ -154,7 +154,7 @@ export default async function AdminDashboard() {
             {quickStart.map((step, idx) => (
               <li
                 key={idx}
-                className={`flex items-start gap-4 px-3 py-3 rounded-xl ${
+                className={`flex items-start gap-4 px-3 py-3  ${
                   step.done ? "bg-emerald-50/60" : "hover:bg-slate-50"
                 } transition-colors`}
               >
@@ -177,7 +177,7 @@ export default async function AdminDashboard() {
         </div>
 
         {/* 图片进度卡 */}
-        <div className="bg-slate-900 rounded-2xl p-6 text-white relative overflow-hidden">
+        <div className="bg-slate-900  p-6 text-white relative overflow-hidden">
           <h2 className="font-bold text-base mb-5 flex items-center gap-2">
             <span className="text-xl">📊</span>
             图片自定义进度

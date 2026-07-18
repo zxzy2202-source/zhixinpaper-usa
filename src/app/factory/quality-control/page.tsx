@@ -53,8 +53,8 @@ export default function QualityControlPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-12">Our Quality Control Process</h2>
           <div className="space-y-6">
             {qcSteps.map((step) => (
-              <div key={step.step} className="flex gap-6 items-start bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg">
+              <div key={step.step} className="flex gap-6 items-start bg-white border border-slate-200  p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white  flex items-center justify-center font-bold text-lg">
                   {step.step}
                 </div>
                 <div>
@@ -79,7 +79,7 @@ export default function QualityControlPage() {
               { cert: "EU Food Contact", scope: "Food-safe thermal paper and labels — EU Regulation 10/2011" },
               { cert: "FDA 21 CFR", scope: "US food contact compliant thermal paper and labels" },
             ].map((c) => (
-              <div key={c.cert} className="bg-white rounded-xl p-5 border border-slate-200">
+              <div key={c.cert} className="bg-white  p-5 border border-slate-200">
                 <div className="text-blue-600 font-bold text-lg mb-1">{c.cert}</div>
                 <div className="text-slate-500 text-sm">{c.scope}</div>
               </div>
@@ -98,8 +98,8 @@ export default function QualityControlPage() {
           <h2 className="text-3xl font-bold mb-4">Request Quality Documentation</h2>
           <p className="text-blue-100 mb-8">We provide full quality documentation including test reports, certificates, and MSDS sheets for all products.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Download Certificates</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Contact Quality Team</Link>
+            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificates</Link>
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Quality Team</Link>
           </div>
         </div>
       </section>

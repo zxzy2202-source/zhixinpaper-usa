@@ -154,14 +154,14 @@ export default async function InquiriesPage({
       </div>
 
       {/* Tab 切换 */}
-      <div className="flex gap-1 mb-6 bg-white border border-slate-200 rounded-xl p-1 w-fit">
+      <div className="flex gap-1 mb-6 bg-white border border-slate-200  p-1 w-fit">
         {TABS.map((tab) => {
           const active = tab.id === type;
           return (
             <Link
               key={tab.id}
               href={tab.href}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2  text-sm font-semibold transition-all ${
                 active
                   ? "bg-blue-600 text-white shadow-sm"
                   : "text-slate-600 hover:bg-slate-50"
@@ -170,7 +170,7 @@ export default async function InquiriesPage({
               <tab.icon className="w-4 h-4" />
               {tab.label}
               <span
-                className={`text-xs px-1.5 py-0.5 rounded ${
+                className={`text-xs px-1.5 py-0.5  ${
                   active ? "bg-white/20" : "bg-slate-100 text-slate-500"
                 }`}
               >
@@ -182,7 +182,7 @@ export default async function InquiriesPage({
       </div>
 
       {/* 列表 */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+      <div className="bg-white border border-slate-200  overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

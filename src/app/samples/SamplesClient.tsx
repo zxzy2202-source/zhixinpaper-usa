@@ -104,7 +104,7 @@ export default function SamplesClient() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/products"
-                className="bg-[#b9822f] text-white font-semibold px-6 py-3  hover:bg-[#9f6e25] transition-colors"
+                className="bg-[#9c661d] text-white font-semibold px-6 py-3  hover:bg-[#7d4f16] transition-colors"
               >
                 Browse Products
               </Link>
@@ -129,7 +129,7 @@ export default function SamplesClient() {
         <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
           <div className="container-site">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-0.5 w-8 bg-[#b9822f]" />
+              <span className="h-0.5 w-8 bg-[#9c661d]" />
               <span className="text-xs font-bold text-[#0f5f5c]">
                 Free Samples
               </span>
@@ -316,7 +316,7 @@ export default function SamplesClient() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#b9822f] hover:bg-[#9f6e25] disabled:bg-[#b9822f]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] hover:bg-[#7d4f16] disabled:bg-[#9c661d]/45 text-white font-bold transition duration-200 hover:-translate-y-0.5 active:translate-y-px text-sm w-full justify-center"
                     >
                       {loading ? (
                         <>

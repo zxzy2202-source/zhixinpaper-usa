@@ -40,8 +40,8 @@ export default function CACannabisLabelsPage() {
               Health Canada compliant thermal labels for Canada's federally regulated cannabis market. Bilingual (English/French) labeling, standardized formats, and cannabis symbol compliance — all from a single supplier.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/quote" className="bg-white text-red-700 font-bold px-8 py-3 rounded-lg hover:bg-red-50 transition-colors">Get a Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/quote" className="bg-white text-red-700 font-bold px-8 py-3  hover:bg-red-50 transition-colors">Get a Quote</Link>
+              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function CACannabisLabelsPage() {
               { icon: "📦", title: "Lot Number", desc: "Unique lot identifier enabling product traceability from licensed producer to consumer." },
               { icon: "🏭", title: "Licensed Producer Info", desc: "Name and address of the licensed producer. Contact information for consumer inquiries." },
             ].map((item) => (
-              <div key={item.title} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+              <div key={item.title} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-2xl mb-3">{item.icon}</div>
                 <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
@@ -83,7 +83,7 @@ export default function CACannabisLabelsPage() {
               { province: "Alberta (AGLC)", notes: "Federal requirements apply. AGLC has specific requirements for cannabis accessories sold with products." },
               { province: "Quebec (SQDC)", notes: "French-language requirements are particularly strict in Quebec. All consumer-facing text must be in French." },
             ].map((p) => (
-              <div key={p.province} className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <div key={p.province} className="bg-slate-50  p-5 border border-slate-200">
                 <h3 className="font-bold text-slate-800 mb-2">{p.province}</h3>
                 <p className="text-slate-500 text-sm">{p.notes}</p>
               </div>
@@ -102,7 +102,7 @@ export default function CACannabisLabelsPage() {
               { name: "Thermal Transfer Labels", use: "Long-term product labels, shelf-stable products", href: "/products/thermal-labels/thermal-transfer-labels" },
               { name: "Synthetic PP Labels", use: "Moisture-resistant packaging labels", href: "/products/thermal-labels/synthetic-paper-labels" },
             ].map((p) => (
-              <Link key={p.name} href={p.href} className="bg-white rounded-xl p-5 border border-red-200 hover:border-red-400 hover:shadow-md transition-all group">
+              <Link key={p.name} href={p.href} className="bg-white  p-5 border border-red-200 hover:border-red-400 hover:shadow-md transition-all group">
                 <h3 className="font-bold text-slate-800 mb-2 group-hover:text-red-700">{p.name}</h3>
                 <p className="text-slate-500 text-sm mb-3">{p.use}</p>
                 <span className="text-red-600 text-xs font-semibold">View Product →</span>
@@ -118,8 +118,8 @@ export default function CACannabisLabelsPage() {
           <h2 className="text-3xl font-bold mb-4">Ready to Source Health Canada Compliant Labels?</h2>
           <p className="text-red-100 mb-8">Our team can provide bilingual label templates and compliance documentation for your Health Canada licence application or renewal.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-red-700 font-bold px-10 py-4 rounded-lg hover:bg-red-50 transition-colors">Contact Our Team</Link>
-            <Link href="/quote" className="border-2 border-white text-white font-semibold px-10 py-4 rounded-lg hover:bg-white/10 transition-colors">Get a Quote</Link>
+            <Link href="/contact" className="bg-white text-red-700 font-bold px-10 py-4  hover:bg-red-50 transition-colors">Contact Our Team</Link>
+            <Link href="/quote" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Get a Quote</Link>
           </div>
         </div>
       </section>

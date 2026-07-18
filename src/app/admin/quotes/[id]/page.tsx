@@ -57,7 +57,7 @@ export default async function QuoteDetailPage({ params }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         {/* Contact Info */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-5">
+        <div className="bg-white border border-slate-200  p-5">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-4">联系信息</p>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default async function QuoteDetailPage({ params }: Props) {
       </div>
 
       {/* Product Details */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-5">
+      <div className="bg-white border border-slate-200  p-5 mb-5">
         <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-4">产品需求</p>
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -138,11 +138,11 @@ export default async function QuoteDetailPage({ params }: Props) {
       </div>
 
       {/* Quick Reply */}
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5">
+      <div className="bg-blue-50 border border-blue-200  p-5">
         <h2 className="font-bold text-slate-900 text-sm mb-3">快速回复</h2>
         <a
           href={`mailto:${quote.email}?subject=Re: Quote Request — Zhixin Paper&body=Dear ${quote.firstName},%0D%0A%0D%0AThank you for your quote request. We are pleased to provide the following pricing:%0D%0A%0D%0A`}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors"
         >
           <Mail className="w-4 h-4" />
           发送报价邮件

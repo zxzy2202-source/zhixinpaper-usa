@@ -80,9 +80,9 @@ export default function FactoryEquipmentPage() {
               <h2 className="text-2xl font-bold text-slate-800 mb-8 pb-4 border-b border-slate-200">{cat.category}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {cat.items.map((item) => (
-                  <div key={item.name} className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                  <div key={item.name} className="bg-slate-50  p-6 border border-slate-200">
                     <h3 className="font-semibold text-slate-800 mb-2">{item.name}</h3>
-                    <div className="inline-block bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded mb-3">{item.spec}</div>
+                    <div className="inline-block bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1  mb-3">{item.spec}</div>
                     <p className="text-slate-500 text-sm leading-relaxed">{item.detail}</p>
                   </div>
                 ))}
@@ -97,8 +97,8 @@ export default function FactoryEquipmentPage() {
           <h2 className="text-3xl font-bold mb-4">See Our Equipment in Action</h2>
           <p className="text-blue-100 mb-8">Take a virtual tour of our facility or request a factory visit to see our production capabilities firsthand.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Virtual Tour</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Factory Audit</Link>
+            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Virtual Tour</Link>
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Factory Audit</Link>
           </div>
         </div>
       </section>

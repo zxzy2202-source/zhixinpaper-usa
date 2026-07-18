@@ -61,7 +61,7 @@ export default function SeoEditor({ initial }: { initial: SeoConfig }) {
               onChange={(e) => setField(f.key, e.target.value)}
               placeholder={f.placeholder}
               rows={3}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+              className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
             />
           ) : (
             <input
@@ -69,7 +69,7 @@ export default function SeoEditor({ initial }: { initial: SeoConfig }) {
               value={seo[f.key]}
               onChange={(e) => setField(f.key, e.target.value)}
               placeholder={f.placeholder}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+              className="w-full px-3 py-2 border border-slate-200  text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
             />
           )}
         </div>
@@ -84,7 +84,7 @@ export default function SeoEditor({ initial }: { initial: SeoConfig }) {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold rounded-lg text-sm transition shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold  text-sm transition shadow-sm"
         >
           <Save className="w-4 h-4" />
           {saving ? "保存中..." : "保存 SEO 设置"}

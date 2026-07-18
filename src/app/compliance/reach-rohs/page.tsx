@@ -102,8 +102,8 @@ export default function ReachRohsPage() {
           <h2 className="text-3xl font-bold mb-4">Download REACH & RoHS Documentation</h2>
           <p className="text-blue-100 mb-8">Full compliance documentation available for all products. Contact our compliance team for product-specific declarations.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Download Certificates</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
+            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificates</Link>
+            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
           </div>
         </div>
       </section>

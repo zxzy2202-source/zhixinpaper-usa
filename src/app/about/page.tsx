@@ -66,7 +66,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div>
-                <SlotImage slotKey="about.banner" width={640} height={480} className="w-full object-cover rounded-2xl shadow-xl" />
+                <SlotImage slotKey="about.banner" width={640} height={480} className="w-full object-cover  shadow-xl" />
               </div>
             </div>
           </div>
@@ -88,8 +88,8 @@ export default function AboutPage() {
                 { icon: <Users2 className="w-6 h-6" />, title: "Partner Centric", desc: "Dedicated support for importers and distributors with custom OEM and stable pallet pricing." },
                 { icon: <Zap className="w-6 h-6" />, title: "Agile Production", desc: "Fast 15-day standard lead times and efficient logistics handling for US/EU/CA markets." },
               ].map((val, i) => (
-                <div key={i} className="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all group">
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+                <div key={i} className="p-8  bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all group">
+                  <div className="w-12 h-12 bg-blue-600  flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
                     {val.icon}
                   </div>
                   <h3 className="font-bold text-slate-900 text-lg mb-3">{val.title}</h3>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
                       <History className="w-5 h-5" />
                     </div>
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6  bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between mb-1">
                         <div className="font-black text-blue-600 text-xl tracking-tight">{m.year}</div>
                       </div>

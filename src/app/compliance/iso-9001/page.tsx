@@ -50,7 +50,7 @@ export default function ISO9001Page() {
               <p className="text-slate-600 leading-relaxed mb-4">
                 Our quality management system ensures consistent product quality, reliable delivery performance, and a systematic approach to identifying and resolving quality issues before they reach your customers.
               </p>
-              <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 mt-6">
+              <div className="bg-blue-50  p-6 border border-blue-100 mt-6">
                 <h3 className="font-semibold text-slate-800 mb-3">Certificate Details</h3>
                 <div className="space-y-2 text-sm">
                   {[
@@ -80,7 +80,7 @@ export default function ISO9001Page() {
                   { title: "Non-Conformance Management", desc: "Non-conforming products are identified, segregated, and dispositioned through a formal corrective action process." },
                   { title: "Customer Satisfaction", desc: "Customer feedback is systematically collected and analysed to drive continuous improvement across all processes." },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                  <div key={i} className="bg-white border border-slate-200  p-4 shadow-sm">
                     <h3 className="font-semibold text-slate-800 text-sm mb-1">{item.title}</h3>
                     <p className="text-slate-500 text-sm">{item.desc}</p>
                   </div>
@@ -96,8 +96,8 @@ export default function ISO9001Page() {
           <h2 className="text-3xl font-bold mb-4">Download Our ISO 9001 Certificate</h2>
           <p className="text-blue-100 mb-8">Our ISO 9001:2015 certificate is available for download and can be used to support your own supplier qualification processes.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Download Certificate</Link>
-            <Link href="/factory/quality-control" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">View Quality Process</Link>
+            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificate</Link>
+            <Link href="/factory/quality-control" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">View Quality Process</Link>
           </div>
         </div>
       </section>

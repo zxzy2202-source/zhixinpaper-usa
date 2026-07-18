@@ -241,7 +241,7 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
               <Link
                 key={p.slug}
                 href={`/oem-custom/${p.slug}`}
-                className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 text-sm font-medium  whitespace-nowrap transition-colors ${
                   p.slug === slug ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-100"
                 }`}
               >
@@ -255,7 +255,7 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
       {/* Content */}
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
         {page.sections.map((section) => (
-          <section key={section.heading} className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+          <section key={section.heading} className="bg-white  border border-slate-200 p-8 shadow-sm">
             <h2 className="text-2xl font-bold text-slate-800 mb-4">{section.heading}</h2>
             <p className="text-slate-600 leading-relaxed mb-5">{section.body}</p>
             {section.items && (
@@ -278,8 +278,8 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your OEM Project?</h2>
           <p className="text-blue-100 mb-8">Get a custom quote within 24 hours. Free samples available for qualified distributors.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-blue-700 font-bold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Get a Quote</Link>
-            <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Samples</Link>
+            <Link href="/quote" className="bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">Get a Quote</Link>
+            <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
           </div>
         </div>
       </section>

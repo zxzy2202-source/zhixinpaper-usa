@@ -159,7 +159,7 @@ export default function CaseStudiesPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8">
             {caseStudies.map((cs) => (
-              <div key={cs.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+              <div key={cs.id} className="bg-white border border-slate-200  overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -230,8 +230,8 @@ export default function CaseStudiesPage() {
           <h2 className="text-3xl font-bold mb-4">Ready to Become Our Next Success Story?</h2>
           <p className="text-blue-100 mb-8">Tell us about your challenge. Our technical team will recommend the right product and provide a competitive quote within 24 hours.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-lg hover:bg-blue-50 transition-colors">Get a Quote</Link>
-            <Link href="/samples" className="border-2 border-white text-white font-semibold px-10 py-4 rounded-lg hover:bg-white/10 transition-colors">Request Samples</Link>
+            <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors">Get a Quote</Link>
+            <Link href="/samples" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Request Samples</Link>
           </div>
         </div>
       </section>

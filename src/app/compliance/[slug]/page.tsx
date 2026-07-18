@@ -160,8 +160,8 @@ export default async function ComplianceDetailPage({ params }: Props) {
             <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">{details.title}</h1>
             <p className="text-slate-500 text-lg max-w-2xl mb-6">{item.description}</p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm">Request Certificate <Download className="w-4 h-4" /></Link>
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Get Compliant Products</Link>
+              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Request Certificate <Download className="w-4 h-4" /></Link>
+              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Get Compliant Products</Link>
             </div>
           </div>
         </section>
@@ -199,7 +199,7 @@ export default async function ComplianceDetailPage({ params }: Props) {
                 <div className="bg-white border border-slate-200 p-6 mb-5">
                   <h3 className="font-bold text-slate-900 text-lg mb-4">Request Documentation</h3>
                   <p className="text-slate-500 text-sm mb-4">Certificates, test reports, and declarations available for qualified distributors.</p>
-                  <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-sm text-sm w-full justify-center text-sm">
+                  <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm w-full justify-center text-sm">
                     Contact Us <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

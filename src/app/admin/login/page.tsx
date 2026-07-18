@@ -59,7 +59,7 @@ function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="admin@zhixinpaper.com"
-            className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="w-full pl-10 pr-4 py-3 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
         </div>
       </div>
@@ -74,7 +74,7 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="请输入密码"
-            className="w-full pl-10 pr-12 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="w-full pl-10 pr-12 py-3 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
           <button
             type="button"
@@ -87,7 +87,7 @@ function LoginForm() {
       </div>
 
       {error && (
-        <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
+        <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700  px-4 py-3 text-sm">
           <AlertCircle className="w-4 h-4 shrink-0" />
           {error}
         </div>
@@ -96,7 +96,7 @@ function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
+        className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold  transition-colors flex items-center justify-center gap-2 shadow-sm"
       >
         {loading ? (
           <>
@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-600/30">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600  mb-4 shadow-lg shadow-blue-600/30">
             <Lock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white">知新纸业</h1>
@@ -125,7 +125,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className="bg-white  shadow-2xl p-8">
           <h2 className="text-xl font-bold text-slate-900 mb-6">管理员登录</h2>
           <Suspense fallback={
             <div className="flex items-center justify-center py-8">

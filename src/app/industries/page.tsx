@@ -250,28 +250,27 @@ export default function IndustriesPage() {
         />
       ))}
       <main id="main-content" className="pt-[88px]">
-        <section className="relative overflow-hidden bg-[#071421] text-white">
+        <section className="paper-noise relative overflow-hidden bg-[#101b19] text-white">
           <div className="absolute inset-0">
             <SlotImage
               slotKey="home.hero"
               fill
               sizes="100vw"
-              className="object-cover object-[58%_center] opacity-[0.44]"
+              className="object-cover object-[58%_center] opacity-[0.48]"
               preload
               quality={78}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,9,19,0.99)_0%,rgba(7,20,35,0.94)_42%,rgba(7,20,35,0.62)_100%)]" />
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#071421] to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_18%,rgba(185,130,47,0.14),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.98)_0%,rgba(16,27,25,0.9)_44%,rgba(16,27,25,0.52)_100%)]" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#101b19] to-transparent" />
           </div>
 
           <div className="container-site relative z-10 py-14 md:py-18 lg:py-22">
-            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
               <div>
-                <div className="mb-6 inline-flex items-center gap-3 border border-white/16 bg-white/[0.07] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-sky-50 backdrop-blur-sm">
-                  <span className="h-2 w-2 bg-emerald-400" />
+                <div className="mb-6 inline-flex items-center border border-white/16 bg-white/[0.07] px-4 py-2 text-xs font-semibold text-[#d6b273] backdrop-blur-sm">
                   Industry sourcing hub
                 </div>
-                <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-normal text-white md:text-6xl">
+                <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-normal text-white md:text-5xl xl:text-6xl">
                   Thermal paper rolls and labels by industry
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
@@ -281,14 +280,14 @@ export default function IndustriesPage() {
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link
                     href="/quote"
-                    className="inline-flex items-center justify-center gap-2 bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_45px_rgba(37,99,235,0.28)] transition hover:bg-blue-500"
+                    className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_45px_rgba(185,130,47,0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
                   >
                     Request a Quote
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="/products"
-                    className="inline-flex items-center justify-center gap-2 border border-white/22 bg-white/[0.08] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/[0.14]"
+                    className="inline-flex items-center justify-center gap-2 border border-white/22 bg-white/[0.08] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/[0.14] active:translate-y-px"
                   >
                     View Products
                   </Link>
@@ -300,9 +299,9 @@ export default function IndustriesPage() {
                     ["24 h", "Quote response"],
                     ["OEM", "Carton programs"],
                   ].map(([value, label]) => (
-                    <div key={label} className="bg-[#071421]/82 p-3 sm:p-4">
+                    <div key={label} className="bg-[#101b19]/82 p-3 sm:p-4">
                       <div className="text-xl font-extrabold text-white sm:text-2xl">{value}</div>
-                      <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:text-xs">
+                      <div className="mt-1 text-[10px] font-bold text-[#c7d0cb] sm:text-xs">
                         {label}
                       </div>
                     </div>
@@ -311,7 +310,7 @@ export default function IndustriesPage() {
               </div>
 
               <div className="grid gap-3 md:grid-cols-[1.1fr_0.9fr]">
-                <div className="group relative min-h-[260px] overflow-hidden border border-white/16 bg-slate-950/40 md:min-h-[420px]">
+                <div className="group relative min-h-[260px] overflow-hidden border border-white/16 bg-[#0b1513]/60 md:min-h-[420px]">
                   <SlotImage
                     slotKey="home.product.thermal-rolls"
                     fill
@@ -319,11 +318,11 @@ export default function IndustriesPage() {
                     className="object-cover transition duration-500 group-hover:scale-[1.03]"
                     quality={76}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/48 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101b19] via-[#101b19]/48 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-sky-200">Thermal paper rolls</p>
+                    <p className="text-xs font-bold text-[#d6b273]">Thermal paper rolls</p>
                     <h2 className="mt-3 text-2xl font-extrabold text-white">POS, ATM, lottery, casino, ticketing</h2>
-                    <p className="mt-3 text-sm leading-6 text-slate-200">
+                    <p className="mt-3 text-sm leading-6 text-[#c7d0cb]">
                       Start from roll width, OD, core ID, coating, image life, and carton pack.
                     </p>
                   </div>
@@ -342,7 +341,7 @@ export default function IndustriesPage() {
                       text: "BPA-free, REACH, RoHS, FDA, FSC, ISO, Prop 65, and customer files.",
                     },
                   ].map((item) => (
-                    <div key={item.title} className="relative min-h-[160px] overflow-hidden border border-white/16 bg-slate-950 md:min-h-[204px]">
+                    <div key={item.title} className="relative min-h-[160px] overflow-hidden border border-white/16 bg-[#0b1513] md:min-h-[204px]">
                       <SlotImage
                         slotKey={item.slot}
                         fill
@@ -350,10 +349,10 @@ export default function IndustriesPage() {
                         className="object-cover opacity-80"
                         quality={72}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/36 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#101b19] via-[#101b19]/36 to-transparent" />
                       <div className="absolute inset-x-0 bottom-0 p-5">
                         <h2 className="text-xl font-extrabold text-white">{item.title}</h2>
-                        <p className="mt-2 text-sm leading-6 text-slate-200">{item.text}</p>
+                        <p className="mt-2 text-sm leading-6 text-[#c7d0cb]">{item.text}</p>
                       </div>
                     </div>
                   ))}
@@ -363,16 +362,13 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <section className="border-b border-slate-200 bg-white py-12 md:py-14">
+        <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-12 md:py-14">
           <div className="container-site">
-            <div className="mb-8 grid gap-4 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
-              <div>
-                <p className="section-label">Choose by buying scenario</p>
-                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
-                  Use the image first, then check the spec.
-                </h2>
-              </div>
-              <p className="max-w-2xl text-sm leading-7 text-slate-600 lg:justify-self-end">
+            <div className="mb-8 max-w-3xl">
+              <h2 className="max-w-3xl text-3xl font-extrabold tracking-normal text-[#14211f] md:text-5xl">
+                Use the application first, then check the spec.
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
                 Buyers rarely start from a product name alone. These routes connect the application, printer environment,
                 compliance documents, and shipment details.
               </p>
@@ -383,9 +379,9 @@ export default function IndustriesPage() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="group overflow-hidden border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]"
+                  className="group overflow-hidden border border-[#ded6c8] bg-white shadow-[0_14px_34px_rgba(20,33,31,0.06)] transition duration-200 hover:-translate-y-1 hover:border-[#0f5f5c]/35 hover:shadow-[0_18px_48px_rgba(20,33,31,0.12)]"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#ebe5d9]">
                     <SlotImage
                       slotKey={item.image}
                       fill
@@ -393,19 +389,19 @@ export default function IndustriesPage() {
                       className="object-cover transition duration-500 group-hover:scale-[1.04]"
                       quality={72}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/72 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#101b19]/72 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <span className="inline-flex h-9 w-9 items-center justify-center bg-white/90 text-blue-700">
+                      <span className="inline-flex h-9 w-9 items-center justify-center bg-white/90 text-[#0f5f5c]">
                         <SearchCheck className="h-4 w-4" />
                       </span>
                     </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-lg font-extrabold tracking-normal text-slate-950 transition group-hover:text-blue-700">
+                    <h3 className="text-lg font-extrabold tracking-normal text-[#14211f] transition group-hover:text-[#0f5f5c]">
                       {item.label}
                     </h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">{item.detail}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-700">
+                    <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{item.detail}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
                       View route
                       <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                     </span>
@@ -416,23 +412,22 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <section className="bg-slate-50 py-16 md:py-20">
+        <section className="bg-[#f4f0e8] py-16 md:py-20">
           <div className="container-site">
             <div className="mb-10 grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
               <div>
-                <p className="section-label">Priority industries</p>
-                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
+                <h2 className="max-w-3xl text-3xl font-extrabold tracking-normal text-[#14211f] md:text-5xl">
                   High-repeat categories with clear buyer checks.
                 </h2>
               </div>
               <div className="lg:justify-self-end">
-                <p className="max-w-xl text-sm leading-7 text-slate-600">
+                <p className="max-w-xl text-sm leading-7 text-[#4f5f5a]">
                   These six routes cover the highest-repeat thermal paper and label purchases. Each card shows the buyer
                   reason, the risk to check, and the details needed for a cleaner quote.
                 </p>
                 <Link
                   href="/quote"
-                  className="mt-5 inline-flex w-fit items-center justify-center gap-2 bg-slate-950 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+                  className="mt-5 inline-flex w-fit items-center justify-center gap-2 bg-[#101b19] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#0f5f5c] active:translate-y-px"
                 >
                   Request a Quote
                   <ArrowRight className="h-4 w-4" />
@@ -447,9 +442,9 @@ export default function IndustriesPage() {
                   <Link
                     key={industry.slug}
                     href={`/industries/${industry.slug}`}
-                    className="group flex min-h-full flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_20px_54px_rgba(15,23,42,0.1)]"
+                    className="group flex min-h-full flex-col overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_14px_34px_rgba(20,33,31,0.06)] transition duration-200 hover:-translate-y-1 hover:border-[#0f5f5c]/35 hover:shadow-[0_20px_54px_rgba(20,33,31,0.12)]"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#ebe5d9]">
                       <SlotImage
                         slotKey={getPriorityIndustryImage(industry.slug)}
                         fill
@@ -457,14 +452,11 @@ export default function IndustriesPage() {
                         className="object-cover object-center transition duration-500 group-hover:scale-[1.04]"
                         quality={74}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/52 via-slate-950/6 to-transparent" />
-                      <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center bg-white text-blue-700 shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#101b19]/58 via-[#101b19]/8 to-transparent" />
+                      <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center bg-white text-[#0f5f5c] shadow-lg">
                         {INDUSTRY_ICONS[industry.icon] ?? <Factory className="h-5 w-5" />}
                       </div>
                       <div className="absolute bottom-5 left-5 right-5">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-sky-100">
-                          Priority industry
-                        </p>
                         <h3 className="mt-2 text-2xl font-extrabold tracking-normal text-white">
                           {industry.name}
                         </h3>
@@ -472,34 +464,34 @@ export default function IndustriesPage() {
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      <p className="text-sm leading-6 text-slate-600">
+                      <p className="text-sm leading-6 text-[#4f5f5a]">
                         {getPriorityCardSummary(industry.slug, industry.description)}
                       </p>
 
                       {insight ? (
-                        <div className="mt-4 space-y-2 border-t border-slate-200 pt-4">
+                        <div className="mt-4 space-y-2 border-t border-[#ded6c8] pt-4">
                           {[
                             ["Buyer", insight.motive],
                             ["Check", insight.risk],
                           ].map(([label, text]) => (
                             <div key={label} className="grid grid-cols-[64px_1fr] gap-3 text-sm leading-6">
-                              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                              <span className="text-[10px] font-bold text-[#87918c]">
                                 {label}
                               </span>
-                              <span className={label === "Buyer" ? "font-bold text-slate-950" : "text-slate-600"}>
+                              <span className={label === "Buyer" ? "font-bold text-[#14211f]" : "text-[#4f5f5a]"}>
                                 {text}
                               </span>
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <p className="mt-4 border-t border-slate-200 pt-4 text-sm leading-6 text-slate-600">
+                        <p className="mt-4 border-t border-[#ded6c8] pt-4 text-sm leading-6 text-[#4f5f5a]">
                           Share the product use case, printer or system model, monthly volume, and document requirements.
                         </p>
                       )}
 
                       <div className="mt-auto pt-4">
-                        <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700">
+                        <span className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
                           Open industry page
                           <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                         </span>
@@ -512,16 +504,13 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <section className="bg-white py-16 md:py-20">
+        <section className="bg-[#fbfaf6] py-16 md:py-20">
           <div className="container-site">
-            <div className="mb-10 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-              <div>
-                <p className="section-label">All industry pages</p>
-                <h2 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-normal text-slate-950 md:text-5xl">
-                  Browse the full application index.
-                </h2>
-              </div>
-              <p className="max-w-2xl text-sm leading-7 text-slate-600 lg:justify-self-end">
+            <div className="mb-10 max-w-3xl">
+              <h2 className="max-w-3xl text-3xl font-extrabold tracking-normal text-[#14211f] md:text-5xl">
+                Browse the full application index.
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
                 Each link reinforces the site architecture for industry search intent while giving buyers a practical
                 path to the correct thermal paper roll, label, or ticket stock.
               </p>
@@ -532,9 +521,9 @@ export default function IndustriesPage() {
                 <Link
                   key={industry.slug}
                   href={`/industries/${industry.slug}`}
-                  className="group flex min-h-full flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(15,23,42,0.08)]"
+                  className="group flex min-h-full flex-col overflow-hidden border border-[#ded6c8] bg-white shadow-[0_12px_30px_rgba(20,33,31,0.05)] transition duration-200 hover:-translate-y-1 hover:border-[#0f5f5c]/35 hover:shadow-[0_18px_48px_rgba(20,33,31,0.1)]"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#ebe5d9]">
                     <SlotImage
                       slotKey={getIndustryImage(industry.slug)}
                       fill
@@ -542,31 +531,31 @@ export default function IndustriesPage() {
                       className="object-cover object-center transition duration-500 group-hover:scale-[1.04]"
                       quality={68}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/42 via-transparent to-transparent" />
-                    <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center bg-white text-blue-700 shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#101b19]/42 via-transparent to-transparent" />
+                    <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center bg-white text-[#0f5f5c] shadow-lg">
                       {INDUSTRY_ICONS[industry.icon] ?? <Factory className="h-5 w-5" />}
                     </div>
                     {industry.tag && (
-                      <span className="absolute right-4 top-4 border border-emerald-200 bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-700">
+                      <span className="absolute right-4 top-4 border border-[#d6b273]/35 bg-[#fbfaf6]/92 px-2 py-1 text-[10px] font-bold text-[#7a551d]">
                         {industry.tag}
                       </span>
                     )}
                   </div>
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-lg font-extrabold tracking-normal text-slate-950 transition group-hover:text-blue-700">
+                    <h3 className="text-lg font-extrabold tracking-normal text-[#14211f] transition group-hover:text-[#0f5f5c]">
                       {industry.name}
                     </h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">
                       {getIndustrySummary(industry.slug, industry.description)}
                     </p>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {industry.products.slice(0, 2).map((product) => (
-                        <span key={product} className="bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">
+                        <span key={product} className="bg-[#f4f0e8] px-2 py-1 text-xs font-medium text-[#4f5f5a]">
                           {product}
                         </span>
                       ))}
                     </div>
-                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-bold text-blue-700">
+                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-bold text-[#0f5f5c]">
                       View solution
                       <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                     </span>
@@ -576,17 +565,17 @@ export default function IndustriesPage() {
 
               <Link
                 href="/quote"
-                className="group flex min-h-full flex-col justify-between overflow-hidden border border-slate-900 bg-slate-950 p-6 text-white shadow-sm transition hover:-translate-y-1 hover:bg-blue-700 hover:shadow-[0_18px_48px_rgba(15,23,42,0.16)]"
+                className="group flex min-h-full flex-col justify-between overflow-hidden border border-[#101b19] bg-[#101b19] p-6 text-white shadow-sm transition duration-200 hover:-translate-y-1 hover:bg-[#0f5f5c] hover:shadow-[0_18px_48px_rgba(20,33,31,0.16)]"
               >
                 <div>
-                  <div className="mb-8 flex h-11 w-11 items-center justify-center bg-white/10 text-sky-100">
+                  <div className="mb-8 flex h-11 w-11 items-center justify-center bg-white/10 text-[#d6b273]">
                     <SearchCheck className="h-5 w-5" />
                   </div>
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-sky-200">Not sure where to start?</p>
+                  <p className="text-xs font-bold text-[#d6b273]">Not sure where to start?</p>
                   <h3 className="mt-4 text-2xl font-extrabold tracking-normal text-white">
                     Send your use case and specs.
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-slate-200">
+                  <p className="mt-4 text-sm leading-7 text-[#c7d0cb]">
                     Share the industry, roll or label size, printer model, destination, and compliance files. We will
                     route the inquiry to the right product.
                   </p>
@@ -600,45 +589,45 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <section className="bg-[#071421] py-16 text-white md:py-20">
+        <section className="bg-[#101b19] py-16 text-white md:py-20">
           <div className="container-site">
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div>
-                <p className="section-label text-sky-200">SEO and quote quality</p>
+                <p className="section-label text-[#d6b273]">SEO and quote quality</p>
                 <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-white md:text-5xl">
                   Send the details that change the price.
                 </h2>
-                <p className="mt-5 text-sm leading-7 text-slate-300">
+                <p className="mt-5 text-sm leading-7 text-[#c7d0cb]">
                   Thermal paper pricing changes with size, coating, image life, adhesive, cartons, document files, and
                   freight terms. A complete RFQ helps us quote the correct product the first time.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
                     href="/quote"
-                    className="inline-flex items-center justify-center gap-2 bg-blue-600 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-blue-500"
+                    className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
                   >
                     Request a Quote
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="/samples"
-                    className="inline-flex items-center justify-center gap-2 border border-white/24 px-7 py-3.5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/[0.08]"
+                    className="inline-flex items-center justify-center gap-2 border border-white/24 px-7 py-3.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/[0.08] active:translate-y-px"
                   >
-                    Request Free Samples
+                    Request Samples
                   </Link>
                 </div>
               </div>
 
               <div className="grid gap-px bg-white/12 sm:grid-cols-2">
                 {BUYER_CHECKS.map((item) => (
-                  <div key={item} className="bg-[#0d1f36] p-5">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-300" />
+                  <div key={item} className="bg-[#0b1513] p-5">
+                    <CheckCircle2 className="h-5 w-5 text-[#d6b273]" />
                     <p className="mt-4 text-sm font-semibold leading-6 text-slate-100">{item}</p>
                   </div>
                 ))}
-                <div className="bg-[#10345c] p-5 sm:col-span-2">
+                <div className="bg-[#0f5f5c] p-5 sm:col-span-2">
                   <div className="flex items-start gap-4">
-                    <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-sky-200" />
+                    <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-[#f4d28d]" />
                     <p className="text-sm leading-7 text-slate-100">
                       Use this page to route buyers by industry, then send them to product pages, compliance pages, or the RFQ form.
                       This keeps the page useful for search engines and for procurement teams.
@@ -650,22 +639,22 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <section className="bg-slate-50 py-16">
+        <section className="bg-[#f4f0e8] py-16">
           <div className="container-site">
             <div className="mb-8 flex items-center gap-3">
-              <FileCheck className="h-5 w-5 text-blue-700" />
-              <h2 className="text-2xl font-extrabold tracking-normal text-slate-950 md:text-3xl">
+              <FileCheck className="h-5 w-5 text-[#0f5f5c]" />
+              <h2 className="text-2xl font-extrabold tracking-normal text-[#14211f] md:text-3xl">
                 Document paths buyers often request
               </h2>
             </div>
-            <div className="grid gap-px bg-slate-200 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3">
               {DOCUMENT_ROUTES.map((route) => (
-                <Link key={route.href} href={route.href} className="group bg-white p-6 transition hover:bg-slate-50">
-                  <h3 className="text-lg font-extrabold text-slate-950 transition group-hover:text-blue-700">
+                <Link key={route.href} href={route.href} className="group border border-[#ded6c8] bg-[#fbfaf6] p-6 transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c]/35 hover:bg-white">
+                  <h3 className="text-lg font-extrabold text-[#14211f] transition group-hover:text-[#0f5f5c]">
                     {route.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{route.text}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-700">
+                  <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{route.text}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
                     View document route
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </span>

@@ -44,7 +44,7 @@ export default function SampleProcessPage() {
               We offer free samples of all standard products to qualified distributors and importers. Evaluate our quality before committing to a production order — no obligation, no cost.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/samples" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Request Free Samples</Link>
+              <Link href="/samples" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request Free Samples</Link>
             </div>
           </div>
         </div>
@@ -55,8 +55,8 @@ export default function SampleProcessPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-12">Sample Process Steps</h2>
           <div className="space-y-6">
             {steps.map((s) => (
-              <div key={s.step} className="flex gap-6 items-start bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg">{s.step}</div>
+              <div key={s.step} className="flex gap-6 items-start bg-white border border-slate-200  p-6 shadow-sm">
+                <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white  flex items-center justify-center font-bold text-lg">{s.step}</div>
                 <div>
                   <h3 className="text-lg font-semibold text-slate-800 mb-2">{s.title}</h3>
                   <p className="text-slate-500 leading-relaxed">{s.desc}</p>
@@ -71,7 +71,7 @@ export default function SampleProcessPage() {
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-slate-800 mb-8">Sample Availability</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl p-6 border border-slate-200">
+            <div className="bg-white  p-6 border border-slate-200">
               <h3 className="font-semibold text-slate-800 mb-3">Standard Samples</h3>
               <p className="text-slate-500 text-sm mb-4">Available from stock for all standard products. Dispatched within 1–3 working days.</p>
               <ul className="space-y-2 text-sm text-slate-600">
@@ -80,7 +80,7 @@ export default function SampleProcessPage() {
                 ))}
               </ul>
             </div>
-            <div className="bg-white rounded-2xl p-6 border border-slate-200">
+            <div className="bg-white  p-6 border border-slate-200">
               <h3 className="font-semibold text-slate-800 mb-3">Custom Samples</h3>
               <p className="text-slate-500 text-sm mb-4">Produced to your exact specification. Allow 7–10 working days for preparation.</p>
               <ul className="space-y-2 text-sm text-slate-600">
@@ -97,7 +97,7 @@ export default function SampleProcessPage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Request Your Free Samples Today</h2>
           <p className="text-blue-100 mb-8">Samples are free for qualified distributors and importers. Complete our sample request form and we'll dispatch within 3 working days.</p>
-          <Link href="/samples" className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-lg hover:bg-blue-50 transition-colors inline-block">Request Free Samples</Link>
+          <Link href="/samples" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Request Free Samples</Link>
         </div>
       </section>
     </main>

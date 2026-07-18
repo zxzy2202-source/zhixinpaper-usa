@@ -25,7 +25,7 @@ export default function DashboardCharts({ chartData, topCountries }: Props) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
       {/* Trend Chart */}
-      <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-5">
+      <div className="lg:col-span-2 bg-white border border-slate-200  p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-blue-600" />
@@ -39,7 +39,7 @@ export default function DashboardCharts({ chartData, topCountries }: Props) {
           {displayData.map((d) => (
             <div key={d.date} className="flex-1 flex flex-col items-center gap-0.5 group relative">
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] rounded px-2 py-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px]  px-2 py-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                 {d.date}：{d.total} 条
                 <br />
                 联系 {d.inquiries} · 报价 {d.quotes} · 样品 {d.samples}
@@ -47,24 +47,24 @@ export default function DashboardCharts({ chartData, topCountries }: Props) {
               {/* Stacked bars */}
               <div className="w-full flex flex-col-reverse gap-0.5" style={{ height: "100%" }}>
                 {d.total === 0 ? (
-                  <div className="w-full bg-slate-100 rounded-sm flex-1" style={{ maxHeight: "4px" }} />
+                  <div className="w-full bg-slate-100  flex-1" style={{ maxHeight: "4px" }} />
                 ) : (
                   <>
                     {d.samples > 0 && (
                       <div
-                        className="w-full bg-amber-400 rounded-sm"
+                        className="w-full bg-amber-400 "
                         style={{ height: `${(d.samples / maxTotal) * 128}px` }}
                       />
                     )}
                     {d.quotes > 0 && (
                       <div
-                        className="w-full bg-purple-400 rounded-sm"
+                        className="w-full bg-purple-400 "
                         style={{ height: `${(d.quotes / maxTotal) * 128}px` }}
                       />
                     )}
                     {d.inquiries > 0 && (
                       <div
-                        className="w-full bg-blue-400 rounded-sm"
+                        className="w-full bg-blue-400 "
                         style={{ height: `${(d.inquiries / maxTotal) * 128}px` }}
                       />
                     )}
@@ -94,7 +94,7 @@ export default function DashboardCharts({ chartData, topCountries }: Props) {
             { color: "bg-amber-400", label: "样品申请" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-1.5">
-              <div className={`w-2.5 h-2.5 rounded-sm ${item.color}`} />
+              <div className={`w-2.5 h-2.5  ${item.color}`} />
               <span className="text-xs text-slate-500">{item.label}</span>
             </div>
           ))}
@@ -102,7 +102,7 @@ export default function DashboardCharts({ chartData, topCountries }: Props) {
       </div>
 
       {/* Country Distribution */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5">
+      <div className="bg-white border border-slate-200  p-5">
         <div className="flex items-center gap-2 mb-4">
           <Globe className="w-4 h-4 text-emerald-600" />
           <h2 className="font-bold text-slate-900 text-sm">来源国家 Top 8</h2>

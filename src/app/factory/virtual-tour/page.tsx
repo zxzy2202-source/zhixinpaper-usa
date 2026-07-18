@@ -51,7 +51,7 @@ export default function VirtualTourPage() {
       {/* Video Placeholder */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="bg-slate-800 rounded-2xl aspect-video flex items-center justify-center relative overflow-hidden">
+          <div className="bg-slate-800  aspect-video flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-slate-900/80" />
             <div className="relative text-center text-white">
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-white/30 transition-colors">
@@ -71,8 +71,8 @@ export default function VirtualTourPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-12">Tour Highlights</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {tourStops.map((stop) => (
-              <div key={stop.id} className="flex gap-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold">
+              <div key={stop.id} className="flex gap-5 bg-white border border-slate-200  p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white  flex items-center justify-center font-bold">
                   {stop.id}
                 </div>
                 <div>
@@ -90,8 +90,8 @@ export default function VirtualTourPage() {
           <h2 className="text-3xl font-bold mb-4">Schedule a Live Factory Tour</h2>
           <p className="text-blue-100 mb-8">We offer live video call tours with our factory team, or in-person visits for qualified distributors and importers.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Request Live Tour</Link>
-            <Link href="/factory/overview" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Factory Overview</Link>
+            <Link href="/contact" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request Live Tour</Link>
+            <Link href="/factory/overview" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Factory Overview</Link>
           </div>
         </div>
       </section>

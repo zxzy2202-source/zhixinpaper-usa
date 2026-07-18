@@ -22,7 +22,7 @@
   --font-heading: var(--font-display), var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --color-primary: #0f5f5c;
   --color-primary-hover: #0a4745;
-  --color-accent: #b9822f;
+  --color-accent: #9c661d;
   --color-ink: #14211f;
   --color-ink-soft: #3f504c;
   --color-bg: #fbfaf6;
@@ -281,8 +281,8 @@
   }
 
   /* Product detail pages share one restrained industrial surface system. */
-  .product-detail [class*="rounded-2xl"],
-  .product-detail [class*="rounded-xl"] {
+  .product-detail [class*=""],
+  .product-detail [class*=""] {
     border-radius: 0.35rem;
   }
 
@@ -419,8 +419,6 @@
   border-color: #a9c3b8;
 }
 
-.pilot-brand-page .rounded-xl,
-.pilot-brand-page .rounded-2xl,
 .pilot-brand-page .rounded-full {
   border-radius: 2px;
 }

@@ -60,17 +60,17 @@ export default function USPage() {
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
               {["FDA 21 CFR", "Prop 65 Compliant", "BPA-Free", "ISO 9001", "DDP USA", "Amazon FBA Validated", "Cannabis Labels"].map((f) => (
-                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white rounded-lg shadow-sm">
+                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white  shadow-sm">
                   <CheckCircle2 className="w-3 h-3 text-blue-400" />
                   {f}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 text-sm">
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-bold  transition-all shadow-lg shadow-blue-500/30 text-sm">
                 Get US Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
+              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold  border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
                 Free Samples
               </Link>
             </div>
@@ -97,7 +97,7 @@ export default function USPage() {
                 </div>
               </div>
               <div className="space-y-6">
-                <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                <div className="p-6 bg-slate-50  border border-slate-200">
                   <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
                     <Truck className="w-5 h-5 text-blue-600" /> Shipping & Logistics
                   </h3>

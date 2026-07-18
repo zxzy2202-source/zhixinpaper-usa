@@ -109,6 +109,20 @@ const FACTORY_POINTS = [
   { icon: <FileCheck2 className="h-5 w-5" />, title: "Document matching", copy: "Samples, material declarations, and current test files stay tied to the quoted grade." },
 ];
 
+const HERO_PROOF = [
+  "Thermal paper rolls",
+  "Direct thermal labels",
+  "OEM & private label",
+  "Export documentation",
+] as const;
+
+const RFQ_FIELDS = [
+  "Product use case",
+  "Size, core, OD or label format",
+  "Monthly quantity and destination",
+  "Required certificates and packing",
+] as const;
+
 export default function HomePage() {
   const jsonLd = [breadcrumbSchema([{ name: "Home", url: "/" }])];
   const featuredLabels = THERMAL_LABELS.slice(0, 3);
@@ -124,7 +138,7 @@ export default function HomePage() {
         />
       ))}
 
-      <main id="main-content" className="bg-[#fbfaf6] pt-[64px] lg:pt-[88px]">
+      <main id="main-content" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
         <section className="relative isolate overflow-hidden bg-[#101b19] text-white">
           <SlotImage
             slotKey="home.hero"
@@ -137,46 +151,75 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.84)_48%,rgba(8,20,18,0.24)_82%,rgba(8,20,18,0.08)_100%)]" />
 
-          <div className="container-site flex items-center py-12">
-            <div className="max-w-[760px]">
-              <h1 className="text-[2.75rem] font-bold leading-[1.01] text-white sm:text-6xl lg:text-[4.75rem]">
-                Thermal paper rolls and labels, made for repeat orders.
-              </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-[#dce4df] md:text-lg">
-                Factory-direct supply for distributors, importers, and private-label buyers. We match the product to your printer, market requirements, packing plan, and delivery terms before production.
-              </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/quote"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#b9822f] px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_46px_rgba(185,130,47,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#9f6e25] active:translate-y-px"
-                >
+          <div className="container-site py-14 md:py-18 lg:py-20">
+            <div className="grid gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-end">
+              <div className="max-w-[760px]">
+                <h1 className="text-[2.35rem] font-bold leading-[1.05] text-white sm:text-5xl lg:text-[4rem]">
+                  Verified thermal rolls and labels for import buyers.
+                </h1>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-[#dce4df] md:text-lg">
+                  Match rolls, labels, documents, packing, and freight terms before bulk production.
+                </p>
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href="/quote"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_46px_rgba(185,130,47,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
+                  >
+                    Request a Quote
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/35 bg-[#101b19]/30 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/10 active:translate-y-px"
+                  >
+                    Browse Products
+                  </Link>
+                </div>
+              </div>
+
+              <aside className="border border-white/14 bg-[#0b1513]/86 p-5 shadow-[0_24px_80px_rgba(5,16,14,0.34)] backdrop-blur-sm md:p-6">
+                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+                  <div>
+                    <p className="text-xs font-bold text-[#d6b273]">RFQ checklist</p>
+                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white">
+                      Send the details buyers actually check.
+                    </h2>
+                  </div>
+                  <FileCheck2 className="h-6 w-6 shrink-0 text-[#d6b273]" aria-hidden="true" />
+                </div>
+                <div className="mt-5 grid gap-3">
+                  {RFQ_FIELDS.map((field) => (
+                    <div key={field} className="flex items-center gap-3 border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-[#dce4df]">
+                      <Check className="h-4 w-4 shrink-0 text-[#d6b273]" aria-hidden="true" />
+                      {field}
+                    </div>
+                  ))}
+                </div>
+                <Link href="/quote" className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-bold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f4f0e8] active:translate-y-px">
                   Request a Quote
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
-                <Link
-                  href="/products"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/35 bg-[#101b19]/30 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/10 active:translate-y-px"
-                >
-                  Browse Products
-                </Link>
-              </div>
-              <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 pt-5 text-sm font-semibold text-[#dce4df]">
-                {["Thermal paper rolls", "Direct thermal labels", "OEM & private label", "Export documentation"].map((item) => (
-                  <span key={item} className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-[#d6b273]" />
-                    {item}
-                  </span>
-                ))}
-              </div>
+              </aside>
             </div>
+          </div>
+        </section>
+
+        <section aria-label="Homepage sourcing proof" className="border-b border-[#ded6c8] bg-[#fbfaf6] py-6">
+          <div className="container-site grid border border-[#ded6c8] bg-[#fbfaf6] sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#ded6c8]">
+            {HERO_PROOF.map((item) => (
+              <div key={item} className="flex items-center gap-3 border-b border-[#ded6c8] p-4 text-sm font-bold text-[#14211f] last:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0 lg:border-b-0">
+                <Check className="h-4 w-4 shrink-0 text-[#0f5f5c]" aria-hidden="true" />
+                {item}
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-20 md:py-28">
           <div className="container-site">
-            <div className="grid gap-6 border-b border-[#ded6c8] pb-10 lg:grid-cols-[0.7fr_1fr] lg:items-end">
+            <div className="max-w-3xl border-b border-[#ded6c8] pb-10">
               <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Two product lines. One supply partner.</h2>
-              <p className="max-w-2xl text-base leading-8 text-[#4f5f5a] lg:justify-self-end">
+              <p className="mt-5 max-w-2xl text-base leading-8 text-[#4f5f5a]">
                 Start with the product your customer buys. Each route leads to the sizes, applications, material options, and RFQ details needed for an accurate quote.
               </p>
             </div>
@@ -227,7 +270,7 @@ export default function HomePage() {
             <div className="border-t border-[#c8bcaa]">
               {APPLICATIONS.map((item, index) => (
                 <Link key={item.title} href={item.href} className="group grid gap-3 border-b border-[#c8bcaa] py-6 sm:grid-cols-[56px_0.72fr_1fr_auto] sm:items-center">
-                  <span className="text-sm font-bold tabular-nums text-[#87918c]">0{index + 1}</span>
+                  <span className="text-sm font-bold tabular-nums text-[#5f6b66]">0{index + 1}</span>
                   <h3 className="text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{item.title}</h3>
                   <p className="text-sm leading-7 text-[#4f5f5a]">{item.copy}</p>
                   <ArrowRight className="hidden h-5 w-5 text-[#0f5f5c] transition group-hover:translate-x-1 sm:block" />
@@ -258,7 +301,7 @@ export default function HomePage() {
               ))}
             </div>
             <Link href="/quote" className="mt-10 inline-flex min-h-12 items-center justify-center gap-2 bg-white px-7 py-3.5 text-sm font-bold text-[#14211f] transition hover:-translate-y-0.5 hover:bg-[#f4f0e8]">
-              Start Your RFQ <ArrowRight className="h-4 w-4" />
+              Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </section>
@@ -328,7 +371,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[#b9822f] py-16 text-white">
+        <section className="bg-[#9c661d] py-16 text-white">
           <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <h2 className="max-w-3xl text-3xl font-bold text-white md:text-4xl">Send us your roll or label specification.</h2>

@@ -45,8 +45,8 @@ export default function PrivateLabelPage() {
               Build your own thermal paper brand with our full private label service. We manufacture, package, and certify — you sell under your brand name.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">Get Private Label Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Get Private Label Quote</Link>
+              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
             </div>
           </div>
         </div>
@@ -58,8 +58,8 @@ export default function PrivateLabelPage() {
           <p className="text-slate-500 mb-12 max-w-2xl">Our private label program gives distributors and importers a complete branded product line without the capital investment of manufacturing.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((b, i) => (
-              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+              <div key={i} className="bg-white border border-slate-200  p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-blue-100  flex items-center justify-center mb-4">
                   <span className="text-blue-600 font-bold">{i + 1}</span>
                 </div>
                 <h3 className="font-semibold text-slate-800 mb-2">{b.title}</h3>
@@ -88,7 +88,7 @@ export default function PrivateLabelPage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your Private Label Programme</h2>
           <p className="text-blue-100 mb-8">Contact our OEM team to discuss your requirements and receive a tailored private label proposal.</p>
-          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-lg hover:bg-blue-50 transition-colors inline-block">Get a Private Label Quote</Link>
+          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Get a Private Label Quote</Link>
         </div>
       </section>
     </main>
