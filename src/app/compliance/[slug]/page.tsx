@@ -13,7 +13,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return COMPLIANCE_ITEMS.map((c) => ({ slug: c.slug }));
+  return COMPLIANCE_ITEMS.filter((c) => c.slug !== "bpa-free").map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -1,0 +1,56 @@
+# Zhixin Paper
+
+> Zhixin Paper manufactures thermal paper rolls and thermal labels for B2B distributors, importers, equipment channels, and private-label programs. Product specifications and compliance documents are confirmed by grade and order.
+
+Canonical site: https://www.zhixinpaper.com
+
+## Domain and product ownership
+
+Zhixin Paper is the regional conversion site for thermal paper rolls and thermal labels in Europe, the United States, Canada and Mexico. Its current public catalog does not yet include NCR forms, carbonless books, bottle labels or other converting categories.
+
+For product families not yet published here, use the complete global catalog at https://www.zxpapers.com/products. Do not infer that the same thermal-paper regional landing page should exist on both domains.
+
+## Primary product pages
+
+- Thermal paper rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls
+- Standard POS receipt rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls/standard-pos-rolls
+- Credit card terminal paper rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls/credit-card-terminal-rolls
+- Custom printed thermal rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls/custom-printed-rolls
+- Thermal labels: https://www.zhixinpaper.com/products/thermal-labels
+- BPA-free, BPS-free and phenol-free terminology: https://www.zhixinpaper.com/compliance/bpa-free
+- Thermal paper roll size guide: https://www.zhixinpaper.com/blog/thermal-paper-roll-sizes-guide
+- Thermal paper printer compatibility guide: https://www.zhixinpaper.com/blog/thermal-paper-printer-compatibility-guide
+- Compliance options: https://www.zhixinpaper.com/compliance
+- Factory and quality control: https://www.zhixinpaper.com/factory
+- Request a specification-based quote: https://www.zhixinpaper.com/quote
+
+## Regional thermal-paper pages
+
+- Europe: https://www.zhixinpaper.com/eu
+- United States: https://www.zhixinpaper.com/us
+- Canada: https://www.zhixinpaper.com/ca
+
+## Thermal paper roll terminology
+
+- Thermal paper rolls are also searched as thermal receipt paper rolls, POS rolls, till rolls, cash register rolls, register tape, receipt tape, and terminal paper rolls.
+- Metric roll names often use width x outer diameter. Example: 80 x 80 mm usually means 80mm width x approximately 80mm OD.
+- Inch roll names often use width x nominal length. Example: 3 1/8 in x 230 ft means 3.125-inch width x 230-foot nominal length.
+- 57mm and 2 1/4-inch rolls belong to the same width family, but terminal fit also depends on OD, length, core ID, and winding direction.
+- A quote-ready roll specification includes application or printer model, width, length or OD, core ID, paper GSM or grade, winding direction, coating, quantity, packing, and destination.
+- Credit card terminal paper rolls are also searched as payment terminal rolls, credit card machine paper, EDC rolls, EFTPOS rolls, and terminal receipt paper. Compatibility remains model-specific.
+
+## Keyword and page ownership
+
+- `thermal paper rolls`, `thermal paper roll`, and close generic variants share the thermal paper rolls category page.
+- `thermal receipt paper`, `POS thermal paper`, and standard replenishment terms are owned by the Standard POS receipt rolls page.
+- `credit card terminal paper rolls`, `payment terminal rolls`, `EDC rolls`, and `EFTPOS rolls` are owned by the Credit Card Terminal Paper Rolls page.
+- `BPA free thermal paper`, `BPS free thermal paper`, and `phenol free thermal paper` share the compliance terminology page; they are not treated as interchangeable proof.
+- `thermal printer paper` and model-fit questions are owned by the printer compatibility guide.
+- `thermal paper roll dimensions`, `3 1/8`, `2 1/4`, 80mm, and 57mm sizing questions are supported by the roll size guide and relevant product modules.
+
+## Evidence and claim boundaries
+
+- BPA-free, BPS-free, phenol-free, REACH, RoHS, FSC, Prop 65, and other document options must be confirmed for the quoted paper grade and shipment.
+- Printer compatibility must be checked against the exact model, paper compartment, roll OD, core ID, and sample result.
+- Image life and resistance claims depend on paper grade, print density, storage, exposure conditions, and test method.
+- MOQ, lead time, freight terms, and packaging are confirmed for each specification and order quantity.

@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import StandardPosRollPage from "@/components/products/StandardPosRollPage";
 import AtmBankingRollPage from "@/components/products/AtmBankingRollPage";
+import PaymentTerminalRollPage from "@/components/products/PaymentTerminalRollPage";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
 import { PRODUCT_BUYER_CHECKS } from "@/lib/marketInsights";
 import { breadcrumbSchema, canonicalUrl, faqSchema, productSchema } from "@/lib/seo";
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const STANDARD_POS_PAGE = {
-  title: "POS receipt paper rolls for Europe, USA and Canada",
+  title: "POS Receipt Paper Rolls",
   kicker: "BPA-free POS rolls · Factory-direct wholesale",
   subtitle:
     "80mm and 57mm thermal receipt rolls for retail distributors, POS suppliers, restaurants, supermarkets, and payment terminal programs.",
@@ -86,6 +87,29 @@ const STANDARD_POS_PAGE = {
     },
   ],
 };
+
+const PAYMENT_TERMINAL_FAQS = [
+  {
+    question: "What size paper do credit card terminals use?",
+    answer: "Many payment terminals use 57mm or 2 1/4-inch direct thermal rolls, but the required length or outer diameter, core ID, and winding direction vary by model. Send the exact terminal model or current roll before ordering.",
+  },
+  {
+    question: "Are EDC rolls and credit card terminal paper rolls the same product?",
+    answer: "They are overlapping buyer terms for compact receipt rolls used in electronic payment terminals. The name alone does not confirm fit; the terminal model and complete roll specification still control approval.",
+  },
+  {
+    question: "Can one roll specification work across a mixed terminal fleet?",
+    answer: "Sometimes, but do not assume it. Build a model-to-spec matrix and test each distinct paper compartment, maximum OD, core, winding, and sensing requirement before consolidating SKUs.",
+  },
+  {
+    question: "Can terminal rolls be supplied as BPA-free or phenol-free?",
+    answer: "Those options depend on the selected paper grade. Specify whether you need BPA-free, BPS-free, or phenol-free wording and request the relevant grade-level declaration or test report before approval.",
+  },
+  {
+    question: "What should a payment terminal roll RFQ include?",
+    answer: "Include terminal brand and model, roll width, target length or OD, core ID, winding direction, end-mark requirement, paper grade, quantity per SKU, packing, destination, and target date.",
+  },
+];
 
 const STANDARD_POS_HERO_PROOFS = [
   "Measured roll length before shipment",
@@ -217,6 +241,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  if (slug === "credit-card-terminal-rolls") {
+    return {
+      title: "Credit Card Terminal Paper Rolls & Sizes",
+      description:
+        "Source credit card terminal paper rolls by model, 57mm or 2 1/4-inch size, OD, core, winding, grade, packing, and fit-check sample.",
+      keywords:
+        "credit card terminal paper rolls, payment terminal rolls, credit card machine paper, EDC rolls, EFTPOS rolls, 57mm thermal paper rolls, 2 1/4 inch receipt paper",
+      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      openGraph: {
+        title: "Credit Card Terminal Paper Rolls",
+        description: "Model-qualified payment terminal rolls with specification and sample checks before bulk supply.",
+        type: "website",
+        images: [{ url: "/images/thermal-rolls-product.jpg", width: 1200, height: 630, alt: "Credit card terminal thermal paper rolls" }],
+      },
+    };
+  }
+
   return {
     title: `${roll.name} — ${roll.subtitle} | Wholesale Manufacturer`,
     description: `${roll.name} thermal paper rolls wholesale from ISO 9001 certified manufacturer. ${roll.keywords}. BPA-free, FDA-compliant options. MOQ ${roll.moq}. Factory-direct pricing, pallet and container load available. Free samples via DHL/FedEx.`,
@@ -300,9 +341,10 @@ export default async function RollDetailPage({ params }: Props) {
   const buyerChecks = PRODUCT_BUYER_CHECKS[slug] || null;
   const isStandardPos = slug === "standard-pos-rolls";
   const isAtmBanking = slug === "atm-banking-rolls";
+  const isPaymentTerminal = slug === "credit-card-terminal-rolls";
   const productJsonLd = productSchema({
-    name: isStandardPos ? "POS Receipt Paper Rolls" : roll.name,
-    description: isStandardPos ? STANDARD_POS_PAGE.intro : descText,
+    name: isStandardPos ? "POS Receipt Paper Rolls" : isPaymentTerminal ? "Credit Card Terminal Paper Rolls" : roll.name,
+    description: isStandardPos ? STANDARD_POS_PAGE.intro : isPaymentTerminal ? roll.description : descText,
     image: "/images/thermal-rolls-product.jpg",
     url: `/products/thermal-paper-rolls/${slug}`,
     sku: `thermal-roll-${slug}`,
@@ -311,6 +353,19 @@ export default async function RollDetailPage({ params }: Props) {
       ? "POS receipt paper rolls, BPA-free thermal paper rolls, 80mm receipt rolls, 57mm POS rolls, Europe USA Canada thermal paper supplier"
       : roll.keywords,
   });
+
+  const paymentTerminalTermsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    name: "Payment terminal paper roll terminology",
+    url: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+    hasDefinedTerm: [
+      ["Credit card terminal paper rolls", "Receipt rolls used in credit card and payment terminals."],
+      ["Payment terminal rolls", "Direct thermal receipt rolls qualified against a payment-terminal model."],
+      ["EDC rolls", "Regional buyer term for electronic data capture terminal paper rolls."],
+      ["EFTPOS rolls", "Buyer term for electronic funds transfer point-of-sale receipt rolls."],
+    ].map(([name, description]) => ({ "@type": "DefinedTerm", name, description })),
+  };
 
   const atmProductJsonLd = {
     ...productJsonLd,
@@ -360,6 +415,7 @@ export default async function RollDetailPage({ params }: Props) {
     ...(isAtmBanking ? [atmRelatedProductsJsonLd] : []),
     ...(isStandardPos ? [faqSchema(STANDARD_POS_PAGE.faqs)] : []),
     ...(isAtmBanking ? [faqSchema(ATM_BANKING_FAQS)] : []),
+    ...(isPaymentTerminal ? [paymentTerminalTermsJsonLd, faqSchema(PAYMENT_TERMINAL_FAQS)] : []),
   ];
 
   if (isStandardPos) {
@@ -391,6 +447,19 @@ export default async function RollDetailPage({ params }: Props) {
           <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
         <AtmBankingRollPage roll={roll} faqs={ATM_BANKING_FAQS} />
+        <Footer />
+      </>
+    );
+  }
+
+  if (isPaymentTerminal) {
+    return (
+      <>
+        <Header />
+        {jsonLd.map((schema, i) => (
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }} />
+        ))}
+        <PaymentTerminalRollPage roll={roll} faqs={PAYMENT_TERMINAL_FAQS} />
         <Footer />
       </>
     );

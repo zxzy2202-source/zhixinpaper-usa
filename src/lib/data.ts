@@ -52,6 +52,34 @@ export const THERMAL_PAPER_ROLLS = [
     priority: "P1",
   },
   {
+    slug: "credit-card-terminal-rolls",
+    name: "Credit Card Terminal Rolls",
+    subtitle: "Payment Terminal & EDC Receipt Paper",
+    heroDesc: "Compact direct thermal receipt rolls qualified by terminal model, width, OD or length, core ID, winding direction, paper grade, and pack plan.",
+    description: "Credit card terminal paper rolls for payment-terminal distributors, merchant service providers, banks, acquiring channels, and multi-model device fleets. Common buyer names include payment terminal rolls, EDC rolls, EFTPOS rolls, and credit card machine paper. Compatibility is confirmed against the exact terminal and approved sample rather than brand name alone.",
+    keywords: "credit card terminal paper rolls, payment terminal rolls, credit card machine paper, EDC paper rolls, EFTPOS rolls, 57mm thermal paper rolls, 2 1/4 inch receipt paper",
+    sizes: ["57×38mm", "57×40mm", "57×50mm", "2 1/4 in × 50 ft", "2 1/4 in × 85 ft", "Custom by model"],
+    applications: ["Countertop payment terminals", "Mobile POS terminals", "EDC machines", "EFTPOS fleets"],
+    features: [
+      "Model-based fit check before bulk approval",
+      "Width, OD or length, core, and winding locked by SKU",
+      "BPA-free, BPS-free, or phenol-free routes by selected grade",
+      "Plain, reverse-print, and private-label packing options",
+    ],
+    moq: "Confirmed by size, packing, and annual volume",
+    specifications: {
+      "Common Width Family": "57mm / 2 1/4 inch",
+      "Length or OD": "Confirmed by terminal compartment and buyer format",
+      "Core Options": "Coreless or specified core ID, subject to model",
+      "Winding Direction": "Confirmed from current roll or terminal path",
+      "Paper Grade": "Matched by sensitivity, image-life, and document need",
+      "End Mark / Black Mark": "Available when required by the mechanism",
+      "Printing": "Plain or controlled reverse-side print",
+      "Packing": "Units per box, carton count, and SKU marks confirmed at RFQ",
+    },
+    tag: "SEO",
+  },
+  {
     slug: "atm-banking-rolls",
     name: "ATM & Bank Receipt Rolls",
     subtitle: "Archival-Grade Bank Receipt & ATM Paper",
@@ -925,13 +953,12 @@ export const GEO_REGIONS = [
 ];
 
 export const COMPLIANCE_ITEMS = [
-  { slug: "bpa-free", name: "BPA-Free (EU 2024/3190)", icon: "ShieldCheck", color: "emerald", description: "All products available in BPA-free formulation. Fully compliant with EU Commission Regulation 2024/3190, which banned BPA in thermal paper effective January 2, 2025. SGS test reports available on request. No surcharge for BPA-free specification." },
+  { slug: "bpa-free", name: "BPA-Free & Phenol-Free", icon: "ShieldCheck", color: "emerald", description: "BPA-free, BPS-free, bisphenol-free, and phenol-free routes are confirmed by product and quoted paper grade. Buyers should request the grade name, named chemical scope, and supporting declaration or test report before approval." },
   { slug: "reach-rohs", name: "REACH/RoHS", icon: "FileCheck", color: "blue", description: "REACH SVHC (Substances of Very High Concern) compliant thermal paper and labels. All products tested against the current SVHC candidate list (240+ substances). RoHS 2 (EU 2011/65/EU) compliant for label products. Full REACH declaration of conformity available." },
   { slug: "iso-9001", name: "ISO 9001:2015", icon: "Award", color: "orange", description: "ISO 9001:2015 certified manufacturing facility with documented quality management system covering raw material inspection, in-process quality control, and finished goods testing. Certificate issued by TÜV-recognized certification body. Annual surveillance audits conducted." },
   { slug: "fsc-paper", name: "FSC Certified", icon: "Leaf", color: "green", description: "FSC (Forest Stewardship Council) certified thermal paper from responsibly managed forests. Chain of custody certification maintained throughout the supply chain. Available for all paper-based products. Required by major European retail chains for sustainable packaging compliance." },
   { slug: "eu-food-contact", name: "EU Food Contact", icon: "UtensilsCrossed", color: "teal", description: "EU food contact compliant thermal paper and labels per Regulation (EC) No 1935/2004. Suitable for direct contact with food surfaces in deli, bakery, and food processing applications. Migration testing conducted per EN 1186 standard. Declaration of compliance available." },
   { slug: "fda-us", name: "FDA Compliant", icon: "Shield", color: "red", description: "FDA compliant thermal paper and labels for US food contact applications under 21 CFR. Suitable for food packaging, medical device labeling, and pharmaceutical applications in the US market. Full FDA compliance documentation available for import clearance." },
-  { slug: "phenol-free", name: "Phenol-Free", icon: "ShieldCheck", color: "purple", description: "Phenol-free thermal paper formulated without BPS, BPF, or any bisphenol compounds. Required by European retail chains pursuing Blauer Engel (Blue Angel) eco-label certification. Exceeds EU 2024/3190 BPA ban requirements. Test reports from accredited European laboratories available." },
   { slug: "iso-15223", name: "ISO 15223 Medical", icon: "Award", color: "pink", description: "Medical device labeling symbols compliant with ISO 15223-1:2021 for healthcare and pharmaceutical applications. Wristband labels and specimen tube labels manufactured to medical device labeling standards. Required for CE-marked medical device packaging in the EU and MDR compliance." },
 ];
 
@@ -1026,9 +1053,18 @@ export const BLOG_POSTS = [
     tag: "New",
   },
   {
+    slug: "thermal-paper-printer-compatibility-guide",
+    title: "Thermal Paper Printer Compatibility Guide",
+    excerpt: "Match receipt rolls to POS printers, payment terminals, ATMs, and kiosks using model, width, OD, core ID, winding, sensing, and sample checks.",
+    category: "Education",
+    readTime: "9 min",
+    date: "2026-07-20",
+    tag: "New",
+  },
+  {
     slug: "thermal-paper-roll-sizes-guide",
-    title: "Thermal Paper Roll Sizes: Complete Sizing Guide for POS, ATM & Kiosk",
-    excerpt: "Comprehensive guide to thermal paper roll dimensions — width, diameter, core size — for POS terminals, ATM machines, kiosks, and receipt printers. Includes size charts and compatibility tips.",
+    title: "Thermal Paper Roll Sizes Guide",
+    excerpt: "Measure width, outer diameter, length, core ID, GSM, and winding before ordering POS, payment terminal, ATM, kiosk, or receipt printer rolls.",
     category: "Education",
     readTime: "8 min",
     date: "2026-04-05",

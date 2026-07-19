@@ -32,6 +32,15 @@ const nextConfig = {
   poweredByHeader: false,
   // Performance: enable React strict mode
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/compliance/phenol-free",
+        destination: "/compliance/bpa-free",
+        statusCode: 301,
+      },
+    ];
+  },
   async headers() {
     return [
       // Security headers for all routes

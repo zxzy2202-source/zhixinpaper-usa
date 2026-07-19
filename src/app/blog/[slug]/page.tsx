@@ -8,6 +8,31 @@ import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
+const STATIC_POST_SEO: Record<string, { title: string; keywords: string[] }> = {
+  "thermal-paper-roll-sizes-guide": {
+    title: "Thermal Paper Roll Sizes Guide",
+    keywords: [
+      "thermal paper roll size guide",
+      "thermal paper roll dimensions",
+      "thermal paper roll size chart",
+      "how to measure thermal paper roll",
+      "3 1/8 thermal paper",
+      "2 1/4 thermal paper rolls",
+    ],
+  },
+  "thermal-paper-printer-compatibility-guide": {
+    title: "Thermal Paper Printer Compatibility Guide",
+    keywords: [
+      "thermal printer paper",
+      "thermal paper printer compatibility",
+      "receipt printer paper rolls",
+      "paper for thermal printer",
+      "payment terminal paper compatibility",
+      "POS printer paper size",
+    ],
+  },
+};
+
 // ISR：文章页静态化，后台保存时 revalidatePath(`/blog/${slug}`) 即时刷新
 export const revalidate = 300;
 
@@ -48,10 +73,11 @@ export async function generateMetadata({
 
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) return { title: "Article Not Found" };
+  const staticSeo = STATIC_POST_SEO[slug];
   return {
-    title: `${post.title} | Blog`,
+    title: staticSeo?.title || `${post.title} | Blog`,
     description: post.excerpt,
-    keywords: ["thermal paper", post.category.toLowerCase(), "BPA free thermal paper", "thermal paper manufacturer"],
+    keywords: staticSeo?.keywords || ["thermal paper", post.category.toLowerCase(), "BPA free thermal paper", "thermal paper manufacturer"],
     openGraph: {
       title: post.title,
       description: post.excerpt,
