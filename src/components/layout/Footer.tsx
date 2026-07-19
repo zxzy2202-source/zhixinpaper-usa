@@ -84,6 +84,8 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Resources",
     links: [
+      { label: "Thermal Paper Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide" },
+      { label: "Printer Compatibility Guide", href: "/blog/thermal-paper-printer-compatibility-guide" },
       { label: "Request Samples", href: "/samples" },
       { label: "Blog", href: "/blog" },
       { label: "Case Studies", href: "/case-studies" },

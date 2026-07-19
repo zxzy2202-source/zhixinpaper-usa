@@ -534,24 +534,80 @@ export const BLOG_CONTENT: BlogContent[] = [
     ],
   },
   {
+    slug: "thermal-paper-printer-compatibility-guide",
+    intro:
+      "Thermal paper compatibility is a model-and-specification decision, not a brand-level promise. A roll can share the expected width and still fail because its outer diameter, core, winding direction, paper sensitivity, sensing mark, or compartment geometry does not match the printer. Use this guide to qualify the current roll and approve a sample before bulk ordering.",
+    sections: [
+      {
+        heading: "Start with the Exact Printer or Terminal Model",
+        body: [
+          "Record the manufacturer, exact model, and any regional model suffix from the nameplate or manual. A brand such as Epson, Star, Bixolon, Clover, Square, PAX, NCR, or Hyosung covers many mechanisms and paper compartments; the brand name alone is not a compatibility specification.",
+          "If the manual is unavailable, photograph the model label, open paper compartment, current roll label, paper path, and any spindle or holder. Include a full unused roll or drawing when possible.",
+          "For a mixed device fleet, build a model-to-roll matrix. Consolidate SKUs only after the same approved specification has been tested across every model group.",
+        ],
+      },
+      {
+        heading: "Confirm the Physical Roll Specification",
+        body: [
+          "Measure roll width across the flat face, maximum outer diameter on a full roll, core inner diameter when a core is used, and the current roll's winding direction. Some compact terminals use coreless or drop-in rolls, while other mechanisms depend on a specific holder or spindle.",
+          "When a listing uses width x length, confirm the nominal length, paper GSM or thickness, expected OD, and tolerance. When a listing uses width x OD, confirm measured length because two rolls with the same outside diameter can contain different meterage.",
+          "Check for end marks, black marks, pre-print, reverse-side printing, or other sensing requirements. These fields can affect feeding and receipt content even when the physical roll fits.",
+        ],
+      },
+      {
+        heading: "Match Paper Grade and Print Conditions",
+        body: [
+          "Direct thermal printers require a heat-sensitive coating; thermal transfer printers use a ribbon and a different media system. Confirm the print method before comparing paper or label products.",
+          "Paper sensitivity should suit the mechanism, speed, energy setting, barcode density, and operating environment. Image-life and resistance requirements depend on the selected grade plus heat, light, humidity, oil, plasticizer, friction, and storage exposure.",
+          "BPA-free, BPS-free, phenol-free, REACH, Prop 65, or other document wording must be tied to the paper grade being sampled and quoted. A document for another grade does not prove the current SKU.",
+        ],
+      },
+      {
+        heading: "Run a Fit and Print Sample",
+        body: [
+          "Load the proposed roll into each target model and check compartment clearance, lid closure, feed, cutting, paper curl, print density, barcode or QR readability, and end-of-roll behavior. Test under the operating settings and environment used by the buyer.",
+          "Keep the approved roll, specification sheet, printer model, test date, and result as the repeat-order reference. If paper grade, GSM, core, coating, or converting parameters change, repeat the relevant checks.",
+          "For multi-site buyers, ask operators to test normal receipts, peak transaction periods, and representative content before approving a fleet-wide order.",
+        ],
+      },
+      {
+        heading: "Send a Quote-Ready Compatibility Request",
+        body: [
+          "Include printer or terminal brand and model, application, roll width, length or OD, core ID, winding direction, paper grade, sensing mark, print requirements, quantity per SKU, packing, destination, and target date.",
+          "Separate confirmed fields from unknown fields. A supplier can then recommend what must be measured, what can be checked from the manual, and what needs a physical sample.",
+          "Use the thermal paper roll sizes guide when you need help measuring the current roll before submitting the compatibility request.",
+        ],
+      },
+    ],
+    conclusion:
+      "Printer compatibility is approved through an exact model, complete media specification, and representative sample test. Do not rely on width, brand, or a marketplace listing alone. Preserve the approved specification and sample as the control for repeat orders.",
+    keyTakeaways: [
+      "Use the exact printer or terminal model, not the brand name alone",
+      "Confirm width, length or OD, core ID, winding, grade, and sensing marks",
+      "Separate direct thermal paper from thermal transfer media",
+      "Tie chemical and compliance documents to the quoted paper grade",
+      "Approve a representative sample and preserve it for repeat-order control",
+    ],
+  },
+  {
     slug: "thermal-paper-roll-sizes-guide",
     intro:
-      "Choosing the wrong thermal paper roll size is one of the most common — and most avoidable — procurement mistakes. A roll that is 1mm too wide will jam your printer; a roll with the wrong core diameter will not fit the spindle; a roll that is too short will require constant replacement during peak hours. This guide provides a complete reference for thermal paper roll dimensions across all major applications, with compatibility charts for common printer models.",
+      "Choosing the wrong thermal paper roll size is a common and avoidable procurement mistake. A small width mismatch can prevent loading or cause feed problems; the wrong outer diameter, core, winding, or length can also fail in the target mechanism. This guide explains the fields to measure before requesting a quote or compatibility sample.",
     sections: [
       {
         heading: "Understanding Thermal Paper Roll Dimensions",
         body: [
           "A thermal paper roll is defined by three key dimensions: width (the distance across the roll, measured in millimeters), outer diameter (the total diameter of the full roll, measured in millimeters), and core diameter (the inner diameter of the cardboard core, measured in millimeters). Some specifications also include paper length (the total length of paper on the roll, measured in meters) and paper thickness (measured in micrometers or GSM).",
-          "Width is the most critical dimension — it must match your printer's paper path exactly. Most thermal printers have a fixed paper path width with a tolerance of ±0.5mm. A roll that is too wide will not load; a roll that is too narrow may feed unevenly, causing skewed or incomplete prints.",
-          "Core diameter must match your printer's spindle. The two most common core diameters are 12mm (for compact receipt printers) and 25mm (for larger POS and industrial printers). Using a roll with the wrong core diameter will prevent it from mounting on the spindle.",
+          "Width must match the printer's permitted paper path and tolerance. A roll that is too wide may not load, while a narrower roll can feed or print differently depending on the guides and mechanism. Use the exact model manual or an approved sample instead of assuming a universal tolerance.",
+          "Core requirements are mechanism-specific. Some compact receipt and payment terminals use drop-in or coreless rolls, while other devices use a holder or spindle with a defined core ID. Record the current core and compartment before ordering.",
         ],
       },
       {
         heading: "Standard Sizes by Application",
         body: [
-          "POS Receipt Printers: The most common sizes are 57mm x 40mm (compact printers, mobile POS), 57mm x 50mm (standard compact), 80mm x 60mm (standard POS counter), 80mm x 80mm (high-volume retail). The 80mm width is the global standard for full-size POS receipt printers, used by Epson, Star, Bixolon, and most other major brands.",
-          "ATM and Banking Terminals: ATM receipt printers use narrower rolls — 57mm x 38mm and 57mm x 50mm are the most common. Diebold Nixdorf, NCR, and Wincor ATMs typically use 57mm or 82.5mm width rolls. Bank teller receipt printers often use 76mm or 80mm rolls.",
-          "Kiosk and Ticket Printers: Kiosk printers (parking, transit, entertainment) typically use 80mm rolls with larger outer diameters (up to 100mm OD) to reduce roll change frequency. Some high-volume kiosk applications use 112mm or 120mm wide rolls for wider ticket formats.",
+          "POS Receipt Printers: Common catalog families include 57 x 40mm, 57 x 50mm, 80 x 60mm, 80 x 80mm, and 3 1/8 inch x nominal length formats. Exact fit still depends on the printer model, maximum OD, core, and paper path.",
+          "Payment, ATM, and Banking Terminals: Compact payment devices often use 57mm or 2 1/4-inch families. ATM and banking mechanisms can use 57mm, 80mm, 82.5mm, or other specified widths. Qualify each terminal model rather than assigning one size to an entire brand.",
+          "Kiosk and Ticket Printers: Parking, transit, and unattended devices may use larger OD rolls, black marks, special winding, or custom widths. Confirm the integrator or equipment specification plus exposure and retention requirements.",
           "Label Printers: Desktop label printers (Zebra, Dymo, Rollo) use label rolls rather than continuous paper rolls. The most common label sizes are 4x6 inches (shipping labels), 2x1 inches (product labels), and 4x4 inches (square labels). These are measured in inches rather than millimeters.",
         ],
       },
@@ -567,17 +623,17 @@ export const BLOG_CONTENT: BlogContent[] = [
         heading: "GSM and Paper Quality: What It Means for Your Application",
         body: [
           "GSM (grams per square meter) is a measure of paper weight and density. For thermal paper rolls, the most common grades are 48 GSM (lightweight, for low-cost applications), 55 GSM (standard grade, most common for retail POS), 60 GSM (premium grade, better image quality and durability), and 65-70 GSM (heavy grade, for ATM and banking applications requiring archival-quality receipts).",
-          "Higher GSM paper is thicker, which means fewer meters of paper per roll for the same outer diameter. A 55 GSM roll with 80mm OD will contain approximately 80 meters of paper; the same roll in 65 GSM will contain approximately 65 meters. Factor this into your reorder frequency calculations.",
-          "For applications where receipts must remain legible for extended periods (ATM receipts, medical records, warranty documentation), choose 60 GSM or higher with a top-coat that protects the thermal image from UV light, heat, and oils. Standard 48-55 GSM receipts may fade within 6-12 months under adverse storage conditions.",
+          "Higher GSM or thickness usually reduces the available meterage at the same OD, but base paper, coating, caliper, winding, core, and tolerance all affect the result. Compare measured length and paper specification rather than using a fixed conversion rule.",
+          "Image retention is not proved by GSM alone. For receipts that must remain legible, specify the retention target and exposure conditions, then confirm the selected grade, test or supplier evidence, printing conditions, and storage instructions.",
         ],
       },
     ],
     conclusion:
-      "Selecting the correct thermal paper roll size requires attention to three dimensions (width, OD, core ID) plus paper grade. When in doubt, measure your existing rolls or consult your printer manual before ordering. Zhixin Paper offers free samples in any standard size — request samples to verify compatibility before placing a bulk order.",
+      "Selecting a thermal paper roll requires width, length or OD, core ID, winding, paper grade, and printer context. Measure the current roll, check the exact model manual, and approve a representative sample before a bulk order.",
     keyTakeaways: [
       "Three key dimensions: width, outer diameter (OD), and core inner diameter (ID)",
-      "80mm width is the global standard for full-size POS receipt printers",
-      "ATM terminals typically use 57mm or 82.5mm width rolls",
+      "Metric names often use width x OD; inch names often use width x nominal length",
+      "57mm, 80mm, and 3 1/8-inch names still require a model and full specification",
       "Higher GSM = thicker paper = fewer meters per roll at the same OD",
       "Request free samples to verify printer compatibility before bulk ordering",
     ],

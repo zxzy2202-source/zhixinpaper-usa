@@ -66,7 +66,7 @@ export const BUYING_SCENARIOS: BuyingScenario[] = [
   {
     title: "Payment terminal rolls",
     subtitle: "For merchant service providers, Clover, Square, PAX, and mobile terminals.",
-    href: "/products/thermal-paper-rolls/standard-pos-rolls",
+    href: "/products/thermal-paper-rolls/credit-card-terminal-rolls",
     specs: ["57mm rolls", "Outer diameter control", "Core and winding direction", "Small-carton programs"],
   },
   {
@@ -108,8 +108,8 @@ export const THERMAL_ROLL_SCENARIOS: RollScenario[] = [
     scenario: "Payment and credit card terminals",
     commonSpec: "57mm width, compact OD for mobile terminals",
     buyerRisk: "Outer diameter mismatch, core mismatch, wrong winding direction.",
-    recommendedProduct: "Standard POS Rolls",
-    href: "/products/thermal-paper-rolls/standard-pos-rolls",
+    recommendedProduct: "Credit Card Terminal Rolls",
+    href: "/products/thermal-paper-rolls/credit-card-terminal-rolls",
     askFor: "Terminal model, width, OD, core ID, roll orientation, quantity per box.",
   },
   {

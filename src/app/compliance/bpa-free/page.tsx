@@ -1,129 +1,297 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/ui/CTABanner";
-import { canonicalUrl } from "@/lib/seo";
+import { ArrowRight, ChevronRight, FileCheck2, ShieldCheck } from "lucide-react";
+import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
 
+export const metadata = buildMetadata({
+  title: "BPA-Free & Phenol-Free Thermal Paper",
+  description:
+    "Compare BPA-free, BPS-free and phenol-free thermal paper terms, grade-level documents, receipt roll options, and fields required for a compliant quote.",
+  path: "/compliance/bpa-free",
+  keywords: [
+    "BPA free thermal paper",
+    "BPS free thermal paper",
+    "phenol free thermal paper",
+    "bisphenol free receipt paper",
+    "BPA free thermal printer paper",
+    "phenol free receipt rolls",
+  ],
+});
 
+const TERMS = [
+  {
+    term: "BPA-free",
+    meaning: "The selected thermal paper grade is specified without Bisphenol A as the developer.",
+    boundary: "Does not by itself prove that the grade is BPS-free or phenol-free.",
+  },
+  {
+    term: "BPS-free",
+    meaning: "The selected grade is specified without Bisphenol S.",
+    boundary: "Confirm the developer system and whether other bisphenols or phenolic developers are in scope.",
+  },
+  {
+    term: "Phenol-free",
+    meaning: "A supplier category generally used for grades formulated without named phenolic or bisphenol developers.",
+    boundary: "The exact definition varies by grade and supplier; request the named scope and supporting document.",
+  },
+  {
+    term: "Bisphenol-free",
+    meaning: "A broader buyer term for grades that exclude specified bisphenol developers.",
+    boundary: "Ask which bisphenols were tested or declared and which test method or threshold applies.",
+  },
+];
 
-export const metadata: Metadata = {
-  title: "BPA-Free Thermal Paper | Bisphenol-Free Receipt Rolls EU",
-  description: "100% BPA-free and BPS-free thermal paper rolls and labels. Compliant with EU REACH regulation and French Grenelle II law. Safe for food contact and retail use.",
-  keywords: "BPA free thermal paper, bisphenol free receipt rolls, BPA free thermal paper Europe",
-  alternates: { canonical: canonicalUrl("/compliance/bpa-free") },
+const DOCUMENT_CHECKS = [
+  "Supplier grade name and technical data sheet",
+  "Named BPA, BPS, bisphenol, or phenol-free scope",
+  "Declaration or test report linked to the quoted grade",
+  "Laboratory, method, date, threshold, and sample identity",
+  "Destination-market and customer document requirements",
+  "Approved sample and production-grade reference",
+];
+
+const BUYER_ROUTES = [
+  {
+    title: "Retail and POS distributors",
+    copy: "Confirm the receipt-roll grade, store handling conditions, document pack, carton configuration, and repeat-order specification.",
+  },
+  {
+    title: "Foodservice and hospitality",
+    copy: "Separate receipt handling from direct food-contact claims. Document the actual use, exposure, and buyer standard before selection.",
+  },
+  {
+    title: "Healthcare and pharmacy channels",
+    copy: "Define handling frequency, retention need, image-life conditions, and procurement documentation without treating the paper as a medical certification.",
+  },
+  {
+    title: "Private-label programs",
+    copy: "Keep the paper grade, packaging claim, artwork wording, test report, and change-control record aligned across repeat orders.",
+  },
+];
+
+const FAQS = [
+  {
+    question: "Is BPA-free thermal paper automatically BPS-free?",
+    answer: "No. BPA-free describes the absence of BPA in the selected scope; another developer, including BPS, may be used. Request the paper grade, developer declaration, and supporting document when BPS-free status matters.",
+  },
+  {
+    question: "Are BPS-free and phenol-free the same claim?",
+    answer: "Not necessarily. BPS-free excludes BPS, while phenol-free may refer to a broader developer category. Supplier definitions and test scopes vary, so the quote and document pack should name the exact substances or developer system covered.",
+  },
+  {
+    question: "Which document should a thermal paper buyer request?",
+    answer: "Start with the supplier grade and TDS, then request a declaration or test report that names the relevant substance, threshold, method, sample identity, and date. Confirm that the document applies to the grade being quoted.",
+  },
+  {
+    question: "Can BPA-free or phenol-free status be applied to every Zhixin Paper product?",
+    answer: "Availability must be confirmed by product, paper grade, dimensions, converting route, quantity, and destination. Do not apply a document from one grade to another product without written confirmation.",
+  },
+  {
+    question: "What information is needed for a compliant thermal paper quote?",
+    answer: "Send the application, roll or label specification, printer model, required chemical wording, destination, customer standard, quantity, packing, and any document template that must be completed.",
+  },
+];
+
+const definedTermSchema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  name: "BPA-free, BPS-free and phenol-free thermal paper terminology",
+  url: canonicalUrl("/compliance/bpa-free"),
+  hasDefinedTerm: TERMS.map((item) => ({
+    "@type": "DefinedTerm",
+    name: item.term,
+    description: `${item.meaning} ${item.boundary}`,
+  })),
 };
 
-export default function BPAFreePage() {
-  return (
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "BPA-Free, BPS-Free and Phenol-Free Thermal Paper",
+  url: canonicalUrl("/compliance/bpa-free"),
+  description:
+    "Buyer guide to thermal paper developer terminology, grade-level evidence, product selection, and quote requirements.",
+  about: TERMS.map((item) => item.term),
+};
 
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+export default function BPAFreePage() {
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Compliance", url: "/compliance" },
+      { name: "BPA-Free & Phenol-Free", url: "/compliance/bpa-free" },
+    ]),
+    webPageSchema,
+    definedTermSchema,
+    faqSchema(FAQS),
+  ];
+
+  return (
     <>
       <Header />
-      <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-green-800 to-blue-800 text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-green-200 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/compliance" className="hover:text-white">Compliance</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">BPA-Free</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-green-500/30 text-green-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Health & Safety</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">BPA-Free & Bisphenol-Free Thermal Paper</h1>
-            <p className="text-xl text-green-100 leading-relaxed">
-              All Zhixin Paper thermal paper products are manufactured without Bisphenol A (BPA) or Bisphenol S (BPS), meeting the strictest European and North American health and safety standards.
-            </p>
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
+      <main id="main-content" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
+        <section className="border-b border-[#203531] bg-[#101b19] text-white">
+          <div className="container-site py-4">
+            <nav className="flex items-center gap-1.5 text-xs font-semibold text-[#aebbb5]" aria-label="Breadcrumb">
+              <Link href="/" className="transition hover:text-white">Home</Link>
+              <ChevronRight className="h-3 w-3" />
+              <Link href="/compliance" className="transition hover:text-white">Compliance</Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-white">BPA-Free & Phenol-Free</span>
+            </nav>
           </div>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="container-site grid gap-10 pb-14 pt-8 lg:grid-cols-[0.9fr_0.62fr] lg:items-end lg:pb-20">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">What is BPA and Why Does It Matter?</h2>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                Bisphenol A (BPA) is a chemical developer traditionally used in thermal paper coatings to produce the color-forming reaction when heat is applied. Research has linked BPA to endocrine disruption and potential health risks, particularly through dermal absorption from handling receipts.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                The European Union restricted BPA in thermal paper under REACH Regulation (EU) 2016/2235, effective January 2020. France went further with the Grenelle II law, banning BPA in all food contact materials.
-              </p>
-              <p className="text-slate-600 leading-relaxed">
-                Our BPA-free thermal paper uses alternative developer systems that meet or exceed the performance of BPA-based coatings while eliminating the associated health concerns.
+              <p className="text-xs font-bold text-[#d6b273]">Chemical terminology and document route</p>
+              <h1
+                aria-label="BPA-Free, BPS-Free and Phenol-Free Thermal Paper"
+                className="mt-4 max-w-5xl text-[2rem] font-bold leading-[1.08] text-white sm:text-5xl lg:text-6xl"
+              >
+                <span aria-hidden="true" className="block whitespace-nowrap">BPA-Free & BPS-Free</span>{" "}
+                <span aria-hidden="true" className="block whitespace-nowrap">Phenol-Free</span>{" "}
+                <span aria-hidden="true" className="block whitespace-nowrap">Thermal Paper</span>
+              </h1>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-[#c7d0cb]">
+                Match the claim to a named paper grade and document scope. These terms overlap, but they are not interchangeable proof.
               </p>
             </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">Our BPA-Free Commitment</h2>
-              {[
-                { title: "Zero BPA", desc: "No Bisphenol A in any thermal coating formulation across our entire product range." },
-                { title: "Zero BPS", desc: "We also exclude Bisphenol S (BPS), a common BPA substitute with similar health concerns." },
-                { title: "Third-Party Tested", desc: "All products are independently tested by accredited laboratories to verify bisphenol-free status." },
-                { title: "REACH Compliant", desc: "Full compliance with EU REACH Regulation (EU) 2016/2235 and all subsequent amendments." },
-                { title: "Full Documentation", desc: "BPA-free declarations available for all products, suitable for use in your own compliance submissions." },
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 items-start bg-green-50  p-4 border border-green-100">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/></svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-800 text-sm">{item.title}</h3>
-                    <p className="text-slate-500 text-sm">{item.desc}</p>
-                  </div>
-                </div>
+            <div className="border-t border-white/20 pt-6">
+              <p className="text-sm leading-7 text-[#aebbb5]">
+                Quote-ready input: product specification, application, printer, required wording, destination, buyer standard, quantity, and document template.
+              </p>
+              <Link href="/quote" className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
+                Confirm Grade & Documents <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#ded6c8] bg-white py-14 md:py-16">
+          <div className="container-site grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <p className="section-label">Direct answer</p>
+              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">What is phenol-free thermal paper?</h2>
+            </div>
+            <p className="text-base leading-8 text-[#4f5f5a]">
+              Phenol-free thermal paper is a supplier category for grades formulated without a stated set of phenolic or bisphenol developers. Because definitions and test scopes vary, buyers should not treat the phrase as universal. Confirm the grade name, excluded substances, method or declaration, and whether the evidence applies to the exact roll or label being quoted.
+            </p>
+          </div>
+        </section>
+
+        <section className="border-b border-[#ded6c8] bg-[#f4f0e8] py-16 md:py-20">
+          <div className="container-site">
+            <div className="max-w-3xl">
+              <p className="section-label">Terminology</p>
+              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Read the scope behind the label.</h2>
+            </div>
+            <div className="mt-9 overflow-x-auto border border-[#ded6c8] bg-white">
+              <table className="w-full min-w-[900px] text-left">
+                <thead className="bg-[#101b19] text-white">
+                  <tr>
+                    <th className="px-5 py-4 text-xs font-bold">Term</th>
+                    <th className="px-5 py-4 text-xs font-bold">What it normally states</th>
+                    <th className="px-5 py-4 text-xs font-bold">What it does not prove alone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {TERMS.map((item, index) => (
+                    <tr key={item.term} className={index % 2 === 0 ? "bg-white" : "bg-[#fbfaf6]"}>
+                      <th scope="row" className="px-5 py-5 align-top text-sm font-bold text-[#14211f]">{item.term}</th>
+                      <td className="px-5 py-5 align-top text-sm leading-7 text-[#4f5f5a]">{item.meaning}</td>
+                      <td className="px-5 py-5 align-top text-sm leading-7 text-[#4f5f5a]">{item.boundary}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#ded6c8] bg-white py-16 md:py-20">
+          <div className="container-site grid gap-12 lg:grid-cols-[0.72fr_1fr]">
+            <div>
+              <p className="section-label">Evidence checklist</p>
+              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Tie the claim to the quoted grade.</h2>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-[#4f5f5a]">
+                A company certificate or document for another paper grade is not automatic proof for the product in your RFQ.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-5 text-sm font-bold text-[#0f5f5c]">
+                <Link href="/compliance/reach-rohs" className="inline-flex items-center gap-2 hover:underline">REACH & RoHS route <ArrowRight className="h-4 w-4" /></Link>
+                <Link href="/compliance/certificates" className="inline-flex items-center gap-2 hover:underline">Certificate library <ArrowRight className="h-4 w-4" /></Link>
+              </div>
+            </div>
+            <ul className="border-t border-[#ded6c8]">
+              {DOCUMENT_CHECKS.map((item) => (
+                <li key={item} className="flex gap-3 border-b border-[#ded6c8] py-4 text-sm font-semibold leading-6 text-[#33413e]">
+                  <FileCheck2 className="mt-0.5 h-5 w-5 shrink-0 text-[#9c661d]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="bg-[#101b19] py-16 text-white md:py-20">
+          <div className="container-site">
+            <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-end">
+              <h2 className="text-3xl font-bold text-white md:text-4xl">Use the same chemistry term differently by buyer task.</h2>
+              <p className="max-w-2xl text-sm leading-7 text-[#c7d0cb] lg:justify-self-end">
+                The product specification remains central. Industry language changes the qualification questions, evidence pack, and approval path.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-px bg-white/15 md:grid-cols-2">
+              {BUYER_ROUTES.map((route) => (
+                <article key={route.title} className="bg-[#101b19] p-6 md:p-8">
+                  <ShieldCheck className="h-5 w-5 text-[#d6b273]" />
+                  <h3 className="mt-5 text-xl font-bold text-white">{route.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#aebbb5]">{route.copy}</p>
+                </article>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="bg-slate-50 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">Regulatory Compliance Summary</h2>
-          <div className="overflow-x-auto  border border-slate-200 bg-white shadow-sm">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
-                <tr>
-                  <th className="text-left px-6 py-4">Regulation</th>
-                  <th className="text-left px-6 py-4">Jurisdiction</th>
-                  <th className="text-left px-6 py-4">Requirement</th>
-                  <th className="text-left px-6 py-4">Our Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["REACH Regulation (EU) 2016/2235", "European Union", "BPA ≤ 0.02% in thermal paper", "Compliant — BPA not used"],
-                  ["French Grenelle II Law", "France", "BPA banned in food contact materials", "Compliant — BPA-free"],
-                  ["REACH SVHC List", "European Union", "BPS below 0.1% threshold", "Compliant — BPS not used"],
-                  ["California Proposition 65", "California, USA", "BPA warning label requirement", "Compliant — no warning required"],
-                ].map(([reg, jur, req, status]) => (
-                  <tr key={reg} className="hover:bg-green-50/30">
-                    <td className="px-6 py-4 font-medium text-slate-800">{reg}</td>
-                    <td className="px-6 py-4 text-slate-500">{jur}</td>
-                    <td className="px-6 py-4 text-slate-500">{req}</td>
-                    <td className="px-6 py-4"><span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 ">{status}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-16 md:py-20">
+          <div className="container-site grid gap-12 lg:grid-cols-[0.7fr_1fr]">
+            <div>
+              <p className="section-label">Buyer questions</p>
+              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Clarify the developer before approving the wording.</h2>
+            </div>
+            <div className="border-t border-[#ded6c8]">
+              {FAQS.map((faq) => (
+                <article key={faq.question} className="border-b border-[#ded6c8] py-6">
+                  <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="bg-gradient-to-r from-green-700 to-blue-700 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Download Our BPA-Free Declaration</h2>
-          <p className="text-green-100 mb-8">Our BPA-free declaration is available for all products and can be used in your own compliance submissions to customers and regulators.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Download Certificate</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Compliance Team</Link>
+        <section className="bg-[#9c661d] py-14 text-white">
+          <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-white">Send the required wording with your product specification.</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-white/85">We will confirm the available grade route, evidence needed, sample plan, packing, and quote fields.</p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white">
+                Request a Grade Review <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/products/thermal-paper-rolls" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white">
+                Browse Thermal Rolls
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
-      <CTABanner title="Need BPA-Free Documentation?" subtitle="Request our BPA-free declarations and third-party test reports for your market." primaryLabel="Get Documents" secondaryLabel="Request a Quote" />
-    <Footer />
+        </section>
+      </main>
+      <Footer />
     </>
   );
 }

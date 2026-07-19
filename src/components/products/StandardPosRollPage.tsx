@@ -242,6 +242,30 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
         </div>
       </section>
 
+      <section className="border-b border-[#ded6c8] bg-white py-14 md:py-16">
+        <div className="container-site grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+          <div>
+            <p className="section-label">Buyer tools</p>
+            <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Move from a familiar name to an approved specification.</h2>
+          </div>
+          <div className="grid gap-px bg-[#ded6c8] sm:grid-cols-3">
+            {[
+              { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", copy: "Measure width, OD, length, core, GSM, and winding." },
+              { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", copy: "Qualify the exact POS printer or terminal model." },
+              { label: "Payment Terminal Rolls", href: "/products/thermal-paper-rolls/credit-card-terminal-rolls", copy: "Separate compact terminal fleets from counter POS supply." },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="group bg-[#fbfaf6] p-5 transition hover:bg-[#f4f0e8]">
+                <h3 className="flex items-center justify-between gap-3 text-base font-bold text-[#14211f]">
+                  {item.label}
+                  <ArrowRight className="h-4 w-4 shrink-0 text-[#9c661d] transition group-hover:translate-x-1" />
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{item.copy}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#fbfaf6] py-20 md:py-24">
         <div className="container-site grid gap-12 lg:grid-cols-[0.7fr_1fr]">
           <div>

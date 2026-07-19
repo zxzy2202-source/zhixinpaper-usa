@@ -9,7 +9,7 @@ import {
   Globe, ShieldCheck, BookOpen, Users,
   Package, Tag, Settings, FileText, MapPin,
   Factory as FactoryIcon, Award, Cpu, BarChart2, Eye,
-  Newspaper, Briefcase, HelpCircle, Info, MessageSquare,
+  Newspaper, Briefcase, HelpCircle, Info, MessageSquare, Printer, Ruler,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -354,7 +354,7 @@ function ComplianceDropdown() {
   const pathname = usePathname();
   const items = [
     { label: "Certificates",      href: "/compliance/certificates",  icon: FileText,    desc: "Download ISO, FSC, BPA-free docs", tag: "P1" as Tag },
-    { label: "BPA-Free Statement",href: "/compliance/bpa-free",      icon: ShieldCheck, desc: "Phenol-free thermal coating",       tag: "SEO" as Tag },
+    { label: "BPA / Phenol-Free", href: "/compliance/bpa-free",      icon: ShieldCheck, desc: "Grade terms and evidence scope",      tag: "SEO" as Tag },
     { label: "REACH & RoHS",      href: "/compliance/reach-rohs",    icon: ShieldCheck, desc: "EU chemical compliance",            tag: "SEO" as Tag },
     { label: "ISO 9001",          href: "/compliance/iso-9001",      icon: Award,       desc: "Quality management system" },
     { label: "FSC® Paper",        href: "/compliance/fsc-paper",     icon: BookOpen,    desc: "Sustainable forest sourcing" },
@@ -404,6 +404,20 @@ function ComplianceDropdown() {
 function ResourcesDropdown() {
   const pathname = usePathname();
   const items = [
+    {
+      label: "Roll Size Guide",
+      href: "/blog/thermal-paper-roll-sizes-guide",
+      icon: Ruler,
+      desc: "Measure width, OD, core, length & winding",
+      tag: "SEO" as Tag,
+    },
+    {
+      label: "Printer Compatibility",
+      href: "/blog/thermal-paper-printer-compatibility-guide",
+      icon: Printer,
+      desc: "Qualify POS, terminal, ATM & kiosk models",
+      tag: "New" as Tag,
+    },
     {
       label: "Blog",
       href: "/blog",
@@ -612,7 +626,7 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
   ],
   Compliance: [
     { label: "Certificates",          href: "/compliance/certificates",   tag: "P1" },
-    { label: "BPA-Free Statement",    href: "/compliance/bpa-free",       tag: "SEO" },
+    { label: "BPA / Phenol-Free",     href: "/compliance/bpa-free",       tag: "SEO" },
     { label: "REACH & RoHS",          href: "/compliance/reach-rohs",     tag: "SEO" },
     { label: "ISO 9001",              href: "/compliance/iso-9001" },
     { label: "FSC® Paper",            href: "/compliance/fsc-paper" },
@@ -620,6 +634,8 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "FDA Compliant (US)",    href: "/compliance/fda-us",         tag: "New" },
   ],
   Resources: [
+    { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", tag: "SEO" },
+    { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", tag: "New" },
     { label: "Blog",         href: "/blog" },
     { label: "Case Studies", href: "/case-studies", tag: "New" },
     { label: "FAQ",          href: "/faq",           tag: "SEO" },
