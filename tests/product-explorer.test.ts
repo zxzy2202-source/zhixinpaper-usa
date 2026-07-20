@@ -7,7 +7,7 @@ import {
   parseProductFilters,
   serializeProductFilters,
   type ProductExplorerSource,
-} from "../src/components/products/productExplorerModel.ts";
+} from "../src/components/products/productExplorerModel";
 
 const rolls: ProductExplorerSource[] = [
   {
