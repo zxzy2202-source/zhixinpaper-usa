@@ -29,3 +29,13 @@ test("products page keeps crawlable SEO entities", () => {
   assert.match(page, /faqSchema/);
   assert.match(page, /alternates: \{ canonical:/);
 });
+
+test("products page supplies the complete catalog to the explorer", () => {
+  const page = read("src/app/products/page.tsx");
+  assert.match(page, /import ProductExplorer from "@\/components\/products\/ProductExplorer"/);
+  assert.match(page, /createProductExplorerItems\(THERMAL_PAPER_ROLLS, THERMAL_LABELS\)/);
+  assert.match(page, /<ProductExplorer items=\{productExplorerItems\}/);
+  assert.doesNotMatch(page, /const bestSellingProducts =/);
+  assert.doesNotMatch(page, /const compareRows =/);
+  assert.doesNotMatch(page, /const productDirectory =/);
+});

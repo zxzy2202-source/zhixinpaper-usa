@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ProductExplorer from "@/components/products/ProductExplorer";
+import { createProductExplorerItems } from "@/components/products/productExplorerModel";
 import CTABanner from "@/components/ui/CTABanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
@@ -66,57 +68,6 @@ const productLines = [
   },
 ] as const;
 
-const bestSellingProducts = [
-  {
-    type: "Rolls",
-    title: "Standard POS Rolls",
-    href: "/products/thermal-paper-rolls/standard-pos-rolls",
-    image: "home.product.thermal-rolls",
-    reason: "High-repeat receipt paper for retailers, supermarkets, restaurants, and POS distributors.",
-    checks: ["80x80mm and 57mm sizes", "BPA-free option", "Epson, Star, Bixolon fit"],
-  },
-  {
-    type: "Rolls",
-    title: "ATM & Bank Receipt Rolls",
-    href: "/products/thermal-paper-rolls/atm-banking-rolls",
-    image: "home.product.thermal-rolls",
-    reason: "Archival receipt paper for ATM, teller, payment, and financial service terminals.",
-    checks: ["Anti-static coating", "Long image life", "Back-print option"],
-  },
-  {
-    type: "Rolls",
-    title: "Lottery & Gaming Rolls",
-    href: "/products/thermal-paper-rolls/lottery-gaming-rolls",
-    image: "home.product.thermal-rolls",
-    reason: "Barcode-grade thermal rolls for lottery terminals, betting shops, and gaming machines.",
-    checks: ["Barcode density", "Black mark option", "Audit-friendly batches"],
-  },
-  {
-    type: "Labels",
-    title: "Direct Thermal Labels",
-    href: "/products/thermal-labels/direct-thermal-labels",
-    image: "home.product.thermal-labels",
-    reason: "No-ribbon labels for shipping, e-commerce fulfillment, 3PL warehouses, and retail pricing.",
-    checks: ["4x6 / 100x150mm", "GS1 barcode support", "Roll or fanfold"],
-  },
-  {
-    type: "Labels",
-    title: "Freezer & Cold Chain Labels",
-    href: "/products/thermal-labels/freezer-cold-chain-labels",
-    image: "home.product.thermal-labels",
-    reason: "Cold-chain labels for frozen food, pharma logistics, labs, and temperature-controlled storage.",
-    checks: ["Low-temp adhesive", "Moisture resistance", "Freeze-thaw testing"],
-  },
-  {
-    type: "OEM",
-    title: "Custom Printed Rolls & Labels",
-    href: "/oem-custom/private-label",
-    image: "home.factory-overview",
-    reason: "Private-label packaging, back-print advertising, brand cartons, and repeat-order spec control.",
-    checks: ["Artwork proof", "Pantone / QR code", "Carton and pallet marks"],
-  },
-] as const;
-
 const buyingChecks = [
   {
     icon: Ruler,
@@ -132,44 +83,6 @@ const buyingChecks = [
     icon: PackageCheck,
     title: "Packing and logistics",
     copy: "Check carton quantity, pallet load, mixed SKU packing, warehouse labels, FOB/CIF/DDP terms, and repeat order marks.",
-  },
-] as const;
-
-const compareRows = [
-  {
-    need: "Retail, restaurant, and POS receipts",
-    spec: "57mm and 80mm receipt rolls, 12mm / 17mm core, BPA-free thermal paper",
-    risk: "Short rolls, weak print density, poor printer fit, damaged cartons",
-    href: "/products/thermal-paper-rolls/standard-pos-rolls",
-    product: "Standard POS Rolls",
-  },
-  {
-    need: "ATM, banking, and payment terminals",
-    spec: "Archival thermal coating, anti-static surface, optional back print",
-    risk: "Unreadable transaction records, static jams, poor image life",
-    href: "/products/thermal-paper-rolls/atm-banking-rolls",
-    product: "ATM & Bank Receipt Rolls",
-  },
-  {
-    need: "Lottery, casino, parking, and ticketing",
-    spec: "Barcode-grade coating, black mark option, controlled roll OD and core",
-    risk: "Failed scans, weak density, terminal downtime, audit issues",
-    href: "/products/thermal-paper-rolls/lottery-gaming-rolls",
-    product: "Lottery & Gaming Rolls",
-  },
-  {
-    need: "Shipping, warehouse, e-commerce, and FBA",
-    spec: "4x6 / 100x150mm direct thermal labels, roll or fanfold, permanent adhesive",
-    risk: "Unscannable labels, liner breaks, weak adhesive, printer jams",
-    href: "/products/thermal-labels/direct-thermal-labels",
-    product: "Direct Thermal Labels",
-  },
-  {
-    need: "Frozen food, pharma, lab, and cold storage",
-    spec: "Low-temperature adhesive, moisture-resistant facestock, freezer-grade thermal labels",
-    risk: "Peeling after freezing, barcode loss, condensation damage",
-    href: "/products/thermal-labels/freezer-cold-chain-labels",
-    product: "Freezer & Cold Chain Labels",
   },
 ] as const;
 
@@ -229,33 +142,6 @@ const sourcingSummary = [
   },
 ];
 
-const productDirectory = [
-  {
-    title: "Thermal paper rolls",
-    href: "/products/thermal-paper-rolls",
-    description: "Receipt and ticket rolls grouped by terminal, printer fit, image life, core, OD, and carton plan.",
-    items: THERMAL_PAPER_ROLLS.map((item) => ({
-      name: item.name,
-      href: `/products/thermal-paper-rolls/${item.slug}`,
-      detail: item.applications.slice(0, 3).join(" / "),
-      spec: item.sizes.slice(0, 4).join(" / "),
-      moq: item.moq,
-    })),
-  },
-  {
-    title: "Thermal labels",
-    href: "/products/thermal-labels",
-    description: "Direct thermal and thermal transfer labels grouped by adhesive, facestock, liner, barcode use, and environment.",
-    items: THERMAL_LABELS.map((item) => ({
-      name: item.name,
-      href: `/products/thermal-labels/${item.slug}`,
-      detail: item.applications.slice(0, 3).join(" / "),
-      spec: item.sizes.slice(0, 4).join(" / "),
-      moq: item.moq,
-    })),
-  },
-] as const;
-
 const productFaqs = [
   {
     question: "What thermal paper products does Zhixin Paper manufacture?",
@@ -287,14 +173,14 @@ const productFaqs = [
 export default function ProductsPage() {
   const paperRollCount = THERMAL_PAPER_ROLLS.length;
   const labelCount = THERMAL_LABELS.length;
-  const allDirectoryItems = productDirectory.flatMap((group) => group.items);
+  const productExplorerItems = createProductExplorerItems(THERMAL_PAPER_ROLLS, THERMAL_LABELS);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Thermal paper products directory",
     numberOfItems: paperRollCount + labelCount,
-    itemListElement: allDirectoryItems.map((item, index) => ({
+    itemListElement: productExplorerItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
@@ -430,29 +316,6 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <section aria-labelledby="product-sourcing-summary" className="bg-[#f4f0e8] py-14">
-          <div className="container-site">
-            <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-start">
-              <div>
-                <h2 id="product-sourcing-summary" className="mt-3 max-w-2xl text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
-                  Quick answers before you choose a product line.
-                </h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-[#4f5f5a]">
-                  This hub helps buyers move from broad search intent to the quote details that affect price, documents, and repeat packing.
-                </p>
-              </div>
-              <dl className="grid gap-4">
-                {sourcingSummary.map((item) => (
-                  <div key={item.term} className="border-l-2 border-[#0f5f5c] bg-[#fbfaf6] p-5 shadow-[0_14px_34px_rgba(20,33,31,0.06)] md:grid md:grid-cols-[210px_1fr] md:gap-5">
-                    <dt className="text-sm font-bold text-[#14211f]">{item.term}</dt>
-                    <dd className="text-sm leading-7 text-[#4f5f5a]">{item.detail}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        </section>
-
         <section id="product-lines" className="bg-[#fbfaf6] py-20 md:py-24">
           <div className="container-site">
             <div className="mb-10 max-w-3xl">
@@ -504,163 +367,58 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <section className="bg-[#f4f0e8] py-18">
-          <div className="container-site">
-            <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <p className="section-label">Best-selling products</p>
-                <h2 className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
-                  High-repeat SKUs buyers usually quote first.
-                </h2>
-              </div>
-              <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#101b19] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16] lg:shrink-0">
-                Send product specs
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </div>
+        <ProductExplorer items={productExplorerItems} />
 
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {bestSellingProducts.map((product) => (
-                <Link key={product.title} href={product.href} className="group overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] transition-colors hover:border-[#0f5f5c]/40">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#0b1513]">
-                    <SlotImage
-                      slotKey={product.image}
-                      alt={`${product.title} product image`}
-                      fill
-                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#101b19]/75 via-[#101b19]/15 to-transparent" />
-                    <span className="absolute left-4 top-4 bg-[#fbfaf6] px-3 py-1 text-[11px] font-bold text-[#14211f]">
-                      {product.type}
-                    </span>
+        <section aria-labelledby="product-sourcing-summary" className="bg-[#fbfaf6] py-14">
+          <div className="container-site">
+            <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-start">
+              <div>
+                <h2 id="product-sourcing-summary" className="mt-3 max-w-2xl text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
+                  Quick answers after you narrow the catalog.
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-[#4f5f5a]">
+                  Use these procurement checks to turn a selected product into a quote-ready specification.
+                </p>
+              </div>
+              <dl className="grid gap-4">
+                {sourcingSummary.map((item) => (
+                  <div key={item.term} className="border-l-2 border-[#0f5f5c] bg-[#f4f0e8] p-5 md:grid md:grid-cols-[210px_1fr] md:gap-5">
+                    <dt className="text-sm font-bold text-[#14211f]">{item.term}</dt>
+                    <dd className="text-sm leading-7 text-[#4f5f5a]">{item.detail}</dd>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{product.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{product.reason}</p>
-                    <div className="mt-5 space-y-2 border-t border-[#ded6c8] pt-5">
-                      {product.checks.map((check) => (
-                        <div key={check} className="flex items-center gap-2 text-xs font-semibold text-[#33413e]">
-                          <SearchCheck className="h-3.5 w-3.5 shrink-0 text-[#0f5f5c]" aria-hidden="true" />
-                          {check}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
-                      Open product page
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                ))}
+              </dl>
             </div>
           </div>
         </section>
 
         <section className="bg-[#fbfaf6] py-18">
           <div className="container-site">
-            <div className="grid gap-10 lg:grid-cols-[0.72fr_1fr] lg:items-start">
+            <div className="max-w-3xl">
               <div>
+                <p className="section-label">Buying checks</p>
                 <h2 className="mt-3 text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
-                  Compare by purchasing risk, not by product name only.
+                  Confirm the details that prevent a costly mismatch.
                 </h2>
                 <p className="mt-5 text-sm leading-7 text-[#4f5f5a]">
-                  The same category can need different paper, adhesive, cartons, and documents. Use this section to prepare a cleaner RFQ before you ask for pricing.
+                  After choosing a product, verify printer fit, compliance evidence, and export packing before asking for final pricing.
                 </p>
-                <div className="mt-8 grid gap-4">
-                  {buyingChecks.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={item.title} className="flex gap-4 border-l-2 border-[#0f5f5c] pl-4">
-                        <Icon className="mt-1 h-5 w-5 shrink-0 text-[#0f5f5c]" aria-hidden="true" />
-                        <div>
-                          <h3 className="font-bold text-[#14211f]">{item.title}</h3>
-                          <p className="mt-1 text-sm leading-6 text-[#4f5f5a]">{item.copy}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
               </div>
+            </div>
 
-              <div className="grid gap-4">
-                {compareRows.map((row) => (
-                  <article key={row.need} className="border border-[#ded6c8] bg-[#fbfaf6] p-5 shadow-[0_14px_34px_rgba(20,33,31,0.05)]">
-                    <div className="grid gap-5 md:grid-cols-[1fr_1.1fr_1.1fr_auto] md:items-start">
-                      <div>
-                        <p className="text-xs font-bold text-[#b9822f]">Buyer need</p>
-                        <h3 className="mt-2 text-base font-bold text-[#14211f]">{row.need}</h3>
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-[#87918c]">Typical spec</p>
-                        <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{row.spec}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-[#87918c]">Risk to avoid</p>
-                        <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{row.risk}</p>
-                      </div>
-                      <Link href={row.href} className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745] md:justify-self-end">
-                        {row.product}
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </Link>
+            <div className="mt-10 grid gap-px bg-[#ded6c8] md:grid-cols-3">
+              {buyingChecks.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <article key={item.title} className="bg-[#f4f0e8] p-6 md:p-7">
+                    <Icon className="h-6 w-6 text-[#0f5f5c]" aria-hidden="true" />
+                    <div className="mt-6">
+                      <h3 className="text-lg font-bold text-[#14211f]">{item.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{item.copy}</p>
                     </div>
                   </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section aria-labelledby="complete-product-directory" className="bg-[#f4f0e8] py-18">
-          <div className="container-site">
-            <div className="mb-10 max-w-3xl">
-              <div>
-                <h2 id="complete-product-directory" className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
-                  Every product category linked from one crawlable hub.
-                </h2>
-              </div>
-              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
-                Use this directory when you already know the product family. Each link opens a dedicated page with application notes, sizes, specifications, MOQ, and RFQ guidance.
-              </p>
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-2">
-              {productDirectory.map((group) => (
-                <section key={group.title} aria-labelledby={`${group.title.toLowerCase().replaceAll(" ", "-")}-directory`} className="border border-[#ded6c8] bg-[#fbfaf6]">
-                  <div className="border-b border-[#ded6c8] p-6">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <h3 id={`${group.title.toLowerCase().replaceAll(" ", "-")}-directory`} className="text-2xl font-bold text-[#14211f]">{group.title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{group.description}</p>
-                      </div>
-                      <Link href={group.href} className="inline-flex shrink-0 items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
-                        View category
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="grid gap-3 p-4 sm:grid-cols-2">
-                    {group.items.map((item) => (
-                      <Link key={item.href} href={item.href} className="group flex min-h-full flex-col justify-between border border-[#e7dfd1] bg-white/55 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c]/40 hover:bg-white">
-                        <div>
-                          <h4 className="text-base font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{item.name}</h4>
-                          <p className="mt-1 text-xs leading-5 text-[#687772]">{item.detail}</p>
-                        </div>
-                        <div className="mt-4 text-xs leading-5 text-[#4f5f5a]">
-                          <span className="font-bold text-[#33413e]">Common specs: </span>
-                          {item.spec}
-                          {item.moq ? <span className="block pt-1"><span className="font-bold text-[#33413e]">MOQ: </span>{item.moq}</span> : null}
-                        </div>
-                        <div className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
-                          Open page
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

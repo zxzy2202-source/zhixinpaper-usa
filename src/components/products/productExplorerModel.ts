@@ -41,7 +41,7 @@ export type ProductExplorerSource = {
   sizes: string[];
   features: string[];
   moq: string;
-  specifications: Record<string, string>;
+  specifications: Record<string, string | undefined>;
 };
 
 export type ProductExplorerItem = {
@@ -104,7 +104,7 @@ function normalizeProduct(
     source.subtitle,
     ...source.applications,
     ...source.features,
-    ...Object.values(source.specifications),
+    ...Object.values(source.specifications).filter((value): value is string => Boolean(value)),
   ].join(" ");
 
   return {
