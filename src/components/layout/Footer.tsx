@@ -66,6 +66,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "REACH / RoHS Route", href: "/eu" },
       { label: "FDA / Prop 65 Route", href: "/us" },
       { label: "Bilingual Document Route", href: "/ca" },
+      { label: "Mexico Supply Route", href: "/mx" },
       { label: "FDA Documents", href: "/us/fda-compliant" },
       { label: "Food Contact Files", href: "/compliance/eu-food-contact" },
       { label: "Specialty Labels", href: "/us/cannabis-labels" },
@@ -178,7 +179,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm leading-7 text-[#aebbb5]">
-              Manufacturer of thermal paper rolls and thermal labels for distributors, importers, and private-label buyers. ISO 9001 certified since {COMPANY.founded}.
+              Manufacturer of thermal paper rolls and thermal labels for distributors, importers, and private-label buyers. Established in {COMPANY.founded} with ISO 9001 certified production.
             </p>
 
             <div className="mt-6 space-y-3 text-sm text-[#aebbb5]">
@@ -236,6 +237,7 @@ export default function Footer() {
             </Link>
             <Link href="/us" className="transition-colors hover:text-[#efe7d6]">FDA Route</Link>
             <Link href="/ca" className="transition-colors hover:text-[#efe7d6]">Bilingual Docs</Link>
+            <Link href="/mx" className="transition-colors hover:text-[#efe7d6]">Mexico Route</Link>
             <Link href="/sitemap.xml" className="transition-colors hover:text-[#efe7d6]">Sitemap</Link>
           </div>
         </div>

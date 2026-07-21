@@ -116,7 +116,8 @@ export default function PaymentTerminalRollPage({ roll, faqs }: PaymentTerminalR
               src="/images/thermal-rolls-product.jpg"
               alt="Compact credit card terminal thermal paper rolls"
               fill
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
             />

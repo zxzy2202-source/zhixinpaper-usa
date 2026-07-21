@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = COMPLIANCE_ITEMS.find((c) => c.slug === slug);
   if (!item) return {};
   return {
-    title: `${item.name} Thermal Paper — Certified & Compliant`,
-    description: `${item.description} Zhixin Paper ${item.name} certified thermal paper rolls and labels for distributors in Europe, USA, and Canada.`,
+    title: `${item.name} Documentation`,
+    description: `Review ${item.name} requirements and available document routes for thermal paper rolls and labels. Confirm the exact grade, test scope, market, and use.`,
     alternates: { canonical: canonicalUrl(`/compliance/${slug}`) },
   };
 }

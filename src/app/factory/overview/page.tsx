@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Manufacturing Plant Overview | ISO Certified Thermal Paper Factory",
-  description: "Tour our ISO 9001:2015 certified thermal paper manufacturing facility in Xi'an, Shaanxi, China. 50,000 sqm production floor, 20+ slitting lines, 500M+ rolls annual capacity.",
+  title: "Thermal Paper Plant Overview",
+  description: "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
   keywords: "thermal paper manufacturing plant, ISO certified factory, thermal paper factory China",
   alternates: { canonical: canonicalUrl("/factory/overview") },
 };

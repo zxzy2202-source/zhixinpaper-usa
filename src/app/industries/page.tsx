@@ -29,9 +29,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Industry Solutions | Rolls, Labels & Tickets",
+  title: "Thermal Paper by Industry",
   description:
-    "Find thermal paper rolls, thermal labels, ticket paper, and OEM packaging by industry. Built for POS, lottery, casino, banking, healthcare, food cold chain, logistics, transportation, and specialty buyers.",
+    "Compare thermal paper rolls, labels, and ticket materials for POS, banking, healthcare, cold chain, logistics, transport, lottery, and specialty applications.",
   keywords: [
     "thermal paper industry solutions",
     "thermal paper rolls by industry",

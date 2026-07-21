@@ -113,7 +113,8 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
               src="/images/thermal-rolls-product.jpg"
               alt="57mm and 80mm POS thermal receipt paper rolls"
               fill
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"
             />

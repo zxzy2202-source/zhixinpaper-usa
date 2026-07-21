@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Private Label Thermal Paper | White Label Receipt Rolls Manufacturer",
-  description: "Private label thermal paper rolls and labels under your brand. Custom packaging, branded cores, and full white-label service from 50,000 rolls. ISO 9001 certified.",
+  title: "Private Label Thermal Paper",
+  description: "Private-label thermal paper rolls and labels with branded packaging, core options, artwork review, specification checks, samples, and export order planning.",
   keywords: "private label thermal paper, white label receipt rolls, OEM thermal paper manufacturer",
   alternates: { canonical: canonicalUrl("/oem-custom/private-label") },
 };

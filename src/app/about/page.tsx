@@ -14,10 +14,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Zhixin Paper | ISO 9001 Certified Thermal Paper Manufacturer",
+  title: "About Our Thermal Paper Factory",
   description:
-    "Learn about Zhixin Paper, a leading manufacturer of BPA-free thermal paper rolls and labels. Based in China, serving USA, Europe and Canada with ISO 9001:2015 certified quality since " +
-    COMPANY.founded + ".",
+    "Learn about Zhixin Paper's thermal paper roll and label manufacturing, product scope, quality controls, export support, and document routes for distributors.",
   path: "/about",
 });
 

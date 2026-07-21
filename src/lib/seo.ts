@@ -148,6 +148,7 @@ export function productSchema({
   brand = SITE_NAME,
   category,
   keywords,
+  additionalProperties = [],
 }: {
   name: string;
   description: string;
@@ -157,6 +158,7 @@ export function productSchema({
   brand?: string;
   category: string;
   keywords: string;
+  additionalProperties?: { name: string; value: string }[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -177,18 +179,14 @@ export function productSchema({
     // 不输出 offers：B2B 询价制没有公开价格，缺 price 的 Offer
     // 会让 Search Console 商家信息校验持续报错
 
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        name: "BPA-Free",
-        value: "Yes",
-      },
-      {
-        "@type": "PropertyValue",
-        name: "ISO Certified",
-        value: "ISO 9001:2015",
-      },
-    ],
+    ...(additionalProperties.length
+      ? {
+          additionalProperty: additionalProperties.map((property) => ({
+            "@type": "PropertyValue",
+            ...property,
+          })),
+        }
+      : {}),
   };
 }
 
@@ -320,7 +318,7 @@ export function manufacturerSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.png`,
     foundingDate: "2008",
-    description: "Leading Chinese manufacturer of thermal paper rolls and thermal labels, exporting to 50+ countries. ISO 9001:2015 certified, BPA-free, FDA-compliant products. Compatible with Zebra, Epson, Star, Bixolon, Honeywell, and SATO printers.",
+    description: "Chinese manufacturer of thermal paper rolls and thermal labels for international distributors and OEM buyers. ISO 9001:2015 certified production with BPA-free and market-specific compliance options.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park",

@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const industry = INDUSTRIES.find((i) => i.slug === slug);
   if (!industry) return {};
   return {
-    title: `${industry.name} Thermal Paper Solutions`,
-    description: `${industry.description} ${industry.keywords}. Specialized thermal paper rolls and labels for the ${industry.name} industry.`,
+    title: `${industry.name} Thermal Paper`,
+    description: `Thermal paper rolls and labels for ${industry.name.toLowerCase()} buyers. Compare materials, printer fit, compliance files, OEM packing, and wholesale supply.`,
     keywords: industry.keywords,
     alternates: { canonical: canonicalUrl(`/industries/${slug}`) },
   };

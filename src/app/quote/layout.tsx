@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Request a Thermal Paper Quote | Wholesale Rolls & Labels",
+  title: "Request a Thermal Paper Quote",
   description:
-    "Request a custom quote for thermal paper rolls and labels. Share product sizes, quantities, market requirements, and compliance needs for factory-direct pricing.",
+    "Request a thermal paper roll or label quote. Share size, material, quantity, printer, market, documents, packing, destination, and preferred delivery terms.",
   alternates: { canonical: canonicalUrl("/quote") },
 };
 

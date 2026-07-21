@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Cannabis Labels USA | Dispensary Thermal Labels | State Compliant",
-  description: "FDA-compliant and state-compliant cannabis labels for US dispensaries. Direct thermal and thermal transfer labels meeting California, Colorado, Michigan, New York cannabis regulations.",
+  title: "Cannabis Labels for US Dispensaries",
+  description: "Thermal label materials for US cannabis brands and dispensaries. Confirm state-specific copy, facestock, adhesive, print method, testing, and approval scope.",
   keywords: "cannabis label supplier USA, dispensary thermal labels, cannabis compliance labels, state cannabis label requirements",
   alternates: { canonical: canonicalUrl("/us/cannabis-labels") },
 };

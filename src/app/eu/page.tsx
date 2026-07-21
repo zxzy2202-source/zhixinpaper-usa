@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Supplier Europe | REACH & RoHS Compliant Rolls",
+  title: "Europe Thermal Paper Supplier",
   description:
-    "Leading thermal paper manufacturer serving the EU market. REACH compliant, RoHS tested, BPA-free thermal rolls and labels. DDP shipping to European ports, factory direct wholesale.",
+    "Thermal paper rolls and labels for European distributors. Compare BPA-free grades, REACH/RoHS document scope, samples, packing, and delivery terms.",
   path: "/eu",
 });
 
@@ -37,7 +37,7 @@ export default function EUPage() {
         <section className="relative pt-32 pb-16 bg-blue-800 overflow-hidden">
           {/* Background image */}
           <div className="absolute inset-0 z-0 opacity-40">
-            <SlotImage slotKey="geo.eu.hero" fill className="object-cover" priority />
+            <SlotImage slotKey="geo.eu.hero" fill className="object-cover" fetchPriority="high" loading="eager" sizes="100vw" quality={76} />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-800 via-blue-800/40 to-transparent" />
           </div>
 

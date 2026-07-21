@@ -9,7 +9,7 @@ import BlogListClient from "./BlogListClient";
 export const metadata: Metadata = {
   title: "Thermal Paper Guides & Industry News",
   description:
-    "Expert knowledge base for thermal paper distributors and importers. Compliance guides, product specifications, BPA-free regulations, and market insights for Europe, USA, and Canada.",
+    "Thermal paper sourcing guides covering specifications, printer fit, materials, compliance scope, packing, and market requirements for distributors.",
   keywords: [
     "thermal paper guide",
     "BPA-free thermal paper compliance",

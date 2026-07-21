@@ -5,7 +5,7 @@ import { canonicalUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Contact Us — Get a Quote or Request Samples",
   description:
-    "Contact Zhixin Paper for wholesale thermal paper rolls and labels. Get a custom quote, request free samples, or reach our sales team via email, phone, or WhatsApp.",
+    "Contact Zhixin Paper about wholesale thermal paper rolls and labels. Request a specification review, sample, document pack, packing plan, or custom quote.",
   keywords: [
     "contact thermal paper manufacturer",
     "thermal paper wholesale inquiry",

@@ -6,7 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { THERMAL_LABELS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl, productSchema } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
   Star, Shield, Zap, Tag, MessageSquare, Download, Layers, Clock,
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const label = THERMAL_LABELS.find((l) => l.slug === slug);
   if (!label) return {};
   return {
-    title: `${label.name} — ${label.subtitle} | Wholesale Manufacturer`,
-    description: `${label.name} thermal labels wholesale from ISO 9001 certified manufacturer. ${label.keywords}. BPA-free, FDA-compliant options. MOQ ${label.moq}. Factory-direct pricing, compatible with Zebra, Honeywell, SATO printers. Free samples available.`,
+    title: `${label.name} Wholesale`,
+    description: `Wholesale ${label.name.toLowerCase()} for distributors and OEM buyers. Custom sizes, printer-fit checks, export packing, compliance files, and samples.`,
     keywords: `${label.keywords}, thermal labels wholesale, BPA free labels, FDA compliant labels, factory direct pricing, ${label.name} manufacturer`,
     alternates: { canonical: canonicalUrl(`/products/thermal-labels/${slug}`) },
   };
@@ -129,10 +129,38 @@ export default async function LabelDetailPage({ params }: Props) {
   const pricing = TIERED_PRICING[slug] || TIERED_PRICING["default"];
   const complianceDocs = COMPLIANCE_DOCS[slug] || COMPLIANCE_DOCS["default"];
   const isEcommerceLabel = ["direct-thermal-labels", "fanfold-labels"].includes(slug);
+  const schemas = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Products", url: "/products" },
+      { name: "Thermal Labels", url: "/products/thermal-labels" },
+      { name: label.name, url: `/products/thermal-labels/${slug}` },
+    ]),
+    productSchema({
+      name: label.name,
+      description: descText,
+      image: "/images/thermal-labels-product.jpg",
+      url: `/products/thermal-labels/${slug}`,
+      sku: `thermal-label-${slug}`,
+      category: "Thermal Labels",
+      keywords: label.keywords,
+      additionalProperties: [
+        { name: "BPA-Free", value: "Available by quoted material grade" },
+        { name: "Quality management", value: "ISO 9001:2015" },
+      ],
+    }),
+  ];
 
   return (
     <>
       <Header />
+      {schemas.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+        />
+      ))}
       <main id="main-content" className="product-detail">
 
         {/* ── HERO ── */}
@@ -155,8 +183,10 @@ export default async function LabelDetailPage({ params }: Props) {
               alt={`${label.name} - Thermal Labels`}
               fill
               className="object-cover object-center"
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="100vw"
+              quality={76}
             />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.82)_54%,rgba(8,20,18,0.24)_100%)]" />
 

@@ -24,7 +24,7 @@ const COUNTRIES = [
   "Germany", "United Kingdom", "France", "Netherlands", "Poland", "Belgium",
   "Sweden", "Denmark", "Norway", "Finland", "Austria", "Switzerland", "Italy",
   "Spain", "Portugal", "Czech Republic", "Hungary", "Romania", "United States",
-  "Canada", "Australia", "Japan", "South Korea", "Singapore", "Other",
+  "Canada", "Mexico", "Australia", "Japan", "South Korea", "Singapore", "Other",
 ];
 
 const PRODUCTS = [

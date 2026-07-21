@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Production Capacity | Thermal Paper Lead Times & MOQ",
-  description: "500M+ rolls annual capacity, 15-day standard lead time, 30-day custom OEM. Flexible MOQ from 5,000 rolls. Reliable supply chain for European and North American distributors.",
+  title: "Thermal Paper Capacity, MOQ & Lead Times",
+  description: "Review capacity planning, indicative MOQ and lead-time ranges for thermal paper rolls, labels, specialty materials, custom printing, packing, and export orders.",
   keywords: "thermal paper production capacity, lead time thermal paper, MOQ thermal labels",
   alternates: { canonical: canonicalUrl("/factory/capacity") },
 };

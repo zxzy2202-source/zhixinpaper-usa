@@ -8,7 +8,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Virtual Factory Tour | Thermal Paper Manufacturing Facility",
+  title: "Thermal Paper Factory Tour",
   description: "Take a virtual tour of our thermal paper manufacturing facility. See our coating lines, slitting machines, label production, and quality control laboratory.",
   keywords: "thermal paper factory tour, manufacturing facility video, thermal paper factory China",
   alternates: { canonical: canonicalUrl("/factory/virtual-tour") },

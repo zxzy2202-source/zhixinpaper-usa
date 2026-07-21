@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "FSC Certified Thermal Paper | Sustainable Receipt Paper",
-  description: "FSC chain of custody certified thermal paper rolls. Responsibly sourced base paper from sustainably managed forests. Available for EU and North American markets.",
+  title: "FSC Thermal Paper Sourcing",
+  description: "Review FSC paper sourcing for thermal rolls and labels. Confirm quoted grade, chain-of-custody scope, certificate route, claim use, and destination.",
   keywords: "FSC thermal paper, sustainable receipt paper, FSC certified label manufacturer",
   alternates: { canonical: canonicalUrl("/compliance/fsc-paper") },
 };

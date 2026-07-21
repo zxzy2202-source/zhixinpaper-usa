@@ -575,6 +575,17 @@ function MarketsDropdown() {
             <BookOpen className="w-4 h-4 text-[#87918c]" />
             Bilingual Document Route
           </Link>
+          <Link
+            href="/mx"
+            className={`flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+              pathname.startsWith("/mx")
+                ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
+                : "text-[#33413e] hover:bg-white hover:text-[#14211f]"
+            }`}
+          >
+            <MapPin className="w-4 h-4 text-[#87918c]" />
+            Mexico Supply Route
+          </Link>
       </div>
     </div>
   );
@@ -648,6 +659,7 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "REACH / RoHS Route",        href: "/eu" },
     { label: "FDA / Prop 65 Route",       href: "/us" },
     { label: "Bilingual Document Route",  href: "/ca" },
+    { label: "Mexico Supply Route",        href: "/mx", tag: "New" },
   ],
 };
 
@@ -758,7 +770,7 @@ export default function Header() {
               width={40}
               height={40}
               className="h-9 w-auto object-contain"
-              priority
+              loading="eager"
             />
             <div className="flex flex-col leading-tight">
               <span className="whitespace-nowrap text-base font-bold text-white">ZhixinPaper</span>
@@ -773,7 +785,7 @@ export default function Header() {
               const hasDrop = hasDropdown(label);
               const active = label === "Home"
                 ? pathname === "/"
-                : isActive(href) || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca")));
+                : isActive(href) || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca") || pathname.startsWith("/mx")));
 
               return (
                 <div

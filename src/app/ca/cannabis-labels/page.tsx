@@ -8,8 +8,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Cannabis Labels Canada | Health Canada Compliant Thermal Labels",
-  description: "Health Canada compliant cannabis labels for Canadian licensed producers and retailers. Bilingual (English/French) thermal labels meeting federal Cannabis Act requirements.",
+  title: "Cannabis Labels for Canada",
+  description: "Label materials for Canadian cannabis producers and retailers. Confirm bilingual copy, facestock, adhesive, print method, testing, and regulatory review.",
   keywords: "cannabis labels Canada, Health Canada cannabis labeling, bilingual cannabis labels, Canadian dispensary labels",
   alternates: { canonical: canonicalUrl("/ca/cannabis-labels") },
 };

@@ -1045,8 +1045,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: "amazon-fba-thermal-labels-guide",
-    title: "Amazon FBA Thermal Labels: Complete Compliance & Sourcing Guide 2026",
-    excerpt: "Everything Amazon FBA sellers need to know about thermal shipping labels: 4x6 size requirements, GS1-128 barcode standards, Zebra printer compatibility, and bulk sourcing from China factories.",
+    title: "Amazon FBA Thermal Label Sourcing Guide 2026",
+    excerpt: "A sourcing guide to 4x6 FBA thermal labels, printer fit, barcode quality, facestock, adhesive, packing, samples, and bulk-order specifications.",
     category: "E-Commerce",
     readTime: "12 min",
     date: "2026-04-08",

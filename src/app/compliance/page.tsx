@@ -21,9 +21,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Compliance | BPA-Free, REACH, ISO 9001, FSC, FDA",
+  title: "Thermal Paper Compliance Documents",
   description:
-    "Review Zhixin Paper compliance routes for BPA-free thermal paper, REACH/RoHS, ISO 9001:2015, FSC, EU food contact, FDA, phenol-free grades, and product-specific document packs.",
+    "Review document routes for BPA-free and phenol-free grades, REACH/RoHS, ISO 9001, FSC, food-contact sourcing, and product-specific test scope.",
   keywords: [
     "thermal paper compliance",
     "BPA-free thermal paper certificate",
@@ -190,7 +190,8 @@ export default function CompliancePage() {
                     slotKey="home.compliance"
                     alt="Thermal paper compliance certificates and quality documents"
                     fill
-                    priority
+                    fetchPriority="high"
+                    loading="eager"
                     sizes="(min-width: 1024px) 42vw, 100vw"
                     className="object-cover"
                   />

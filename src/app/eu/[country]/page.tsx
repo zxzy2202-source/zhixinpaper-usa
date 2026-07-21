@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = euRegion.countries?.find((c) => c.slug === country);
   if (!c) return {};
   return {
-    title: `Thermal Paper Supplier ${c.name} — BPA-Free Rolls & Labels`,
-    description: `ISO 9001 certified thermal paper supplier for ${c.name}. BPA-free, REACH/RoHS compliant. ${(c as any).description || ""} Free samples available.`,
+    title: `${country === "uk" ? "UK" : c.name} Thermal Paper Supplier`,
+    description: `BPA-free thermal paper rolls and labels for distributors in ${c.name}. REACH/RoHS documentation, factory-direct supply, samples, and delivery options.`,
     keywords: c.keywords,
     alternates: {
       canonical: `https://www.zhixinpaper.com/eu/${country}`,

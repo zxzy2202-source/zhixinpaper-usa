@@ -155,7 +155,8 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
               src="/images/thermal-rolls-product.jpg"
               alt="ATM and bank receipt thermal paper rolls"
               fill
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"
             />

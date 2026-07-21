@@ -8,9 +8,9 @@ import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Thermal Labels — Direct Thermal, Freezer, High-Temp, Custom Labels Wholesale",
+  title: "Wholesale Thermal Labels",
   description:
-    "Wholesale thermal labels: direct thermal, thermal transfer, freezer labels, high-temperature labels, wristbands, tamper-evident, synthetic PP, and custom OEM labels. ISO 9001 certified.",
+    "Wholesale direct thermal, thermal transfer, freezer, high-temperature, synthetic, tamper-evident, and custom labels for distributors and OEM buyers.",
   alternates: { canonical: canonicalUrl("/products/thermal-labels") },
 };
 

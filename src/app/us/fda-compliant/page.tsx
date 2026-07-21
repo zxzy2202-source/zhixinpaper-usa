@@ -9,9 +9,9 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "FDA Compliant Thermal Paper & Labels | BPA-Free Prop 65",
+  title: "FDA Thermal Paper & Labels",
   description:
-    "FDA-compliant thermal paper rolls and labels for US food contact applications. BPA-free formulations, 21 CFR 176.170 & 176.180 compliant, California Prop 65 safe. Certificate of Compliance and SDS available. Ready for US distributors and importers.",
+    "Thermal paper rolls and labels for US food-contact sourcing. Confirm the quoted material grade, applicable 21 CFR scope, Prop 65 files, SDS, and samples.",
   keywords: [
     "FDA compliant thermal paper",
     "BPA free thermal paper USA",

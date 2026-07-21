@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Supplier USA | BPA-Free Rolls & Labels Wholesale",
+  title: "USA Thermal Paper Supplier",
   description:
-    "Leading thermal paper manufacturer serving the US market. FDA-compliant, Prop 65 compliant thermal rolls and labels. DDP shipping to USA ports, Amazon FBA ready, pallet pricing for distributors.",
+    "Thermal paper rolls and labels for US distributors. Compare BPA-free grades, Prop 65 and food-contact document scope, samples, packing, and delivery terms.",
   path: "/us",
 });
 
@@ -38,7 +38,7 @@ export default function USPage() {
         <section className="relative pt-32 pb-16 bg-blue-900 overflow-hidden">
           {/* Background image */}
           <div className="absolute inset-0 z-0 opacity-40">
-            <SlotImage slotKey="geo.us.hero" fill className="object-cover" priority />
+            <SlotImage slotKey="geo.us.hero" fill className="object-cover" fetchPriority="high" loading="eager" sizes="100vw" quality={76} />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent" />
           </div>
 

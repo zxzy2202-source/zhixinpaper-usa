@@ -200,9 +200,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (slug === "standard-pos-rolls") {
     return {
-      title: "POS Receipt Paper Rolls for Europe, USA & Canada | BPA-Free Wholesale",
+      title: "Wholesale POS Receipt Paper Rolls",
       description:
-        "BPA-free POS receipt paper rolls for Europe, USA, and Canada. 80mm and 57mm thermal rolls, printer fit checks, compliance documents, OEM packing, samples, and FOB/CIF/DDP quotes.",
+        "BPA-free POS receipt paper rolls in 80 mm and 57 mm formats. Confirm printer fit, core, length, compliance files, OEM packing, samples, and delivery terms.",
       keywords:
         "POS receipt paper rolls Europe, POS receipt paper rolls USA, thermal paper rolls Canada, BPA-free POS rolls wholesale, 80mm thermal receipt rolls, 57mm POS paper rolls, Epson compatible receipt paper, Star printer thermal rolls, receipt paper distributor supplier",
       alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
@@ -259,8 +259,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${roll.name} — ${roll.subtitle} | Wholesale Manufacturer`,
-    description: `${roll.name} thermal paper rolls wholesale from ISO 9001 certified manufacturer. ${roll.keywords}. BPA-free, FDA-compliant options. MOQ ${roll.moq}. Factory-direct pricing, pallet and container load available. Free samples via DHL/FedEx.`,
+    title: `${roll.name} Wholesale`,
+    description: `Wholesale ${roll.name.toLowerCase()} for distributors and OEM buyers. Confirm size, printer fit, paper grade, compliance files, export packing, and samples.`,
     keywords: `${roll.keywords}, thermal paper rolls wholesale, BPA free thermal paper, FDA compliant, factory direct pricing, ${roll.name} manufacturer`,
     alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
   };
@@ -352,6 +352,10 @@ export default async function RollDetailPage({ params }: Props) {
     keywords: isStandardPos
       ? "POS receipt paper rolls, BPA-free thermal paper rolls, 80mm receipt rolls, 57mm POS rolls, Europe USA Canada thermal paper supplier"
       : roll.keywords,
+    additionalProperties: [
+      { name: "BPA-Free", value: "Available by quoted paper grade" },
+      { name: "Quality management", value: "ISO 9001:2015" },
+    ],
   });
 
   const paymentTerminalTermsJsonLd = {

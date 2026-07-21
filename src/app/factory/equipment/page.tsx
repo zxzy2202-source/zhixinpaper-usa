@@ -8,7 +8,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Factory Equipment | Thermal Paper Slitting Machines & Label Die Cutting",
+  title: "Thermal Paper Factory Equipment",
   description: "State-of-the-art thermal paper slitting machines, label die cutting equipment, and coating lines. Precision manufacturing for consistent quality at scale.",
   keywords: "thermal paper slitting machines, label die cutting equipment, thermal paper manufacturing equipment",
   alternates: { canonical: canonicalUrl("/factory/equipment") },

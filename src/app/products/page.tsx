@@ -25,7 +25,7 @@ const productPageDescription =
   "Browse wholesale thermal paper rolls and labels by use case, size, compliance files, packing, and RFQ details for repeat import orders.";
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Products | Rolls, Labels & Custom OEM Supply",
+  title: "Wholesale Thermal Paper Products",
   description: productPageDescription,
   keywords: [
     "thermal paper products",
@@ -250,7 +250,8 @@ export default function ProductsPage() {
               slotKey="home.hero"
               alt="Thermal paper rolls and labels manufactured for export buyers"
               fill
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="100vw"
               className="object-cover opacity-70"
             />

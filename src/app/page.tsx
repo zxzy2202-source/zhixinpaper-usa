@@ -21,9 +21,9 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Rolls & Thermal Labels Manufacturer | Zhixin Paper",
+  title: "Thermal Paper Rolls & Labels Manufacturer",
   description:
-    "Factory-direct thermal paper rolls and thermal labels for distributors, importers, and private-label buyers. Confirm sizes, materials, compliance files, samples, packing, and shipping terms.",
+    "Thermal paper rolls and labels for distributors, importers, and private-label buyers. Confirm size, material, files, samples, packing, and delivery terms.",
   path: "/",
   keywords: [
     "thermal paper rolls manufacturer",
@@ -144,9 +144,10 @@ export default function HomePage() {
             slotKey="home.hero"
             alt="Thermal paper manufacturing line with finished paper rolls ready for wholesale supply"
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="100vw"
-            quality={88}
+            quality={76}
             className="-z-20 object-cover object-[62%_center]"
           />
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.84)_48%,rgba(8,20,18,0.24)_82%,rgba(8,20,18,0.08)_100%)]" />

@@ -8,7 +8,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Compliance Certificates | ISO, BPA-Free, REACH, FSC Downloads",
+  title: "Thermal Paper Certificates",
   description: "Download thermal paper compliance certificates: ISO 9001:2015, BPA-free declaration, REACH SVHC statement, FSC chain of custody, EU food contact, FDA 21 CFR.",
   keywords: "thermal paper certificates download, ISO certificate thermal paper, BPA free thermal paper certificate",
   alternates: { canonical: canonicalUrl("/compliance/certificates") },

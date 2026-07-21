@@ -25,9 +25,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Factory | ISO 9001 Manufacturing & QC",
+  title: "Thermal Paper Factory & Quality Control",
   description:
-    "Visit Zhixin Paper's ISO 9001 thermal paper factory. Review production capacity, slitting, die-cutting, custom printing, quality control, certificates, batch records, and export packing for thermal paper rolls and labels.",
+    "Review thermal paper and label production, slitting, die-cutting, custom printing, batch quality control, document routes, export packing, and audits.",
   keywords: [
     "thermal paper factory",
     "thermal paper manufacturer China",
@@ -176,7 +176,8 @@ export default function FactoryPage() {
               slotKey="factory.banner"
               alt="Inside Zhixin Paper thermal paper manufacturing line"
               fill
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes="100vw"
               className="object-cover opacity-70 saturate-[1.08]"
             />

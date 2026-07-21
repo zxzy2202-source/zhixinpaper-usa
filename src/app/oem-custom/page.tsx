@@ -8,9 +8,9 @@ import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, ShieldCheck, Play } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "OEM Thermal Paper — Private Label & Custom Printing",
+  title: "OEM Thermal Paper & Private Label",
   description:
-    "OEM thermal paper rolls and labels with private label and custom printing. Low MOQ, fast samples, full packaging customization. White label thermal paper manufacturer.",
+    "OEM thermal paper rolls and labels with custom printing, branded packaging, core options, specification checks, samples, document routes, and export packing.",
   alternates: { canonical: canonicalUrl("/oem-custom") },
 };
 
