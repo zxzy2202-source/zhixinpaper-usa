@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "test:product-explorer": "node --import tsx --test tests/product-explorer.test.ts",
+    "test:optimization-log": "node --import tsx --test tests/optimization-log.test.ts",
     "test:contracts": "node --test tests/thermal-paper-keyword-owners.contract.test.mjs tests/product-hub.contract.test.mjs",
     "db:init": "node scripts/init-db.mjs",
+    "optimization:log": "node --import tsx scripts/publish-optimization-log.ts",
     "admin:create": "node scripts/create-admin.mjs",
     "migrate:r2": "node scripts/migrate-blob-to-r2.mjs",
     "feishu:read": "node scripts/read-feishu-wiki.mjs"

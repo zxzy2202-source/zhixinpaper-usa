@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { COMPANY } from "@/lib/data";
 
 // Strip non-digit characters from the WhatsApp number
@@ -11,6 +12,7 @@ const waMessage = encodeURIComponent(
 const waUrl = `https://wa.me/${waNumber}?text=${waMessage}`;
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [pulse, setPulse] = useState(true);
@@ -24,6 +26,8 @@ export default function WhatsAppButton() {
       clearTimeout(pulseTimer);
     };
   }, []);
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <div

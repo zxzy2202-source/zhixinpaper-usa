@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   LayoutDashboard, FileText, Settings,
   LogOut, Globe, MessageSquare,
-  Menu, X, ExternalLink, Image as ImageIcon, Home
+  Menu, X, ExternalLink, Image as ImageIcon, Home, History
 } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
@@ -27,6 +27,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/admin/image-slots", icon: ImageIcon, label: "图片管理" },
   { href: "/admin/blog", icon: FileText, label: "文章管理" },
   { href: "/admin/inquiries", icon: MessageSquare, label: "客户询盘" },
+  { href: "/admin/optimizations", icon: History, label: "优化记录" },
   { href: "/admin/settings", icon: Settings, label: "SEO 设置" },
 ];
 
