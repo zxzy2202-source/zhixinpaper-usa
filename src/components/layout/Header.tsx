@@ -9,7 +9,7 @@ import {
   CheckCircle2, ChevronDown, Menu, X, Phone, Mail, ArrowRight,
   Globe, ShieldCheck, BookOpen, Users,
   Package, Tag, Settings, FileText, MapPin,
-  Factory as FactoryIcon, Award, Cpu, BarChart2, Eye,
+  Factory as FactoryIcon, Award, Cpu, BarChart2,
   Newspaper, Briefcase, HelpCircle, Info, MessageSquare, Printer, Ruler,
 } from "lucide-react";
 
@@ -305,100 +305,74 @@ function IndustriesMegaMenu() {
   );
 }
 
-// ─── Factory Dropdown ──────────────────────────────────────────────────────────
-function FactoryDropdown() {
+// ─── Factory & Quality Mega Menu ──────────────────────────────────────────────
+function FactoryQualityMegaMenu() {
   const pathname = usePathname();
-  const items = [
-    { label: "Factory Overview",     href: "/factory/overview",       icon: FactoryIcon, desc: "Facilities & capabilities",  tag: "P1" as Tag },
-    { label: "Equipment & Machines", href: "/factory/equipment",      icon: Cpu,         desc: "Production line details" },
-    { label: "Production Capacity",  href: "/factory/capacity",       icon: BarChart2,   desc: "Output & lead times" },
-    { label: "Quality Control",      href: "/factory/quality-control",icon: Award,       desc: "QC process & standards" },
-    { label: "Virtual Factory Tour", href: "/factory/virtual-tour",   icon: Eye,         desc: "360° facility walkthrough" },
+  const sections = [
+    {
+      eyebrow: "Verify production",
+      title: "Factory capability",
+      description: "Understand the production route, equipment fit, and supply planning before confirming a project.",
+      items: [
+        { label: "Factory Overview", href: "/factory", icon: FactoryIcon, desc: "Facility, workflow, and factory evidence" },
+        { label: "Equipment & Processes", href: "/factory/equipment", icon: Cpu, desc: "Production stages and equipment routes" },
+        { label: "Capacity & Supply Planning", href: "/factory/capacity", icon: BarChart2, desc: "Quantity, timing, and supply review" },
+      ],
+    },
+    {
+      eyebrow: "Verify evidence",
+      title: "Quality assurance",
+      description: "Review controls and documentation against the selected material, application, and destination market.",
+      items: [
+        { label: "Quality Control", href: "/factory/quality-control", icon: Award, desc: "Inspection planning and traceability" },
+        { label: "Compliance & Documents", href: "/compliance", icon: FileText, desc: "Certificates, declarations, and validity" },
+        { label: "Material & Market Requirements", href: "/compliance/reach-rohs", icon: ShieldCheck, desc: "Chemical, food-contact, and market routes" },
+      ],
+    },
   ];
-  return (
-    <div className="w-[300px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
-      <div className="p-2">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
-                pathname === item.href
-                  ? "bg-[#e7eee9] text-[#0f5f5c]"
-                  : "text-[#33413e] hover:bg-white"
-              }`}
-            >
-              <div className={`w-8 h-8  flex items-center justify-center shrink-0 ${
-                pathname === item.href ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
-              }`}>
-                <Icon className={`w-4 h-4 ${pathname === item.href ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1">
-                  <span className="font-medium">{item.label}</span>
-                </div>
-                {item.desc && <div className="mt-0.5 text-xs text-[#87918c]">{item.desc}</div>}
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-      <div className="border-t border-[#ded6c8] bg-[#f4f0e8] px-4 py-3">
-        <Link href="/factory" className="flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
-          Factory & OEM overview <ArrowRight className="w-3 h-3" />
-        </Link>
-      </div>
-    </div>
-  );
-}
 
-// ─── Compliance Dropdown ───────────────────────────────────────────────────────
-function ComplianceDropdown() {
-  const pathname = usePathname();
-  const items = [
-    { label: "Certificates",      href: "/compliance/certificates",  icon: FileText,    desc: "Download ISO, FSC, BPA-free docs", tag: "P1" as Tag },
-    { label: "BPA / Phenol-Free", href: "/compliance/bpa-free",      icon: ShieldCheck, desc: "Grade terms and evidence scope",      tag: "SEO" as Tag },
-    { label: "REACH & RoHS",      href: "/compliance/reach-rohs",    icon: ShieldCheck, desc: "EU chemical compliance",            tag: "SEO" as Tag },
-    { label: "ISO 9001",          href: "/compliance/iso-9001",      icon: Award,       desc: "Quality management system" },
-    { label: "FSC® Paper",        href: "/compliance/fsc-paper",     icon: BookOpen,    desc: "Sustainable forest sourcing" },
-    { label: "EU Food Contact",   href: "/compliance/eu-food-contact",icon: ShieldCheck, desc: "Regulation (EC) No 1935/2004",     tag: "New" as Tag },
-    { label: "FDA Compliant (US)",href: "/compliance/fda-us",        icon: ShieldCheck, desc: "US food contact compliance",        tag: "New" as Tag },
-  ];
   return (
-    <div className="w-[320px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
-      <div className="p-2">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
-                pathname === item.href
-                  ? "bg-[#e7eee9] text-[#0f5f5c]"
-                  : "text-[#33413e] hover:bg-white"
-              }`}
-            >
-              <div className={`w-8 h-8  flex items-center justify-center shrink-0 ${
-                pathname === item.href ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
-              }`}>
-                <Icon className={`w-4 h-4 ${pathname === item.href ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1">
-                  <span className="font-medium">{item.label}</span>
-                </div>
-                {item.desc && <div className="mt-0.5 text-xs text-[#87918c]">{item.desc}</div>}
-              </div>
-            </Link>
-          );
-        })}
+    <div className="w-[min(92vw,680px)] overflow-hidden border border-[#c8bcaa] bg-[#fbfaf6] shadow-[0_32px_84px_rgba(8,20,18,0.24)]">
+      <div className="grid grid-cols-2 divide-x divide-[#ded6c8]">
+        {sections.map((section) => (
+          <section key={section.title} className="min-w-0 p-5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9c661d]">{section.eyebrow}</p>
+            <h2 className="mt-1.5 text-lg font-bold text-[#14211f]">{section.title}</h2>
+            <p className="mt-2 min-h-10 text-xs leading-5 text-[#687772]">{section.description}</p>
+            <div className="mt-4 space-y-1">
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const active = pathname === item.href || (item.href !== "/factory" && item.href !== "/compliance" && pathname.startsWith(item.href + "/"));
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`group flex min-h-[58px] items-start gap-3 border-l-2 px-3 py-2.5 text-sm transition-[background-color,border-color,color] ${
+                      active
+                        ? "border-[#0f5f5c] bg-[#e7eee9] text-[#0f5f5c]"
+                        : "border-transparent text-[#33413e] hover:border-[#d6b273] hover:bg-white"
+                    }`}
+                  >
+                    <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center ${active ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"}`}>
+                      <Icon className={`h-4 w-4 ${active ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-semibold leading-5">{item.label}</span>
+                      <span className="mt-0.5 block text-xs leading-4 text-[#87918c]">{item.desc}</span>
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        ))}
       </div>
-      <div className="border-t border-[#ded6c8] bg-[#f4f0e8] px-4 py-3">
-        <Link href="/compliance" className="flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
-          All certifications <ArrowRight className="w-3 h-3" />
+      <div className="flex items-center justify-between gap-4 border-t border-[#ded6c8] bg-[#f4f0e8] px-5 py-3 text-xs">
+        <Link href="/factory/virtual-tour" className="inline-flex items-center gap-1 font-semibold text-[#0f5f5c] hover:underline">
+          Take the virtual factory tour <ArrowRight className="h-3 w-3" />
+        </Link>
+        <Link href="/quote" className="inline-flex shrink-0 items-center gap-1 font-bold text-[#9c661d] hover:underline">
+          Discuss requirements <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
     </div>
@@ -598,7 +572,7 @@ function MarketsDropdown() {
 
 // ─── Nav config ───────────────────────────────────────────────────────────────
 // Top-level nav labels
-const NAV_LABELS = ["Home", "Products", "Industries", "Factory", "Compliance", "Resources", "About", "Export"] as const;
+const NAV_LABELS = ["Home", "Products", "Industries", "Factory & Quality", "Resources", "About", "Export"] as const;
 type NavLabel = typeof NAV_LABELS[number];
 
 // Dropdown alignment: "center" | "left" | "right"
@@ -606,8 +580,7 @@ const NAV_ALIGN: Record<NavLabel, "center" | "left" | "right"> = {
   Home:       "left",
   Products:   "left",
   Industries: "left",
-  Factory:    "center",
-  Compliance: "center",
+  "Factory & Quality": "center",
   Resources:  "center",
   About:      "right",
   Export:     "right",
@@ -637,21 +610,14 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "Healthcare & Pharma",   href: "/industries/healthcare-pharma" },
     { label: "Retail & POS",          href: "/industries/retail-pos" },
   ],
-  Factory: [
-    { label: "Factory Overview",      href: "/factory/overview",        tag: "P1" },
-    { label: "Equipment & Machines",  href: "/factory/equipment" },
-    { label: "Production Capacity",   href: "/factory/capacity" },
-    { label: "Quality Control",       href: "/factory/quality-control" },
-    { label: "Virtual Factory Tour",  href: "/factory/virtual-tour" },
-  ],
-  Compliance: [
-    { label: "Certificates",          href: "/compliance/certificates",   tag: "P1" },
-    { label: "BPA / Phenol-Free",     href: "/compliance/bpa-free",       tag: "SEO" },
-    { label: "REACH & RoHS",          href: "/compliance/reach-rohs",     tag: "SEO" },
-    { label: "ISO 9001",              href: "/compliance/iso-9001" },
-    { label: "FSC® Paper",            href: "/compliance/fsc-paper" },
-    { label: "EU Food Contact",       href: "/compliance/eu-food-contact",tag: "New" },
-    { label: "FDA Compliant (US)",    href: "/compliance/fda-us",         tag: "New" },
+  "Factory & Quality": [
+    { label: "Factory Overview", href: "/factory", sub: "Facility, workflow, and factory evidence" },
+    { label: "Equipment & Processes", href: "/factory/equipment", sub: "Production stages and equipment routes" },
+    { label: "Capacity & Supply Planning", href: "/factory/capacity", sub: "Quantity, timing, and supply review" },
+    { label: "Quality Control", href: "/factory/quality-control", sub: "Inspection planning and traceability" },
+    { label: "Compliance & Documents", href: "/compliance", sub: "Certificates, declarations, and validity" },
+    { label: "Material & Market Requirements", href: "/compliance/reach-rohs", sub: "Chemical, food-contact, and market routes" },
+    { label: "Virtual Factory Tour", href: "/factory/virtual-tour" },
   ],
   Resources: [
     { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", tag: "SEO" },
@@ -707,8 +673,7 @@ export default function Header() {
     Home:       "/",
     Products:   "/products",
     Industries: "/industries",
-    Factory:    "/factory",
-    Compliance: "/compliance",
+    "Factory & Quality": "/factory",
     Resources:  "/blog",
     About:      "/about",
     Export:     "/eu",
@@ -718,8 +683,7 @@ export default function Header() {
     switch (label) {
       case "Products":    return <ProductsMegaMenu />;
       case "Industries":  return <IndustriesMegaMenu />;
-      case "Factory":     return <FactoryDropdown />;
-      case "Compliance":  return <ComplianceDropdown />;
+      case "Factory & Quality": return <FactoryQualityMegaMenu />;
       case "Resources":   return <ResourcesDropdown />;
       case "About":       return <AboutDropdown />;
       case "Export":      return <MarketsDropdown />;
@@ -792,9 +756,11 @@ export default function Header() {
             {NAV_LABELS.map((label) => {
               const href = navHref[label];
               const hasDrop = hasDropdown(label);
-              const active = label === "Home"
-                ? pathname === "/"
-                : isActive(href) || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca") || pathname.startsWith("/mx")));
+               const active = label === "Home"
+                 ? pathname === "/"
+                 : isActive(href)
+                   || (label === "Factory & Quality" && pathname.startsWith("/compliance"))
+                   || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca") || pathname.startsWith("/mx")));
 
               return (
                 <div
@@ -963,13 +929,15 @@ export default function Header() {
 
                               </Link>
                             ))}
-                            <Link
-                              href={href}
-                              onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#0f5f5c] hover:underline"
-                            >
-                              View all {label} <ArrowRight className="w-3 h-3" />
-                            </Link>
+                            {label !== "Factory & Quality" && (
+                              <Link
+                                href={href}
+                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#0f5f5c] hover:underline"
+                              >
+                                View all {label} <ArrowRight className="w-3 h-3" />
+                              </Link>
+                            )}
                           </div>
                         )}
                       </>

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -325,20 +327,21 @@ export default async function FactorySlugPage({ params }: { params: Promise<{ sl
     <>
       <Header />
       <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className={`${page.hero} text-white py-16`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-white/60 text-sm mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span>/</span>
-            <Link href="/factory" className="hover:text-white">Factory</Link>
-            <span>/</span>
-            <span className="text-white">{page.title}</span>
-          </nav>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">{page.title}</h1>
-          <p className="text-white/80 text-lg">{page.subtitle}</p>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Factory capability"
+        title={page.title}
+        description={page.subtitle}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Factory", href: "/factory" },
+          { label: page.title },
+        ]}
+        actions={[
+          { label: "Contact Our Team", href: "/contact", kind: "primary" },
+          { label: "OEM Services", href: "/oem-custom", kind: "secondary" },
+        ]}
+      />
 
       {/* Sub-navigation */}
       <div className="bg-white border-b border-slate-200 sticky top-16 z-40">
@@ -366,18 +369,16 @@ export default async function FactorySlugPage({ params }: { params: Promise<{ sl
         {page.content}
       </div>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-14">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Visit or Partner With Us?</h2>
-          <p className="text-blue-100 mb-8">Contact our team to arrange a factory visit, request a video tour, or discuss OEM partnership opportunities.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">Contact Us</Link>
-            <Link href="/oem-custom" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">OEM Services</Link>
-          </div>
-        </div>
-      </section>
     </main>
+      <CTABanner
+        title="Ready to review factory fit?"
+        subtitle="Arrange a factory discussion, request available verification material, or review the OEM path with our team."
+        primaryLabel="Contact Our Team"
+        primaryHref="/contact"
+        secondaryLabel="OEM Services"
+        secondaryHref="/oem-custom"
+        showTrust={false}
+      />
       <Footer />
     </>
   );

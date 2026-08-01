@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -20,24 +21,21 @@ export default function FDAUSPage() {
     <>
       <Header />
       <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-slate-800 text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/compliance" className="hover:text-white">Compliance</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">FDA US</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-red-500/30 text-red-200 text-sm font-medium px-3 py-1 rounded-full mb-4">US Market Compliance</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">FDA Compliant Thermal Paper for the US Market</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Our FDA-compliant thermal paper and label products meet the requirements of FDA 21 CFR (Code of Federal Regulations) for food contact materials, enabling safe use in US food service, retail, and packaging applications.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="US market compliance"
+        title="FDA Documentation for Thermal Paper and Labels"
+        description="Review the applicable 21 CFR sections, intended food-contact conditions, and grade-specific declarations before approving material for a US program."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "FDA US" },
+        ]}
+        actions={[
+          { label: "Request Documents", href: "/compliance/certificates", kind: "primary" },
+          { label: "US Market Overview", href: "/us", kind: "secondary" },
+        ]}
+      />
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -89,16 +87,6 @@ export default function FDAUSPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-red-700 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">FDA Compliance Documentation</h2>
-          <p className="text-blue-100 mb-8">Our FDA compliance letters and test reports are available for all food-contact grade products. Contact our compliance team for documentation.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificates</Link>
-            <Link href="/us" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">US Market Overview</Link>
-          </div>
-        </div>
-      </section>
     </main>
       <CTABanner title="Need FDA Compliance Documentation?" subtitle="Request our FDA 21 CFR compliance declarations and test reports for the US market." primaryLabel="Get Documents" secondaryLabel="Request a Quote" />
     <Footer />

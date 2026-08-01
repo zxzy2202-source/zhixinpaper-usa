@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
 };
 
 const benefits = [
-  { title: "Your Brand, Our Manufacturing", desc: "We produce thermal paper rolls and labels to your exact specifications, packaged under your brand name with your logo, colors, and product codes." },
-  { title: "Custom Packaging Options", desc: "Choose from shrink-wrapped rolls, retail boxes, bulk cartons, or custom packaging designs. We handle all packaging artwork and production." },
-  { title: "Branded Core Printing", desc: "Cores can be printed with your brand name, product code, and barcode for professional presentation and inventory management." },
-  { title: "Full Compliance Documentation", desc: "All private label products come with full compliance documentation including ISO certificates, BPA-free declarations, and REACH statements in your brand name." },
-  { title: "Flexible MOQ", desc: "Private label service available from 50,000 rolls or 100,000 labels. Lower MOQ available for established distributor partners." },
-  { title: "15-Day Lead Time", desc: "Standard private label orders ship within 15 working days of artwork approval. Rush orders available for established accounts." },
+  { title: "Brand-Led Product Planning", desc: "We review the roll or label specification, brand identity, product codes, and market requirements before confirming a private-label production route." },
+  { title: "Packaging Options", desc: "Shrink wrap, retail boxes, bulk cartons, and custom packing concepts can be reviewed against quantity, protection, labeling, and destination requirements." },
+  { title: "Core and Product Identification", desc: "Core printing, product codes, and barcode options can be assessed according to the roll format, print method, and operational needs." },
+  { title: "Document Scope Review", desc: "Available certificates, declarations, and test reports are confirmed for the selected material grade, intended application, destination, and current document validity." },
+  { title: "Project-Based Order Quantity", desc: "Order quantity is quoted after reviewing product dimensions, material, printing, packing, artwork, and production setup rather than applying one figure to every project." },
+  { title: "Reviewed Production Schedule", desc: "Artwork status, sampling, materials, production capacity, packing, and shipping requirements are reviewed before a project schedule is confirmed." },
 ];
 
 export default function PrivateLabelPage() {
@@ -29,28 +30,21 @@ export default function PrivateLabelPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/oem-custom" className="hover:text-white">OEM & Custom</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Private Label</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">White Label Service</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Private Label Thermal Paper</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Build your own thermal paper brand with our full private label service. We manufacture, package, and certify — you sell under your brand name.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Get Private Label Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Private-label project planning"
+        title="Private Label Thermal Paper"
+        description="Build a branded roll or label range through specification review, artwork approval, sampling, packaging planning, and project-specific documentation checks."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM & Custom", href: "/oem-custom" },
+          { label: "Private Label" },
+        ]}
+        actions={[
+          { label: "Request a Project Quote", href: "/quote", kind: "primary" },
+          { label: "Plan Samples", href: "/samples", kind: "secondary" },
+        ]}
+      />
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -84,15 +78,12 @@ export default function PrivateLabelPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Start Your Private Label Programme</h2>
-          <p className="text-blue-100 mb-8">Contact our OEM team to discuss your requirements and receive a tailored private label proposal.</p>
-          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Get a Private Label Quote</Link>
-        </div>
-      </section>
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Ready to review a private-label project?"
+        subtitle="Share the product specification, expected quantity, artwork status, packing plan, destination, and sample requirements for review."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

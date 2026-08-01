@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -28,27 +29,18 @@ export default function SampleProcessPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/oem-custom" className="hover:text-white">OEM & Custom</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Sample Process</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Free Samples</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">How Our Sample Process Works</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              We offer free samples of all standard products to qualified distributors and importers. Evaluate our quality before committing to a production order — no obligation, no cost.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/samples" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request Free Samples</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Sample evaluation"
+        title="How Our Sample Process Works"
+        description="Plan sample selection around the printer, application, dimensions, material, adhesive, print, and document needs. Availability, preparation time, freight, and any sample charges are confirmed after request review."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM & Custom", href: "/oem-custom" },
+          { label: "Sample Process" },
+        ]}
+        actions={[{ label: "Submit Sample Requirements", href: "/samples", kind: "primary" }]}
+      />
 
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-6">
@@ -93,15 +85,12 @@ export default function SampleProcessPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Request Your Free Samples Today</h2>
-          <p className="text-blue-100 mb-8">Samples are free for qualified distributors and importers. Complete our sample request form and we'll dispatch within 3 working days.</p>
-          <Link href="/samples" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Request Free Samples</Link>
-        </div>
-      </section>
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Ready to plan sample evaluation?"
+        subtitle="Share the device, application, dimensions, material, adhesive, print, quantity, destination, and evaluation criteria for sample review."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

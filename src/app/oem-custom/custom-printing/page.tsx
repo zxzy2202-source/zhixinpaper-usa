@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -29,28 +30,21 @@ export default function CustomPrintingPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/oem-custom" className="hover:text-white">OEM & Custom</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Custom Printing</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Custom Print Service</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Custom Printed Thermal Paper</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Turn every receipt into a brand touchpoint. Our full-color flexographic printing service puts your logo, messaging, and QR codes on every roll — with no compromise on thermal print quality.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/quote" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Get Printing Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Print Samples</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Custom print planning"
+        title="Custom Printed Thermal Paper"
+        description="Develop branded rolls or labels through artwork review, print-method selection, color and registration checks, sampling, and project-specific production planning."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM & Custom", href: "/oem-custom" },
+          { label: "Custom Printing" },
+        ]}
+        actions={[
+          { label: "Request a Printing Review", href: "/quote", kind: "primary" },
+          { label: "Plan Print Samples", href: "/samples", kind: "secondary" },
+        ]}
+      />
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -94,15 +88,12 @@ export default function CustomPrintingPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Print Your Brand?</h2>
-          <p className="text-blue-100 mb-8">Send us your artwork and requirements for a custom printing quote within 24 hours.</p>
-          <Link href="/quote" className="bg-white text-blue-700 font-semibold px-10 py-4  hover:bg-blue-50 transition-colors inline-block">Request Custom Print Quote</Link>
-        </div>
-      </section>
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Ready to review custom printing?"
+        subtitle="Share the product dimensions, material, artwork, colors, quantity, packing, and destination so the print route and schedule can be assessed."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

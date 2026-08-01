@@ -3,24 +3,25 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
 
 export const metadata: Metadata = {
-  title: "Quality Control | ISO 9001 Thermal Paper Manufacturer",
-  description: "ISO 9001:2015 certified quality management system. 100% inline inspection, incoming material testing, and full batch traceability for thermal paper and labels.",
-  keywords: "thermal paper quality testing, ISO 9001 label manufacturer, quality management thermal paper",
+  title: "Quality Control | Thermal Paper Manufacturing",
+  description: "Review Zhixin Paper's material checks, in-process controls, finished-goods testing, traceability approach, and project-specific document review for thermal paper and labels.",
+  keywords: "thermal paper quality testing, label manufacturing quality control, thermal paper batch traceability",
   alternates: { canonical: canonicalUrl("/factory/quality-control") },
 };
 
 const qcSteps = [
-  { step: "01", title: "Incoming Material Inspection", desc: "All base paper, thermal coating chemicals, adhesives, and packaging materials are tested against specification before entering production. Certificates of conformity are verified for every batch." },
-  { step: "02", title: "In-Process Quality Monitoring", desc: "Inline sensors monitor coating weight, caliper, and image density continuously during production. Statistical process control (SPC) charts flag deviations before they become defects." },
-  { step: "03", title: "100% Vision Inspection", desc: "Every finished roll passes through our automated vision inspection system, which detects coating voids, print defects, splices, and dimensional non-conformances at production speed." },
-  { step: "04", title: "Finished Goods Testing", desc: "Random samples from every production batch are tested in our laboratory for image density, fade resistance, adhesion (labels), chemical compliance, and dimensional accuracy." },
-  { step: "05", title: "Batch Traceability", desc: "Every roll and label pack carries a unique batch code traceable to raw material lot, production line, operator, and test results — enabling rapid response to any quality issue." },
-  { step: "06", title: "Customer Complaint Resolution", desc: "Our quality team responds to customer complaints within 24 hours with a preliminary root cause analysis, and within 5 working days with a full 8D corrective action report." },
+  { step: "01", title: "Incoming Material Review", desc: "Base paper, adhesives, coatings, and packaging materials are checked against the approved purchase and product specifications before use. Available supplier documents are reviewed according to the material and project scope." },
+  { step: "02", title: "In-Process Monitoring", desc: "Production teams monitor relevant process settings and product characteristics during converting, printing, and packing. The control plan depends on the construction, equipment, and agreed acceptance criteria." },
+  { step: "03", title: "Visual and Dimensional Checks", desc: "Inspection methods may include visual checks, dimensional measurements, print review, splice review, and sampling at defined production stages. The exact inspection route is confirmed during project review." },
+  { step: "04", title: "Finished-Goods Testing", desc: "Batch samples can be checked for characteristics such as image response, dimensions, winding, adhesion, barcode readability, or print quality when those checks are relevant to the approved specification." },
+  { step: "05", title: "Production Records", desc: "Production and inspection records are maintained using the applicable batch and order references. Traceability detail depends on the product route, packaging format, and agreed documentation plan." },
+  { step: "06", title: "Issue Review and Corrective Action", desc: "Reported quality issues are logged and reviewed against samples, specifications, production records, and use conditions. Response timing and corrective-action format are agreed according to the issue scope and evidence available." },
 ];
 
 export default function QualityControlPage() {
@@ -29,24 +30,21 @@ export default function QualityControlPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/factory" className="hover:text-white">Factory</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Quality Control</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">ISO 9001:2015 Certified</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Quality Management System</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Our ISO 9001:2015 certified quality management system covers every stage from raw material receipt to finished goods dispatch — ensuring consistent quality in every roll and every label.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Manufacturing quality control"
+        title="Quality Management System"
+        description="Review how material checks, in-process monitoring, finished-goods testing, production records, and issue handling are planned around the approved product specification and application."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Factory", href: "/factory" },
+          { label: "Quality Control" },
+        ]}
+        actions={[
+          { label: "Discuss Quality Requirements", href: "/quote", kind: "primary" },
+          { label: "Review Available Documents", href: "/compliance/certificates", kind: "secondary" },
+        ]}
+      />
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -69,42 +67,36 @@ export default function QualityControlPage() {
 
       <section className="bg-slate-50 py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">Certifications & Standards</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">Documentation Review</h2>
+          <p className="max-w-3xl text-slate-600 leading-relaxed mb-8">
+            Certificate, declaration, and test-report availability varies by material grade, supplier source, intended application, destination market, and current document validity. Share the exact specification and intended use so our team can confirm the applicable evidence before an order decision.
+          </p>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { cert: "ISO 9001:2015", scope: "Quality Management System — full manufacturing scope" },
-              { cert: "BPA-Free", scope: "All standard products — EU REACH regulation compliant" },
-              { cert: "REACH/RoHS", scope: "SVHC substances below threshold — EU market compliant" },
-              { cert: "FSC Chain of Custody", scope: "Responsibly sourced base paper — FSC-C certified" },
-              { cert: "EU Food Contact", scope: "Food-safe thermal paper and labels — EU Regulation 10/2011" },
-              { cert: "FDA 21 CFR", scope: "US food contact compliant thermal paper and labels" },
+              { cert: "Quality System", scope: "Review the current certificate, issuing body, validity, and manufacturing scope." },
+              { cert: "Material Declarations", scope: "Confirm BPA/BPS, restricted-substance, or sourcing statements for the selected construction." },
+              { cert: "Application Evidence", scope: "Check whether food-contact, healthcare, transport, or other use-specific evidence applies." },
             ].map((c) => (
-              <div key={c.cert} className="bg-white  p-5 border border-slate-200">
-                <div className="text-blue-600 font-bold text-lg mb-1">{c.cert}</div>
+              <div key={c.cert} className="bg-white p-5 border border-slate-200">
+                <div className="text-[#0f5f5c] font-bold text-lg mb-1">{c.cert}</div>
                 <div className="text-slate-500 text-sm">{c.scope}</div>
               </div>
             ))}
           </div>
           <div className="mt-8">
-            <Link href="/compliance/certificates" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
-              Download All Certificates →
+            <Link href="/compliance/certificates" className="inline-flex items-center text-[#0f5f5c] font-semibold hover:text-[#14211f] transition-colors">
+              Review certificate guidance →
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Request Quality Documentation</h2>
-          <p className="text-blue-100 mb-8">We provide full quality documentation including test reports, certificates, and MSDS sheets for all products.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificates</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Contact Quality Team</Link>
-          </div>
-        </div>
-      </section>
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Ready to define the quality plan?"
+        subtitle="Share the product specification, application, destination, acceptance criteria, and documentation needs for a project-specific review."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

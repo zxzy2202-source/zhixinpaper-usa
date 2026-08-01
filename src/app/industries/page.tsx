@@ -249,20 +249,9 @@ export default function IndustriesPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <main id="main-content" className="pt-[88px]">
-        <section className="paper-noise relative overflow-hidden bg-[#101b19] text-white">
-          <div className="absolute inset-0">
-            <SlotImage
-              slotKey="home.hero"
-              fill
-              sizes="100vw"
-              className="object-cover object-[58%_center]"
-              preload
-              quality={78}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_18%,rgba(185,130,47,0.10),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.82)_0%,rgba(16,27,25,0.62)_44%,rgba(16,27,25,0.20)_100%)]" />
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#101b19] to-transparent" />
-          </div>
+      <main id="main-content">
+        <section className="paper-noise relative overflow-hidden bg-[#101b19] text-white" style={{ paddingTop: "var(--site-header-offset)" }}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_16%,rgba(185,130,47,0.14),transparent_28rem)]" />
 
           <div className="container-site relative z-10 py-14 md:py-18 lg:py-22">
             <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
@@ -293,20 +282,6 @@ export default function IndustriesPage() {
                   </Link>
                 </div>
 
-                <div className="mt-8 grid max-w-2xl grid-cols-3 gap-px bg-white/14">
-                  {[
-                    ["13+", "Industry pages"],
-                    ["24 h", "Quote response"],
-                    ["OEM", "Carton programs"],
-                  ].map(([value, label]) => (
-                    <div key={label} className="bg-[#101b19]/82 p-3 sm:p-4">
-                      <div className="text-xl font-extrabold text-white sm:text-2xl">{value}</div>
-                      <div className="mt-1 text-[10px] font-bold text-[#c7d0cb] sm:text-xs">
-                        {label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div className="grid gap-3 md:grid-cols-[1.1fr_0.9fr]">
@@ -328,7 +303,7 @@ export default function IndustriesPage() {
                   </div>
                 </div>
 
-                <div className="grid gap-3">
+                <div className="hidden gap-3 md:grid">
                   {[
                     {
                       slot: "home.product.thermal-labels" as SlotName,

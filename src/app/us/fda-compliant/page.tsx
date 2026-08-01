@@ -4,6 +4,7 @@ import { ArrowRight, ShieldCheck, CheckCircle, FileText, AlertCircle } from "luc
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { canonicalUrl } from "@/lib/seo";
 
@@ -65,38 +66,21 @@ export default function FDACompliantPage() {
 
     <>
       <Header />
-      <main className="pt-24">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 text-white pt-32 pb-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="flex items-center gap-2 text-blue-200 text-sm mb-4">
-            <Link href="/us" className="hover:text-white transition-colors">United States</Link>
-            <span>/</span>
-            <span>FDA Compliant</span>
-          </div>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20  flex items-center justify-center">
-              <ShieldCheck className="w-7 h-7 text-white" />
-            </div>
-            <span className="text-blue-200 font-semibold text-sm uppercase tracking-widest">US Compliance</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            FDA Compliant Thermal Paper<br />
-            <span className="text-blue-200">&amp; Labels for the US Market</span>
-          </h1>
-          <p className="text-blue-100 text-lg max-w-3xl leading-relaxed mb-8">
-            Every thermal product we supply to US distributors and importers meets FDA food contact regulations. BPA-free formulations, 21 CFR documentation, and full traceability — so you can sell with confidence.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3  hover:bg-blue-50 transition-colors">
-              Request FDA Documentation <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/samples" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-6 py-3  hover:bg-white/10 transition-colors">
-              Request Free Samples
-            </Link>
-          </div>
-        </div>
-      </section>
+      <main>
+      <HeroBanner
+        variant="media"
+        eyebrow="US compliance review"
+        title="FDA Documentation for US Thermal Paper and Labels"
+        description="Confirm the quoted material grade, intended use, applicable 21 CFR scope, current declarations, and sample performance before approving a US program."
+        breadcrumbs={[
+          { label: "United States", href: "/us" },
+          { label: "FDA Documentation" },
+        ]}
+        actions={[
+          { label: "Request Documentation", href: "/quote", kind: "primary" },
+          { label: "Request Samples", href: "/samples", kind: "secondary" },
+        ]}
+      />
 
       {/* Compliance Features */}
       <section className="py-16 bg-white">

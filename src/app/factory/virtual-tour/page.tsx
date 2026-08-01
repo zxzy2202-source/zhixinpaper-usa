@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -29,39 +29,46 @@ export default function VirtualTourPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/factory" className="hover:text-white">Factory</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Virtual Tour</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">360° Factory Tour</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Virtual Factory Tour</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Explore our 50,000 m² manufacturing facility from anywhere in the world. Walk through our production divisions, meet our quality team, and see the technology behind every roll and label we produce.
+      <HeroBanner
+        variant="media"
+        eyebrow="Factory walkthrough"
+        title="Virtual Factory Tour"
+        description="Review the main material-handling, converting, printing, inspection, packing, and warehouse areas relevant to thermal paper roll and label projects."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Factory", href: "/factory" },
+          { label: "Virtual Tour" },
+        ]}
+        actions={[{ label: "Request a Guided Review", href: "/contact", kind: "primary" }]}
+      />
+
+      <section aria-labelledby="factory-tour-video-title" className="bg-[#fbfaf6] py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="mb-8 max-w-3xl border-l-2 border-[#9c661d] pl-5">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#9c661d]">Factory video</p>
+            <h2 id="factory-tour-video-title" className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-[#14211f] sm:text-4xl">
+              Walk through the production environment
+            </h2>
+            <p className="mt-4 text-base leading-7 text-[#4f5f5a]">
+              Use the video to review the factory environment and visible production areas before requesting a focused live walkthrough.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Video Placeholder */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="bg-slate-800  aspect-video flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-slate-900/80" />
-            <div className="relative text-center text-white">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-white/30 transition-colors">
-                <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <p className="text-lg font-semibold">Factory Tour Video</p>
-              <p className="text-slate-300 text-sm mt-1">Click to play — 8 minute facility walkthrough</p>
-            </div>
+          <div className="overflow-hidden border border-[#c8bcaa] bg-[#101b19] shadow-[0_24px_60px_rgba(20,33,31,0.16)]">
+            <video
+              className="aspect-video w-full bg-black object-contain"
+              controls
+              playsInline
+              preload="metadata"
+              aria-label="Zhixin Paper factory tour video"
+            >
+              <source src="/videos/factory-tour.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video playback.
+            </video>
           </div>
-          <p className="text-slate-400 text-sm text-center mt-4">Contact us to request a live video call tour with our factory team.</p>
+          <p className="mt-4 text-center text-sm leading-6 text-[#687772]">
+            Contact us to arrange a live review focused on the equipment, process, or inspection checkpoints relevant to your project.
+          </p>
         </div>
       </section>
 
@@ -85,18 +92,12 @@ export default function VirtualTourPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Schedule a Live Factory Tour</h2>
-          <p className="text-blue-100 mb-8">We offer live video call tours with our factory team, or in-person visits for qualified distributors and importers.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Request Live Tour</Link>
-            <Link href="/factory/overview" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Factory Overview</Link>
-          </div>
-        </div>
-      </section>
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Need a guided factory review?"
+        subtitle="Tell us which products, processes, equipment, or audit checkpoints your team wants to examine so availability and scope can be confirmed."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

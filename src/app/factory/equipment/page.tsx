@@ -1,50 +1,74 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
+import { SlotImage } from "@/components/ui/SlotImage";
 import { canonicalUrl } from "@/lib/seo";
 
 
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Equipment",
-  description: "State-of-the-art thermal paper slitting machines, label die cutting equipment, and coating lines. Precision manufacturing for consistent quality at scale.",
+  description: "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
   keywords: "thermal paper slitting machines, label die cutting equipment, thermal paper manufacturing equipment",
   alternates: { canonical: canonicalUrl("/factory/equipment") },
 };
 
 const equipment = [
   {
-    category: "Thermal Coating Lines",
-    items: [
-      { name: "High-Speed Coating Machine", spec: "6 lines × 800 m/min", detail: "Applies proprietary thermal coating formulations with ±2 g/m² precision across full web width." },
-      { name: "Backcoat Application System", spec: "Integrated inline", detail: "Applies protective backcoat and anti-stick layers in a single pass for premium product grades." },
-    ],
+    slug: "thermal-coating",
+    category: "Thermal Coating",
+    summary: "Used within the coating stage for applicable thermal paper constructions and protective layers.",
+    roles: ["Material and coating-route preparation", "Controlled web handling through the coating stage", "Process checks against the approved product plan"],
+    slotKey: "factory.equipment.thermal-coating",
+    alt: "Thermal coating production equipment used in a paper manufacturing process",
+    objectPosition: "center",
   },
   {
+    slug: "slitting-rewinding",
     category: "Slitting & Rewinding",
-    items: [
-      { name: "Precision Slitting Lines", spec: "20+ lines, ±0.5mm tolerance", detail: "Servo-driven slitting with automatic tension control for consistent roll hardness and diameter." },
-      { name: "Automatic Rewinding Machines", spec: "Up to 300mm/min", detail: "High-speed rewinding with automatic core loading and roll ejection for maximum throughput." },
-      { name: "Jumbo Roll Slitter", spec: "Max width 1,600mm", detail: "Processes large-format base paper rolls into production-width reels for downstream conversion." },
-    ],
+    summary: "Supports roll conversion and rewinding according to the confirmed width, length, core, winding, and packing format.",
+    roles: ["Jumbo-roll conversion into finished formats", "Web tension and winding review", "Dimensional and roll-finish checks"],
+    slotKey: "factory.equipment.slitting-rewinding",
+    alt: "Paper roll slitting and rewinding equipment in a converting facility",
+    objectPosition: "center",
   },
   {
-    category: "Label Manufacturing",
-    items: [
-      { name: "Flexographic Printing Lines", spec: "8 lines, up to 8 colors", detail: "High-resolution flexo printing for custom label designs, logos, and variable data." },
-      { name: "Die Cutting Stations", spec: "4 stations, any shape", detail: "Rotary die cutting for standard and custom label shapes with kiss-cut and through-cut capability." },
-      { name: "Lamination Lines", spec: "3 lines", detail: "Thermal and pressure-sensitive lamination for multi-layer label constructions." },
-    ],
+    slug: "flexographic-printing",
+    category: "Flexographic Printing",
+    summary: "Supports custom back printing, branding, codes, and label graphics after artwork and print-route review.",
+    roles: ["Artwork and plate-route confirmation", "Ink, substrate, and color review", "Registration and print-sample checks"],
+    slotKey: "factory.equipment.flexographic-printing",
+    alt: "Flexographic printing equipment for custom paper and label projects",
+    objectPosition: "52% center",
   },
   {
-    category: "Quality & Inspection",
-    items: [
-      { name: "100% Vision Inspection System", spec: "Inline, real-time", detail: "Camera-based defect detection identifies coating voids, print defects, and dimensional errors." },
-      { name: "Environmental Test Chambers", spec: "−40°C to +150°C", detail: "Simulates extreme storage and use conditions for product qualification testing." },
-      { name: "Adhesion & Peel Test Equipment", spec: "FINAT/PSTC standards", detail: "Measures adhesion strength, peel force, and tack across all label adhesive formulations." },
-    ],
+    slug: "die-cutting-finishing",
+    category: "Die Cutting & Finishing",
+    summary: "Converts label materials into the agreed shape, pitch, liner, sensing, and finished-roll configuration.",
+    roles: ["Die and layout preparation", "Matrix removal and finishing", "Roll, fanfold, or sheet-format review"],
+    slotKey: "factory.equipment.die-cutting-finishing",
+    alt: "Label die cutting and finishing equipment in production",
+    objectPosition: "58% center",
+  },
+  {
+    slug: "lamination-converting",
+    category: "Lamination & Converting",
+    summary: "Combines or finishes applicable material layers where the product construction requires added protection or functionality.",
+    roles: ["Material-construction review", "Roll-fed lamination or converting", "Finished construction and winding checks"],
+    slotKey: "factory.equipment.lamination-converting",
+    alt: "Roll-fed lamination and converting equipment in a factory",
+    objectPosition: "center",
+  },
+  {
+    slug: "quality-inspection",
+    category: "Quality Inspection",
+    summary: "Inspection methods are selected against the agreed material, application, acceptance criteria, and quality plan.",
+    roles: ["Visual and dimensional review", "Print, barcode, adhesion, or image checks where applicable", "Production and inspection record review"],
+    slotKey: "factory.equipment.quality-inspection",
+    alt: "Quality inspection process for thermal paper and label rolls",
+    objectPosition: "46% center",
   },
 ];
 
@@ -54,56 +78,99 @@ export default function FactoryEquipmentPage() {
     <>
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/factory" className="hover:text-white">Factory</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Equipment</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Production Technology</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Manufacturing Equipment</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              From high-speed coating lines to precision slitting and label die cutting, our equipment portfolio enables consistent quality at volumes that meet the demands of global distributors.
+      <HeroBanner
+        variant="media"
+        eyebrow="Production technology"
+        title="Manufacturing Equipment"
+        description="Review the converting, printing, finishing, and inspection equipment used across thermal paper roll and label projects. Capabilities are confirmed against the required material, dimensions, print, and quality plan."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Factory", href: "/factory" },
+          { label: "Equipment" },
+        ]}
+        actions={[{ label: "Discuss Production Requirements", href: "/quote", kind: "primary" }]}
+      />
+
+      <section
+        data-component="equipment-showcase"
+        aria-labelledby="equipment-showcase-title"
+        className="overflow-hidden bg-[#fbfaf6] py-16 sm:py-20 lg:py-24"
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mb-14 max-w-3xl border-l-2 border-[#9c661d] pl-5 sm:mb-20">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#9c661d]">Production route</p>
+            <h2 id="equipment-showcase-title" className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-[#14211f] sm:text-4xl">
+              Equipment by process stage
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-[#4f5f5a] sm:text-lg">
+              Each project follows an equipment route selected for its material, dimensions, print, finishing, inspection, and packing requirements.
             </p>
           </div>
-        </div>
-      </section>
 
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6 space-y-16">
-          {equipment.map((cat) => (
-            <div key={cat.category}>
-              <h2 className="text-2xl font-bold text-slate-800 mb-8 pb-4 border-b border-slate-200">{cat.category}</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {cat.items.map((item) => (
-                  <div key={item.name} className="bg-slate-50  p-6 border border-slate-200">
-                    <h3 className="font-semibold text-slate-800 mb-2">{item.name}</h3>
-                    <div className="inline-block bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1  mb-3">{item.spec}</div>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.detail}</p>
+          <div className="divide-y divide-[#ded6c8]">
+            {equipment.map((item, index) => (
+              <article
+                key={item.slug}
+                data-component="equipment-feature"
+                data-equipment={item.slug}
+                aria-labelledby={`equipment-${item.slug}`}
+                className="grid min-w-0 gap-8 py-12 first:pt-0 last:pb-0 md:grid-cols-2 md:items-center md:gap-10 lg:gap-16 lg:py-20"
+              >
+                <div
+                  data-component="equipment-copy"
+                  className={`min-w-0 ${index % 2 === 1 ? "md:order-2" : ""}`}
+                >
+                  <p data-component="process-index" className="text-xs font-bold uppercase tracking-[0.12em] text-[#9c661d]">
+                    {String(index + 1).padStart(2, "0")} / {String(equipment.length).padStart(2, "0")}
+                  </p>
+                  <h2 id={`equipment-${item.slug}`} className="mt-3 break-words text-3xl font-semibold leading-tight tracking-[-0.015em] text-[#14211f]">
+                    {item.category}
+                  </h2>
+                  <p className="mt-4 max-w-[58ch] text-base leading-7 text-[#4f5f5a] sm:text-lg">
+                    {item.summary}
+                  </p>
+                  <div className="mt-7">
+                    <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#0f5f5c]">Typical role</p>
+                    <ul className="mt-3 space-y-3">
+                      {item.roles.map((role) => (
+                        <li key={role} className="flex gap-3 text-sm leading-6 text-[#354440] sm:text-base">
+                          <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 bg-[#9c661d]" />
+                          <span>{role}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                </div>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">See Our Equipment in Action</h2>
-          <p className="text-blue-100 mb-8">Take a virtual tour of our facility or request a factory visit to see our production capabilities firsthand.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Virtual Tour</Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Factory Audit</Link>
+                <div
+                  data-component="equipment-image"
+                  className={`group relative aspect-[16/10] min-w-0 overflow-hidden border border-[#ded6c8] bg-[#f4f0e8] shadow-[0_18px_48px_rgba(20,33,31,0.08)] md:aspect-[4/3] ${index % 2 === 1 ? "md:order-1" : ""}`}
+                >
+                  <SlotImage
+                    slotKey={item.slotKey}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) 48vw, 560px"
+                    className="object-cover saturate-[0.9] contrast-[1.03] transition-transform duration-200 motion-reduce:transition-none md:group-hover:scale-[1.015]"
+                    style={{ objectPosition: item.objectPosition }}
+                  />
+                  <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#101b19]/35 to-transparent" />
+                  <p className="absolute bottom-3 left-4 right-4 text-xs font-medium tracking-wide text-white/90">
+                    {item.category} process reference
+                  </p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
+
     </main>
-      <CTABanner />
+      <CTABanner
+        title="Want to review the production route?"
+        subtitle="Share the product specification and inspection needs so we can identify the relevant equipment, process stages, and available factory evidence."
+        showTrust={false}
+      />
     <Footer />
     </>
   );

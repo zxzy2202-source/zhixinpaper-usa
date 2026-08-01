@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -20,24 +21,21 @@ export default function ISO9001Page() {
     <>
       <Header />
       <main className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/compliance" className="hover:text-white">Compliance</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">ISO 9001</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Quality Certification</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">ISO 9001:2015 Quality Management</h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Our ISO 9001:2015 certification covers the full scope of our manufacturing operations — from raw material procurement through production, quality control, and customer delivery.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="Quality management"
+        title="ISO 9001:2015 Quality Management"
+        description="Review the documented quality-management scope, process controls, and available certificate material as part of supplier qualification."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "ISO 9001" },
+        ]}
+        actions={[
+          { label: "Request Certificate", href: "/compliance/certificates", kind: "primary" },
+          { label: "View Quality Process", href: "/factory/quality-control", kind: "secondary" },
+        ]}
+      />
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -91,16 +89,6 @@ export default function ISO9001Page() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Download Our ISO 9001 Certificate</h2>
-          <p className="text-blue-100 mb-8">Our ISO 9001:2015 certificate is available for download and can be used to support your own supplier qualification processes.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/compliance/certificates" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">Download Certificate</Link>
-            <Link href="/factory/quality-control" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">View Quality Process</Link>
-          </div>
-        </div>
-      </section>
     </main>
       <CTABanner title="Need ISO 9001 Certified Supplier?" subtitle="Download our ISO 9001:2015 certificate and quality management documentation." primaryLabel="Download Certificate" secondaryLabel="Request a Quote" />
     <Footer />

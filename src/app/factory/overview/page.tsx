@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -49,26 +49,21 @@ export default function FactoryOverviewPage() {
       <Header />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       {/* Hero */}
-      <section className="brand-hero bg-[#101b19] text-white pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-blue-300 text-sm mb-6">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/factory" className="hover:text-white">Factory</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">Overview</span>
-          </nav>
-          <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Manufacturing Excellence</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              World-Class Thermal Paper<br />Manufacturing Facility
-            </h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Our ISO 9001:2015 certified production facility in Xi'an, Shaanxi, China spans 50,000 m² and operates 24/7 to supply thermal paper rolls and labels to distributors across 80+ countries.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroBanner
+        variant="overview"
+        eyebrow="Factory overview"
+        title="Thermal Paper Converting and Label Manufacturing"
+        description="Review the production areas involved in thermal paper rolls and labels, from material handling and converting to printing, inspection, packing, and export-order coordination."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Factory", href: "/factory" },
+          { label: "Overview" },
+        ]}
+        actions={[
+          { label: "Explore Factory Areas", href: "/factory/virtual-tour", kind: "primary" },
+          { label: "Discuss an Audit", href: "/contact", kind: "secondary" },
+        ]}
+      />
 
       {/* Stats */}
       <section className="bg-blue-50 py-12">
@@ -103,23 +98,12 @@ export default function FactoryOverviewPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Visit Our Factory?</h2>
-          <p className="text-blue-100 mb-8 text-lg">We welcome distributor visits and factory audits. Contact our team to arrange an in-person or virtual tour.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/factory/virtual-tour" className="bg-white text-blue-700 font-semibold px-8 py-3  hover:bg-blue-50 transition-colors">
-              Take Virtual Tour
-            </Link>
-            <Link href="/contact" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">
-              Schedule Factory Visit
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
-    <CTABanner />
+    <CTABanner
+      title="Planning a factory review?"
+      subtitle="Tell us which products, processes, documents, and audit checkpoints matter to your sourcing team so the visit scope can be reviewed."
+      showTrust={false}
+    />
     <Footer />
     </>
   );

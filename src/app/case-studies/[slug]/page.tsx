@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft, CheckCircle, TrendingUp, Users, Package } from "lucide-react";
+import { ArrowRight, CheckCircle, TrendingUp, Users, Package } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 import { SlotImage } from "@/components/ui/SlotImage";
 
@@ -125,26 +126,24 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
     <>
       <Header />
-      <main className="pt-24">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-800 to-slate-900 text-white py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <Link href="/case-studies" className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-6 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Back to Case Studies
-          </Link>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {cs.tags.map((tag) => (
-              <span key={tag} className="text-xs font-semibold bg-white/10 text-slate-300 px-3 py-1 rounded-full">{tag}</span>
-            ))}
+      <main>
+      <HeroBanner
+        variant="media"
+        eyebrow={`Case study · ${cs.industry}`}
+        title={cs.title}
+        description={(
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <span className="flex items-center gap-1.5"><Users className="h-4 w-4" aria-hidden="true" />{cs.client}</span>
+            <span className="flex items-center gap-1.5"><Package className="h-4 w-4" aria-hidden="true" />{cs.industry}</span>
+            <span className="flex items-center gap-1.5"><TrendingUp className="h-4 w-4" aria-hidden="true" />{cs.region}</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cs.title}</h1>
-          <div className="flex flex-wrap gap-6 text-slate-400 text-sm">
-            <span className="flex items-center gap-1.5"><Users className="w-4 h-4" />{cs.client}</span>
-            <span className="flex items-center gap-1.5"><Package className="w-4 h-4" />{cs.industry}</span>
-            <span className="flex items-center gap-1.5"><TrendingUp className="w-4 h-4" />{cs.region}</span>
-          </div>
-        </div>
-      </section>
+        )}
+        breadcrumbs={[
+          { label: "Case Studies", href: "/case-studies" },
+          { label: cs.title },
+        ]}
+        actions={[{ label: "Discuss a Similar Project", href: "/quote", kind: "primary" }]}
+      />
 
       {/* Results */}
       <section className="py-12 bg-blue-600 text-white">

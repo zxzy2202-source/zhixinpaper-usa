@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -219,19 +221,21 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
     <>
       <Header />
       <main className="min-h-screen bg-white">
-      <section className={`${page.hero} text-white py-16`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <nav className="text-white/60 text-sm mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span>/</span>
-            <Link href="/oem-custom" className="hover:text-white">OEM & Custom</Link>
-            <span>/</span>
-            <span className="text-white">{page.title}</span>
-          </nav>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">{page.title}</h1>
-          <p className="text-white/80 text-lg">{page.subtitle}</p>
-        </div>
-      </section>
+      <HeroBanner
+        variant="media"
+        eyebrow="OEM and custom supply"
+        title={page.title}
+        description={page.subtitle}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM & Custom", href: "/oem-custom" },
+          { label: page.title },
+        ]}
+        actions={[
+          { label: "Request a Quote", href: "/quote", kind: "primary" },
+          { label: "Request Samples", href: "/samples", kind: "secondary" },
+        ]}
+      />
 
       {/* Sub-nav */}
       <div className="bg-white border-b border-slate-200 sticky top-16 z-40">
@@ -272,18 +276,12 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
         ))}
       </div>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-14">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Your OEM Project?</h2>
-          <p className="text-blue-100 mb-8">Get a custom quote within 24 hours. Free samples available for qualified distributors.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">Get a Quote</Link>
-            <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
-          </div>
-        </div>
-      </section>
     </main>
+      <CTABanner
+        title="Ready to review an OEM project?"
+        subtitle="Share the product specification, artwork status, packing plan, destination, and sample requirements for project review."
+        showTrust={false}
+      />
       <Footer />
     </>
   );

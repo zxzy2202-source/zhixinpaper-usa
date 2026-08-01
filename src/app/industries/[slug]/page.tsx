@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import SlotImage from "@/components/ui/SlotImage";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { INDUSTRY_BUYER_INSIGHTS } from "@/lib/marketInsights";
@@ -46,7 +47,6 @@ export default async function IndustryDetailPage({ params }: Props) {
     ).slice(0, 3),
   ].slice(0, 4);
 
-  const otherIndustries = INDUSTRIES.filter((i) => i.slug !== slug).slice(0, 5);
   const faqs = buildIndustryFaqs(industry.name, industry.products, insight);
   const pageUrl = canonicalUrl(`/industries/${slug}`);
   const jsonLd = {
@@ -101,62 +101,41 @@ export default async function IndustryDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
-          <div className="container-site">
-            <nav className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">
-              <Link href="/industries" className="hover:text-blue-600 transition-colors">Industries</Link>
-              <span>/</span>
-              <span className="text-slate-500">{industry.name}</span>
-            </nav>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-                  <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600">Industry Solutions</span>
-                  {industry.tag && (
-                    <span className={`px-2 py-0.5 text-[9px] tracking-widest uppercase border ${industry.tag === "New" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/25" : "bg-blue-500/10 text-blue-400 border-blue-500/25"}`}>{industry.tag}</span>
-                  )}
-                </div>
-                <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">
-                  {industry.name}
-                </h1>
-                <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                  {industry.description}
-                </p>
-                <p className="text-slate-500 text-base leading-relaxed mb-8">
-                  Zhixin Paper provides specialized thermal consumables tailored to the {industry.name} industry. We help buyers confirm the operating risk, required documents, product fit, packaging, and repeat-order plan before bulk production.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Get Industry Quote <ArrowRight className="w-4 h-4" /></Link>
-                  <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Samples</Link>
-                </div>
-              </div>
-
-              <div className="bg-white border border-slate-200 p-6">
-                <h3 className="font-bold text-slate-900 text-lg mb-4">Key Products</h3>
-                <div className="space-y-3 mb-6">
-                  {industry.products.map((p) => (
-                    <div key={p} className="flex items-center gap-2.5 text-slate-500 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                      {p}
-                    </div>
-                  ))}
-                </div>
-                <div className="pt-4 border-t border-slate-200">
-                  <h3 className="font-bold text-slate-900 text-lg mb-3">Other Industries</h3>
-                  <div className="space-y-2">
-                    {otherIndustries.map((i) => (
-                      <Link key={i.slug} href={`/industries/${i.slug}`} className="flex items-center gap-2 py-2 text-slate-400 hover:text-blue-600 text-sm transition-colors">
-                        <ArrowRight className="w-3 h-3 shrink-0" />
-                        {i.name}
-                      </Link>
-                    ))}
+        <HeroBanner
+          variant="standard"
+          eyebrow={industry.tag ? `Industry solutions · ${industry.tag}` : "Industry solutions"}
+          title={industry.name}
+          description={(
+            <>
+              <p>{industry.description}</p>
+              <p className="mt-3 text-base">We help buyers confirm operating risk, required documents, product fit, packaging, and the repeat-order plan before bulk production.</p>
+            </>
+          )}
+          breadcrumbs={[
+            { label: "Industries", href: "/industries" },
+            { label: industry.name },
+          ]}
+          actions={[
+            { label: "Get Industry Quote", href: "/quote", kind: "primary" },
+            { label: "Request Samples", href: "/samples", kind: "secondary" },
+          ]}
+          aside={(
+            <aside className="border border-[#ded6c8] bg-white/80 p-6 shadow-[0_18px_48px_rgba(20,33,31,0.08)] backdrop-blur-sm">
+              <h2 className="text-lg font-bold text-[#14211f]">Key products</h2>
+              <div className="mt-4 space-y-3">
+                {industry.products.map((product) => (
+                  <div key={product} className="flex items-center gap-2.5 text-sm text-[#4f5f5a]">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0f5f5c]" aria-hidden="true" />
+                    {product}
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
-        </section>
+              <Link href="/industries" className="mt-6 inline-flex items-center gap-2 border-t border-[#ded6c8] pt-4 text-sm font-semibold text-[#0f5f5c] hover:underline">
+                Browse other industries <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </aside>
+          )}
+        />
 
         {insight && (
           <section className="bg-white py-16">

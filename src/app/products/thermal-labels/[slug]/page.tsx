@@ -5,11 +5,12 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_LABELS } from "@/lib/data";
 import { breadcrumbSchema, canonicalUrl, productSchema } from "@/lib/seo";
 import {
-  ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
+  ArrowRight, CheckCircle2, Package, Truck, Award,
   Star, Shield, Zap, Tag, MessageSquare, Download, Layers, Clock,
   Factory, FileCheck, TrendingUp, Users, Phone, ShoppingCart
 } from "lucide-react";
@@ -164,60 +165,41 @@ export default async function LabelDetailPage({ params }: Props) {
       ))}
       <main id="main-content" className="product-detail">
 
-        {/* ── HERO ── */}
-        <section className="relative overflow-hidden bg-[#101b19] pt-[72px]">
-          <div className="relative z-10 border-b border-white/10 bg-[#101b19]/85 backdrop-blur-sm">
-            <div className="container-site py-3">
-              <nav className="flex items-center gap-1.5 text-xs text-slate-400">
-                <Link href="/products" className="hover:text-white transition-colors">Products</Link>
-                <ChevronRight className="w-3 h-3" />
-                <Link href="/products/thermal-labels" className="hover:text-white transition-colors">Thermal Labels</Link>
-                <ChevronRight className="w-3 h-3" />
-                <span className="text-slate-300">{label.name}</span>
-              </nav>
-            </div>
-          </div>
-
-          <div className="relative min-h-[560px] w-full">
+        <HeroBanner
+          variant="media"
+          eyebrow="Thermal label supply"
+          title={label.name}
+          description={(
+            <>
+              <p className="font-semibold text-[#d6b273]">{label.subtitle}</p>
+              <p className="mt-3 max-w-2xl">{heroText}</p>
+              <Link href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#e9dfcf] underline-offset-4 hover:text-white hover:underline">
+                <Download className="h-4 w-4" aria-hidden="true" /> Request compliance documents
+              </Link>
+            </>
+          )}
+          breadcrumbs={[
+            { label: "Products", href: "/products" },
+            { label: "Thermal Labels", href: "/products/thermal-labels" },
+            { label: label.name },
+          ]}
+          actions={[
+            { label: "Request a Quote", href: "/quote", kind: "primary" },
+            { label: "Request Samples", href: "/samples", kind: "secondary" },
+          ]}
+          media={(
             <Image
               src="/images/thermal-labels-product.jpg"
               alt={`${label.name} - Thermal Labels`}
               fill
-              className="object-cover object-center"
+              className="object-cover object-[62%_center]"
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
               quality={76}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
-
-            <div className="absolute inset-0 flex items-center">
-              <div className="container-site">
-                <div className="max-w-xl py-14">
-                  <h1 className="font-bold text-white text-5xl md:text-6xl leading-tight mb-3 drop-shadow-lg">
-                    {label.name}
-                  </h1>
-                  <p className="mb-5 text-xl font-medium text-[#d6b273]">{label.subtitle}</p>
-                  <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-md font-light">
-                    {heroText}
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
-                      Request a Quote <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link href="/samples" className="inline-flex items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
-                      Request Samples
-                    </Link>
-                    <a href="/contact" className="inline-flex items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
-                      <Download className="w-4 h-4" /> Compliance Docs
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
+          )}
+        />
 
         {/* ── PRODUCT DESCRIPTION ── */}
         <section className="py-12 bg-white border-b border-slate-100">
