@@ -123,7 +123,7 @@ const quoteOutcomes = ["Sample plan", "Document list", "Packing option", "Shippi
 
 const sourcingProof = [
   { value: "2", label: "main product lines", text: "Rolls and labels are routed separately for cleaner RFQs." },
-  { value: "24 h", label: "quote response", text: "Spec review, document check, and packing route in one reply." },
+  { value: "Reviewed", label: "quote scope", text: "Response timing follows specification, document, and packing review." },
   { value: "OEM", label: "repeat programs", text: "Carton marks, private label, and mixed-SKU export packing." },
 ] as const;
 
@@ -451,7 +451,7 @@ export default function ProductsPage() {
                     <div className="mt-8">
                       <div className="grid gap-px bg-[#fbfaf6]/10 sm:grid-cols-3">
                         {[
-                          { label: "Reply", value: "24 h" },
+                          { label: "Reply", value: "After review" },
                           { label: "Samples", value: "Before bulk" },
                           { label: "Docs", value: "Before deposit" },
                         ].map((item) => (

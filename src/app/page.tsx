@@ -358,14 +358,24 @@ export default function HomePage() {
                 View all thermal labels <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="border-t border-[#ded6c8]">
+            <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-1">
               {featuredLabels.map((label) => (
-                <Link key={label.slug} href={`/products/thermal-labels/${label.slug}`} className="group flex items-center justify-between gap-5 border-b border-[#ded6c8] py-6">
-                  <div>
-                    <h3 className="text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{label.name}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#4f5f5a]">{label.description}</p>
+                <Link key={label.slug} href={`/products/thermal-labels/${label.slug}`} className="group grid overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] sm:block lg:grid lg:grid-cols-[180px_1fr]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eee9] lg:aspect-auto lg:min-h-[150px]">
+                    <SlotImage
+                      slotKey={`products.card.${label.slug}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 180px"
+                    />
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-[#0f5f5c] transition group-hover:translate-x-1" />
+                  <div className="flex flex-col p-5">
+                    <h3 className="text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{label.name}</h3>
+                    <p className="mt-2 line-clamp-2 flex-1 text-sm leading-6 text-[#4f5f5a]">{label.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#0f5f5c]">
+                      View details <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

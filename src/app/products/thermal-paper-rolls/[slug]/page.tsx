@@ -5,6 +5,7 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { SlotImage } from "@/components/ui/SlotImage";
 import StandardPosRollPage from "@/components/products/StandardPosRollPage";
 import AtmBankingRollPage from "@/components/products/AtmBankingRollPage";
 import PaymentTerminalRollPage from "@/components/products/PaymentTerminalRollPage";
@@ -131,7 +132,7 @@ const ATM_BANKING_FAQS = [
     answer: "We supply rolls for Diebold Nixdorf, NCR, Wincor, Hyosung, bank teller terminals, and financial kiosks. Send the exact terminal model so width, OD, core ID, winding direction, and feed requirements can be checked before sampling.",
   },
   {
-    question: "How is the seven-year image-life requirement confirmed?",
+    question: "How is a required image-retention period evaluated?",
     answer: "Archival performance depends on the selected grade and storage environment. We can provide an archival-grade test report and document the expected heat, humidity, light, and handling conditions on the technical data sheet.",
   },
   {
@@ -158,7 +159,7 @@ const STANDARD_POS_DECISION_CARDS = [
   {
     label: "Import approval",
     title: "Compliance files travel with the quote.",
-    body: "BPA-free, REACH, RoHS, Prop 65, FSC, ISO and TDS files can be prepared before your internal approval.",
+    body: "Requested files are checked for current availability, scope, validity, and quoted-grade applicability before internal approval.",
   },
 ];
 
@@ -227,7 +228,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: { absolute: "ATM Receipt Paper Rolls | Zhixin Paper" },
       description:
-        "BPA-free ATM receipt paper rolls with anti-static coating, up to 7-year image life, terminal fit checks, optional back print, and compliance files.",
+        "ATM receipt paper rolls selected by terminal model, retention target, anti-static requirement, optional back print, and grade-level documentation.",
       keywords:
         "ATM receipt paper rolls, archival thermal paper, bank receipt rolls, Diebold Nixdorf paper, NCR ATM paper, anti-static thermal paper, ATM back print paper",
       alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
@@ -261,7 +262,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${roll.name} Wholesale`,
     description: `Wholesale ${roll.name.toLowerCase()} for distributors and OEM buyers. Confirm size, printer fit, paper grade, compliance files, export packing, and samples.`,
-    keywords: `${roll.keywords}, thermal paper rolls wholesale, BPA free thermal paper, FDA compliant, factory direct pricing, ${roll.name} manufacturer`,
+    keywords: `${roll.keywords}, thermal paper rolls wholesale, phenol options by paper grade, compliance document review, factory quote, ${roll.name} manufacturer`,
     alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
   };
 }
@@ -292,36 +293,36 @@ const PRINTER_COMPAT: Record<string, { brand: string; models: string }[]> = {
 const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; savings: string }[]> = {
   "standard-pos-rolls": [
     { tier: "Sample", qty: "1–9 cartons", unit: "Contact for price", savings: "—" },
-    { tier: "Starter", qty: "10–49 cartons", unit: "Best for small distributors", savings: "5% off" },
-    { tier: "Volume", qty: "50–199 cartons", unit: "Pallet pricing", savings: "12% off" },
-    { tier: "Container", qty: "200+ cartons", unit: "FCL factory-direct", savings: "20% off" },
+    { tier: "Starter", qty: "10–49 cartons", unit: "Quoted by grade and packing", savings: "Request quote" },
+    { tier: "Volume", qty: "50–199 cartons", unit: "Pallet plan reviewed", savings: "Request quote" },
+    { tier: "Container", qty: "200+ cartons", unit: "FCL plan reviewed", savings: "Request quote" },
   ],
   "default": [
     { tier: "Sample", qty: "1 carton", unit: "Contact for price", savings: "—" },
-    { tier: "Starter", qty: "5–19 cartons", unit: "Best for small distributors", savings: "5% off" },
-    { tier: "Volume", qty: "20–99 cartons", unit: "Pallet pricing", savings: "12% off" },
-    { tier: "Container", qty: "100+ cartons", unit: "FCL factory-direct", savings: "20% off" },
+    { tier: "Starter", qty: "5–19 cartons", unit: "Quoted by specification", savings: "Request quote" },
+    { tier: "Volume", qty: "20–99 cartons", unit: "Pallet plan reviewed", savings: "Request quote" },
+    { tier: "Container", qty: "100+ cartons", unit: "FCL plan reviewed", savings: "Request quote" },
   ],
 };
 
 // ── Compliance documents by product slug ──
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string; icon: string }[]> = {
   "standard-pos-rolls": [
-    { name: "BPA-Free Test Report (SGS)", desc: "EU 2024/3190 compliant — no BPA, BPS, or BPAF", icon: "shield" },
-    { name: "REACH SVHC Declaration", desc: "240+ substances tested, Annex XVII compliant", icon: "file" },
-    { name: "ISO 9001:2015 Certificate", desc: "TÜV-recognized, annual surveillance audit", icon: "award" },
+    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
+    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Full specifications, storage conditions, print parameters", icon: "download" },
   ],
   "atm-banking-rolls": [
-    { name: "BPA-Free Certificate (SGS)", desc: "Standard — no surcharge required", icon: "shield" },
-    { name: "REACH / RoHS Declaration", desc: "EU banking regulatory compliance", icon: "file" },
-    { name: "ISO 9001:2015 Certificate", desc: "Quality management system certification", icon: "award" },
-    { name: "Archival Grade Test Report", desc: "7-year image life verified by independent lab", icon: "download" },
+    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
+    { name: "REACH / RoHS Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
+    { name: "Image Stability Report", desc: "Test conditions matched to the selected grade and retention target", icon: "download" },
   ],
   "default": [
-    { name: "BPA-Free Test Report (SGS)", desc: "EU 2024/3190 compliant", icon: "shield" },
-    { name: "REACH SVHC Declaration", desc: "EU REACH Annex XVII compliant", icon: "file" },
-    { name: "ISO 9001:2015 Certificate", desc: "Certified quality management", icon: "award" },
+    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade", icon: "shield" },
+    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Full product specifications", icon: "download" },
   ],
 };
@@ -333,7 +334,7 @@ export default async function RollDetailPage({ params }: Props) {
 
   const related = THERMAL_PAPER_ROLLS.filter((r) => r.slug !== slug).slice(0, 4);
   const heroText = (roll as { heroDesc?: string }).heroDesc || `${roll.name} — manufactured to the highest quality standards. BPA-free options, custom OEM printing, and private label for distributors worldwide.`;
-  const descText = (roll as { description?: string }).description || `Premium ${roll.name} for wholesale distributors and importers. ISO 9001:2015 certified. MOQ ${roll.moq}. Custom OEM and private label available.`;
+  const descText = (roll as { description?: string }).description || `${roll.name} for wholesale distributors and importers. Paper-grade documents, order quantity, OEM printing, and private-label options are confirmed for the quoted specification and project.`;
 
   const printers = PRINTER_COMPAT[slug] || null;
   const pricing = TIERED_PRICING[slug] || TIERED_PRICING["default"];
@@ -354,7 +355,7 @@ export default async function RollDetailPage({ params }: Props) {
       : roll.keywords,
     additionalProperties: [
       { name: "BPA-Free", value: "Available by quoted paper grade" },
-      { name: "Quality management", value: "ISO 9001:2015" },
+      { name: "Quality documents", value: "Current certificate scope and validity confirmed on request" },
     ],
   });
 
@@ -377,18 +378,18 @@ export default async function RollDetailPage({ params }: Props) {
     name: "ATM Receipt Paper Rolls",
     alternateName: ["ATM Thermal Paper Rolls", "Bank Receipt Paper Rolls", "Archival ATM Paper"],
     description:
-      "BPA-free, anti-static ATM receipt paper rolls with up to 7-year image life, optional regulatory back print, and fit checks for major banking terminal platforms.",
-    material: "Archival-grade thermal paper",
+      "ATM receipt paper rolls selected by terminal model, retention target, anti-static requirement, approved back print, and grade-level documentation.",
+    material: "Thermal paper grade selected by project requirements",
     model: "57mm, 80mm and 82.5mm ATM roll formats",
     additionalProperty: [
       { "@type": "PropertyValue", name: "Common widths", value: "57mm, 80mm, 82.5mm" },
-      { "@type": "PropertyValue", name: "Image life", value: "Up to 7 years under specified storage conditions" },
-      { "@type": "PropertyValue", name: "Anti-static coating", value: "Standard" },
-      { "@type": "PropertyValue", name: "Print speed", value: "Up to 300mm/sec" },
-      { "@type": "PropertyValue", name: "Back print", value: "Optional black or blue ink" },
-      { "@type": "PropertyValue", name: "BPA status", value: "BPA-free standard" },
+      { "@type": "PropertyValue", name: "Image life", value: "Selected for the required retention and storage condition" },
+      { "@type": "PropertyValue", name: "Anti-static coating", value: "Available subject to terminal requirement" },
+      { "@type": "PropertyValue", name: "Print speed", value: "Validated with the named terminal and paper grade" },
+      { "@type": "PropertyValue", name: "Back print", value: "Available from approved artwork" },
+      { "@type": "PropertyValue", name: "Phenol options", value: "BPA-free, BPS-free, or phenol-free by selected grade" },
       { "@type": "PropertyValue", name: "Minimum order quantity", value: roll.moq },
-      { "@type": "PropertyValue", name: "Compatible platforms", value: "Diebold Nixdorf, NCR, Wincor, Hyosung" },
+      { "@type": "PropertyValue", name: "Platform fit review", value: "Exact terminal model, dimensions, paper path, and sample required" },
     ],
   };
 
@@ -957,9 +958,9 @@ export default async function RollDetailPage({ params }: Props) {
                             ["BPA-Free Option", "Available on request"],
                             ["Core Size", "12mm / 17mm / 25mm"],
                             ["Minimum Order Qty", roll.moq],
-                            ["Standard Lead Time", "10–15 business days"],
-                            ["Quality Certification", "ISO 9001:2015"],
-                            ["Compliance", "REACH / RoHS / BPA-Free"],
+                            ["Production Schedule", "Confirmed after grade, quantity, printing, and packing review"],
+                            ["Quality Documents", "Current certificate scope and validity confirmed on request"],
+                            ["Material Documents", "Availability and applicability confirmed for the quoted grade"],
                           ].map(([key, val], i) => (
                             <tr key={key} className={i % 2 === 0 ? "bg-slate-50/50" : "bg-white"}>
                               <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 ">{key}</td>
@@ -1001,7 +1002,7 @@ export default async function RollDetailPage({ params }: Props) {
                 <h2 className="font-bold text-slate-900 text-2xl">Printer Compatibility</h2>
               </div>
               <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-                Pre-tested and validated on the following printer platforms. Guaranteed scan-through-rate and zero jamming under standard operating conditions.
+                 These model families are common buyer references. Confirm width, OD, core, winding, sensing, paper path, and performance with the exact printer and an approved sample.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {printers.map((p) => (
@@ -1029,7 +1030,7 @@ export default async function RollDetailPage({ params }: Props) {
               <h2 className="font-bold text-slate-900 text-2xl">Volume Pricing</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Factory-direct pricing with volume discounts. The more you order, the more you save — from trial cartons to full container loads.
+               Quantity bands indicate packing and supply scale. Final pricing is quoted from the current paper grade, dimensions, printing, packing, volume, destination, and Incoterm.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {pricing.map((tier, i) => (
@@ -1061,7 +1062,7 @@ export default async function RollDetailPage({ params }: Props) {
               <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
                 Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <p className="text-slate-400 text-xs">Response within 24 hours · No commitment required</p>
+              <p className="text-slate-400 text-xs">Response timing confirmed after specification and document review</p>
             </div>
           </div>
         </section>
@@ -1074,7 +1075,7 @@ export default async function RollDetailPage({ params }: Props) {
               <h2 className="font-bold text-slate-900 text-2xl">Compliance Documents</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Full compliance documentation package available for your procurement team. All documents are issued by accredited third-party laboratories and updated annually.
+               Available files depend on the selected paper grade, test scope, destination, and current document validity. Request the exact report or declaration needed for your procurement review.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
@@ -1091,7 +1092,7 @@ export default async function RollDetailPage({ params }: Props) {
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Request Full Compliance Pack</p>
                 <p className="text-slate-500 text-xs">
-                  Submit your company details and we will send the complete compliance documentation package within 24 hours — ready for your procurement audit.
+                   Share the destination market, selected grade, and required file names so the team can confirm which current documents apply to the quoted material.
                 </p>
               </div>
               <Link
@@ -1143,10 +1144,10 @@ export default async function RollDetailPage({ params }: Props) {
                 <div className="space-y-3 mb-6">
                   {[
                     "Front-print & back-print with your logo, QR codes, or promotional content",
-                    "Pantone color matching — exact brand color reproduction guaranteed",
+                     "Pantone spot-color matching available subject to proof approval",
                     "Custom core sizes, roll dimensions, and packaging to your spec",
                     "NDA signed before any design work begins — your IP is protected",
-                    "7-day sample turnaround — see your branded roll before committing",
+                     "Sample schedule confirmed after artwork, material, and print-process review",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -1251,13 +1252,23 @@ export default async function RollDetailPage({ params }: Props) {
                 <Link
                   key={r.slug}
                   href={`/products/thermal-paper-rolls/${r.slug}`}
-                  className="group bg-white border border-slate-200  p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
+                  className="group flex flex-col overflow-hidden border border-slate-200 bg-white transition-all hover:border-[#0f5f5c]/40 hover:shadow-lg"
                 >
-                  <div className="w-10 h-10 bg-[#f4f0e8]  flex items-center justify-center mb-4 group-hover:bg-[#e7eee9] transition-colors">
-                    <Package className="w-5 h-5 text-[#0f5f5c]" />
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                    <SlotImage
+                      slotKey={`products.card.${r.slug}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{r.name}</h3>
-                  <p className="text-slate-400 text-xs">{r.subtitle}</p>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{r.name}</h3>
+                    <p className="text-slate-500 text-xs leading-5 flex-1">{r.subtitle}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c]">
+                      View details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

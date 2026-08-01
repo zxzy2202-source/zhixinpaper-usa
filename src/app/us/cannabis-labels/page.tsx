@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { canonicalUrl } from "@/lib/seo";
+import { SlotImage } from "@/components/ui/SlotImage";
 
 
 
@@ -119,14 +120,19 @@ export default function USCannabisLabelsPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-8 text-center">Recommended Label Products</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: "Direct Thermal Labels", use: "Point-of-sale, dispensary counter labels", href: "/products/thermal-labels/direct-thermal-labels" },
-              { name: "Synthetic PP Labels", use: "Moisture-resistant product labels, outdoor applications", href: "/products/thermal-labels/synthetic-paper-labels" },
-              { name: "Tamper-Evident Labels", use: "Child-resistant packaging seals, security labels", href: "/products/thermal-labels/tamper-evident-labels" },
+              { name: "Direct Thermal Labels", use: "Point-of-sale and dispensary counter workflows", href: "/products/thermal-labels/direct-thermal-labels", slotKey: "products.card.direct-thermal-labels" },
+              { name: "Synthetic PP Labels", use: "Packaging exposed to moisture or frequent handling", href: "/products/thermal-labels/synthetic-paper-labels", slotKey: "products.card.synthetic-paper-labels" },
+              { name: "Tamper-Evident Labels", use: "Packaging seals and security-label workflows", href: "/products/thermal-labels/tamper-evident-labels", slotKey: "products.card.tamper-evident-labels" },
             ].map((p) => (
-              <Link key={p.name} href={p.href} className="bg-white  p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all group">
-                <h3 className="font-bold text-slate-800 mb-2 group-hover:text-green-700">{p.name}</h3>
-                <p className="text-slate-500 text-sm mb-3">{p.use}</p>
-                <span className="text-green-600 text-xs font-semibold">View Product →</span>
+              <Link key={p.name} href={p.href} className="group flex flex-col overflow-hidden border border-green-200 bg-white transition-all hover:border-green-400 hover:shadow-md">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <SlotImage slotKey={p.slotKey} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-bold text-slate-800 transition group-hover:text-green-700">{p.name}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-slate-500">{p.use}</p>
+                  <span className="mt-4 text-xs font-semibold text-green-600">View Product →</span>
+                </div>
               </Link>
             ))}
           </div>

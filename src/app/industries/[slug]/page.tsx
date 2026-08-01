@@ -4,10 +4,11 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import SlotImage from "@/components/ui/SlotImage";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { INDUSTRY_BUYER_INSIGHTS } from "@/lib/marketInsights";
-import { buildMetadata } from "@/lib/seo";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { buildMetadata, canonicalUrl } from "@/lib/seo";
+import { ArrowRight, CheckCircle2, FileCheck2, ShieldCheck } from "lucide-react";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -46,10 +47,59 @@ export default async function IndustryDetailPage({ params }: Props) {
   ].slice(0, 4);
 
   const otherIndustries = INDUSTRIES.filter((i) => i.slug !== slug).slice(0, 5);
+  const faqs = buildIndustryFaqs(industry.name, industry.products, insight);
+  const pageUrl = canonicalUrl(`/industries/${slug}`);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: canonicalUrl("/") },
+          { "@type": "ListItem", position: 2, name: "Industries", item: canonicalUrl("/industries") },
+          { "@type": "ListItem", position: 3, name: industry.name, item: pageUrl },
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: `${industry.name} Thermal Paper Solutions`,
+        description: industry.description,
+        url: pageUrl,
+        provider: { "@type": "Organization", name: "Zhixin Paper", url: canonicalUrl("/") },
+        areaServed: "Worldwide",
+        serviceType: industry.products,
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#recommended-products`,
+        name: `Recommended products for ${industry.name}`,
+        itemListElement: relatedProducts.map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: product.name,
+          url: canonicalUrl(`/products/${product.slug.includes("label") ? "thermal-labels" : "thermal-paper-rolls"}/${product.slug}`),
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
 
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
           <div className="container-site">
@@ -160,31 +210,145 @@ export default async function IndustryDetailPage({ params }: Props) {
           </section>
         )}
 
+        <section className="border-y border-slate-200 bg-slate-50 py-12">
+          <div className="container-site grid gap-5 md:grid-cols-2">
+            <div className="flex gap-4 border border-slate-200 bg-white p-6">
+              <ShieldCheck className="mt-1 h-6 w-6 shrink-0 text-blue-600" />
+              <div>
+                <h2 className="text-lg font-extrabold text-slate-950">Technical review and applicability</h2>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Prepared by the Zhixin Paper product and quality team. Final material, compliance, printer fit,
+                  image life, and performance requirements are confirmed against the buyer&apos;s application,
+                  destination market, and approved sample before production.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4 border border-slate-200 bg-white p-6">
+              <FileCheck2 className="mt-1 h-6 w-6 shrink-0 text-blue-600" />
+              <div>
+                <h2 className="text-lg font-extrabold text-slate-950">Verification resources</h2>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Review our documented controls, available compliance files, and sample process before approving
+                  a purchasing specification.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-blue-600">
+                  <Link href="/factory/quality-control" className="hover:text-blue-700">Quality control</Link>
+                  <Link href="/compliance" className="hover:text-blue-700">Compliance files</Link>
+                  <Link href="/samples" className="hover:text-blue-700">Sample validation</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {relatedProducts.length > 0 && (
-          <section className="py-16 bg-white">
+          <section className="py-16 bg-slate-50">
             <div className="container-site">
-              <h2 className="font-bold text-slate-900 text-3xl mb-8">Recommended Products</h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {relatedProducts.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/products/${"moq" in p && p.moq ? (p.slug.includes("label") ? "thermal-labels" : "thermal-paper-rolls") : "thermal-paper-rolls"}/${p.slug}`}
-                    className=" border border-slate-200 bg-white hover:border-blue-200 hover:shadow-lg transition-all p-5 group"
-                  >
-                    <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-blue-600 transition-colors">{p.name}</h3>
-                    <p className="text-slate-400 text-xs">{p.subtitle}</p>
-                  </Link>
-                ))}
+              <div className="mb-8">
+                <p className="section-label">Recommended Products</p>
+                <h2 className="mt-2 font-bold text-slate-900 text-3xl">
+                  Products matched to {industry.name}.
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {relatedProducts.map((p) => {
+                  const category = "moq" in p && p.moq
+                    ? (p.slug.includes("label") ? "thermal-labels" : "thermal-paper-rolls")
+                    : "thermal-paper-rolls";
+                  return (
+                    <Link
+                      key={p.slug}
+                      href={`/products/${category}/${p.slug}`}
+                      className="group flex flex-col bg-white border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all overflow-hidden"
+                    >
+                      <div className="relative aspect-[4/3] w-full bg-slate-100 overflow-hidden">
+                        <SlotImage
+                          slotKey={`products.card.${p.slug}`}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                        />
+                      </div>
+                      <div className="p-4 flex flex-col flex-1">
+                        <h3 className="font-bold text-slate-900 text-sm leading-snug mb-1 group-hover:text-blue-600 transition-colors">
+                          {p.name}
+                        </h3>
+                        <p className="text-slate-400 text-xs leading-relaxed flex-1">{p.subtitle}</p>
+                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-600">
+                          View details <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </section>
         )}
+
+        <section className="bg-white py-16" id="faq">
+          <div className="container-site">
+            <div className="max-w-3xl">
+              <p className="section-label">Industry FAQ</p>
+              <h2 className="mt-3 text-3xl font-extrabold text-slate-950 md:text-4xl">
+                Practical sourcing answers for {industry.name} buyers.
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                Use these answers to prepare a comparable specification. Final performance is validated against
+                the named printer, material, environment, and destination requirements.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-4 lg:grid-cols-2">
+              {faqs.map((faq) => (
+                <details key={faq.question} className="group border border-slate-200 bg-slate-50 p-6 open:bg-white">
+                  <summary className="cursor-pointer list-none pr-6 text-base font-extrabold leading-6 text-slate-950">
+                    {faq.question}
+                  </summary>
+                  <p className="mt-4 text-sm leading-7 text-slate-600">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <CTABanner />
       </main>
       <Footer />
     </>
   );
+}
+
+function buildIndustryFaqs(
+  industryName: string,
+  products: string[],
+  insight: (typeof INDUSTRY_BUYER_INSIGHTS)[string] | null
+) {
+  const productList = products.join(", ");
+  const checklist = insight?.quoteChecklist.join(", ") ?? "printer model, dimensions, application surface, operating environment, documents, and volume";
+  const risks = insight?.commonRisks.join(", ") ?? "printer mismatch, weak print quality, unsuitable material, and incomplete packing details";
+
+  return [
+    {
+      question: `Which products are commonly sourced for ${industryName}?`,
+      answer: `Common options include ${productList}. The final selection depends on the printer, dimensions, sensing method, application surface, operating environment, and required retention period.`,
+    },
+    {
+      question: `What information is needed to quote a ${industryName} project?`,
+      answer: `Provide ${checklist}. These details allow suppliers to compare the same specification instead of quoting only by a general paper or label name.`,
+    },
+    {
+      question: `How should buyers validate printer and application compatibility?`,
+      answer: `Share the exact printer or terminal model and test a production-intent sample in the real workflow. Check feeding, cutting, sensor response, print density, barcode readability, adhesion where relevant, and handling after storage.`,
+    },
+    {
+      question: `Which sourcing risks should ${industryName} buyers review?`,
+      answer: `Review ${risks}. Agree measurable acceptance criteria and the document pack before bulk production.`,
+    },
+    {
+      question: `Can compliance or performance be confirmed from the product name alone?`,
+      answer: `No. Suitability depends on the selected material, test conditions, destination rules, printer, storage, and application. Request the relevant declaration or test file and approve a sample against the project requirements.`,
+    },
+  ];
 }
 
 function InsightColumn({ items, title }: { items: string[]; title: string }) {

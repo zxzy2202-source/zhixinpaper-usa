@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, CheckCircle, FileText, AlertCircle, Package } from "lucide-react";
+import { ArrowRight, ShieldCheck, CheckCircle, FileText, AlertCircle } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { SlotImage } from "@/components/ui/SlotImage";
 import { canonicalUrl } from "@/lib/seo";
 
 
@@ -53,10 +54,10 @@ const FDA_FEATURES = [
 ];
 
 const PRODUCTS = [
-  { name: "Standard POS Rolls (FDA)", href: "/products/thermal-paper-rolls/standard-pos-rolls", desc: "BPA-free receipt paper for US retail and food service POS systems." },
-  { name: "Medical Thermal Rolls", href: "/products/thermal-paper-rolls/medical-rolls", desc: "FDA-grade thermal paper for pharmacy receipts and medical device output." },
-  { name: "Food-Safe Labels", href: "/products/thermal-labels/direct-thermal-labels", desc: "Direct thermal labels compliant with FDA food contact regulations." },
-  { name: "Freezer Labels (FDA)", href: "/products/thermal-labels/freezer-cold-chain-labels", desc: "Cold chain labels meeting FDA requirements for frozen food packaging." },
+  { name: "Standard POS Rolls", href: "/products/thermal-paper-rolls/standard-pos-rolls", desc: "Receipt paper selected by quoted grade, intended use, current document scope, and printer fit.", slotKey: "products.card.standard-pos-rolls" },
+  { name: "Medical Thermal Rolls", href: "/products/thermal-paper-rolls/medical-rolls", desc: "Thermal media reviewed by device, retention target, exposure, and applicable project documents.", slotKey: "products.card.medical-rolls" },
+  { name: "Direct Thermal Labels", href: "/products/thermal-labels/direct-thermal-labels", desc: "Label constructions reviewed by surface, adhesive, intended use, and current material documentation.", slotKey: "products.card.direct-thermal-labels" },
+  { name: "Freezer & Cold Chain Labels", href: "/products/thermal-labels/freezer-cold-chain-labels", desc: "Cold-chain labels qualified by application temperature, substrate, adhesive, handling, and sample tests.", slotKey: "products.card.freezer-cold-chain-labels" },
 ];
 
 export default function FDACompliantPage() {
@@ -123,15 +124,22 @@ export default function FDACompliantPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-8">FDA-Compliant Products</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {PRODUCTS.map((p) => (
-              <Link key={p.href} href={p.href} className="flex items-start gap-4 p-5 bg-white  border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group">
-                <div className="w-10 h-10 bg-blue-50  flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
-                  <Package className="w-5 h-5 text-blue-600" />
+              <Link key={p.href} href={p.href} className="group flex flex-col overflow-hidden border border-slate-200 bg-white transition-all hover:border-blue-300 hover:shadow-md">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <SlotImage
+                    slotKey={p.slotKey}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
-                <div>
-                  <div className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">{p.name}</div>
-                  <div className="text-sm text-slate-500 mt-0.5">{p.desc}</div>
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="font-semibold text-slate-900 transition-colors group-hover:text-blue-600">{p.name}</div>
+                  <div className="mt-2 flex-1 text-sm leading-6 text-slate-500">{p.desc}</div>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600">
+                    View product <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors ml-auto shrink-0 mt-1" />
               </Link>
             ))}
           </div>

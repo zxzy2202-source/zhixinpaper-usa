@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { COMPANY, THERMAL_PAPER_ROLLS, THERMAL_LABELS, INDUSTRIES } from "@/lib/data";
+import { COMPANY, THERMAL_LABELS, INDUSTRIES } from "@/lib/data";
+import { THERMAL_PAPER_TIERS } from "@/config/thermalPaperArchitecture";
 import {
   CheckCircle2, ChevronDown, Menu, X, Phone, Mail, ArrowRight,
   Globe, ShieldCheck, BookOpen, Users,
@@ -41,11 +42,10 @@ const PRODUCT_MENU_SPECS = [
 
 function ProductsMegaMenu() {
   const pathname = usePathname();
-  const rolls = THERMAL_PAPER_ROLLS.slice(0, 5);
   const labels = THERMAL_LABELS.slice(0, 5);
 
   return (
-    <div className="w-[min(94vw,1080px)] overflow-hidden border border-[#c8bcaa] bg-[#fbfaf6] shadow-[0_34px_90px_rgba(8,20,18,0.28)]">
+    <div className="w-[min(94vw,1120px)] overflow-hidden border border-[#c8bcaa] bg-[#fbfaf6] shadow-[0_34px_90px_rgba(8,20,18,0.28)]">
       <div className="grid grid-cols-[1fr_auto] items-center gap-5 bg-[#101b19] px-6 py-5 text-white">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d6b273]">Product navigator</p>
@@ -62,8 +62,8 @@ function ProductsMegaMenu() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-[1fr_1fr_300px]">
-        <section className="border-r border-[#ded6c8] p-5">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_280px]">
+        <section className="min-w-0 border-r border-[#ded6c8] p-5">
           <Link
             href="/products/thermal-paper-rolls"
             className="group block border border-[#ded6c8] bg-white p-4 text-[#14211f] shadow-[0_10px_28px_rgba(20,33,31,0.06)] transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-[#0f5f5c]/40 hover:shadow-[0_18px_44px_rgba(20,33,31,0.12)]"
@@ -84,19 +84,24 @@ function ProductsMegaMenu() {
           </Link>
 
           <div className="mt-4 space-y-1.5">
-            {rolls.map((p) => (
+            {THERMAL_PAPER_TIERS.map((tier) => (
               <Link
-                key={p.slug}
-                href={`/products/thermal-paper-rolls/${p.slug}`}
+                key={tier.code}
+                href={tier.href}
                 className={`group flex min-h-[48px] items-start justify-between gap-3 border-l-2 px-3 py-2.5 text-sm transition-[background-color,border-color,color,box-shadow,transform] ${
-                  pathname === `/products/thermal-paper-rolls/${p.slug}`
+                  pathname === tier.href.split("#")[0]
                     ? "border-[#0f5f5c] bg-[#e7eee9] text-[#0f5f5c] font-semibold"
                     : "border-transparent text-[#4f5f5a] hover:border-[#d6b273] hover:bg-white hover:text-[#14211f]"
                 }`}
               >
-                <span className="min-w-0">
-                  <span className="block font-semibold leading-5">{p.name}</span>
-                  <span className="block truncate text-xs font-normal text-[#87918c]">{p.sizes.slice(0, 3).join(" / ")}</span>
+                <span className="flex min-w-0 items-start gap-2.5">
+                  <span className="mt-0.5 min-w-7 border border-[#c8bcaa] bg-[#f4f0e8] px-1.5 py-0.5 text-center text-[10px] font-bold text-[#695948]">
+                    {tier.code}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-semibold leading-5">{tier.title}</span>
+                    <span className="block truncate text-xs font-normal text-[#87918c]">{tier.summary}</span>
+                  </span>
                 </span>
                 <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c8bcaa] opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
               </Link>
@@ -104,11 +109,11 @@ function ProductsMegaMenu() {
           </div>
 
           <Link href="/products/thermal-paper-rolls" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
-            View all roll grades <ArrowRight className="h-3 w-3" />
+            Compare all thermal paper paths <ArrowRight className="h-3 w-3" />
           </Link>
         </section>
 
-        <section className="border-r border-[#ded6c8] p-5">
+        <section className="min-w-0 border-r border-[#ded6c8] p-5">
           <Link
             href="/products/thermal-labels"
             className="group block border border-[#ded6c8] bg-white p-4 text-[#14211f] shadow-[0_10px_28px_rgba(20,33,31,0.06)] transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-[#b9822f]/50 hover:shadow-[0_18px_44px_rgba(20,33,31,0.12)]"
@@ -153,7 +158,7 @@ function ProductsMegaMenu() {
           </Link>
         </section>
 
-        <aside className="flex flex-col bg-[#14211f] p-5 text-white">
+        <aside className="min-w-0 flex flex-col bg-[#14211f] p-5 text-white">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#d6b273]">RFQ shortcuts</p>
             <p className="mt-2 text-lg font-bold leading-6">Send enough detail for an accurate quote.</p>
@@ -614,7 +619,11 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
   Home: [],
   Products: [
     { label: "Thermal Paper Rolls ›", href: "/products/thermal-paper-rolls" },
-    ...THERMAL_PAPER_ROLLS.slice(0, 4).map(p => ({ label: p.name, href: `/products/thermal-paper-rolls/${p.slug}` })),
+    ...THERMAL_PAPER_TIERS.map((tier) => ({
+      label: `${tier.code} · ${tier.title}`,
+      href: tier.href,
+      sub: tier.maturity,
+    })),
     { label: "Thermal Labels ›", href: "/products/thermal-labels" },
     ...THERMAL_LABELS.slice(0, 4).map(l => ({ label: l.name, href: `/products/thermal-labels/${l.slug}` })),
     { label: "Request Samples", href: "/samples", tag: "P1" },

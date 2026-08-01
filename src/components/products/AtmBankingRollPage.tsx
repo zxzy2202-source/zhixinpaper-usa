@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SlotImage } from "@/components/ui/SlotImage";
 import {
   ArrowRight,
   Check,
@@ -67,10 +68,10 @@ const RFQ_FIELDS = [
 ];
 
 const DOCUMENTS = [
-  "BPA-free SGS certificate",
-  "REACH and RoHS declarations",
-  "ISO 9001:2015 certificate",
-  "Archival-grade test report",
+  "Phenol test report for the quoted grade",
+  "Current REACH and RoHS declarations when applicable",
+  "Current quality-management certificate for scope review",
+  "Image-stability report matched to the retention target",
   "Technical data sheet",
   "Batch and artwork approval record",
 ];
@@ -81,32 +82,36 @@ const RECOMMENDED_PRODUCTS = [
     name: "Back Print Thermal Rolls",
     copy: "Add disclosures, terms, support details, multilingual copy, or controlled reverse-side content.",
     href: "/products/thermal-paper-rolls/back-print-thermal-rolls",
+    slotKey: "products.card.back-print-thermal-rolls",
   },
   {
     label: "Self-service terminals",
     name: "Kiosk & Vending Rolls",
     copy: "Extend the same supply programme to financial kiosks, payment stations, and unattended terminals.",
     href: "/products/thermal-paper-rolls/kiosk-vending-rolls",
+    slotKey: "products.card.kiosk-vending-rolls",
   },
   {
     label: "Branch counters",
     name: "Standard POS Rolls",
     copy: "Cover teller counters, payment desks, and branch receipt printers with controlled 57mm and 80mm rolls.",
     href: "/products/thermal-paper-rolls/standard-pos-rolls",
+    slotKey: "products.card.standard-pos-rolls",
   },
   {
     label: "Brand programmes",
     name: "Custom Printed Rolls",
     copy: "Use approved artwork, logos, QR codes, or campaign content for bank and financial service networks.",
     href: "/products/thermal-paper-rolls/custom-printed-rolls",
+    slotKey: "products.card.custom-printed-rolls",
   },
 ];
 
 export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPageProps) {
   const featuredSpecs = [
-    ["Image life", "Up to 7 years"],
-    ["Feed control", "Anti-static standard"],
-    ["Print speed", "Up to 300mm/sec"],
+    ["Image life", "Selected by retention need"],
+    ["Feed control", "Anti-static option by terminal"],
+    ["Print speed", "Validated with the named model"],
     ["MOQ", roll.moq],
   ];
 
@@ -347,7 +352,7 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
             <div className="relative mt-7 aspect-[4/3] overflow-hidden border border-[#c8bcaa] bg-white">
               <Image
                 src="/images/compliance-certifications.jpg"
-                alt="ISO 9001, BPA-free, REACH, and FSC compliance documentation"
+                alt="Product test reports, declarations, and quality documents for buyer review"
                 fill
                 sizes="(min-width: 1024px) 44vw, 100vw"
                 className="object-cover"
@@ -395,16 +400,24 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
               <Link
                 key={product.href}
                 href={product.href}
-                className="group flex min-h-[230px] flex-col border-b border-r border-[#ded6c8] bg-[#fbfaf6] p-6 transition hover:bg-[#f4f0e8]"
+                className="group flex flex-col overflow-hidden border-b border-r border-[#ded6c8] bg-[#fbfaf6] transition hover:bg-[#f4f0e8]"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-xs font-bold tabular-nums text-[#87918c]">0{index + 1}</span>
-                  <ArrowRight className="h-4 w-4 text-[#0f5f5c] transition group-hover:translate-x-1" />
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eee9]">
+                  <SlotImage
+                    slotKey={product.slotKey}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <span className="absolute left-4 top-4 bg-[#101b19]/80 px-2 py-1 text-xs font-bold tabular-nums text-white">0{index + 1}</span>
                 </div>
-                <div className="mt-auto pt-12">
+                <div className="flex flex-1 flex-col p-6">
                   <p className="text-xs font-bold uppercase text-[#b9822f]">{product.label}</p>
                   <h3 className="mt-3 text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{product.name}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[#4f5f5a]">{product.copy}</p>
+                  <p className="mt-4 flex-1 text-sm leading-7 text-[#4f5f5a]">{product.copy}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-[#0f5f5c]">
+                    View details <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </span>
                 </div>
               </Link>
             ))}

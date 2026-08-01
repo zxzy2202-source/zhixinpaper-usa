@@ -63,7 +63,7 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
     ["Common widths", "57mm / 80mm"],
     ["Paper grades", "48 / 55 / 60 GSM"],
     ["Core options", "12 / 17 / 25mm"],
-    ["Lead time", "10-15 business days"],
+    ["Production schedule", "Confirmed after RFQ review"],
   ];
 
   return (

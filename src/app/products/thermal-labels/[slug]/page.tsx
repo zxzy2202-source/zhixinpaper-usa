@@ -5,6 +5,7 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_LABELS } from "@/lib/data";
 import { breadcrumbSchema, canonicalUrl, productSchema } from "@/lib/seo";
 import {
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${label.name} Wholesale`,
     description: `Wholesale ${label.name.toLowerCase()} for distributors and OEM buyers. Custom sizes, printer-fit checks, export packing, compliance files, and samples.`,
-    keywords: `${label.keywords}, thermal labels wholesale, BPA free labels, FDA compliant labels, factory direct pricing, ${label.name} manufacturer`,
+    keywords: `${label.keywords}, thermal labels wholesale, phenol options by material grade, compliance document review, factory quote, ${label.name} manufacturer`,
     alternates: { canonical: canonicalUrl(`/products/thermal-labels/${slug}`) },
   };
 }
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // ── Printer compatibility by label slug ──
 const PRINTER_COMPAT: Record<string, { brand: string; models: string; badge?: string }[]> = {
   "direct-thermal-labels": [
-    { brand: "Zebra", models: "GX430t / ZD420 / ZD621 / ZD888", badge: "Amazon FBA Validated" },
+    { brand: "Zebra", models: "GX430t / ZD420 / ZD621 / ZD888", badge: "Model fit check" },
     { brand: "Honeywell", models: "PC42t / PC45 / PD45S" },
     { brand: "SATO", models: "CL4NX Plus / CG408TT" },
     { brand: "Dymo", models: "LabelWriter 4XL / 5XL" },
@@ -44,7 +45,7 @@ const PRINTER_COMPAT: Record<string, { brand: string; models: string; badge?: st
     { brand: "Brother", models: "QL-1110NWB / TD-4550DNWB" },
   ],
   "fanfold-labels": [
-    { brand: "Zebra", models: "ZT411 / ZT421 / ZT610 (Industrial)", badge: "High-Speed Validated" },
+    { brand: "Zebra", models: "ZT411 / ZT421 / ZT610 (Industrial)", badge: "Model fit check" },
     { brand: "Honeywell", models: "PX940 / PX4ie / PX6ie" },
     { brand: "SATO", models: "CL6NX Plus / CL4NX Plus" },
     { brand: "Datamax", models: "H-6308 / H-8308" },
@@ -60,14 +61,14 @@ const PRINTER_COMPAT: Record<string, { brand: string; models: string; badge?: st
 // ── Platform compatibility (for ecommerce labels) ──
 const PLATFORM_COMPAT: Record<string, { name: string; note: string }[]> = {
   "direct-thermal-labels": [
-    { name: "Amazon FBA", note: "4×6\" validated, 24-month image life, GS1-128 compliant" },
-    { name: "Shopify", note: "Compatible with Shopify Shipping label format" },
-    { name: "WooCommerce", note: "Works with WooCommerce PDF label plugins" },
-    { name: "DHL", note: "DHL Express & Parcel label format compatible" },
-    { name: "UPS", note: "UPS WorldShip label format compatible" },
-    { name: "FedEx", note: "FedEx Ship Manager label format compatible" },
-    { name: "USPS", note: "USPS Click-N-Ship label format compatible" },
-    { name: "Amazon Logistics", note: "Amazon Last Mile delivery label compatible" },
+    { name: "Amazon FBA", note: "Produce from the current approved 4×6 template and barcode data" },
+    { name: "Shopify", note: "Match the exported shipping-label dimensions and printer settings" },
+    { name: "WooCommerce", note: "Match the generated PDF layout, size, and printer settings" },
+    { name: "DHL", note: "Produce from the buyer's current DHL label template" },
+    { name: "UPS", note: "Produce from the buyer's current UPS label template" },
+    { name: "FedEx", note: "Produce from the buyer's current FedEx label template" },
+    { name: "USPS", note: "Produce from the buyer's current USPS label template" },
+    { name: "Amazon Logistics", note: "Produce from the buyer's current last-mile template" },
   ],
 };
 
@@ -75,42 +76,42 @@ const PLATFORM_COMPAT: Record<string, { name: string; note: string }[]> = {
 const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; savings: string }[]> = {
   "direct-thermal-labels": [
     { tier: "Trial", qty: "50,000 labels", unit: "Best for testing", savings: "—" },
-    { tier: "Starter", qty: "100K–499K", unit: "Small seller / distributor", savings: "8% off" },
-    { tier: "Volume", qty: "500K–1.9M", unit: "Pallet pricing", savings: "15% off" },
-    { tier: "Container", qty: "2M+ labels", unit: "FCL factory-direct", savings: "22% off" },
+    { tier: "Starter", qty: "100K–499K", unit: "Quoted by specification", savings: "Request quote" },
+    { tier: "Volume", qty: "500K–1.9M", unit: "Pallet plan reviewed", savings: "Request quote" },
+    { tier: "Container", qty: "2M+ labels", unit: "FCL plan reviewed", savings: "Request quote" },
   ],
   "fanfold-labels": [
     { tier: "Trial", qty: "50,000 labels", unit: "Best for testing", savings: "—" },
-    { tier: "Starter", qty: "100K–499K", unit: "Fulfillment center", savings: "8% off" },
-    { tier: "Volume", qty: "500K–1.9M", unit: "3PL / warehouse", savings: "15% off" },
-    { tier: "Container", qty: "2M+ labels", unit: "FCL factory-direct", savings: "22% off" },
+    { tier: "Starter", qty: "100K–499K", unit: "Quoted by specification", savings: "Request quote" },
+    { tier: "Volume", qty: "500K–1.9M", unit: "Pallet plan reviewed", savings: "Request quote" },
+    { tier: "Container", qty: "2M+ labels", unit: "FCL plan reviewed", savings: "Request quote" },
   ],
   "default": [
     { tier: "Sample", qty: "1 carton", unit: "Contact for price", savings: "—" },
-    { tier: "Starter", qty: "25K–99K", unit: "Small distributor", savings: "5% off" },
-    { tier: "Volume", qty: "100K–499K", unit: "Pallet pricing", savings: "12% off" },
-    { tier: "Container", qty: "500K+ labels", unit: "FCL factory-direct", savings: "20% off" },
+    { tier: "Starter", qty: "25K–99K", unit: "Quoted by specification", savings: "Request quote" },
+    { tier: "Volume", qty: "100K–499K", unit: "Pallet plan reviewed", savings: "Request quote" },
+    { tier: "Container", qty: "500K+ labels", unit: "FCL plan reviewed", savings: "Request quote" },
   ],
 };
 
 // ── Compliance docs by label slug ──
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
   "direct-thermal-labels": [
-    { name: "BPA-Free Test Report (SGS)", desc: "EU 2024/3190 & Prop 65 compliant" },
-    { name: "REACH SVHC Declaration", desc: "240+ substances tested" },
-    { name: "Amazon FBA Compliance Letter", desc: "24-month image life verified" },
+    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted label grade" },
+    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
+    { name: "Image Stability Report", desc: "Test conditions matched to the selected material and retention target" },
     { name: "Technical Data Sheet (TDS)", desc: "Full adhesive, facestock & barcode specs" },
   ],
   "freezer-cold-chain-labels": [
-    { name: "EU Food Contact Declaration", desc: "Regulation (EC) No 1935/2004 compliant" },
-    { name: "FDA Pharma Cold Chain Cert", desc: "21 CFR compliant for pharmaceutical use" },
-    { name: "Freeze-Thaw Test Report", desc: "Adhesion verified through 50 cycles" },
+    { name: "Food-Contact Document", desc: "Availability and scope confirmed for the selected material and use" },
+    { name: "Material Declaration", desc: "Current document confirmed for the destination and application" },
+    { name: "Freeze-Thaw Test Report", desc: "Test profile matched to the surface, adhesive, and project cycle" },
     { name: "Technical Data Sheet (TDS)", desc: "Temperature range, adhesive & facestock specs" },
   ],
   "default": [
-    { name: "BPA-Free Test Report (SGS)", desc: "EU 2024/3190 compliant" },
-    { name: "REACH SVHC Declaration", desc: "EU REACH Annex XVII compliant" },
-    { name: "ISO 9001:2015 Certificate", desc: "Certified quality management" },
+    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade" },
+    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
+    { name: "Quality Management Certificate", desc: "Current certificate supplied on request" },
     { name: "Technical Data Sheet (TDS)", desc: "Full product specifications" },
   ],
 };
@@ -122,7 +123,7 @@ export default async function LabelDetailPage({ params }: Props) {
 
   const related = THERMAL_LABELS.filter((l) => l.slug !== slug).slice(0, 4);
   const heroText = (label as { heroDesc?: string }).heroDesc || `${label.name} — custom OEM printing, private label capabilities, and specialized adhesive options for distributors and importers worldwide.`;
-  const descText = (label as { description?: string }).description || `Premium ${label.name} for wholesale distributors and importers. ISO 9001:2015 certified. MOQ ${label.moq}. Custom OEM and private label available.`;
+  const descText = (label as { description?: string }).description || `${label.name} for wholesale distributors and importers. Material documents, order quantity, OEM printing, and private-label options are confirmed for the quoted construction and project.`;
 
   const printers = PRINTER_COMPAT[slug] || PRINTER_COMPAT["default"];
   const platforms = PLATFORM_COMPAT[slug] || null;
@@ -316,8 +317,8 @@ export default async function LabelDetailPage({ params }: Props) {
                             ["Liner Material", "Glassine / PE / PET"],
                             ["Label Format", "Roll / Fanfold / Sheet"],
                             ["Minimum Order Qty", label.moq],
-                            ["Standard Lead Time", "10–15 business days"],
-                            ["Quality Certification", "ISO 9001:2015"],
+                            ["Production Schedule", "Confirmed after material, quantity, artwork, and packing review"],
+                            ["Quality Documents", "Current certificate scope and validity confirmed on request"],
                           ].map(([key, val], i) => (
                             <tr key={key} className={i % 2 === 0 ? "bg-slate-50/50" : "bg-white"}>
                               <td className="py-3.5 px-4 font-semibold text-slate-500 text-xs uppercase tracking-wide w-2/5 ">{key}</td>
@@ -357,7 +358,7 @@ export default async function LabelDetailPage({ params }: Props) {
               <h2 className="font-bold text-slate-900 text-2xl">Printer Compatibility</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Pre-tested and validated on all major thermal label printer platforms. Guaranteed scan-through-rate and zero jamming under standard operating conditions.
+              These model families are common buyer references. Confirm dimensions, core or stack, winding, sensing, media path, print method, and performance with the exact printer and an approved sample.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
               {printers.map((p) => (
@@ -390,7 +391,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 <h2 className="font-bold text-slate-900 text-2xl">E-Commerce Platform Compatibility</h2>
               </div>
               <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-                Pre-validated for all major e-commerce platforms and carriers. Drop-in replacement — no printer reconfiguration required.
+                Platform and carrier layouts change over time. Use the buyer's current approved template and verify label size, printer settings, barcode data, and scan performance before production.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {platforms.map((p) => (
@@ -408,7 +409,7 @@ export default async function LabelDetailPage({ params }: Props) {
                   <div className="flex-1">
                     <p className="font-bold text-slate-900 text-sm mb-1">Amazon FBA Seller?</p>
                     <p className="text-slate-500 text-xs">
-                      Our 4×6" direct thermal labels are pre-validated for Amazon fulfillment centers. 24-month image life meets FBA retention requirements. GS1-128 barcode standard supported.
+                      Share the current 4×6 template, printer, packaging surface, barcode data, and required retention period. The finished label should be sample-tested in the buyer's fulfillment workflow.
                     </p>
                   </div>
                   <Link
@@ -431,7 +432,7 @@ export default async function LabelDetailPage({ params }: Props) {
               <h2 className="font-bold text-slate-900 text-2xl">Volume Pricing</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Factory-direct pricing with volume discounts. The more you order, the more you save — from trial rolls to full container loads.
+              Quantity bands indicate packing and supply scale. Final pricing is quoted from the current material, adhesive, dimensions, printing, packing, volume, destination, and Incoterm.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {pricing.map((tier, i) => (
@@ -463,7 +464,7 @@ export default async function LabelDetailPage({ params }: Props) {
               <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
                 Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <p className="text-slate-400 text-xs">Response within 24 hours · No commitment required</p>
+              <p className="text-slate-400 text-xs">Response timing confirmed after specification and document review</p>
             </div>
           </div>
         </section>
@@ -476,7 +477,7 @@ export default async function LabelDetailPage({ params }: Props) {
               <h2 className="font-bold text-slate-900 text-2xl">Compliance Documents</h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Full compliance documentation package available for your procurement team. All documents issued by accredited third-party laboratories, updated annually.
+              Available files depend on the selected facestock, adhesive, test scope, destination, and current document validity. Request the exact report or declaration required for procurement review.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
@@ -493,7 +494,7 @@ export default async function LabelDetailPage({ params }: Props) {
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-sm mb-1">Request Full Compliance Pack</p>
                 <p className="text-slate-500 text-xs">
-                  Submit your company details and we will send the complete compliance documentation package within 24 hours — ready for your procurement audit.
+                  Share the destination market, selected construction, contact conditions, and required file names so the team can confirm which current documents apply.
                 </p>
               </div>
               <Link
@@ -527,8 +528,8 @@ export default async function LabelDetailPage({ params }: Props) {
                   <ShoppingCart className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-sm mb-1">Amazon FBA Compliant</p>
-                  <p className="text-slate-500 text-xs mb-3">4×6" labels pre-validated for Amazon FBA. GS1-128 barcode standard, Zebra compatible.</p>
+                  <p className="font-bold text-slate-900 text-sm mb-1">Marketplace Label Workflow</p>
+                  <p className="text-slate-500 text-xs mb-3">Confirm the current 4×6 template, barcode data, printer settings, surface, and retention target before ordering.</p>
                   <Link href="/industries/ecommerce" className="text-amber-600 hover:text-amber-700 font-semibold text-xs flex items-center gap-1">
                     FBA Guide <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -569,13 +570,23 @@ export default async function LabelDetailPage({ params }: Props) {
                 <Link
                   key={l.slug}
                   href={`/products/thermal-labels/${l.slug}`}
-                  className="group bg-white border border-slate-200  p-6 hover:border-[#0f5f5c]/40 hover:shadow-lg transition-all"
+                  className="group flex flex-col overflow-hidden border border-slate-200 bg-white transition-all hover:border-[#0f5f5c]/40 hover:shadow-lg"
                 >
-                  <div className="w-10 h-10 bg-emerald-50  flex items-center justify-center mb-4 group-hover:bg-emerald-100 transition-colors">
-                    <Tag className="w-5 h-5 text-emerald-600" />
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                    <SlotImage
+                      slotKey={`products.card.${l.slug}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{l.name}</h3>
-                  <p className="text-slate-400 text-xs">{l.subtitle}</p>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{l.name}</h3>
+                    <p className="text-slate-500 text-xs leading-5 flex-1">{l.subtitle}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c]">
+                      View details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

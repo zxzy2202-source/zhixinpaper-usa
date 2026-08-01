@@ -305,4 +305,46 @@ export const INDUSTRY_BUYER_INSIGHTS: Record<string, IndustryBuyerInsight> = {
     commonRisks: ["Color mismatch", "QR contrast failure", "Late proof approval", "Wrong ticket stock thickness"],
     quoteChecklist: ["Artwork file", "Pantone colors", "Ticket or roll size", "QR size", "Launch date", "Pack format"],
   },
+  "food-cold-chain": {
+    buyerTypes: ["Food manufacturers and processors", "Cold storage and 3PL operators", "Supermarket and deli chains", "Pharmaceutical cold chain logistics"],
+    purchaseMotives: ["Stable adhesion through freeze-thaw cycles", "Food-contact documentation for the target market", "GS1 traceability barcode readability", "Audit-ready material and batch records"],
+    commonRisks: ["Label detachment during temperature changes", "Barcode smearing from condensation or moisture", "Wrong adhesive for the packaging surface", "Missing documents for the buyer's audit"],
+    quoteChecklist: ["Temperature range and exposure time", "Surface type such as PE bag, carton, or glass", "Label size and roll or fanfold format", "Printer model and DT or TT method", "Required compliance documents", "Monthly volume and pallet plan"],
+  },
+  "healthcare-pharma": {
+    buyerTypes: ["Hospitals and clinic groups", "Pharmacy chains", "Clinical laboratories", "Medical consumables distributors"],
+    purchaseMotives: ["Readable patient and specimen information", "Documented material compliance", "Resistance to handling and cleaning", "Stable repeat-order specifications"],
+    commonRisks: ["Image loss during the required retention period", "Label lift on small or cold surfaces", "Chemical exposure affecting print", "Unverified material claims"],
+    quoteChecklist: ["Application and contact surface", "Printer model", "Retention period", "Temperature and chemical exposure", "Required documents", "Pack and traceability needs"],
+  },
+  "logistics-warehouse": {
+    buyerTypes: ["3PL operators", "Distribution centers", "Warehouse system integrators", "Shipping-label distributors"],
+    purchaseMotives: ["Reliable barcode scanning", "Fast print-and-apply throughput", "Correct carton or bin adhesion", "Predictable roll and fanfold supply"],
+    commonRisks: ["Barcode grading below the scanner requirement", "Labels lifting from dusty or recycled cartons", "Wrong core or fanfold stack dimensions", "Printhead dust and label jams"],
+    quoteChecklist: ["Printer and applicator model", "Label size and format", "Surface material", "Barcode symbology and grade", "Storage conditions", "Monthly consumption"],
+  },
+  ecommerce: {
+    buyerTypes: ["Marketplace sellers", "DTC brands", "Fulfillment centers", "Shipping-supply distributors"],
+    purchaseMotives: ["Carrier-compatible label formats", "Reliable scans through fulfillment", "Simple desktop-printer loading", "Cost control at growing volumes"],
+    commonRisks: ["Incorrect label dimensions", "Adhesion failure on poly mailers", "Poor scans after abrasion", "Format mismatch with the printer"],
+    quoteChecklist: ["Marketplace or carrier workflow", "Printer model", "Label dimensions", "Carton or mailer surface", "Roll or fanfold format", "Pack count and forecast volume"],
+  },
+  "automotive-industrial": {
+    buyerTypes: ["Automotive suppliers", "Industrial manufacturers", "Parts distributors", "Factory automation integrators"],
+    purchaseMotives: ["Durable parts identification", "Readable barcodes after handling", "Adhesion to difficult surfaces", "Controlled material and batch records"],
+    commonRisks: ["Facestock or adhesive chosen without exposure testing", "Chemical or abrasion damage", "Label lift on textured parts", "Barcode failure after production processes"],
+    quoteChecklist: ["Substrate and surface texture", "Temperature range", "Chemical and abrasion exposure", "Barcode requirement", "Application method", "Validation sample quantity"],
+  },
+  "government-legal": {
+    buyerTypes: ["Public service counters", "Municipal agencies", "Court and legal service offices", "Document-system integrators"],
+    purchaseMotives: ["Legible transaction records", "Controlled back-print content", "Defined retention requirements", "Documented batch consistency"],
+    commonRisks: ["Thermal media selected for an unsuitable archive period", "Disclosure copy errors", "Printer mismatch", "Unclear chain of document approval"],
+    quoteChecklist: ["Record type and retention target", "Printer model", "Roll dimensions", "Back-print or security needs", "Required material declarations", "Approval and delivery schedule"],
+  },
+  "cannabis-specialty": {
+    buyerTypes: ["Regulated specialty retailers", "Packaging converters", "Dispensary operators", "Compliance-label distributors"],
+    purchaseMotives: ["Market-specific label configuration", "Readable variable data and barcodes", "Tamper-evident options", "Controlled artwork revisions"],
+    commonRisks: ["Using one label format across different jurisdictions", "Missing variable fields", "Adhesive mismatch with the container", "Uncontrolled compliance artwork changes"],
+    quoteChecklist: ["Destination market", "Container material and size", "Required variable fields", "Tamper-evident need", "Printer and applicator model", "Artwork approval process"],
+  },
 };

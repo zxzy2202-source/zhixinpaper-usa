@@ -3,6 +3,13 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import { SlotImage } from "@/components/ui/SlotImage";
+import {
+  THERMAL_PAPER_GRADE_PATHS,
+  THERMAL_PAPER_PRODUCT_GROUPS,
+  THERMAL_PAPER_SKU_LAYERS,
+  THERMAL_PAPER_TIERS,
+} from "@/config/thermalPaperArchitecture";
 import { THERMAL_PAPER_ROLLS } from "@/lib/data";
 import { THERMAL_ROLL_SCENARIOS } from "@/lib/marketInsights";
 import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
@@ -149,6 +156,17 @@ const thermalRollTerminologySchema = {
   })),
 };
 
+const thermalRollsBySlug = new Map(
+  THERMAL_PAPER_ROLLS.map((roll) => [roll.slug, roll]),
+);
+
+function getRollsForGroup(slugs: readonly string[]) {
+  return slugs.flatMap((slug) => {
+    const roll = thermalRollsBySlug.get(slug);
+    return roll ? [roll] : [];
+  });
+}
+
 export default function ThermalPaperRollsPage() {
   const jsonLd = [
     breadcrumbSchema([
@@ -216,6 +234,47 @@ export default function ThermalPaperRollsPage() {
               quote-ready specification includes width, length or outer diameter, core ID, paper GSM, winding direction,
               coating, quantity, packing, and the printer or application.
             </p>
+          </div>
+        </section>
+
+        <section id="product-tiers" className="scroll-mt-28 border-b border-[#ded6c8] bg-[#f4f0e8] py-16">
+          <div className="container-site">
+            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+              <div>
+                <p className="section-label">Five buying paths</p>
+                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
+                  Start with the commercial task, then configure the roll.
+                </h2>
+              </div>
+              <p className="text-sm leading-7 text-[#4f5f5a]">
+                These tiers describe how an order is qualified, not five grades of quality. A single SKU can combine a
+                core roll, a compliance route, a resistance requirement, custom printing, and a system approval. The
+                highest-risk requirement controls the quotation and validation process.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-px border border-[#c8bcaa] bg-[#c8bcaa] md:grid-cols-2 xl:grid-cols-5">
+              {THERMAL_PAPER_TIERS.map((tier) => (
+                <Link
+                  key={tier.code}
+                  href={tier.href}
+                  className="group flex min-h-[250px] flex-col bg-[#fbfaf6] p-5 transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f5f5c]"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="border border-[#0f5f5c]/25 bg-[#e7eee9] px-2 py-1 text-xs font-bold text-[#0f5f5c]">
+                      {tier.code}
+                    </span>
+                    <span className="text-[11px] font-bold text-[#9f6e25]">{tier.maturity}</span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{tier.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{tier.summary}</p>
+                  <p className="mt-4 text-xs leading-5 text-[#687772]">{tier.buyerTask}</p>
+                  <span className="mt-auto flex items-center gap-1.5 pt-5 text-xs font-bold text-[#0f5f5c]">
+                    Follow this path <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -323,13 +382,53 @@ export default function ThermalPaperRollsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-[#fbfaf6]">
+        <section id="performance-grades" className="scroll-mt-28 border-b border-[#ded6c8] bg-[#101b19] py-20 text-white">
+          <div className="container-site">
+            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+              <div>
+                <p className="text-xs font-bold text-[#d6b273]">T3 functional performance</p>
+                <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+                  Specify the exposure, not just the grade name.
+                </h2>
+              </div>
+              <p className="text-sm leading-7 text-[#c7d0cb]">
+                Water-resistant, three-proof, and long-life are incomplete buying terms. Qualification starts with the
+                named risk, contact method, temperature and humidity, duration, readability target, and acceptance test.
+              </p>
+            </div>
+
+            <div className="mt-10 divide-y divide-white/15 border-y border-white/15">
+              {THERMAL_PAPER_GRADE_PATHS.map((grade) => (
+                <div key={grade.name} className="grid gap-4 py-6 md:grid-cols-[0.7fr_0.9fr_1.4fr] md:gap-8">
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d6b273]">{grade.maturity}</span>
+                    <h3 className="mt-2 text-lg font-bold text-white">{grade.name}</h3>
+                  </div>
+                  <p className="text-sm leading-6 text-[#e7eee9]">{grade.use}</p>
+                  <p className="text-sm leading-6 text-[#aebbb5]">{grade.evidence}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 border-l-2 border-[#d6b273] pl-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-3xl text-sm leading-6 text-[#e7eee9]">
+                A performance option remains a configuration or project candidate until the quoted grade, test method,
+                sample result, and application conditions are linked to the order.
+              </p>
+              <Link href="/quote" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-[#e7c98f] hover:text-white">
+                Submit test conditions <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#fbfaf6] py-20">
           <div className="container-site">
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="section-label">Product line</p>
+                <p className="section-label">Portfolio by buying path</p>
                 <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                  Roll options for repeat orders.
+                  Keep product pages focused on distinct customer tasks.
                 </h2>
               </div>
               <Link href="/quote" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
@@ -337,32 +436,95 @@ export default function ThermalPaperRollsPage() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {THERMAL_PAPER_ROLLS.map((roll) => (
-                <Link key={roll.slug} href={`/products/thermal-paper-rolls/${roll.slug}`} className="border border-[#ded6c8] bg-[#fbfaf6] hover:border-[#0f5f5c]/40 hover:bg-[#f4f0e8] transition-all p-6 group">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-bold text-[#14211f] text-xl group-hover:text-[#0f5f5c] transition-colors">{roll.name}</h3>
-                    {roll.tag && (
-                      <span className={`ml-2 shrink-0 border px-2 py-0.5 text-[10px] font-bold ${roll.tag === "New" ? "border-[#0f5f5c]/25 bg-[#0f5f5c]/10 text-[#0f5f5c]" : "bg-[#e7eee9] text-[#0f5f5c] border-[#0f5f5c]/25"}`}>{roll.tag}</span>
-                    )}
+            <div className="mt-10 space-y-14">
+              {THERMAL_PAPER_PRODUCT_GROUPS.map((group) => (
+                <section key={group.id} id={group.id} className="scroll-mt-28">
+                  <div className="grid gap-4 border-b border-[#c8bcaa] pb-5 md:grid-cols-[0.65fr_1.35fr] md:items-end">
+                    <div>
+                      <p className="text-xs font-bold text-[#9f6e25]">{group.eyebrow}</p>
+                      <h3 className="mt-2 text-2xl font-bold text-[#14211f]">{group.title}</h3>
+                    </div>
+                    <p className="text-sm leading-7 text-[#4f5f5a]">{group.description}</p>
                   </div>
-                  <p className="text-[#4f5f5a] text-sm mb-4">{roll.subtitle}</p>
-                  <div className="space-y-1.5 mb-4">
-                    {roll.features.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-xs text-[#4f5f5a]">
-                        <CheckCircle2 className="w-3 h-3 text-[#0f5f5c]/60 shrink-0" />
-                        {f}
-                      </div>
+                  <div className="grid gap-px border-x border-b border-[#ded6c8] bg-[#ded6c8] sm:grid-cols-2 lg:grid-cols-3">
+                    {getRollsForGroup(group.slugs).map((roll) => (
+                      <Link
+                        key={roll.slug}
+                        href={`/products/thermal-paper-rolls/${roll.slug}`}
+                        className="group flex flex-col overflow-hidden bg-[#fbfaf6] transition-colors hover:bg-[#f4f0e8] focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f5f5c]"
+                      >
+                        <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eee9]">
+                          <SlotImage
+                            slotKey={`products.card.${roll.slug}`}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+                        </div>
+                        <div className="flex min-h-[220px] flex-1 flex-col p-5">
+                          <div className="flex items-start justify-between gap-3">
+                            <h4 className="text-lg font-bold text-[#14211f] transition-colors group-hover:text-[#0f5f5c]">{roll.name}</h4>
+                            {roll.tag && (
+                              <span className="shrink-0 border border-[#0f5f5c]/25 bg-[#e7eee9] px-2 py-0.5 text-[10px] font-bold text-[#0f5f5c]">
+                                {roll.tag}
+                              </span>
+                            )}
+                          </div>
+                          <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{roll.subtitle}</p>
+                          <p className="mt-4 text-xs leading-5 text-[#687772]">Common sizes: {roll.sizes.slice(0, 3).join(" / ")}</p>
+                          <span className="mt-auto flex items-center justify-between gap-3 border-t border-[#ded6c8] pt-4 text-xs">
+                            <span className="text-[#87918c]">MOQ: {roll.moq}</span>
+                            <span className="flex items-center gap-1.5 font-semibold text-[#0f5f5c]">
+                              Details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </span>
+                          </span>
+                        </div>
+                      </Link>
                     ))}
                   </div>
-                  <div className="divider pt-4 flex items-center justify-between">
-                    <span className="text-[#87918c] text-xs">MOQ: {roll.moq}</span>
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#0f5f5c]">
-                      Details <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
+                </section>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[#ded6c8] bg-[#f4f0e8] py-20">
+          <div className="container-site">
+            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+              <div>
+                <p className="section-label">L0-L7 quote structure</p>
+                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
+                  Define the complete SKU before comparing quotes.
+                </h2>
+              </div>
+              <p className="text-sm leading-7 text-[#4f5f5a]">
+                Product names, sizes, compliance terms, and durability labels belong to different layers. Confirming all
+                eight prevents a familiar name such as 80x80, BPA-free, or custom printed from hiding a critical mismatch.
+              </p>
+            </div>
+
+            <ol className="mt-10 grid gap-px border border-[#c8bcaa] bg-[#c8bcaa] md:grid-cols-2 xl:grid-cols-4">
+              {THERMAL_PAPER_SKU_LAYERS.map((layer) => (
+                <li key={layer.code} className="min-h-[180px] bg-[#fbfaf6] p-5">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">
+                      {layer.code}
+                    </span>
+                    <h3 className="text-base font-bold text-[#14211f]">{layer.name}</h3>
+                  </div>
+                  <p className="mt-5 text-sm leading-6 text-[#4f5f5a]">{layer.prompt}</p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-8 flex flex-col gap-4 border-l-2 border-[#0f5f5c] pl-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-3xl text-sm leading-6 text-[#4f5f5a]">
+                Minimum RFQ: application, printer model, width, maximum OD or required length, core ID, paper grade,
+                winding, mark or sensor, printing, packaging, quantity, and destination.
+              </p>
+              <Link href="/quote" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
+                Get a specification-based quote <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </section>
