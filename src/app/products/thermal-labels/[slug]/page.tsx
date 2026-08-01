@@ -188,7 +188,7 @@ export default async function LabelDetailPage({ params }: Props) {
               sizes="100vw"
               quality={76}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.82)_54%,rgba(8,20,18,0.24)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
 
             <div className="absolute inset-0 flex items-center">
               <div className="container-site">

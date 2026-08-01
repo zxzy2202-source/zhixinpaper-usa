@@ -150,7 +150,7 @@ export default function HomePage() {
             quality={76}
             className="-z-20 object-cover object-[62%_center]"
           />
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.97)_0%,rgba(8,20,18,0.84)_48%,rgba(8,20,18,0.24)_82%,rgba(8,20,18,0.08)_100%)]" />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
 
           <div className="container-site py-14 md:py-18 lg:py-20">
             <div className="grid gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-end">

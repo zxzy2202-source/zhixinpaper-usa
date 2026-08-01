@@ -7,6 +7,13 @@ import {
   COMPLIANCE_ITEMS,
   BLOG_POSTS,
 } from "@/lib/data";
+
+const CASE_STUDY_SLUGS = [
+  "european-lottery-operator",
+  "us-pharmacy-chain",
+  "german-logistics-provider",
+  "canadian-cannabis-dispensary",
+];
 import { SITE_URL } from "@/lib/seo";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
@@ -135,6 +142,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("sitemap: failed to fetch blog posts from DB:", e);
   }
 
+  const caseStudyPages: MetadataRoute.Sitemap = CASE_STUDY_SLUGS.map((slug) => ({
+    url: `${BASE_URL}/case-studies/${slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
@@ -147,6 +160,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...rollPages,
     ...labelPages,
     ...industryPages,
+    ...caseStudyPages,
     ...euCountryPages,
     ...compliancePages,
     ...dbBlogPages,

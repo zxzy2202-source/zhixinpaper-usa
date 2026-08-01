@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SlotImage from "@/components/ui/SlotImage";
 import { COMPLIANCE_ITEMS } from "@/lib/data";
-import { breadcrumbSchema, canonicalUrl, organizationSchema } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl, organizationSchema } from "@/lib/seo";
 import {
   ArrowRight,
   Award,
@@ -20,10 +20,11 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Thermal Paper Compliance Documents",
   description:
     "Review document routes for BPA-free and phenol-free grades, REACH/RoHS, ISO 9001, FSC, food-contact sourcing, and product-specific test scope.",
+  path: "/compliance",
   keywords: [
     "thermal paper compliance",
     "BPA-free thermal paper certificate",
@@ -33,8 +34,7 @@ export const metadata: Metadata = {
     "FDA compliant thermal paper",
     "thermal paper certificates",
   ],
-  alternates: { canonical: canonicalUrl("/compliance") },
-};
+});
 
 const ICONS: Record<string, LucideIcon> = {
   ShieldCheck,

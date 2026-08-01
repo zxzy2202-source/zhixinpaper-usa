@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { INDUSTRY_BUYER_INSIGHTS } from "@/lib/marketInsights";
-import { canonicalUrl } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface Props {
@@ -21,12 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const industry = INDUSTRIES.find((i) => i.slug === slug);
   if (!industry) return {};
-  return {
+  return buildMetadata({
     title: `${industry.name} Thermal Paper`,
     description: `Thermal paper rolls and labels for ${industry.name.toLowerCase()} buyers. Compare materials, printer fit, compliance files, OEM packing, and wholesale supply.`,
-    keywords: industry.keywords,
-    alternates: { canonical: canonicalUrl(`/industries/${slug}`) },
-  };
+    path: `/industries/${slug}`,
+    keywords: typeof industry.keywords === "string" ? industry.keywords.split(",").map((k: string) => k.trim()) : industry.keywords,
+  });
 }
 
 export default async function IndustryDetailPage({ params }: Props) {

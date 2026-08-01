@@ -7,6 +7,7 @@ import { BLOG_POSTS } from "@/lib/data";
 import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { canonicalUrl } from "@/lib/seo";
 
 const STATIC_POST_SEO: Record<string, { title: string; keywords: string[] }> = {
   "thermal-paper-roll-sizes-guide": {
@@ -67,7 +68,7 @@ export async function generateMetadata({
         authors: ["Zhixin Paper"],
         images: dbPost.coverImage ? [{ url: dbPost.coverImage }] : [],
       },
-      alternates: { canonical: `https://www.zhixinpaper.com/blog/${slug}` },
+      alternates: { canonical: canonicalUrl(`/blog/${slug}`) },
     };
   }
 
@@ -110,7 +111,12 @@ export default async function BlogPostPage({
       datePublished: dbPost.publishedAt || dbPost.createdAt,
       dateModified: dbPost.updatedAt,
       author: { "@type": "Organization", name: "Zhixin Paper", url: "https://www.zhixinpaper.com" },
-      publisher: { "@type": "Organization", name: "Zhixin Paper", url: "https://www.zhixinpaper.com" },
+      publisher: {
+        "@type": "Organization",
+        name: "Zhixin Paper",
+        url: "https://www.zhixinpaper.com",
+        logo: { "@type": "ImageObject", url: "https://www.zhixinpaper.com/images/logo.png" },
+      },
       mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.zhixinpaper.com/blog/${slug}` },
       ...(dbPost.coverImage ? { image: dbPost.coverImage } : {}),
     };

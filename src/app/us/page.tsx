@@ -3,20 +3,103 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
-import SectionHeader from "@/components/ui/SectionHeader";
 import SlotImage from "@/components/ui/SlotImage";
 import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
+import { GEO_REGIONS } from "@/lib/data";
 import {
   ArrowRight, CheckCircle2, Truck, MapPin, ShieldCheck, Package,
-  Zap, Globe, BadgeCheck, Download,
+  Factory, Users, Globe, Star, FileCheck, TrendingUp, Clock,
+  Layers, Download, ChevronRight,
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "USA Thermal Paper Supplier",
+  title: "USA Thermal Paper Supplier — FDA & Prop 65 Compliant | Zhixin Paper",
   description:
-    "Thermal paper rolls and labels for US distributors. Compare BPA-free grades, Prop 65 and food-contact document scope, samples, packing, and delivery terms.",
+    "FDA-compliant, Prop 65 compliant thermal paper rolls and labels for US distributors and importers. BPA-free, ISO 9001 certified factory. DDP shipping to any US port.",
   path: "/us",
+  keywords: [
+    "thermal paper supplier USA",
+    "FDA compliant thermal paper",
+    "Prop 65 thermal paper",
+    "thermal labels wholesale USA",
+    "receipt paper rolls US distributor",
+    "BPA free thermal paper United States",
+    "cannabis labels USA",
+  ],
 });
+
+const usRegion = GEO_REGIONS.find((r) => r.slug === "us")!;
+const subpages = (usRegion as any).subpages || [];
+
+const US_PRODUCTS = [
+  {
+    title: "Thermal Paper Rolls",
+    href: "/products/thermal-paper-rolls",
+    slotKey: "home.product.thermal-rolls" as const,
+    alt: "FDA-compliant thermal paper rolls for US retail and POS systems",
+    copy: "Standard 3 1/8\" POS rolls, payment terminal, ATM, lottery, and receipt rolls — FDA/Prop 65 compliant, compatible with Zebra, Epson, Star, and all US-market printers.",
+    specs: ["3 1/8 inch POS rolls", "FDA 21 CFR compliant grades", "Amazon FBA compatible packing"],
+  },
+  {
+    title: "Thermal Labels",
+    href: "/products/thermal-labels",
+    slotKey: "home.product.thermal-labels" as const,
+    alt: "Direct thermal shipping and barcode labels for US logistics and e-commerce",
+    copy: "Direct thermal and thermal transfer labels for shipping, barcode, retail, cannabis, and food applications. Prop 65 compliant, state-level cannabis label options available.",
+    specs: ["4x6\" & 4x4\" shipping labels", "Cannabis-compliant die-cuts", "Permanent & removable adhesive"],
+  },
+];
+
+const US_COMPLIANCE = [
+  { label: "FDA 21 CFR", desc: "Food contact compliant substrates", href: "/compliance/fda-us" },
+  { label: "Prop 65", desc: "No BPA, BPS, BPAF — California compliant", href: "/compliance/fda-us" },
+  { label: "BPA-Free", desc: "BPA/BPS-free certified by SGS", href: "/compliance/bpa-free" },
+  { label: "ISO 9001:2015", desc: "Certified quality management", href: "/compliance/iso-9001" },
+  { label: "FSC Certified", desc: "Responsible forest sourcing", href: "/compliance/fsc-paper" },
+  { label: "Cannabis Labels", desc: "State-compliant for 20+ states", href: "/us/cannabis-labels" },
+];
+
+const US_LOGISTICS = [
+  { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production slot reserved" },
+  { step: "Production & QC", time: "Days 1–10", detail: "Manufacturing with ISO 9001 quality checks" },
+  { step: "Export Clearance", time: "Days 11–13", detail: "FOB Qingdao — Chinese customs clearance" },
+  { step: "Sea Freight", time: "Days 14–28", detail: "Qingdao → LA/LB (14–18 days) or NY/NJ (26–30 days)" },
+  { step: "DDP Delivery", time: "Days 29–33", detail: "Customs cleared, delivered to your US warehouse" },
+];
+
+const US_FAQ = [
+  {
+    q: "Are your thermal paper products FDA compliant for food contact applications?",
+    a: "Yes. We provide FDA 21 CFR compliant thermal paper substrates for food contact and labeling applications. Specific compliance depends on the quoted material grade — we confirm the applicable 21 CFR section (typically 176.170 or 176.180) with supporting documentation before production.",
+  },
+  {
+    q: "Are your products Prop 65 compliant for the California market?",
+    a: "Yes. All our standard thermal paper grades are tested and confirmed free of BPA, BPS, BPAF, and other chemicals listed under California Proposition 65. SGS/Intertek test reports are available on request at no charge.",
+  },
+  {
+    q: "Do you offer DDP shipping to the United States?",
+    a: "Yes. We offer DDP (Delivered Duty Paid) shipping to any US destination via Los Angeles/Long Beach, New York/New Jersey, Savannah, or other major ports. All customs duties, Section 301 tariffs, and clearance fees are handled on our side.",
+  },
+  {
+    q: "Can you provide cannabis-compliant labels for my state?",
+    a: "Yes. We manufacture thermal labels that meet state-specific cannabis compliance requirements for California, Colorado, Michigan, Illinois, New York, Washington, Oregon, Nevada, and 12+ other states. Contact us with your state requirements and we will confirm the label material, adhesive, die-cut, and compliance scope.",
+  },
+  {
+    q: "What is your minimum order quantity for US buyers?",
+    a: "MOQ is 10,000 rolls for standard POS rolls or 50,000 pieces for thermal labels. We also offer LTL (less-than-truckload) pallet pricing for smaller orders and full container load (FCL) pricing for volume buyers with significant per-unit savings.",
+  },
+  {
+    q: "Can you pack for Amazon FBA directly?",
+    a: "Yes. We offer Amazon FBA-ready packing with FNSKU labeling, poly-bagging, and carton labeling that meets Amazon's prep requirements. Standard 4x6\" thermal shipping labels and 3 1/8\" POS receipt rolls are popular FBA SKUs.",
+  },
+];
+
+const TRUST_SIGNALS = [
+  { icon: <Factory className="w-4 h-4 text-blue-600" />, label: "500M+", sub: "Rolls/year capacity" },
+  { icon: <Users className="w-4 h-4 text-blue-600" />, label: "500+", sub: "Distributors served" },
+  { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "80+", sub: "Countries supplied" },
+  { icon: <Star className="w-4 h-4 text-blue-600" />, label: "15+", sub: "Years experience" },
+];
 
 export default function USPage() {
   const jsonLd = [
@@ -33,89 +116,351 @@ export default function USPage() {
       {jsonLd.map((schema, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
-      <main className="pt-[88px]">
+      <main id="main-content" className="pt-[88px]">
         {/* ── HERO ── */}
-        <section className="relative pt-32 pb-16 bg-blue-900 overflow-hidden">
-          {/* Background image */}
-          <div className="absolute inset-0 z-0 opacity-40">
-            <SlotImage slotKey="geo.us.hero" fill className="object-cover" fetchPriority="high" loading="eager" sizes="100vw" quality={76} />
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent" />
-          </div>
+        <section className="relative isolate overflow-hidden bg-[#0d1f2d] text-white">
+          <SlotImage
+            slotKey="geo.us.hero"
+            alt="Thermal paper rolls and labels manufacturing for US distribution"
+            fill
+            fetchPriority="high"
+            loading="eager"
+            sizes="100vw"
+            quality={76}
+            className="-z-20 object-cover object-center"
+          />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,32,0.68)_0%,rgba(8,20,32,0.48)_48%,rgba(8,20,32,0.18)_82%,rgba(8,20,32,0.05)_100%)]" />
 
-          <div className="container-site relative z-10">
-            <div className="flex items-center gap-4 mb-4">
+          <div className="container-site py-16 md:py-20 lg:py-24">
+            <div className="flex items-center gap-4 mb-5">
               <span className="text-5xl drop-shadow-lg">🇺🇸</span>
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
                   <span className="text-xs font-bold tracking-widest uppercase text-blue-200">United States Market</span>
                 </div>
-                <h1 className="font-bold text-white text-5xl md:text-6xl tracking-tight">
-                  Thermal Paper Supplier USA
+                <h1 className="font-bold text-white leading-[1.08] text-4xl sm:text-5xl md:text-6xl">
+                  Thermal Paper Supplier<br className="sm:hidden" /> USA
                 </h1>
               </div>
             </div>
-            <p className="text-blue-100 text-lg max-w-3xl mb-5 leading-relaxed">
-              FDA-compliant, Prop 65 compliant thermal paper rolls and labels for US distributors, importers, and e-commerce sellers. BPA-free, ISO 9001 certified, DDP shipping to any US port.
+            <p className="text-blue-50/90 text-lg max-w-2xl mb-5 leading-relaxed">
+              FDA-compliant, Prop 65 compliant thermal paper rolls and labels for US distributors, importers, and e-commerce sellers. BPA-free, ISO 9001 certified factory with DDP shipping to any US port including LA/Long Beach, NY/NJ, and Savannah.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
-              {["FDA 21 CFR", "Prop 65 Compliant", "BPA-Free", "ISO 9001", "DDP USA", "Amazon FBA Validated", "Cannabis Labels"].map((f) => (
-                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white  shadow-sm">
+              {["FDA 21 CFR", "Prop 65 Compliant", "BPA-Free / BPS-Free", "ISO 9001", "DDP USA", "Amazon FBA Ready", "Cannabis Labels"].map((f) => (
+                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white shadow-sm">
                   <CheckCircle2 className="w-3 h-3 text-blue-400" />
                   {f}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-bold  transition-all shadow-lg shadow-blue-500/30 text-sm">
+              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-600/30 text-sm">
                 Get US Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold  border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
+              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
                 Free Samples
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ── CONTENT SECTIONS ── */}
-        <section className="py-20 bg-white">
+        {/* ── SUBPAGE CARDS ── */}
+        {subpages.length > 0 && (
+          <section className="py-16 bg-white border-b border-slate-200">
+            <div className="container-site">
+              <div className="max-w-3xl mb-8">
+                <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
+                  US market solutions.
+                </h2>
+                <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
+                  Dedicated pages for key US compliance and application requirements. Each covers specifications, regulations, and what to ask for before ordering.
+                </p>
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2">
+                {subpages.map((page: any) => (
+                  <Link
+                    key={page.slug}
+                    href={`/us/${page.slug}`}
+                    className="group border border-slate-200 bg-slate-50 p-6 hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors mb-2">{page.name}</h3>
+                    <p className="text-sm text-slate-500 leading-relaxed mb-4">
+                      {page.slug === "fda-compliant"
+                        ? "FDA 21 CFR compliant thermal paper substrates for food contact, medical, and pharmaceutical labeling applications. Confirm grade, scope, and Prop 65 documentation."
+                        : "State-compliant cannabis labels for dispensaries across 20+ states. Confirm die-cut, adhesive, print method, and state-specific regulatory requirements."}
+                    </p>
+                    <div className="flex items-center gap-2 text-sm font-bold text-blue-600 group-hover:gap-3 transition-all">
+                      View {page.name} details
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── LOGISTICS INFO BAR ── */}
+        <section className="py-5 bg-blue-600 text-white">
+          <div className="container-site flex flex-wrap items-center gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <Truck className="w-4 h-4 text-blue-200" />
+              <span className="font-semibold">{usRegion.shipping}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-blue-200" />
+              <span>Major ports: <strong>Los Angeles/Long Beach, NY/NJ, Savannah, Houston</strong></span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-blue-200" />
+              <span>Lead time: <strong>30–35 days</strong> (production + sea freight + clearance)</span>
+            </div>
+            <div className="flex items-center gap-2 ml-auto">
+              <span className="text-blue-200 text-xs">DDP · FOB · CIF available — Section 301 tariffs included in DDP</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRODUCT LINES ── */}
+        <section className="py-20 bg-white border-b border-slate-100">
           <div className="container-site">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2">
-                <SectionHeader 
-                  label="Market Overview" 
-                  title="High-Performance Thermal Solutions for the US Market" 
-                  subtitle="Meeting the strict regulatory requirements and high-volume demands of American retail, logistics, and healthcare."
-                />
-                <div className="mt-8 prose prose-slate max-w-none text-slate-600">
-                  <p>
-                    Zhixin Paper provides a comprehensive range of thermal paper rolls and labels designed specifically for the unique needs of the United States market. From standard 3 1/8" POS rolls for national retail chains to 4x6 shipping labels for e-commerce giants, our products are engineered for reliability and precision.
-                  </p>
-                  <p>
-                    We understand that compliance is non-negotiable in the USA. That's why our paper is rigorously tested for Prop 65 compliance and is fully BPA-free. For the medical and cannabis sectors, we offer specialized FDA-compliant substrates that ensure long-term image stability and adhesive integrity.
-                  </p>
+            <div className="max-w-3xl mb-10">
+              <h2 className="text-3xl font-bold text-slate-900 md:text-5xl">
+                Two product lines. US compliance built in.
+              </h2>
+              <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
+                Every product we ship to the US is manufactured with FDA-compliant thermal coating, documented with Prop 65 declarations, and packed for US pallet standards. Select a product line to browse sizes and specifications.
+              </p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {US_PRODUCTS.map((product) => (
+                <article key={product.title} className="group border border-slate-200 bg-white hover:border-blue-200 transition-colors">
+                  <Link href={product.href} className="block">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#0d1f2d]">
+                      <SlotImage
+                        slotKey={product.slotKey}
+                        alt={product.alt}
+                        fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="object-cover transition duration-500 group-hover:scale-[1.025]"
+                      />
+                    </div>
+                    <div className="p-6 md:p-8">
+                      <div className="flex items-start justify-between gap-6">
+                        <h3 className="text-3xl font-bold text-slate-900 md:text-4xl">{product.title}</h3>
+                        <ArrowRight className="mt-1 h-6 w-6 shrink-0 text-blue-600 transition group-hover:translate-x-1" />
+                      </div>
+                      <p className="mt-4 max-w-xl text-sm leading-7 text-slate-500">{product.copy}</p>
+                      <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-200 pt-5 text-sm font-semibold text-slate-700">
+                        {product.specs.map((spec) => <span key={spec}>{spec}</span>)}
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── WHY ZHIXIN + TRUST SIGNALS ── */}
+        <section className="py-20 bg-slate-50 border-b border-slate-200">
+          <div className="container-site">
+            <div className="grid gap-10 lg:grid-cols-[1fr_0.65fr] lg:items-start">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 md:text-5xl">
+                  Why US distributors choose Zhixin.
+                </h2>
+                <p className="mt-4 text-base leading-8 text-slate-500 max-w-xl">
+                  The US market demands strict regulatory compliance, fast logistics, and competitive pricing. We built our export process around US customs requirements — every shipment includes the declarations, test reports, and packing your team needs.
+                </p>
+                <div className="mt-8 space-y-4">
+                  {(usRegion.highlights as string[]).map((item: string) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                      <p className="text-sm text-slate-600 leading-relaxed">{item}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="space-y-6">
-                <div className="p-6 bg-slate-50  border border-slate-200">
-                  <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                    <Truck className="w-5 h-5 text-blue-600" /> Shipping & Logistics
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-4">
-                    Full container (FCL) or pallet-load (LTL) shipping with DDP options to major US ports including Long Beach, New York/New Jersey, and Savannah.
-                  </p>
-                  <ul className="text-xs space-y-2 text-slate-600">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3 h-3 text-green-500" /> DDP / CIF / FOB terms</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3 h-3 text-green-500" /> Amazon FBA labeling ready</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3 h-3 text-green-500" /> Stable 15-day production lead time</li>
-                  </ul>
+              <div className="grid grid-cols-2 gap-3">
+                {TRUST_SIGNALS.map((item) => (
+                  <div key={item.label} className="bg-white border border-slate-200 p-6 text-center">
+                    <div className="flex justify-center mb-3">{item.icon}</div>
+                    <p className="font-bold text-slate-900 text-2xl">{item.label}</p>
+                    <p className="text-slate-400 text-xs mt-1">{item.sub}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── COMPLIANCE OVERVIEW ── */}
+        <section className="py-20 bg-white border-b border-slate-100">
+          <div className="container-site">
+            <div className="flex items-center gap-3 mb-2">
+              <FileCheck className="w-5 h-5 text-blue-600" />
+              <h2 className="font-bold text-slate-900 text-2xl md:text-4xl">
+                US Compliance & Certifications
+              </h2>
+            </div>
+            <p className="text-slate-500 text-base mb-10 max-w-2xl">
+              All compliance documents are issued by accredited third-party laboratories (SGS, Intertek) and updated annually. Request the full US compliance pack for your procurement team — delivered within 24 hours.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+              {US_COMPLIANCE.map((item) => (
+                <Link key={item.label} href={item.href} className="bg-slate-50 border border-slate-200 p-5 hover:border-blue-300 hover:shadow-sm transition-all group text-center">
+                  <div className="flex justify-center mb-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <span className="font-bold text-slate-900 text-xs group-hover:text-blue-600 transition-colors block mb-1">{item.label}</span>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">{item.desc}</p>
+                </Link>
+              ))}
+            </div>
+            <div className="bg-blue-50 border border-blue-200 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <p className="font-bold text-slate-900 text-base mb-1">Request Full US Compliance Pack</p>
+                <p className="text-slate-500 text-sm">
+                  FDA compliance documentation, Prop 65 test reports, ISO 9001 certificate, TDS — all in one package. Sent within 24 hours.
+                </p>
+              </div>
+              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-colors shrink-0 shadow-sm">
+                <Download className="w-4 h-4" /> Request Docs
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── LOGISTICS TIMELINE ── */}
+        <section className="py-20 bg-slate-50 border-b border-slate-200">
+          <div className="container-site">
+            <div className="flex items-center gap-3 mb-2">
+              <Truck className="w-5 h-5 text-blue-600" />
+              <h2 className="font-bold text-slate-900 text-2xl md:text-4xl">
+                Delivery Timeline to the USA
+              </h2>
+            </div>
+            <p className="text-slate-500 text-base mb-10 max-w-2xl">
+              From order confirmation to delivery at your US warehouse — a typical end-to-end timeline for sea freight shipments from our Qingdao factory. West Coast delivery is 14–18 days; East Coast is 26–30 days.
+            </p>
+            <div className="relative">
+              <div className="absolute top-5 left-5 right-5 h-0.5 bg-blue-200 hidden md:block" style={{ zIndex: 0 }} />
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                {US_LOGISTICS.map((step, i) => (
+                  <div key={step.step} className="relative flex flex-col items-center text-center">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold mb-3 z-10 ${
+                      i === US_LOGISTICS.length - 1
+                        ? "bg-emerald-600 text-white"
+                        : "bg-blue-600 text-white"
+                    }`}>
+                      {i + 1}
+                    </div>
+                    <p className="font-bold text-slate-900 text-xs mb-1">{step.step}</p>
+                    <p className="text-blue-600 text-xs font-semibold mb-1">{step.time}</p>
+                    <p className="text-slate-400 text-[10px] leading-relaxed">{step.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-8 bg-blue-50 border border-blue-200 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <p className="font-bold text-slate-900 text-sm mb-1">Need faster delivery?</p>
+                <p className="text-slate-500 text-xs">Air freight available for urgent orders (5–7 days to LAX, JFK, or ORD). Contact us for air freight pricing and availability.</p>
+              </div>
+              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-colors shrink-0">
+                Contact Us <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── OEM / PRIVATE LABEL ── */}
+        <section className="py-20 bg-white border-b border-slate-100">
+          <div className="container-site">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-6 h-0.5 bg-emerald-500 rounded-full" />
+                  <span className="text-xs font-bold tracking-widest uppercase text-emerald-600">OEM & Private Label</span>
+                </div>
+                <h2 className="font-bold text-slate-900 text-3xl md:text-5xl mb-4">
+                  Build your American brand.
+                </h2>
+                <p className="text-slate-600 text-base leading-relaxed mb-6">
+                  Launch your own thermal paper brand in the US market with our end-to-end OEM service. Custom logo printing, branded packaging, Pantone color matching, and NDA protection — all included. MOQ from 5,000 rolls.
+                </p>
+                <div className="space-y-3 mb-6">
+                  {[
+                    "Custom logo and back-print for US market branding",
+                    "Pantone color matching — exact brand color reproduction",
+                    "Amazon FBA-ready packaging with FNSKU labeling",
+                    "US-standard pallet (48×40\") packing with branded carton marks",
+                    "NDA signed before any design work begins",
+                    "7-day branded sample turnaround",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span className="text-slate-600 text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/oem-custom/private-label" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-colors shadow-sm">
+                  Explore OEM Options <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="bg-slate-50 border border-slate-200 p-8">
+                <h3 className="font-bold text-slate-900 text-lg mb-6">OEM Service Summary</h3>
+                <div className="space-y-4">
+                  {[
+                    { label: "Minimum Order", value: "5,000 rolls" },
+                    { label: "Sample Turnaround", value: "7 business days" },
+                    { label: "Color Matching", value: "Pantone / CMYK" },
+                    { label: "Print Options", value: "Front + Back print" },
+                    { label: "FBA Ready", value: "FNSKU + poly-bagging" },
+                    { label: "Pallet Standard", value: "US 48×40\" GMA pallet" },
+                    { label: "NDA", value: "Signed before design work" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center justify-between py-2 border-b border-slate-200 last:border-0">
+                      <span className="text-slate-500 text-sm">{item.label}</span>
+                      <span className="font-bold text-slate-900 text-sm">{item.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <CTABanner />
+        {/* ── US FAQ ── */}
+        <section className="py-20 bg-slate-50 border-b border-slate-200">
+          <div className="container-site">
+            <div className="flex items-center gap-3 mb-2">
+              <Layers className="w-5 h-5 text-blue-600" />
+              <h2 className="font-bold text-slate-900 text-2xl md:text-4xl">
+                Frequently Asked Questions — USA
+              </h2>
+            </div>
+            <p className="text-slate-500 text-base mb-10 max-w-2xl">
+              Common questions from US distributors and importers about our products, compliance, logistics, and ordering process.
+            </p>
+            <div className="space-y-4 max-w-3xl">
+              {US_FAQ.map((item, i) => (
+                <div key={i} className="bg-white border border-slate-200 p-6">
+                  <p className="font-bold text-slate-900 text-sm mb-2">{item.q}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CTABanner
+          title="Ready to source for the USA?"
+          subtitle="Get a custom quote with full FDA and Prop 65 compliance documentation. Free samples for qualified buyers. DDP shipping to any US destination."
+        />
       </main>
       <Footer />
     </>

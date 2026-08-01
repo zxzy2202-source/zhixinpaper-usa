@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import SlotImage from "@/components/ui/SlotImage";
 import { INDUSTRIES } from "@/lib/data";
 import { INDUSTRY_BUYER_INSIGHTS } from "@/lib/marketInsights";
-import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl } from "@/lib/seo";
 import {
   ArrowRight,
   Building2,
@@ -28,10 +28,11 @@ import {
   Wrench,
 } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Thermal Paper by Industry",
   description:
     "Compare thermal paper rolls, labels, and ticket materials for POS, banking, healthcare, cold chain, logistics, transport, lottery, and specialty applications.",
+  path: "/industries",
   keywords: [
     "thermal paper industry solutions",
     "thermal paper rolls by industry",
@@ -48,8 +49,7 @@ export const metadata: Metadata = {
     "thermal paper manufacturer for distributors",
     "private label thermal paper rolls",
   ],
-  alternates: { canonical: canonicalUrl("/industries") },
-};
+});
 
 type SlotName =
   | "home.hero"

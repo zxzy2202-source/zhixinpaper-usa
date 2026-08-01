@@ -35,7 +35,7 @@ export function buildMetadata({
   return {
     title: fullTitle,
     description,
-    keywords: keywords.join(", "),
+    keywords: keywords,
     authors: [{ name: SITE_NAME, url: SITE_URL }],
     creator: SITE_NAME,
     publisher: SITE_NAME,
