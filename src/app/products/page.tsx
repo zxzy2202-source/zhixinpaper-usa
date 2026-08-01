@@ -253,9 +253,9 @@ export default function ProductsPage() {
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
-              className="object-cover opacity-70"
+              className="object-cover"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(185,130,47,0.12),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.96)_0%,rgba(16,27,25,0.78)_48%,rgba(16,27,25,0.22)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(185,130,47,0.08),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.74)_0%,rgba(16,27,25,0.48)_48%,rgba(16,27,25,0.12)_100%)]" />
           </div>
 
           <div className="container-site relative pb-16">

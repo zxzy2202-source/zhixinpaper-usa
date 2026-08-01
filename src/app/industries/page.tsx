@@ -256,11 +256,11 @@ export default function IndustriesPage() {
               slotKey="home.hero"
               fill
               sizes="100vw"
-              className="object-cover object-[58%_center] opacity-[0.48]"
+              className="object-cover object-[58%_center]"
               preload
               quality={78}
             />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_18%,rgba(185,130,47,0.14),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.98)_0%,rgba(16,27,25,0.9)_44%,rgba(16,27,25,0.52)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_18%,rgba(185,130,47,0.10),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.82)_0%,rgba(16,27,25,0.62)_44%,rgba(16,27,25,0.20)_100%)]" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#101b19] to-transparent" />
           </div>
 

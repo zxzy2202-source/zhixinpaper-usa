@@ -144,7 +144,7 @@ export default function MexicoPage() {
             sizes="100vw"
             className="-z-20 object-cover"
           />
-          <div className="absolute inset-0 -z-10 bg-[#101b19]/78" />
+          <div className="absolute inset-0 -z-10 bg-[#101b19]/62" />
           <div className="container-site flex min-h-[620px] items-center py-16 md:py-20">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold text-[#d6b273]">Abastecimiento B2B para México</p>

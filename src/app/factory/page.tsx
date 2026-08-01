@@ -179,9 +179,9 @@ export default function FactoryPage() {
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
-              className="object-cover opacity-70 saturate-[1.08]"
+              className="object-cover saturate-[1.08]"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,33,66,0.92)_0%,rgba(10,59,105,0.72)_46%,rgba(226,242,255,0.16)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,33,66,0.78)_0%,rgba(10,59,105,0.58)_46%,rgba(226,242,255,0.12)_100%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.03)_45%,rgba(4,25,50,0.28)_100%)]" />
           </div>
 
