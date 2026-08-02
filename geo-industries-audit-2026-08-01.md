@@ -8,29 +8,31 @@
 
 ## 执行结论
 
-行业页面已形成完整的应用场景架构，13 个详情 URL 均进入当前站点地图，目录页具备清晰的行业分流、产品内链、合规入口和询盘路径。但目前仍不适合作为高引用概率的 AI 答案来源：详情页普遍缺少 FAQ、逐页结构化数据、技术审核者、主张来源和可独立引用的定义/规格表。
+截至 2026-08-02，原报告识别的主要源码缺口已基本收口。当前工作区的 13 个行业详情页已经具备：每页 5 个可见 FAQ、`BreadcrumbList` / `FAQPage` / `Service` / 推荐产品 `ItemList`、Buyer Insight、行业专属方案比较、3 个采购证据答案、相关案例或案例目录、技术指南、合规资源以及推荐产品入口。12 篇静态博客也已反向链接语义相关的行业页。
 
-当前最重要的问题不是继续堆关键词，而是完成以下三项：
+当前剩余工作不再是继续批量补模板内容，而是以下两类不能靠推断完成的事项：
 
-1. **发布同步**：规范域名线上内容落后于工作区源码。例如 `lottery-gaming` 与 `food-cold-chain` 的线上描述仍是旧版，新增 Buyer Insight 和推荐产品调整也未完整上线。
-2. **引用证据化**：把法规、标准、温度、寿命、条码等级、设备兼容性等主张改成“主张 + 测试条件 + 文件/来源链接”。
-3. **详情页结构化**：为每个行业页增加可见 FAQ，并同步输出 `FAQPage`、`BreadcrumbList`，视页面实体补充 `Service` 或 `Product`/`ItemList`。
+1. **部署后复核**：本地类型检查、测试和生产构建已通过，但仍需在规范域名发布后重新抓取 13 个详情页，核对正文、FAQ、JSON-LD、sitemap、canonical、内链和实际 robots 输出。
+2. **真实证据补强**：真实技术审核者、岗位、发布日期、复核日期，以及具体 TDS、证书编号、测试报告、报告日期、实验室或权威标准链接，必须取得可核实资料后才能发布。
+
+> `zxpapers.com` 是另一个独立网站，不是本项目旧域名。其 URL、404、重定向和站点信号均不属于本报告范围，也不应为其配置迁站 301。
 
 ## 域名与抓取状态
 
-| 检查项 | 结果 | GEO 影响 |
+| 检查项 | 当前状态 | GEO 影响 |
 |---|---|---|
-| `www.zhixinpaper.com/industries` | 可访问 | 规范域名行业架构已上线 |
-| 13 个行业详情页 | 已进入规范域名 sitemap | 搜索引擎可发现 |
-| `www.zxpapers.com/industries` | 返回真实 404 | 旧域名外链、历史引用和品牌信号可能损失 |
-| `www.zxpapers.com/industries/*` | 抽查详情页均为 404 | 应建立逐页一跳 301，而不是让旧链接失效 |
-| `OAI-SearchBot`、`ChatGPT-User` | robots 允许 | 部分 AI 搜索抓取可用 |
-| `PerplexityBot` 等 | robots 明确禁止 | 会直接限制部分 AI 引擎获取行业内容 |
-| 工作区与线上 | 存在版本漂移 | 当前优化不能转化为线上 GEO 收益 |
+| `www.zhixinpaper.com/industries` | 2026-08-01 基线检查可访问 | 规范域名行业架构可被发现 |
+| 13 个行业详情页 | 已纳入当前工作区 sitemap；待发布后公开复核 | 发布后需确认搜索引擎获得新版正文与 Schema |
+| `zxpapers.com` | 独立网站，已排除 | 不计入本项目 404、迁站或重定向问题 |
+| `OAI-SearchBot`、`ChatGPT-User` | 基线检查时 robots 允许 | 部分 AI 搜索抓取可用 |
+| `PerplexityBot` | 2026-08-02 已获授权；当前工作区允许抓取公开页面，继续禁止 `/api/`、`/admin/` 和 `/login` | 待部署后确认公开 robots 已生效 |
+| 工作区与线上 | 工作区整改已完成，公开站点尚未重新验收 | 本地通过不等于线上已获得 GEO 收益 |
 
-> robots 是否放开应根据公司的内容授权策略决定；如果目标是提升跨 AI 引擎引用率，则当前对 `PerplexityBot` 等的禁止与该目标冲突。
+> `PerplexityBot` 的公开内容抓取已获授权并在当前工作区实施；其他仍被禁止的 AI 或训练抓取器不在本次授权范围内。
 
-## 代表页面六维评分
+## 2026-08-01 代表页面基线评分
+
+以下评分是整改前的历史基线，不代表 2026-08-02 当前工作区，也未作为新版公开页面复评分结果使用。
 
 评分维度：FAQ 结构、E-E-A-T、比较内容、结构化数据、内容深度、引用就绪度。
 
@@ -42,227 +44,119 @@
 | `/industries/logistics-warehouse` | 0 | 0 | 0 | 0 | 1 | 1 | **2/18** |
 | `/industries/government-legal` | 0 | 0 | 0 | 0 | 0 | 0 | **0/18** |
 
-### 评分说明
+### 基线评分说明与当前状态
 
-- **目录页较强**：已有 `BreadcrumbList` 和行业 `ItemList`，正文层次、行业入口和合规内链较完整。
-- **详情页 Schema 为空**：当前共享详情模板只生成 metadata，没有输出逐页 JSON-LD。
-- **FAQ 全部缺失**：详情模板没有问题—答案模块，也没有 `FAQPage`。
-- **E-E-A-T 较弱**：页面没有作者、技术审核者、测试负责人、最后复核日期或来源注释。
-- **可引用性偏低**：一些页面有具体标准和性能数字，但没有说明测试方法、适用条件或证据文件，AI 很难安全引用。
-- **比较内容缺失**：行业页没有材料方案、打印方式、格式或设备适配的明确对比表。
+- **目录页基线较强**：已有 `BreadcrumbList` 和行业 `ItemList`，正文层次、行业入口和合规内链较完整。
+- **详情页 Schema 已修复**：当前共享详情模板输出 `BreadcrumbList`、`FAQPage`、`Service` 和推荐产品 `ItemList`。
+- **FAQ 已修复**：13 个详情页均由共享模板生成 5 个可见采购型 FAQ，并使用同一数据输出 `FAQPage`。
+- **比较内容已修复**：13 个行业均配置至少 3 个行业专属决策维度，同时提供桌面表格和移动端纵向替代内容。
+- **可引用答案已补齐**：每页生成 3 个条件式采购答案，并分别连接技术上下文、文件范围和样品验证路径。
+- **E-E-A-T 仍部分待办**：页面已标明由 Zhixin Paper 产品与质量团队编写，并加入适用性与验证边界；真实个人审核者、岗位和复核日期尚无可核实资料，因此未填写。
+- **新版评分待公开复核**：只有部署后重新抓取、确认可见正文与结构化数据一致，才能给出新的六维分数。
 
-## 13 个行业页分层诊断
+## 13 个行业页整改覆盖
 
-### A 级：基础内容较强，优先补证据与 FAQ
+当前工作区已对全部 13 个行业页完成数据驱动覆盖：
 
-1. `retail-pos`
-2. `lottery-gaming`
-3. `healthcare-pharma`
-4. `food-cold-chain`
-5. `logistics-warehouse`
-6. `ecommerce`
-7. `automotive-industrial`
+| 能力 | 当前覆盖 | 验收依据 |
+|---|---:|---|
+| Buyer Insight | 13/13 | 每页包含 buyer types、purchase motives、common risks、quote checklist |
+| 方案比较 | 13/13 | 每页至少 3 条比较维度，桌面表格与移动端替代结构并存 |
+| 可见 FAQ | 13/13 | 每页 5 个采购型问答 |
+| 逐页 JSON-LD | 13/13 | `BreadcrumbList`、`FAQPage`、`Service`、推荐产品 `ItemList` |
+| 采购证据答案 | 13/13 | 每页恰好 3 条，包含条件说明和三类验证路径 |
+| Supporting resources | 13/13 | 案例或案例目录、技术指南、合规资源 |
+| 推荐产品 | 13/13 模板覆盖 | 图文卡片、产品内链和图片槽位兜底 |
+| 博客反向行业链接 | 12/12 静态博客 | 每篇 1–3 个逐篇审核的行业链接；动态数据库文章不自动推断 |
 
-这些页面已有较具体的应用、设备、法规或规格语义。下一步不应继续扩大无来源主张，而应补：
+内容较薄的 `government-legal`、`cannabis-specialty`、`casino`、`banking-finance`、`transportation` 和 `events-hospitality` 已通过行业描述、Buyer Insight、比较维度、FAQ、证据答案和资源路径补齐采购上下文。所有新增性能、兼容、法规和商业表述均采用条件式验证语言，不把产品名称、证书页面或案例目录当作普遍适用证明。
 
-- 5–8 个采购型 FAQ；
-- 规格/方案对比表；
-- 测试条件、证书或合规文件链接；
-- 技术审核者和最后更新日期；
-- 行业页到相关案例、博客、合规页的上下文内链。
+## 已完成整改
 
-### B 级：有 Buyer Insight，但主正文过薄
+### 共享详情模板
 
-1. `casino`
-2. `banking-finance`
-3. `transportation`
-4. `events-hospitality`
+- 13 个行业详情页已输出可见 FAQ，并由相同答案生成 `FAQPage`。
+- 逐页 JSON-LD 已包括 `BreadcrumbList`、`Service`、推荐产品 `ItemList` 和 `FAQPage`。
+- 已加入由 Zhixin Paper 产品与质量团队编写的技术审核与适用性说明，但没有伪造个人审核者或日期。
+- 已加入 13 组行业专属方案比较；比较内容强调选择条件，不声称某方案普遍更优。
+- 已加入 13 组 Supporting resources，区分项目案例或案例目录、技术指南和合规文件范围。
 
-这些页面的 Buyer Insight 提供了采购问题框架，但开头说明只有一句或很短一段。建议扩展为：
+### 采购证据与主张边界
 
-- 适用设备/工作流；
-- 采购风险；
-- 关键规格；
-- 可选材料/工艺；
-- 验收方法；
-- 相关标准与文件。
+- 每页已加入 3 个短答案模块，直接说明采购决策、适用条件和验证路径。
+- 每条答案同时提供 `Technical context`、`Document scope` 和 `Application proof`，避免把合规文件误解为设备兼容或应用性能证明。
+- 无法由当前资料证明的温度、寿命、条码等级、设备兼容、认证和商业承诺已使用条件式表述。
+- Cannabis 页面不再引用只适用于医疗器械标签的 ISO 15223 页面，材料物质范围与法规文案审批已分开说明。
 
-### C 级：薄内容且缺少 Buyer Insight，最优先重做
+### 内容网络
 
-1. `government-legal`
-2. `cannabis-specialty`
+- 每个行业页均链接案例详情或案例目录、相关技术指南、合规资源和推荐产品。
+- 只有 4 个存在真实匿名项目数据的行业链接案例详情；其他行业链接案例目录，不暗示存在行业专属客户成果。
+- 12 篇静态博客均已配置 1–3 个经逐篇审核的行业反向链接。
+- 数据库动态文章没有可靠行业字段，因此不根据标题或分类自动推断行业链接。
 
-两页目前只有概括性一句话，缺少可独立引用的专业信息。应先明确区域适用范围和审慎声明，再补采购角色、合规差异、材料选择、追溯/防拆需求和询价清单。
+### 工程验收
 
-### Buyer Insight 覆盖差距
+- TypeScript 类型检查通过。
+- 相关文件 ESLint 通过。
+- 完整自动化测试通过。
+- Next.js 生产构建通过，117/117 个页面成功生成。
+- 行业比较、资源、证据答案和博客反链均有覆盖与边界契约测试。
 
-当前 13 个行业中，7 个已有 Buyer Insight，6 个缺失：
+## 仍未完成
 
-- `healthcare-pharma`
-- `logistics-warehouse`
-- `ecommerce`
-- `automotive-industrial`
-- `government-legal`
-- `cannabis-specialty`
+### 1. 真实审核与证据资料
 
-## P0 问题：先修复
+以下内容没有可核实来源，当前不能填写或发布：
 
-### 1. 发布版本漂移
+- 技术审核者姓名和岗位；
+- 首次发布日期与最后复核日期；
+- 具体 TDS、证书编号、测试报告、报告日期和实验室；
+- 法规或标准主张对应的权威外部来源；
+- 现有 4 个匿名案例之外的真实行业案例。
 
-公开页面未完整呈现工作区最新内容：
+收到资料后，应逐项核对文件持有人、生产地点、产品或材料范围、测试方法、样品、日期、有效期和适用地区，再建立页面主张与证据的一一对应关系。
 
-- `lottery-gaming` 线上仍显示简短旧描述，而工作区已有安全印刷、条码、批次追溯和终端兼容信息；
-- `food-cold-chain` 线上仍缺工作区新增的 GS1、FSMA、打印机兼容、roll/fanfold 及 Buyer Insight 内容；
-- `food-cold-chain` 线上 Key Products 仍为 2 项，工作区已加入 `Fanfold Labels`。
+### 2. 公开部署与复核
 
-**处理方式**：生产构建通过后发布当前版本，并重新抓取规范域名确认正文、sitemap、结构化数据与页面链接同步。
+本地生产构建不代表规范域名已更新。发布后仍需：
 
-### 2. 旧域名行业 URL 为 404
+1. 抓取 `/industries` 和全部 13 个详情页；
+2. 核对可见 FAQ 与 `FAQPage` 答案一致；
+3. 核对 `BreadcrumbList`、`Service`、`ItemList` 的 URL 和页面实体；
+4. 核对 sitemap、canonical、内部链接和真实 404；
+5. 分别在桌面端和移动端检查比较表替代结构、图片、文本裁切和横向溢出；
+6. 基于新版公开页面重新执行 GEO 六维评分。
 
-`www.zxpapers.com/industries` 及抽查详情页返回真实 404。若旧域名曾获得外链、被客户收藏或被 AI 数据源收录，信号会直接中断。
+### 3. PerplexityBot 抓取授权
 
-**处理方式**：为存在明确对应关系的 URL 建立逐页一跳 301：
+2026-08-02 已确认允许 `PerplexityBot` 抓取公开内容。当前工作区的 robots 规则已改为 `Allow: /`，并继续禁止 `/api/`、`/admin/` 和 `/login`；生产构建产物已核对，公开域名是否生效仍待发布后验证。
 
-- `/industries` → `https://www.zhixinpaper.com/industries`
-- `/industries/{slug}` → `https://www.zhixinpaper.com/industries/{slug}`
+### 4. AI 答案监测
 
-保留无对应内容的真实 404，不使用全站笼统跳转。
+本次整改没有触发 Bright Data AI 答案采集，因此尚未得到品牌 Mention Rate、Citation Rate、竞品差距或真实 AI 引用来源变化。此类指标需要在公开新版稳定后单独运行监测，不能从本地源码推算。
 
-### 3. 详情页无 FAQ 与逐页 Schema
+## 新版复评分规则
 
-共享模板缺少 FAQ 和 JSON-LD，导致所有详情页共同丢失结构化问答和实体关系。
+2026-08-01 的原始分数仅作为整改前基线。新版评分必须满足以下条件后重新生成：
 
-**处理方式**：以数据配置方式为每个行业维护 5–8 个 FAQ，并在共享模板输出：
+- 新版页面已发布到 `https://www.zhixinpaper.com`；
+- 公开抓取能提取可见正文，而不只是 React Flight 或 JSON-LD；
+- FAQ、比较内容、证据答案和资源链接均能从页面正文读取；
+- JSON-LD 与可见内容、canonical 和推荐产品 URL 一致；
+- 真实审核与证据资料的缺失不会被模板文案误判为已具备完整 E-E-A-T。
 
-- `BreadcrumbList`
-- `FAQPage`
-- `Service`（行业解决方案实体）
-- 推荐产品 `ItemList`
+在满足这些条件前，不用本地预期分数替换历史基线，也不声称已经达到 11–14/18。
 
-Schema 内容必须与页面可见正文一致。
+## 范围说明
 
-## P1 问题：提高 AI 引用概率
+- `zxpapers.com` 是独立网站，已从本项目审计、404、迁移和重定向建议中排除。
+- 未触发 Bright Data AI 答案采集；本报告不包含 Mention Rate 或 Citation Rate。
+- 未发布网站、未配置域名重定向；`PerplexityBot` 公开抓取规则已在当前工作区修改，待发布后验证。
+- 未验证具体商业或合规文件真伪，也未填充无法核实的审核人与日期。
 
-### 1. 建立“可引用答案块”
-
-每页增加 3–5 个短答案模块，每个模块直接回答一个采购问题，例如：
-
-- What thermal paper specifications matter for lottery terminals?
-- Which adhesive works for freeze-thaw cold-chain labels?
-- How long should ATM receipt images remain legible?
-- Direct thermal or thermal transfer for warehouse labels?
-
-建议结构：40–80 字直接答案 + 条件说明 + 证据链接。
-
-### 2. 把事实主张连接到证据
-
-优先处理以下类型：
-
-- 法规和标准编号；
-- 温度范围、图像寿命、条码等级；
-- 打印机或终端兼容；
-- 测试通过、认证、合规等表述；
-- “100%”“保证”“适用于所有”等绝对化表述。
-
-证据可来自证书页、测试报告、技术数据表、受控样品结果或权威标准页面。没有充分证据时应改为条件式声明，如“可按项目要求测试/提供”。
-
-### 3. 增加技术审核信息
-
-页尾增加：
-
-- 内容作者或编写团队；
-- 技术审核者与岗位；
-- 首次发布/最后复核日期；
-- 测试或文件依据；
-- 适用地区与免责声明。
-
-### 4. 增加方案比较表
-
-优先页面和对比主题：
-
-| 页面 | 建议对比 |
-|---|---|
-| `retail-pos` | BPA-free vs phenol-free；57mm vs 80mm；front print vs back print |
-| `lottery-gaming` | Lottery ticket vs TITO；black mark vs gap sensing；普通印刷 vs 安全印刷 |
-| `food-cold-chain` | Permanent vs removable adhesive；DT vs TT；roll vs fanfold |
-| `logistics-warehouse` | Roll vs fanfold；DT vs TT；paper vs synthetic facestock |
-| `ecommerce` | 4×6 shipping vs FNSKU；roll vs fanfold；desktop vs print-and-apply |
-| `automotive-industrial` | Paper vs PET/PP；standard vs high-tack；ambient vs high-temperature |
-
-## P2 问题：完善内容网络
-
-1. 每个行业页链接 1 个相关案例、1 个技术指南、1 个合规页和 2–4 个产品页。
-2. 博客文章反向链接对应行业页，形成“问题—证据—解决方案—产品”闭环。
-3. 将行业目录中的通用文案改为更明确的采购问题入口。
-4. 对缺少真实案例的行业，先发布匿名化测试案例或应用说明，不虚构客户名称与结果。
-
-## 推荐实施顺序
-
-### 第一批：共享模板升级
-
-一次修改覆盖全部 13 页：
-
-1. FAQ 数据接口与可见 FAQ 模块；
-2. Breadcrumb/FAQ/Service/ItemList JSON-LD；
-3. 作者、审核者、日期、来源区；
-4. 可配置比较表；
-5. 相关案例/指南/合规内链区。
-
-### 第二批：补齐 6 个 Buyer Insight
-
-优先顺序：
-
-1. `logistics-warehouse`
-2. `ecommerce`
-3. `healthcare-pharma`
-4. `automotive-industrial`
-5. `government-legal`
-6. `cannabis-specialty`
-
-### 第三批：重写薄内容页
-
-优先顺序：
-
-1. `government-legal`
-2. `cannabis-specialty`
-3. `casino`
-4. `banking-finance`
-5. `transportation`
-6. `events-hospitality`
-
-### 第四批：发布与复核
-
-1. TypeScript 类型检查；
-2. 生产构建；
-3. 桌面和移动端渲染验收；
-4. 规范域名抓取验证；
-5. 检查 sitemap、canonical 和 JSON-LD；
-6. 确认旧域名逐页重定向；
-7. 重新提交搜索引擎抓取。
-
-## 目标评分
-
-共享模板和首批内容完成后，核心行业页目标应达到：
-
-| 维度 | 当前典型值 | 第一阶段目标 |
-|---|---:|---:|
-| FAQ | 0 | 2–3 |
-| E-E-A-T | 0 | 2 |
-| 比较内容 | 0 | 1–2 |
-| Schema | 0 | 2–3 |
-| 内容深度 | 1 | 2 |
-| 可引用性 | 1 | 2 |
-| **总分** | **2/18** | **11–14/18** |
-
-## 本次未执行的事项
-
-- 未触发 Bright Data AI 答案采集。本次请求是网站行业页内容审计，使用 GEO Site Auditor 的网页抓取与六维评估流程；不等同于品牌 Mention Rate/Citation Rate 监测。
-- 未修改源码、未发布网站、未更改 robots 或域名重定向。
-- 未验证具体商业/合规主张的证书真伪；报告仅识别证据链需求。
-
-## 公开检查入口
+## 公开复核入口
 
 - 行业目录：https://www.zhixinpaper.com/industries
 - 规范域名 robots：https://www.zhixinpaper.com/robots.txt
 - 规范域名 sitemap：https://www.zhixinpaper.com/sitemap.xml
-- 旧域名行业目录：https://www.zxpapers.com/industries

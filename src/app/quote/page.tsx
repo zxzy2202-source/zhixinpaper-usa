@@ -58,7 +58,7 @@ const RFQ_ASSURANCE = [
   },
   {
     icon: <Clock className="h-4 w-4" />,
-    text: "Sales reply within 24 business hours, often the same day.",
+    text: "Sales reviews the product, destination, and document scope before quoting.",
   },
   {
     icon: <FileCheck className="h-4 w-4" />,
@@ -69,6 +69,7 @@ const RFQ_ASSURANCE = [
 export default function QuotePage() {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [autoReplySent, setAutoReplySent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -104,10 +105,11 @@ export default function QuotePage() {
           products: selectedProducts.map(id => PRODUCTS.find(p => p.id === id)?.label || id),
         }),
       });
+      const data = await res.json();
       if (!res.ok) {
-        const data = await res.json();
         throw new Error(data.error || "Failed to submit");
       }
+      setAutoReplySent(Boolean(data.autoReplySent));
       setSubmitted(true);
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -130,7 +132,12 @@ export default function QuotePage() {
                 Quote request received
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-8 text-[#4f5f5a]">
-                Our sales team will review the roll spec, destination, compliance needs, and sample plan before replying within 24 business hours.
+                Our sales team will review the roll specification, destination, compliance needs, and sample plan before preparing the next steps.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">
+                {autoReplySent
+                  ? `A confirmation email was sent to ${formData.email}.`
+                  : "Your request is recorded, but we could not confirm delivery of an automatic email."}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -204,7 +211,7 @@ export default function QuotePage() {
               </p>
             </div>
             <div className="mt-7 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-4">
-              {["24-hour reply", "Samples available", "ISO 9001 system", "BPA-free options"].map((item) => (
+              {["Specification review", "Sample options", "Quality system review", "BPA-free options"].map((item) => (
                 <div key={item} className="flex items-center gap-3 bg-[#08110f]/70 px-4 py-4 text-sm font-semibold text-[#d9dfda]">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d6b273]" />
                   {item}
@@ -436,9 +443,9 @@ export default function QuotePage() {
                 <h3 className="mb-4 text-base font-bold text-[#14211f]">What to expect</h3>
                 <div className="space-y-4">
                   {[
-                    { icon: <Clock className="w-4 h-4" />, title: "24-hour response", desc: "Quote within one business day" },
-                    { icon: <Package className="w-4 h-4" />, title: "Sample plan", desc: "For qualified distributors" },
-                    { icon: <Truck className="w-4 h-4" />, title: "Freight options", desc: "FOB, CIF, DDP, pallet, or container" },
+                    { icon: <Clock className="w-4 h-4" />, title: "Project review", desc: "Product, volume, destination, and files" },
+                    { icon: <Package className="w-4 h-4" />, title: "Sample plan", desc: "Confirmed after specification review" },
+                    { icon: <Truck className="w-4 h-4" />, title: "Freight options", desc: "Incoterms confirmed for the destination" },
                     { icon: <CheckCircle2 className="w-4 h-4" />, title: "Document pack", desc: "Compliance files matched to grade" },
                     { icon: <Shield className="w-4 h-4" />, title: "Confidential", desc: "NDA available on request" },
                   ].map((item) => (
@@ -473,7 +480,7 @@ export default function QuotePage() {
 
               <div className="border border-[#c8bcaa] bg-[#f4f0e8] p-6">
                 <h3 className="mb-2 text-base font-bold text-[#14211f]">Need samples first?</h3>
-                <p className="text-slate-600 text-sm mb-4">Test our quality before placing a bulk order. Free sample packs for qualified distributors.</p>
+                <p className="text-slate-600 text-sm mb-4">Test the selected construction before a bulk order. Availability, sample charges, documents, and courier terms are confirmed after review.</p>
                 <Link href="/samples" className="block border border-[#c8bcaa] bg-white px-4 py-3 text-center text-sm font-semibold text-[#0f5f5c] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:bg-[#fbfaf6] active:translate-y-px">
                   Request Samples
                 </Link>

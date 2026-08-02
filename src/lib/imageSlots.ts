@@ -88,7 +88,7 @@ export const SLOT_REGISTRY = [
     group: "home",
     fallback: "/images/factory-overview.jpg",
     defaultAlt:
-      "ISO 9001 certified thermal paper manufacturing facility with BPA-free paper rolls and workers",
+      "Thermal paper manufacturing facility with paper rolls, converting equipment, and workers",
     recommendedSize: "1280 × 960 px",
   },
   {
@@ -98,7 +98,7 @@ export const SLOT_REGISTRY = [
     group: "home",
     fallback: "/images/compliance-certifications.jpg",
     defaultAlt:
-      "Compliance certifications including ISO 9001, BPA-free, REACH, and FSC for thermal paper",
+      "Thermal paper compliance document and sample review display",
     recommendedSize: "1200 × 900 px",
   },
 

@@ -20,6 +20,7 @@ export function buildMetadata({
   image = DEFAULT_IMAGE,
   keywords = [],
   noIndex = false,
+  locale,
 }: {
   title: string;
   description: string;
@@ -27,6 +28,7 @@ export function buildMetadata({
   image?: string;
   keywords?: string[];
   noIndex?: boolean;
+  locale?: string;
 }): Metadata {
   const url = canonicalUrl(path);
   // Don't append SITE_NAME here - layout.tsx template already adds "| Zhixin Paper"
@@ -50,6 +52,7 @@ export function buildMetadata({
       title: fullTitle,
       description,
       siteName: SITE_NAME,
+      ...(locale ? { locale } : {}),
       images: [{ url: image, width: 1200, height: 630, alt: title }],
     },
     twitter: {
@@ -77,9 +80,8 @@ export function organizationSchema() {
       height: 60,
     },
     description:
-      "ISO 9001:2015 certified manufacturer of BPA-free, FDA-compliant thermal paper rolls and thermal labels. Serving distributors and importers in Europe, USA, and Canada with factory-direct pricing. Prop 65 compliant, compatible with Zebra, Epson, Star, and all major printer brands.",
+      "Manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Product suitability, documentation, printer compatibility, and market requirements are reviewed against the selected specification.",
     foundingDate: "2008",
-    numberOfEmployees: { "@type": "QuantitativeValue", value: 200 },
     address: {
       "@type": "PostalAddress",
       streetAddress: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park",
@@ -113,28 +115,20 @@ export function organizationSchema() {
       // 如需加 Alibaba，请填店铺完整 URL（如 https://xxx.en.alibaba.com），
       // 指向 alibaba.com 首页的链接对 SEO 无效
     ],
-    hasCredential: [
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "ISO 9001:2015" },
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "FSC Chain of Custody" },
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "REACH SVHC Compliant" },
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "BPA-Free Certified" },
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "FDA 21 CFR Compliant" },
-      { "@type": "EducationalOccupationalCredential", credentialCategory: "California Prop 65 Compliant" },
-    ],
     areaServed: ["Europe", "United States", "Canada"],
     knowsAbout: [
       "Thermal Paper Manufacturing",
       "Thermal Labels",
-      "BPA-Free Thermal Paper",
-      "FDA Compliant Thermal Paper",
+      "Thermal Paper Material Review",
+      "US Food-Contact Documentation Review",
       "POS Paper Rolls",
       "ATM Paper Rolls",
       "Thermal Transfer Labels",
       "OEM Paper Products",
       "Casino TITO Paper",
-      "Cannabis Compliance Labels",
+      "Regulated Label Material Review",
       "Cold Chain Labels",
-      "Prop 65 Compliant Materials",
+      "Market-Specific Material Documentation",
     ],
   };
 }
@@ -266,17 +260,17 @@ export function localBusinessSchema(region: "eu" | "us" | "ca") {
   const regionData = {
     eu: {
       name: `${SITE_NAME} — Europe`,
-      description: "BPA-free thermal paper rolls and thermal labels for European distributors. REACH/RoHS compliant, ISO 9001 certified. Factory-direct pricing, FOB Qingdao.",
+      description: "Thermal paper rolls and labels for European distributor and OEM projects. Material declarations, chemical-document scope, quality-system evidence, packing, Incoterms, and destination requirements are reviewed for the quoted construction.",
       areaServed: ["DE", "GB", "FR", "NL", "PL"],
     },
     us: {
       name: `${SITE_NAME} — USA`,
-      description: "FDA-compliant, Prop 65 compliant thermal paper rolls and labels for US distributors. BPA-free, 21 CFR food contact safe, ISO 9001 certified manufacturer. Cannabis labels available. Compatible with Zebra, Epson, Star printers. DDP shipping to USA available.",
+      description: "Thermal paper rolls and labels for US distributor and OEM projects. Food-contact documentation, California warning review, material declarations, printer compatibility, customs scope, and delivery terms are confirmed by grade, application, and destination.",
       areaServed: ["US"],
     },
     ca: {
       name: `${SITE_NAME} — Canada`,
-      description: "Thermal paper rolls and labels for Canadian distributors and importers. Health Canada compliant, BPA-free options. ISO 9001 certified.",
+      description: "Thermal paper rolls and labels for Canadian distributor and OEM projects. Material documentation, bilingual or regulated-label requirements, quality-system evidence, packing, and delivery terms are reviewed for each quotation.",
       areaServed: ["CA"],
     },
   };
@@ -303,7 +297,7 @@ export function websiteSchema() {
     "@type": "WebSite",
     name: SITE_NAME,
     url: SITE_URL,
-    description: "ISO 9001 certified manufacturer of BPA-free, FDA-compliant thermal paper rolls and thermal labels. Factory-direct wholesale pricing for distributors in Europe, USA, and Canada. Pallet and container load pricing available.",
+    description: "Thermal paper rolls and thermal labels for distributor and OEM projects. Product specifications, material declarations, quality evidence, printer compatibility, packing, and destination requirements are reviewed for each quotation.",
     // 站内没有实现 ?q= 搜索，声明 SearchAction 属于无效结构化数据；
     // 若日后在 /products 实现搜索，再加回 potentialAction
   };
@@ -318,7 +312,7 @@ export function manufacturerSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.png`,
     foundingDate: "2008",
-    description: "Chinese manufacturer of thermal paper rolls and thermal labels for international distributors and OEM buyers. ISO 9001:2015 certified production with BPA-free and market-specific compliance options.",
+    description: "Chinese manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Product construction, quality-system evidence, material documents, packing, and destination requirements are confirmed for the selected order scope.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park",

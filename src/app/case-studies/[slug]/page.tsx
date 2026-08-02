@@ -1,270 +1,146 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, TrendingUp, Users, Package } from "lucide-react";
+import { ArrowRight, CheckCircle, Package, TrendingUp, Users } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
 import { SlotImage } from "@/components/ui/SlotImage";
-
+import { canonicalUrl } from "@/lib/seo";
+import { CASE_STUDIES } from "@/lib/case-studies";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const CASE_STUDIES = [
-  {
-    slug: "european-lottery-operator",
-    title: "European Lottery Operator Cuts Receipt Failures by 94%",
-    client: "Major European Lottery Operator",
-    industry: "Lottery & Gaming",
-    region: "Europe",
-    challenge: "A leading European lottery operator was experiencing frequent thermal paper jams and faded ticket prints across 12,000 TITO terminals, resulting in costly downtime and customer complaints. Their existing supplier could not meet the strict 150°C print head temperature requirements of their high-speed terminals.",
-    solution: "Zhixin Paper engineered a custom high-sensitivity thermal paper with a 160°C-rated coating, optimized for their specific terminal models. We supplied 80mm × 80mm rolls in a custom coreless format to eliminate core-related jams, with a 6-month stock buffer program to guarantee zero supply interruptions.",
-    results: [
-      { metric: "94%", label: "Reduction in paper-related terminal failures" },
-      { metric: "€2.1M", label: "Annual savings from reduced downtime" },
-      { metric: "12,000", label: "Terminals migrated within 8 weeks" },
-      { metric: "100%", label: "REACH/RoHS compliance maintained" },
-    ],
-    quote: "Zhixin Paper understood our technical requirements from day one. The custom specification and reliable supply program transformed our operations.",
-    quoteAuthor: "Head of Operations, European Lottery Operator",
-    tags: ["Lottery", "Custom Specification", "Europe", "High Volume"],
-    relatedProducts: [
-      { name: "Lottery & Gaming Rolls", href: "/products/thermal-paper-rolls/lottery-gaming-rolls", slotKey: "products.card.lottery-gaming-rolls", copy: "Ticket media configured by terminal, sensing, barcode, and retention requirements." },
-      { name: "Casino TITO Rolls", href: "/products/thermal-paper-rolls/casino-tito-rolls", slotKey: "products.card.casino-tito-rolls", copy: "TITO stock qualified by platform, ticket geometry, scanner, and operating environment." },
-    ],
-  },
-  {
-    slug: "us-pharmacy-chain",
-    title: "US Pharmacy Chain Achieves FDA Compliance Across 800 Locations",
-    client: "Regional US Pharmacy Chain",
-    industry: "Healthcare & Pharma",
-    region: "United States",
-    challenge: "A fast-growing US pharmacy chain needed to transition all 800 locations to FDA 21 CFR-compliant, BPA-free thermal paper ahead of new state regulations. They required a single supplier capable of delivering consistent quality at scale, with full documentation for regulatory audits.",
-    solution: "Zhixin Paper supplied BPA-free, FDA 21 CFR 176.170-compliant thermal paper rolls in standard pharmacy formats (57mm × 40m). We provided a complete compliance documentation package including Certificates of Conformance, Safety Data Sheets, and third-party test reports. A dedicated account manager coordinated the 8-week nationwide rollout.",
-    results: [
-      { metric: "800", label: "Locations transitioned in 8 weeks" },
-      { metric: "100%", label: "FDA compliance achieved across all sites" },
-      { metric: "Zero", label: "Regulatory audit findings related to paper" },
-      { metric: "15%", label: "Cost reduction vs. previous supplier" },
-    ],
-    quote: "The compliance documentation package Zhixin Paper provided was exactly what our regulatory team needed. Seamless transition, zero issues.",
-    quoteAuthor: "VP Procurement, US Pharmacy Chain",
-    tags: ["Healthcare", "FDA Compliance", "BPA-Free", "USA"],
-    relatedProducts: [
-      { name: "Medical Paper Rolls", href: "/products/thermal-paper-rolls/medical-rolls", slotKey: "products.card.medical-rolls", copy: "Receipt and record media selected by device, retention, exposure, and document needs." },
-      { name: "US Food-Contact Document Review", href: "/us/fda-compliant", slotKey: "products.card.standard-pos-rolls", copy: "Review material grade, intended contact, current document scope, and samples for US projects." },
-    ],
-  },
-  {
-    slug: "german-logistics-provider",
-    title: "German 3PL Reduces Label Waste by 40% with Custom Fanfold Solution",
-    client: "Leading German Third-Party Logistics Provider",
-    industry: "Logistics & Warehouse",
-    region: "Germany",
-    challenge: "A major German 3PL was experiencing 12% label waste rates due to misfeeds and jamming in their high-throughput warehouse label printers. Their standard roll labels were causing frequent printer downtime during peak periods, impacting SLA performance.",
-    solution: "Zhixin Paper developed a custom fanfold label solution with precision-folded 100mm × 150mm labels, optimized for their Zebra ZT600 series printers. The custom fold depth and perforation placement eliminated misfeeds entirely. We also implemented a vendor-managed inventory program with 4-week safety stock held in our European warehouse.",
-    results: [
-      { metric: "40%", label: "Reduction in label waste" },
-      { metric: "Zero", label: "Printer jams recorded in first 6 months" },
-      { metric: "99.8%", label: "Label read rate in automated scanning" },
-      { metric: "3 days", label: "Lead time from European warehouse" },
-    ],
-    quote: "The custom fanfold specification and European stock program gave us the reliability we needed for our peak season operations.",
-    quoteAuthor: "Warehouse Operations Director, German 3PL",
-    tags: ["Logistics", "Fanfold Labels", "Germany", "Custom Specification"],
-    relatedProducts: [
-      { name: "Fanfold Labels", href: "/products/thermal-labels/fanfold-labels", slotKey: "products.card.fanfold-labels", copy: "Stacked label formats matched to printer path, fold pitch, sensing, and barcode workflow." },
-      { name: "Direct Thermal Labels", href: "/products/thermal-labels/direct-thermal-labels", slotKey: "products.card.direct-thermal-labels", copy: "Direct thermal constructions reviewed by printer, surface, adhesive, and retention target." },
-    ],
-  },
-  {
-    slug: "canadian-cannabis-dispensary",
-    title: "Canadian Cannabis Retailer Achieves Health Canada Compliance at Scale",
-    client: "Multi-Province Canadian Cannabis Retailer",
-    industry: "Cannabis & Specialty",
-    region: "Canada",
-    challenge: "A rapidly expanding Canadian cannabis retailer needed compliant thermal labels for product packaging across 45 dispensary locations in three provinces. Health Canada regulations required specific durability, adhesion, and print quality standards, while the retailer also needed variable data printing for lot numbers and expiry dates.",
-    solution: "Zhixin Paper supplied synthetic PP thermal labels with permanent adhesive, rated for cannabis packaging environments including humidity and cold storage. We implemented a variable data printing program with serialised lot numbers and QR codes. All labels were supplied with Health Canada compliance documentation.",
-    results: [
-      { metric: "45", label: "Dispensary locations supplied" },
-      { metric: "100%", label: "Health Canada compliance across all SKUs" },
-      { metric: "99.9%", label: "QR code scan success rate" },
-      { metric: "2 weeks", label: "Lead time for custom variable data labels" },
-    ],
-    quote: "Zhixin Paper navigated the Health Canada requirements expertly and delivered a labeling solution that scaled with our expansion.",
-    quoteAuthor: "Compliance Manager, Canadian Cannabis Retailer",
-    tags: ["Cannabis", "Health Canada", "Variable Data", "Canada"],
-    relatedProducts: [
-      { name: "Canada Cannabis Label Review", href: "/ca/cannabis-labels", slotKey: "products.card.thermal-transfer-labels", copy: "Material and print routes reviewed against current bilingual copy and packaging requirements." },
-      { name: "Synthetic PP Labels", href: "/products/thermal-labels/synthetic-paper-labels", slotKey: "products.card.synthetic-paper-labels", copy: "Synthetic constructions selected by surface, moisture exposure, ribbon, and adhesive needs." },
-    ],
-  },
-];
-
 export async function generateStaticParams() {
-  return CASE_STUDIES.map((cs) => ({ slug: cs.slug }));
+  return CASE_STUDIES.map((caseStudy) => ({ slug: caseStudy.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const cs = CASE_STUDIES.find((c) => c.slug === slug);
-  if (!cs) return { title: "Case Study Not Found" };
+  const caseStudy = CASE_STUDIES.find((item) => item.slug === slug);
+  if (!caseStudy) return { title: "Case Study Not Found" };
+
   return {
-    title: `${cs.title} | Case Studies`,
-    description: cs.challenge.slice(0, 160),
+    title: `${caseStudy.title} | Project Case Studies`,
+    description: caseStudy.challenge.slice(0, 160),
     alternates: { canonical: canonicalUrl(`/case-studies/${slug}`) },
   };
 }
 
 export default async function CaseStudyDetailPage({ params }: Props) {
   const { slug } = await params;
-  const cs = CASE_STUDIES.find((c) => c.slug === slug);
-  if (!cs) notFound();
+  const caseStudy = CASE_STUDIES.find((item) => item.slug === slug);
+  if (!caseStudy) notFound();
 
   return (
-
     <>
       <Header />
       <main>
-      <HeroBanner
-        variant="media"
-        eyebrow={`Case study · ${cs.industry}`}
-        title={cs.title}
-        description={(
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <span className="flex items-center gap-1.5"><Users className="h-4 w-4" aria-hidden="true" />{cs.client}</span>
-            <span className="flex items-center gap-1.5"><Package className="h-4 w-4" aria-hidden="true" />{cs.industry}</span>
-            <span className="flex items-center gap-1.5"><TrendingUp className="h-4 w-4" aria-hidden="true" />{cs.region}</span>
-          </div>
-        )}
-        breadcrumbs={[
-          { label: "Case Studies", href: "/case-studies" },
-          { label: cs.title },
-        ]}
-        actions={[{ label: "Discuss a Similar Project", href: "/quote", kind: "primary" }]}
-      />
-
-      {/* Results */}
-      <section className="py-12 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-blue-200 mb-6">Key Results</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {cs.results.map((r) => (
-              <div key={r.label} className="text-center">
-                <div className="text-3xl font-extrabold text-white mb-1">{r.metric}</div>
-                <div className="text-blue-200 text-sm">{r.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="md:col-span-2 space-y-10">
-              {/* Challenge */}
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-red-100  flex items-center justify-center text-red-600 text-sm font-bold">01</span>
-                  The Challenge
-                </h2>
-                <p className="text-slate-600 leading-relaxed">{cs.challenge}</p>
-              </div>
-
-              {/* Solution */}
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-blue-100  flex items-center justify-center text-blue-600 text-sm font-bold">02</span>
-                  Our Solution
-                </h2>
-                <p className="text-slate-600 leading-relaxed">{cs.solution}</p>
-              </div>
-
-              {/* Quote */}
-              <blockquote className="border-l-4 border-blue-500 pl-6 py-2">
-                <p className="text-slate-700 italic text-lg leading-relaxed mb-3">"{cs.quote}"</p>
-                <cite className="text-slate-500 text-sm font-semibold not-italic">— {cs.quoteAuthor}</cite>
-              </blockquote>
+        <HeroBanner
+          variant="media"
+          eyebrow={`Anonymized project · ${caseStudy.industry}`}
+          title={caseStudy.title}
+          description={(
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <span className="flex items-center gap-1.5"><Users className="h-4 w-4" aria-hidden="true" />{caseStudy.client}</span>
+              <span className="flex items-center gap-1.5"><Package className="h-4 w-4" aria-hidden="true" />{caseStudy.industry}</span>
+              <span className="flex items-center gap-1.5"><TrendingUp className="h-4 w-4" aria-hidden="true" />{caseStudy.region}</span>
             </div>
+          )}
+          breadcrumbs={[
+            { label: "Case Studies", href: "/case-studies" },
+            { label: caseStudy.title },
+          ]}
+          actions={[{ label: "Discuss a Similar Project", href: "/quote", kind: "primary" }]}
+        />
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Results detail */}
-              <div className="bg-slate-50  p-6 border border-slate-100">
-                <h3 className="font-bold text-slate-900 mb-4">Results Summary</h3>
-                <div className="space-y-3">
-                  {cs.results.map((r) => (
-                    <div key={r.label} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-slate-900">{r.metric}</span>
-                        <span className="text-slate-500 text-sm ml-1">{r.label}</span>
-                      </div>
-                    </div>
-                  ))}
+        <section className="border-b border-amber-200 bg-amber-50 py-6">
+          <div className="mx-auto max-w-4xl px-6 text-sm leading-6 text-amber-950">
+            This overview omits customer identity and commercially sensitive details. It describes a qualification approach, not a guaranteed result. {caseStudy.verificationNote}
+          </div>
+        </section>
+
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-4xl px-6">
+            <div className="grid gap-12 md:grid-cols-3">
+              <div className="space-y-10 md:col-span-2">
+                <div>
+                  <h2 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+                    <span className="flex h-8 w-8 items-center justify-center bg-red-100 text-sm font-bold text-red-600">01</span>
+                    The Challenge
+                  </h2>
+                  <p className="mt-4 leading-7 text-slate-600">{caseStudy.challenge}</p>
+                </div>
+                <div>
+                  <h2 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+                    <span className="flex h-8 w-8 items-center justify-center bg-blue-100 text-sm font-bold text-blue-600">02</span>
+                    Qualification Approach
+                  </h2>
+                  <p className="mt-4 leading-7 text-slate-600">{caseStudy.solution}</p>
+                </div>
+                <div>
+                  <h2 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+                    <span className="flex h-8 w-8 items-center justify-center bg-green-100 text-sm font-bold text-green-700">03</span>
+                    Documented Project Outputs
+                  </h2>
+                  <ul className="mt-4 space-y-3">
+                    {caseStudy.outcomes.map((outcome) => (
+                      <li key={outcome} className="flex items-start gap-3 leading-7 text-slate-600">
+                        <CheckCircle className="mt-1 h-5 w-5 shrink-0 text-green-600" aria-hidden="true" />
+                        {outcome}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
-              {/* Related Products */}
-              <div className="bg-blue-50  p-6 border border-blue-100">
-                <h3 className="font-bold text-slate-900 mb-4">Products Used</h3>
-                <div className="grid gap-4">
-                  {cs.relatedProducts.map((p) => (
-                    <Link key={p.href} href={p.href} className="group overflow-hidden border border-blue-100 bg-white transition hover:border-blue-300 hover:shadow-md">
-                      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                        <SlotImage
-                          slotKey={p.slotKey}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, 280px"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h4 className="font-bold leading-snug text-slate-900 transition group-hover:text-blue-600">{p.name}</h4>
-                        <p className="mt-2 text-xs leading-5 text-slate-500">{p.copy}</p>
-                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-600">
-                          View details <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+              <aside className="space-y-6">
+                <div className="border border-slate-200 bg-slate-50 p-6">
+                  <h2 className="font-bold text-slate-900">Review Scope</h2>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {caseStudy.tags.map((tag) => (
+                      <span key={tag} className="bg-white px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">{tag}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* CTA */}
-              <div className="bg-slate-900  p-6 text-white">
-                <h3 className="font-bold mb-2">Similar Challenge?</h3>
-                <p className="text-slate-400 text-sm mb-4">Tell us your requirements and we'll engineer a solution.</p>
-                <Link href="/quote" className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5  text-sm transition-colors">
-                  Get a Custom Quote
+                <div className="border border-blue-100 bg-blue-50 p-6">
+                  <h2 className="font-bold text-slate-900">Related Products and Reviews</h2>
+                  <div className="mt-4 grid gap-4">
+                    {caseStudy.relatedProducts.map((product) => (
+                      <Link key={product.href} href={product.href} className="group overflow-hidden border border-blue-100 bg-white transition hover:border-blue-300 hover:shadow-md">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                          <SlotImage slotKey={product.slotKey} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 280px" />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-bold leading-snug text-slate-900 group-hover:text-blue-700">{product.name}</h3>
+                          <p className="mt-2 text-xs leading-5 text-slate-500">{product.copy}</p>
+                          <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-700">Explore {product.name} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 bg-slate-50 py-12">
+          <div className="mx-auto max-w-4xl px-6">
+            <h2 className="text-lg font-bold text-slate-900">More Project Case Studies</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {CASE_STUDIES.filter((item) => item.slug !== slug).slice(0, 3).map((item) => (
+                <Link key={item.slug} href={`/case-studies/${item.slug}`} className="group border border-slate-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-md">
+                  <div className="text-xs font-semibold text-blue-700">{item.industry}</div>
+                  <h3 className="mt-2 text-sm font-bold text-slate-900 group-hover:text-blue-700">{item.title}</h3>
+                  <div className="mt-3 flex items-center gap-1 text-xs text-slate-500">Read project overview <ArrowRight className="h-3 w-3" aria-hidden="true" /></div>
                 </Link>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Other case studies */}
-      <section className="py-12 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-6">More Case Studies</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {CASE_STUDIES.filter((c) => c.slug !== slug).slice(0, 3).map((c) => (
-              <Link key={c.slug} href={`/case-studies/${c.slug}`} className="bg-white  p-5 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group">
-                <div className="text-xs font-semibold text-blue-600 mb-2">{c.industry}</div>
-                <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">{c.title}</h3>
-                <div className="flex items-center gap-1 text-xs text-slate-400 mt-3">
-                  Read case study <ArrowRight className="w-3 h-3" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
       <Footer />
     </>
   );

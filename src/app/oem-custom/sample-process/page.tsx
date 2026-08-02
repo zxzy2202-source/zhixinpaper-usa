@@ -9,16 +9,16 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Sample Process | Free Thermal Paper Samples",
-  description: "Request free thermal paper and label samples. Standard samples dispatched within 3 working days. Custom samples in 7–10 days. No obligation, no cost.",
-  keywords: "thermal paper free sample, label sample request, thermal paper samples distributor",
+  title: "Thermal Paper and Label Sample Process",
+  description: "Plan thermal paper and label sample evaluation. Availability, preparation time, charges, documents, courier terms, and delivery estimates are confirmed after project review.",
+  keywords: "thermal paper sample process, label sample request, thermal paper samples distributor",
   alternates: { canonical: canonicalUrl("/oem-custom/sample-process") },
 };
 
 const steps = [
   { step: "01", title: "Submit Sample Request", desc: "Complete our online sample request form or contact your account manager. Specify the products, sizes, and quantities you need to evaluate." },
-  { step: "02", title: "Sample Preparation", desc: "Our warehouse team picks standard samples from stock. Custom samples are prepared by our production team within 7–10 working days." },
-  { step: "03", title: "Dispatch & Tracking", desc: "Samples are dispatched via DHL Express or FedEx with full tracking. Standard samples typically arrive within 3–5 business days worldwide." },
+  { step: "02", title: "Sample Preparation", desc: "Stock availability, custom preparation route, sample charges, and timing are confirmed after the requested construction and evaluation plan are reviewed." },
+  { step: "03", title: "Dispatch & Tracking", desc: "The courier method, freight responsibility, tracking, and delivery estimate are confirmed for the destination before dispatch." },
   { step: "04", title: "Technical Support", desc: "Our technical team is available to answer questions about sample performance, printer compatibility, and specification matching." },
   { step: "05", title: "Feedback & Quotation", desc: "Once you've evaluated the samples, our sales team will provide a competitive quotation based on your volume requirements." },
 ];
@@ -65,7 +65,7 @@ export default function SampleProcessPage() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white  p-6 border border-slate-200">
               <h3 className="font-semibold text-slate-800 mb-3">Standard Samples</h3>
-              <p className="text-slate-500 text-sm mb-4">Available from stock for all standard products. Dispatched within 1–3 working days.</p>
+              <p className="text-slate-500 text-sm mb-4">Stock availability, sample quantity, charges, documents, and dispatch timing are confirmed after request review.</p>
               <ul className="space-y-2 text-sm text-slate-600">
                 {["Standard POS Rolls (57mm, 80mm)", "ATM Paper Rolls", "Direct Thermal Labels (100×150mm)", "Fanfold Labels", "Synthetic PP Labels"].map(p => (
                   <li key={p} className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />{p}</li>
@@ -74,7 +74,7 @@ export default function SampleProcessPage() {
             </div>
             <div className="bg-white  p-6 border border-slate-200">
               <h3 className="font-semibold text-slate-800 mb-3">Custom Samples</h3>
-              <p className="text-slate-500 text-sm mb-4">Produced to your exact specification. Allow 7–10 working days for preparation.</p>
+              <p className="text-slate-500 text-sm mb-4">Preparation route and timing are confirmed after specifications, artwork, materials, tooling, and evaluation criteria are reviewed.</p>
               <ul className="space-y-2 text-sm text-slate-600">
                 {["Custom sizes and specifications", "Specialty adhesive formulations", "High-temperature and cryo labels", "Custom printed samples", "Private label mock-ups"].map(p => (
                   <li key={p} className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />{p}</li>

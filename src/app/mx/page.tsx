@@ -14,9 +14,9 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { breadcrumbSchema, canonicalUrl, faqSchema } from "@/lib/seo";
 
-const TITLE = "Proveedor de Papel Térmico en México";
+const TITLE = "Thermal Paper Supplier for Mexico";
 const DESCRIPTION =
-  "Rollos de papel térmico y etiquetas térmicas para distribuidores en México. Confirme medidas, grado, empaque, documentos, muestras y condiciones de entrega.";
+  "Thermal paper rolls and thermal labels for distributors in Mexico. Confirm dimensions, material grade, packing, documents, samples, and delivery terms.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl("/mx") },
   openGraph: {
     type: "website",
-    locale: "es_MX",
+    locale: "en_MX",
     url: canonicalUrl("/mx"),
     title: TITLE,
     description: DESCRIPTION,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/images/thermal-rolls-product.jpg",
         width: 1200,
         height: 630,
-        alt: "Rollos de papel térmico para distribuidores en México",
+        alt: "Thermal paper rolls for distributors in Mexico",
       },
     ],
   },
@@ -48,57 +48,57 @@ export const metadata: Metadata = {
 
 const PRODUCTS = [
   {
-    title: "Rollos para punto de venta",
-    description: "Formatos comunes de 80 mm y 57/58 mm, definidos por ancho, diámetro exterior, núcleo, longitud y sentido de bobinado.",
+    title: "Point-of-sale rolls",
+    description: "Common 80 mm and 57/58 mm formats, defined by width, outer diameter, core, length, and winding direction.",
     href: "/products/thermal-paper-rolls/standard-pos-rolls",
     image: "/images/thermal-rolls-product.jpg",
-    link: "Ver rollos POS",
+    link: "Explore POS rolls",
   },
   {
-    title: "Etiquetas térmicas",
-    description: "Etiquetas directas y de transferencia para logística, código de barras, almacén, retail y aplicaciones especiales.",
+    title: "Thermal labels",
+    description: "Direct thermal and thermal-transfer labels for logistics, barcodes, warehousing, retail, and specialized applications.",
     href: "/products/thermal-labels",
     image: "/images/thermal-labels-product.jpg",
-    link: "Ver etiquetas",
+    link: "Explore thermal labels",
   },
   {
-    title: "Impresión y marca privada",
-    description: "Opciones de impresión, empaque y marca privada evaluadas según diseño, especificación, volumen y proceso de aprobación.",
+    title: "Custom printing and private label",
+    description: "Printing, packing, and private-label options reviewed against artwork, specification, volume, and the approval process.",
     href: "/oem-custom",
     image: "/images/factory-overview.jpg",
-    link: "Revisar personalización",
+    link: "Review customization options",
   },
 ];
 
 const QUOTE_FIELDS = [
-  "Ancho, largo o diámetro exterior",
-  "Diámetro del núcleo y sentido de bobinado",
-  "Modelo de impresora o muestra física",
-  "Cantidad por SKU y consumo estimado",
-  "Empaque por caja y configuración de pallet",
-  "Código postal, ciudad y condición de entrega",
+  "Width, length, or outer diameter",
+  "Core diameter and winding direction",
+  "Printer model or physical sample",
+  "Quantity per SKU and estimated usage",
+  "Carton packing and pallet configuration",
+  "Postal code, city, and delivery term",
 ];
 
 const FAQS = [
   {
-    question: "¿Qué información necesitan para cotizar rollos térmicos?",
+    question: "What information is needed to quote thermal paper rolls?",
     answer:
-      "Indique ancho, longitud o diámetro exterior, núcleo, sentido de bobinado, modelo de impresora, cantidad, empaque y destino. Una muestra o ficha actual ayuda a confirmar la equivalencia.",
+      "Provide the width, length or outer diameter, core, winding direction, printer model, quantity, packing, and destination. A physical sample or current specification sheet helps confirm equivalency.",
   },
   {
-    question: "¿Pueden cotizar medidas de 80 mm y 57 o 58 mm?",
+    question: "Can you quote 80 mm and 57 or 58 mm roll sizes?",
     answer:
-      "Sí, estas familias de medidas forman parte de la gama. La especificación final se confirma por ancho, longitud real, diámetro, núcleo, gramaje y compatibilidad con la impresora.",
+      "Yes. These size families are available within our range. The final specification is confirmed by width, actual length, diameter, core, basis weight, and printer compatibility.",
   },
   {
-    question: "¿Qué documentos de cumplimiento están disponibles?",
+    question: "Which compliance documents are available?",
     answer:
-      "El paquete documental depende del grado y del uso final. Antes del pedido se confirma por escrito el alcance requerido, por ejemplo BPA, REACH, FSC, contacto alimentario u otros documentos aplicables.",
+      "The document package depends on the selected grade and end use. Before ordering, we confirm the required scope in writing, such as BPA, REACH, FSC, food-contact, or other applicable documents.",
   },
   {
-    question: "¿Cómo se define el envío a México?",
+    question: "How is delivery to Mexico quoted?",
     answer:
-      "FOB, CIF u otras condiciones se cotizan según volumen, destino, código postal y tipo de carga. El costo, plazo y responsabilidad aduanal deben quedar confirmados en la oferta comercial.",
+      "FOB, CIF, and other terms are quoted according to volume, destination, postal code, and shipment type. Cost, schedule, and customs responsibilities must be confirmed in the commercial offer.",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function MexicoPage() {
   const schemas = [
     breadcrumbSchema([
       { name: "Home", url: "/" },
-      { name: "México", url: "/mx" },
+      { name: "Mexico", url: "/mx" },
     ]),
     faqSchema(FAQS),
     {
@@ -115,9 +115,9 @@ export default function MexicoPage() {
       name: TITLE,
       description: DESCRIPTION,
       url: canonicalUrl("/mx"),
-      inLanguage: "es-MX",
+      inLanguage: "en",
       areaServed: { "@type": "Country", name: "Mexico" },
-      about: ["Papel térmico", "Rollos térmicos", "Etiquetas térmicas"],
+      about: ["Thermal paper", "Thermal paper rolls", "Thermal labels"],
     },
   ];
 
@@ -132,11 +132,11 @@ export default function MexicoPage() {
         />
       ))}
 
-      <main id="main-content" lang="es-MX" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
+      <main id="main-content" lang="en" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
         <section className="relative isolate min-h-[620px] overflow-hidden bg-[#101b19] text-white">
           <Image
             src="/images/thermal-rolls-product.jpg"
-            alt="Rollos de papel térmico preparados para suministro mayorista"
+            alt="Thermal paper rolls prepared for wholesale supply"
             fill
             fetchPriority="high"
             loading="eager"
@@ -147,25 +147,25 @@ export default function MexicoPage() {
           <div className="absolute inset-0 -z-10 bg-[#101b19]/62" />
           <div className="container-site flex min-h-[620px] items-center py-16 md:py-20">
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold text-[#d6b273]">Abastecimiento B2B para México</p>
+              <p className="text-sm font-semibold text-[#d6b273]">B2B supply for Mexico</p>
               <h1 className="mt-4 text-4xl font-bold leading-tight text-white md:text-6xl">
-                Proveedor de papel térmico y etiquetas térmicas en México
+                Thermal paper and thermal label supplier for Mexico
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#dce4df] md:text-lg">
-                Para distribuidores, importadores y compradores de marca privada que necesitan confirmar especificación, compatibilidad, documentos y empaque antes de comprar.
+                For distributors, importers, and private-label buyers who need to confirm specifications, compatibility, documents, and packing before purchasing.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/quote"
                   className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
                 >
-                  Solicitar cotización <ArrowRight className="h-4 w-4" />
+                  Request a Quote <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/samples"
                   className="inline-flex min-h-12 items-center justify-center border border-white/45 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
-                  Solicitar muestras
+                  Request Samples
                 </Link>
               </div>
             </div>
@@ -175,10 +175,10 @@ export default function MexicoPage() {
         <section className="border-b border-[#ded6c8] bg-white">
           <div className="container-site grid gap-px bg-[#ded6c8] sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Ruler, label: "Medidas", value: "80 mm, 57/58 mm y formatos a medida" },
-              { icon: ClipboardCheck, label: "Validación", value: "Impresora, núcleo, diámetro y bobinado" },
-              { icon: PackageCheck, label: "Empaque", value: "Caja, pallet y mezcla de SKU por cotizar" },
-              { icon: Ship, label: "Entrega", value: "Condición y destino confirmados en oferta" },
+              { icon: Ruler, label: "Sizes", value: "80 mm, 57/58 mm, and custom formats" },
+              { icon: ClipboardCheck, label: "Validation", value: "Printer, core, diameter, and winding direction" },
+              { icon: PackageCheck, label: "Packing", value: "Carton, pallet, and mixed-SKU options quoted by project" },
+              { icon: Ship, label: "Delivery", value: "Terms and destination confirmed in the offer" },
             ].map((item) => (
               <div key={item.label} className="bg-white px-6 py-7">
                 <item.icon className="h-5 w-5 text-[#9c661d]" />
@@ -192,9 +192,9 @@ export default function MexicoPage() {
         <section className="py-20 md:py-24">
           <div className="container-site">
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold text-[#9c661d]">Productos principales</p>
+              <p className="text-sm font-semibold text-[#9c661d]">Core products</p>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
-                Empiece por la familia de producto y cierre la especificación antes del pedido
+                Start with the product family, then confirm the specification before ordering
               </h2>
             </div>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -227,15 +227,15 @@ export default function MexicoPage() {
         <section className="border-y border-[#ded6c8] bg-white py-20 md:py-24">
           <div className="container-site grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
-              <p className="text-sm font-semibold text-[#9c661d]">Datos para cotizar</p>
+              <p className="text-sm font-semibold text-[#9c661d]">Quote information</p>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-[#14211f] md:text-4xl">
-                Una cotización útil empieza con una especificación completa
+                A useful quotation starts with a complete specification
               </h2>
               <p className="mt-5 text-base leading-8 text-[#4f5f5a]">
-                Evite comparar únicamente el precio por rollo. La longitud real, el diámetro, el núcleo, el grado del papel y el empaque cambian el rendimiento y el costo puesto en destino.
+                Avoid comparing only the price per roll. Actual length, diameter, core, paper grade, and packing all affect performance and landed cost.
               </p>
               <Link href="/quote" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
-                Abrir formulario de cotización <ArrowRight className="h-4 w-4" />
+                Open the quotation form <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
             <div className="grid gap-px border border-[#ded6c8] bg-[#ded6c8] sm:grid-cols-2">
@@ -254,18 +254,18 @@ export default function MexicoPage() {
             <div>
               <FileCheck2 className="h-7 w-7 text-[#d6b273]" />
               <h2 className="mt-5 text-3xl font-bold leading-tight text-white md:text-4xl">
-                Confirme el alcance documental por grado y aplicación
+                Confirm document scope by material grade and application
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[#c7d0cb]">
-                Los requisitos cambian según mercado, contacto, sustrato y uso final. Antes de aprobar una orden, solicite el nombre del grado y la lista exacta de declaraciones o reportes que deben acompañar el lote.
+                Requirements vary by market, contact conditions, substrate, and end use. Before approving an order, request the material grade name and the exact list of declarations or reports that must accompany the shipment.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                { label: "BPA y fenoles", href: "/compliance/bpa-free" },
-                { label: "REACH y RoHS", href: "/compliance/reach-rohs" },
-                { label: "Sistema ISO 9001", href: "/compliance/iso-9001" },
-                { label: "Opciones FSC", href: "/compliance/fsc-paper" },
+                { label: "BPA and phenol options", href: "/compliance/bpa-free" },
+                { label: "REACH and RoHS", href: "/compliance/reach-rohs" },
+                { label: "ISO 9001 quality system", href: "/compliance/iso-9001" },
+                { label: "FSC options", href: "/compliance/fsc-paper" },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -282,8 +282,8 @@ export default function MexicoPage() {
         <section className="py-20 md:py-24">
           <div className="container-site grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
             <div>
-              <p className="text-sm font-semibold text-[#9c661d]">Preguntas frecuentes</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f]">Antes de solicitar precio</h2>
+              <p className="text-sm font-semibold text-[#9c661d]">Frequently asked questions</p>
+              <h2 className="mt-3 text-3xl font-bold text-[#14211f]">Before requesting a price</h2>
             </div>
             <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
               {FAQS.map((faq) => (
@@ -299,17 +299,17 @@ export default function MexicoPage() {
         <section className="border-t border-[#ded6c8] bg-[#e7eee9] py-16">
           <div className="container-site flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <h2 className="text-3xl font-bold text-[#14211f]">Envíe su medida, volumen y destino</h2>
+              <h2 className="text-3xl font-bold text-[#14211f]">Send your dimensions, volume, and destination</h2>
               <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">
-                Revisaremos la especificación necesaria para preparar una cotización comparable y una ruta de muestra cuando corresponda.
+                We will review the specification needed to prepare a comparable quotation and a sample plan when appropriate.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link href="/quote" className="inline-flex min-h-12 items-center gap-2 bg-[#0f5f5c] px-7 py-3 text-sm font-bold text-white">
-                Solicitar cotización <ArrowRight className="h-4 w-4" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact" className="inline-flex min-h-12 items-center border border-[#0f5f5c]/30 px-7 py-3 text-sm font-bold text-[#0f5f5c]">
-                Contactar ventas
+                Contact Sales
               </Link>
             </div>
           </div>

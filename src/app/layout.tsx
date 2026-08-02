@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import Script from "next/script";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import CookieConsent from "@/components/ui/CookieConsent";
 import { websiteSchema, organizationSchema } from "@/lib/seo";
 import { getSeoGlobal } from "@/lib/siteSettings";
 import "./globals.css";
@@ -21,7 +21,7 @@ const geistDisplay = localFont({
 // 静态默认元数据（运行时会被 generateMetadata 中的 SEO 设置覆盖）
 const DEFAULT_TITLE = "Zhixin Paper | Thermal Paper Rolls & Labels Manufacturer";
 const DEFAULT_DESC =
-  "ISO 9001:2015 certified manufacturer of BPA-free thermal paper rolls and thermal labels. Factory-direct wholesale for distributors and importers in Europe, USA & Canada. FOB Qingdao.";
+  "Manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Materials, documents, printer compatibility, packing, and destination requirements are reviewed by specification.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSeoGlobal();
@@ -103,16 +103,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
-        {/* OKKI CRM 访客分析配置 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.okkiConfigs = window.okkiConfigs || [];
-              function okkiAdd() { okkiConfigs.push(arguments); };
-              okkiAdd("analytics", { siteId: "68611-18549", gId: "" });
-            `,
-          }}
-        />
       </head>
       <body className="bg-white text-slate-900 antialiased font-sans">
         <a
@@ -123,11 +113,7 @@ export default function RootLayout({
         </a>
         {children}
         <WhatsAppButton />
-        {/* OKKI CRM 访客分析脚本 */}
-        <Script
-          src="//tfile.xiaoman.cn/okki/analyze.js?id=68611-18549-"
-          strategy="afterInteractive"
-        />
+        <CookieConsent />
       </body>
     </html>
   );

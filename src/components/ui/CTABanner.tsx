@@ -15,10 +15,10 @@ interface CTABannerProps {
 }
 
 const DEFAULT_TRUST = [
-  "ISO 9001:2015 Certified",
-  "Quote within 24 h",
-  "Free samples for qualified buyers",
-  "DDP / FOB / CIF shipping",
+  "Quality system documents available for review",
+  "Quote reviewed against your specification",
+  "Sample options confirmed by project",
+  "Shipping terms reviewed by destination",
 ];
 
 export default function CTABanner({

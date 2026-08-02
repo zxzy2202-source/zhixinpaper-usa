@@ -373,7 +373,7 @@ export default function HomePage() {
                     <h3 className="text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{label.name}</h3>
                     <p className="mt-2 line-clamp-2 flex-1 text-sm leading-6 text-[#4f5f5a]">{label.description}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#0f5f5c]">
-                      View details <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                      Explore {label.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                     </span>
                   </div>
                 </Link>

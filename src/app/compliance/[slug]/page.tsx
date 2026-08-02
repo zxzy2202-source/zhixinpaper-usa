@@ -29,102 +29,92 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const COMPLIANCE_DETAILS: Record<string, { title: string; details: string[]; markets: string[]; products: string[] }> = {
   "bpa-free": {
-    title: "BPA-Free Thermal Paper",
+    title: "BPA-Free Thermal Paper Review",
     details: [
-      "All BPA-free products use alternative developers that do not contain Bisphenol A",
-      "Tested and certified by accredited third-party laboratories",
-      "Compliant with EU REACH regulation restricting BPA in thermal paper",
-      "Available for all standard thermal paper roll sizes and thermal labels",
-      "Certificate of Analysis (CoA) available for each production batch",
+      "BPA-free, BPS-free, and phenol-free are distinct material routes and should be named in the quotation",
+      "Chemistry claims must be matched to the exact grade, supplier, report scope, and current validity",
+      "Destination rules and buyer standards are reviewed against the intended use",
+      "Batch or shipment documents are supplied only when included in the approved project scope",
     ],
-    markets: ["European Union", "United States", "Canada", "Global"],
-    products: ["All thermal paper rolls", "All thermal labels", "Custom printed rolls"],
+    markets: ["European Union", "United States", "Canada", "Other markets by review"],
+    products: ["Selected thermal paper rolls", "Selected thermal labels", "Custom printed constructions"],
   },
   "reach-rohs": {
-    title: "REACH & RoHS Compliance",
+    title: "REACH & RoHS Document Review",
     details: [
-      "REACH SVHC (Substances of Very High Concern) tested and compliant",
-      "RoHS compliant for thermal labels used in electronic equipment",
-      "Annual REACH testing by accredited EU laboratories",
-      "Full SVHC declaration available on request",
-      "Compliant with EU Regulation EC No 1907/2006 (REACH)",
+      "REACH scope is reviewed against the exact material, substance declaration, destination, and intended use",
+      "RoHS relevance is assessed for the finished application rather than assumed for every paper product",
+      "Available declarations or reports are checked for supplier, sample, method, date, and covered substances",
+      "The quotation records which documents are included for the selected SKU",
     ],
-    markets: ["European Union", "United Kingdom"],
-    products: ["All thermal paper rolls", "All thermal labels"],
+    markets: ["European Union", "United Kingdom by separate scope review"],
+    products: ["Quoted thermal paper grades", "Quoted label constructions"],
   },
   "iso-9001": {
-    title: "ISO 9001:2015 Quality Management",
+    title: "Quality-System Document Review",
     details: [
-      "ISO 9001:2015 certified since 2012, continuously maintained",
-      "Annual third-party surveillance audits by accredited certification body",
-      "Full quality management system covering all production processes",
-      "Documented procedures for raw material inspection, in-process control, and finished goods testing",
-      "Customer complaint handling and corrective action procedures",
+      "Available quality-system documents are reviewed for holder, site, scope, issuer, and validity",
+      "Product inspection and batch records are defined separately from management-system documents",
+      "Raw-material, in-process, and finished-goods controls are agreed by project specification",
+      "Requested quality records should be listed in the quotation before order approval",
     ],
-    markets: ["Global"],
-    products: ["All products"],
+    markets: ["Markets covered by the document scope"],
+    products: ["Products manufactured within the verified site and scope"],
   },
   "fsc-paper": {
-    title: "FSC Certified Paper",
+    title: "Chain-of-Custody Paper Options",
     details: [
-      "FSC Chain of Custody certified for responsible forest management",
-      "Paper sourced from FSC-certified forests and controlled sources",
-      "Annual FSC audit by accredited certification body",
-      "FSC logo available on products and packaging on request",
-      "Supports sustainable forestry and biodiversity conservation",
+      "Chain-of-custody availability depends on the selected paper, supplier route, production site, and order scope",
+      "Logo or claim use requires project-specific approval and applicable trademark rules",
+      "The quotation should identify the exact claim, evidence, and transaction-document requirements",
+      "Do not infer chain-of-custody status from a generic paper description",
     ],
-    markets: ["Global"],
-    products: ["Standard thermal paper rolls", "Custom printed rolls"],
+    markets: ["Markets accepted by the verified chain-of-custody route"],
+    products: ["Selected standard rolls", "Selected custom printed rolls"],
   },
   "eu-food-contact": {
-    title: "EU Food Contact Compliance",
+    title: "EU Food-Contact Scope Review",
     details: [
-      "Compliant with EU Regulation No 10/2011 on plastic materials for food contact",
-      "Suitable for direct and indirect food contact applications",
-      "Migration testing performed by accredited laboratories",
-      "Declaration of Compliance (DoC) available for each product",
-      "Suitable for food packaging labels, receipt paper in food service",
+      "Applicable requirements depend on the complete construction, intended food, contact type, time, and temperature",
+      "Paper, coating, adhesive, ink, and plastic components may require different regulatory assessments",
+      "Available migration or declaration documents are matched to the tested sample and conditions",
+      "The buyer should approve the intended use and required evidence before production",
     ],
-    markets: ["European Union"],
-    products: ["BPA-free thermal paper rolls", "Direct thermal labels"],
+    markets: ["European destinations by applicable scope"],
+    products: ["Selected paper rolls", "Selected direct thermal label constructions"],
   },
   "fda-us": {
-    title: "FDA Compliant Thermal Paper",
+    title: "US Food-Contact Document Review",
     details: [
-      "Compliant with FDA 21 CFR regulations for food contact materials",
-      "BPA-free formulation meeting FDA food contact requirements",
-      "Suitable for food packaging labels and food service receipts",
-      "Testing documentation available for US market entry",
-      "Compliant with US food safety regulations",
+      "Applicable 21 CFR provisions are identified from the complete construction and intended conditions of use",
+      "Paper, paperboard, adhesive, coating, and ink components are reviewed separately where relevant",
+      "Available declarations or tests are matched to the exact quoted grade and report scope",
+      "California chemical and warning requirements are reviewed separately for the selected material",
     ],
-    markets: ["United States"],
-    products: ["BPA-free thermal paper rolls", "Direct thermal labels", "Food contact labels"],
+    markets: ["United States by intended-use review"],
+    products: ["Selected thermal paper grades", "Selected label constructions", "Food-label projects by scope"],
   },
   "phenol-free": {
-    title: "Phenol-Free Thermal Paper",
+    title: "Phenol-Free Thermal Paper Review",
     details: [
-      "Formulated without BPA, BPS, BPF, or any bisphenol compounds whatsoever",
-      "Exceeds EU Commission Regulation 2024/3190 BPA ban — the most stringent phenol-free standard available",
-      "Required by major European retail chains (Rewe, Edeka, Aldi, Lidl) for Blauer Engel eco-label compliance",
-      "Test reports from SGS and Intertek accredited European laboratories available on request",
-      "Suitable for retailers with corporate chemical reduction and sustainability commitments",
-      "Available for all standard 80mm and 57mm POS receipt paper sizes with no lead time premium",
+      "The quotation must define whether the selected route is BPA-free, BPS-free, or phenol-free",
+      "Available chemistry reports are matched to the exact grade and tested substance list",
+      "Retailer specifications and destination requirements are reviewed as separate project inputs",
+      "Size, supply plan, MOQ, and lead time are confirmed for the selected material rather than assumed",
     ],
-    markets: ["European Union", "Germany", "United Kingdom", "Nordic Countries", "Switzerland"],
-    products: ["Standard POS Rolls", "Custom Printed Rolls", "Back Print Thermal Rolls"],
+    markets: ["European and other markets by requirement review"],
+    products: ["Selected POS rolls", "Selected custom printed rolls", "Selected back-print rolls"],
   },
   "iso-15223": {
-    title: "ISO 15223 Medical Device Labeling",
+    title: "Medical-Label Symbol and Material Review",
     details: [
-      "Labeling symbols compliant with ISO 15223-1:2021 medical device symbol standards",
-      "Required for CE-marked medical device packaging under EU MDR (EU 2017/745)",
-      "Wristband labels and specimen tube labels manufactured to medical labeling standards",
-      "Cryogenic grades available for biobank and laboratory specimen storage (down to -80\u00b0C)",
-      "Chemical-resistant surface withstands IPA, quaternary ammonium, and hospital disinfectants",
-      "Archival coating preserves patient data for up to 10 years per EU MDR record-keeping requirements",
+      "The buyer supplies and approves the applicable device-label symbols, language, and regulatory artwork",
+      "Material selection is based on substrate, temperature, chemicals, sterilization exposure, and retention target",
+      "Resistance and readability claims require tests using the actual print system and intended process",
+      "Finished-label regulatory approval remains with the device manufacturer and its qualified advisers",
     ],
-    markets: ["European Union", "United States", "Canada", "Global Healthcare"],
-    products: ["Medical Rolls", "Wristband Labels", "Freezer Cold Chain Labels"],
+    markets: ["Healthcare projects by jurisdiction and device scope"],
+    products: ["Medical rolls", "Wristband labels", "Cold-chain label constructions"],
   },
 };
 
@@ -136,8 +126,8 @@ export default async function ComplianceDetailPage({ params }: Props) {
   const details = COMPLIANCE_DETAILS[slug] || {
     title: item.name,
     details: [item.description],
-    markets: ["Global"],
-    products: ["All thermal paper products"],
+    markets: ["Markets confirmed by project review"],
+    products: ["Products covered by the quoted grade and document scope"],
   };
 
   const related = COMPLIANCE_ITEMS.filter((c) => c.slug !== slug);
@@ -155,13 +145,13 @@ export default async function ComplianceDetailPage({ params }: Props) {
             </nav>
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-0.5 bg-blue-600 rounded-full" />
-              <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600">Certification</span>
+               <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600">Document Review</span>
             </div>
             <h1 className="font-bold text-slate-900 text-5xl md:text-6xl mb-4">{details.title}</h1>
             <p className="text-slate-500 text-lg max-w-2xl mb-6">{item.description}</p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Request Certificate <Download className="w-4 h-4" /></Link>
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Get Compliant Products</Link>
+               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Request Documents <Download className="w-4 h-4" /></Link>
+               <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Product Review</Link>
             </div>
           </div>
         </section>
@@ -170,7 +160,7 @@ export default async function ComplianceDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
-                <h2 className="font-bold text-slate-900 text-3xl mb-6">Certification Details</h2>
+                 <h2 className="font-bold text-slate-900 text-3xl mb-6">Review Details</h2>
                 <div className="space-y-3 mb-10">
                   {details.details.map((d, i) => (
                     <div key={i} className="flex items-start gap-3">
@@ -198,14 +188,14 @@ export default async function ComplianceDetailPage({ params }: Props) {
               <div>
                 <div className="bg-white border border-slate-200 p-6 mb-5">
                   <h3 className="font-bold text-slate-900 text-lg mb-4">Request Documentation</h3>
-                  <p className="text-slate-500 text-sm mb-4">Certificates, test reports, and declarations available for qualified distributors.</p>
+                   <p className="text-slate-500 text-sm mb-4">Share the exact product, intended use, destination, and required document list. Availability and scope will be confirmed for the quoted SKU.</p>
                   <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm w-full justify-center text-sm">
                     Contact Us <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
 
                 <div className="bg-white border border-slate-200 p-6">
-                  <h3 className="font-bold text-slate-900 text-lg mb-4">Other Certifications</h3>
+                   <h3 className="font-bold text-slate-900 text-lg mb-4">Other Document Topics</h3>
                   <div className="space-y-2">
                     {related.map((r) => (
                       <Link key={r.slug} href={`/compliance/${r.slug}`} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 text-sm transition-colors">
@@ -220,7 +210,7 @@ export default async function ComplianceDetailPage({ params }: Props) {
           </div>
         </section>
 
-        <CTABanner title="Need Compliance Documentation?" subtitle="Request certificates and test reports for your market. Available within 24 hours." primaryLabel="Request Documents" />
+         <CTABanner title="Need Project Documentation?" subtitle="Request documents matched to the exact material, intended use, destination, and report scope." primaryLabel="Request Documents" />
       </main>
       <Footer />
     </>

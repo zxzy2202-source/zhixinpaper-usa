@@ -7,7 +7,7 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import SlotImage from "@/components/ui/SlotImage";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { INDUSTRY_BUYER_INSIGHTS } from "@/lib/marketInsights";
+import { buildIndustryEvidenceAnswers, INDUSTRY_BUYER_INSIGHTS, INDUSTRY_RESOURCES, INDUSTRY_SOLUTION_COMPARISONS } from "@/lib/marketInsights";
 import { buildMetadata, canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, FileCheck2, ShieldCheck } from "lucide-react";
 
@@ -36,6 +36,11 @@ export default async function IndustryDetailPage({ params }: Props) {
   const industry = INDUSTRIES.find((i) => i.slug === slug);
   if (!industry) notFound();
   const insight = INDUSTRY_BUYER_INSIGHTS[slug] || null;
+  const solutionComparisons = INDUSTRY_SOLUTION_COMPARISONS[slug] || [];
+  const resources = INDUSTRY_RESOURCES[slug] || null;
+  const evidenceAnswers = resources
+    ? buildIndustryEvidenceAnswers(solutionComparisons, resources)
+    : [];
   const isPilot = slug === "casino";
 
   const relatedProducts = [
@@ -67,7 +72,7 @@ export default async function IndustryDetailPage({ params }: Props) {
         description: industry.description,
         url: pageUrl,
         provider: { "@type": "Organization", name: "Zhixin Paper", url: canonicalUrl("/") },
-        areaServed: "Worldwide",
+        areaServed: ["European Union", "United Kingdom", "United States", "Canada", "Mexico"],
         serviceType: industry.products,
       },
       {
@@ -163,6 +168,70 @@ export default async function IndustryDetailPage({ params }: Props) {
           </section>
         )}
 
+        {solutionComparisons.length > 0 && (
+          <section className="border-y border-slate-200 bg-slate-50 py-16" aria-labelledby="solution-comparison-heading">
+            <div className="container-site">
+              <div className="max-w-3xl">
+                <p className="section-label">Solution comparison</p>
+                <h2 id="solution-comparison-heading" className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                  Compare the specification before selecting the material.
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  These are decision paths, not fixed performance claims. Confirm the final construction with the
+                  named printer, application, environment, destination requirements, and approved sample.
+                </p>
+              </div>
+
+              <div className="mt-10 hidden overflow-x-auto border border-slate-200 bg-white md:block">
+                <table className="w-full min-w-[760px] table-fixed border-collapse text-left">
+                  <thead className="bg-slate-950 text-white">
+                    <tr>
+                      <th scope="col" className="w-[18%] px-5 py-4 text-xs font-bold uppercase">Decision</th>
+                      <th scope="col" className="w-[24%] px-5 py-4 text-xs font-bold uppercase">Option A</th>
+                      <th scope="col" className="w-[24%] px-5 py-4 text-xs font-bold uppercase">Option B</th>
+                      <th scope="col" className="w-[34%] px-5 py-4 text-xs font-bold uppercase">Choose by</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {solutionComparisons.map((comparison) => (
+                      <tr key={comparison.decision} className="border-t border-slate-200 align-top first:border-t-0">
+                        <th scope="row" className="px-5 py-5 text-sm font-extrabold leading-6 text-slate-950">
+                          {comparison.decision}
+                        </th>
+                        <td className="px-5 py-5 text-sm leading-6 text-slate-600">{comparison.optionA}</td>
+                        <td className="px-5 py-5 text-sm leading-6 text-slate-600">{comparison.optionB}</td>
+                        <td className="px-5 py-5 text-sm leading-6 text-slate-600">{comparison.chooseBy}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-8 grid gap-4 md:hidden">
+                {solutionComparisons.map((comparison) => (
+                  <article key={comparison.decision} className="border border-slate-200 bg-white p-5">
+                    <h3 className="text-lg font-extrabold text-slate-950">{comparison.decision}</h3>
+                    <dl className="mt-4 grid gap-4 text-sm leading-6">
+                      <div>
+                        <dt className="font-bold text-slate-950">Option A</dt>
+                        <dd className="mt-1 text-slate-600">{comparison.optionA}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-bold text-slate-950">Option B</dt>
+                        <dd className="mt-1 text-slate-600">{comparison.optionB}</dd>
+                      </div>
+                      <div className="border-t border-slate-200 pt-4">
+                        <dt className="font-bold text-slate-950">Choose by</dt>
+                        <dd className="mt-1 text-slate-600">{comparison.chooseBy}</dd>
+                      </div>
+                    </dl>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {insight && (
           <section className="bg-slate-950 py-14 text-white">
             <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -182,7 +251,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                  Request Free Samples
+                  Request Samples
                 </Link>
               </div>
             </div>
@@ -213,12 +282,80 @@ export default async function IndustryDetailPage({ params }: Props) {
                 <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-blue-600">
                   <Link href="/factory/quality-control" className="hover:text-blue-700">Quality control</Link>
                   <Link href="/compliance" className="hover:text-blue-700">Compliance files</Link>
+                  {slug === "healthcare-pharma" && (
+                    <Link href="/compliance/iso-15223" className="hover:text-blue-700">
+                      ISO 15223 medical-device labeling
+                    </Link>
+                  )}
                   <Link href="/samples" className="hover:text-blue-700">Sample validation</Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
+        {evidenceAnswers.length > 0 && (
+          <section className="border-y border-slate-200 bg-slate-50 py-16" aria-labelledby="evidence-answers-heading">
+            <div className="container-site">
+              <div className="max-w-3xl">
+                <p className="section-label">Evidence answers</p>
+                <h2 id="evidence-answers-heading" className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                  Short answers for a reviewable purchasing specification.
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  Each answer states the decision condition and its verification path. It does not replace the named
+                  printer, material, destination, document, or production-intent sample required by the project.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-5 lg:grid-cols-3">
+                {evidenceAnswers.map((item) => (
+                  <article key={item.question} className="flex min-h-full flex-col border border-slate-200 bg-white p-6">
+                    <h3 className="text-lg font-extrabold leading-7 text-slate-950">{item.question}</h3>
+                    <p className="mt-4 text-sm leading-7 text-slate-600">{item.answer}</p>
+                    <p className="mt-4 border-l-2 border-blue-600 pl-4 text-xs font-semibold leading-6 text-slate-700">
+                      Verify against: {item.condition}
+                    </p>
+                    <div className="mt-6 border-t border-slate-200 pt-5">
+                      <p className="text-xs font-bold uppercase text-slate-500">Verification paths</p>
+                      <div className="mt-3 grid gap-2 text-sm font-bold text-blue-700">
+                        {item.evidence.map((evidence) => (
+                          <Link key={evidence.href} href={evidence.href} className="inline-flex items-center gap-2 hover:text-blue-800">
+                            {evidence.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {resources && (
+          <section className="bg-white py-16" aria-labelledby="industry-resources-heading">
+            <div className="container-site">
+              <div className="max-w-3xl">
+                <p className="section-label">Supporting resources</p>
+                <h2 id="industry-resources-heading" className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
+                  Continue the qualification with evidence already on this site.
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  Project pages describe anonymized review workflows, not universal outcomes. Guides and compliance
+                  pages support specification planning; final suitability still depends on the selected construction,
+                  destination, application, current documents, and approved sample.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-px bg-slate-200 md:grid-cols-3">
+                <IndustryResourceCard eyebrow="Project evidence" resource={resources.caseStudy} />
+                <IndustryResourceCard eyebrow="Technical guide" resource={resources.technicalGuide} />
+                <IndustryResourceCard eyebrow="Compliance review" resource={resources.compliance} />
+              </div>
+            </div>
+          </section>
+        )}
 
         {relatedProducts.length > 0 && (
           <section className="py-16 bg-slate-50">
@@ -254,7 +391,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                         </h3>
                         <p className="text-slate-400 text-xs leading-relaxed flex-1">{p.subtitle}</p>
                         <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-600">
-                          View details <ArrowRight className="w-3 h-3" />
+                          Explore {p.name} <ArrowRight className="w-3 h-3" />
                         </span>
                       </div>
                     </Link>
@@ -328,6 +465,25 @@ function buildIndustryFaqs(
       answer: `No. Suitability depends on the selected material, test conditions, destination rules, printer, storage, and application. Request the relevant declaration or test file and approve a sample against the project requirements.`,
     },
   ];
+}
+
+function IndustryResourceCard({
+  eyebrow,
+  resource,
+}: {
+  eyebrow: string;
+  resource: (typeof INDUSTRY_RESOURCES)[string]["caseStudy"];
+}) {
+  return (
+    <article className="flex min-h-full flex-col bg-slate-50 p-6 md:p-7">
+      <p className="text-xs font-bold uppercase text-blue-700">{eyebrow}</p>
+      <h3 className="mt-3 text-lg font-extrabold leading-7 text-slate-950">{resource.label}</h3>
+      <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{resource.description}</p>
+      <Link href={resource.href} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-800">
+        Review resource <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </Link>
+    </article>
+  );
 }
 
 function InsightColumn({ items, title }: { items: string[]; title: string }) {

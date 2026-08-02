@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -144,11 +145,13 @@ export default function BlogListClient({ posts }: Props) {
                   >
                     {/* Cover image */}
                     {post.coverImage ? (
-                      <div className="w-full h-44 overflow-hidden bg-slate-100">
-                        <img
+                      <div className="relative w-full h-44 overflow-hidden bg-slate-100">
+                        <Image
                           src={post.coverImage}
                           alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     ) : (() => {
@@ -193,7 +196,7 @@ export default function BlogListClient({ posts }: Props) {
                       <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                         <span className="text-slate-400 text-xs">{post.date}</span>
                         <div className="flex items-center gap-1.5 text-blue-600 text-xs font-semibold uppercase tracking-wide">
-                          Read More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                          Read {post.title} <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
                     </div>

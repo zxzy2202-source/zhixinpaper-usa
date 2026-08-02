@@ -9,9 +9,9 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "REACH & RoHS Compliance | SVHC Free Thermal Paper",
-  description: "REACH SVHC compliant thermal paper and labels. RoHS compliant thermal labels for electronics. Full SVHC screening and compliance documentation available.",
-  keywords: "REACH thermal paper, RoHS labels EU, SVHC free thermal paper",
+  title: "REACH & RoHS Documentation Review",
+  description: "Review REACH and RoHS documentation for the selected thermal paper or label construction, restricted-substance scope, application, and destination.",
+  keywords: "REACH thermal paper, RoHS labels EU, SVHC thermal paper documentation",
   alternates: { canonical: canonicalUrl("/compliance/reach-rohs") },
 };
 
@@ -43,18 +43,18 @@ export default function ReachRohsPage() {
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">REACH Compliance</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU's comprehensive chemicals regulation. For thermal paper, the key requirements relate to the SVHC (Substances of Very High Concern) candidate list and specific restrictions on substances like BPA.
+                REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU&apos;s chemicals regulation. Thermal paper review commonly considers the current SVHC candidate list and applicable substance restrictions, including restrictions concerning BPA.
               </p>
               <p className="text-slate-600 leading-relaxed mb-6">
-                We screen all raw materials and finished products against the current SVHC candidate list. Our products contain no SVHC substances above the 0.1% (w/w) threshold, and we maintain full documentation to support our customers' own REACH compliance obligations.
+                Material and finished-product statements should be checked against the selected grade, current supplier evidence, test method, and the buyer&apos;s intended use. Request the current project-specific documentation before approval.
               </p>
               <div className="space-y-3">
                 {[
-                  "SVHC substances below 0.1% threshold in all products",
-                  "BPA restriction (REACH Annex XVII) — fully compliant",
-                  "Annual SVHC screening against updated candidate list",
-                  "Full supply chain traceability for raw materials",
-                  "REACH compliance statements available on request",
+                  "Selected grade and complete material construction",
+                  "Candidate-list or restriction reference date",
+                  "Declaration issuer, legal entity, and supply-chain scope",
+                  "Test method, laboratory, sample identity, and report date",
+                  "Destination and buyer-specific documentation requirements",
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -66,21 +66,20 @@ export default function ReachRohsPage() {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">RoHS Compliance</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">RoHS Scope Review</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                RoHS (Restriction of Hazardous Substances) Directive 2011/65/EU restricts the use of certain hazardous substances in electrical and electronic equipment. Our thermal labels used in electronics manufacturing and industrial applications are fully RoHS compliant.
+                RoHS Directive 2011/65/EU concerns restricted substances in electrical and electronic equipment. Whether it applies to a label project, and which evidence is appropriate, depends on the finished equipment, label function, complete material construction, supply chain, destination, and buyer requirements.
               </p>
               <p className="text-slate-600 leading-relaxed mb-6">
-                This is particularly relevant for our high-temperature labels, chemical-resistant labels, and wristband labels used in electronics manufacturing, automotive, and medical device applications.
+                For electronics, automotive, or medical-device workflows, request current documentation tied to the exact facestock, coating, adhesive, liner, inks, and finishing included in the quotation. Final applicability and acceptance remain with the buyer and qualified advisers.
               </p>
               <div className="space-y-3">
                 {[
-                  "Lead (Pb) — below threshold",
-                  "Mercury (Hg) — not present",
-                  "Cadmium (Cd) — not present",
-                  "Hexavalent Chromium (Cr VI) — not present",
-                  "Polybrominated Biphenyls (PBB) — not present",
-                  "Polybrominated Diphenyl Ethers (PBDE) — not present",
+                  "Confirm whether RoHS applies to the finished equipment",
+                  "Identify the exact quoted label construction and supplier scope",
+                  "Review restricted-substance list and applicable exemptions",
+                  "Check test or declaration dates and sample identification",
+                  "Record buyer approval before production",
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -96,7 +95,7 @@ export default function ReachRohsPage() {
       </section>
 
     </main>
-      <CTABanner title="Need REACH & RoHS Documentation?" subtitle="Request our SVHC declarations and RoHS test reports for EU market compliance." primaryLabel="Get Documents" secondaryLabel="Request a Quote" />
+      <CTABanner title="Need REACH or RoHS Documentation?" subtitle="Share the selected grade, complete construction, intended application, destination, and required evidence so the available document scope can be reviewed." primaryLabel="Request Document Review" secondaryLabel="Request a Quote" />
     <Footer />
     </>
   );

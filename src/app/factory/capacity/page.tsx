@@ -16,13 +16,13 @@ export const metadata: Metadata = {
 };
 
 const capacityData = [
-  { product: "Standard POS Rolls", availability: "Stock programme", leadTime: "10–15 days", moq: "10,000 rolls" },
-  { product: "ATM Paper Rolls", availability: "Scheduled by SKU", leadTime: "10–15 days", moq: "5,000 rolls" },
-  { product: "Lottery / Casino Rolls", availability: "Scheduled by SKU", leadTime: "15–20 days", moq: "10,000 rolls" },
-  { product: "Custom Printed Rolls", availability: "Made to order", leadTime: "20–30 days", moq: "50,000 rolls" },
-  { product: "Direct Thermal Labels", availability: "Stock programme", leadTime: "10–15 days", moq: "50,000 labels" },
-  { product: "Specialty Labels (HT/Cryo/PP)", availability: "Made to order", leadTime: "15–25 days", moq: "20,000 labels" },
-  { product: "Custom Printed Labels", availability: "Made to order", leadTime: "20–30 days", moq: "50,000 labels" },
+  { product: "Standard POS Rolls", availability: "Reviewed by SKU", leadTime: "Confirmed after stock and packing review", moq: "Confirmed by size, grade, packing, and quantity" },
+  { product: "ATM Paper Rolls", availability: "Scheduled by SKU", leadTime: "Confirmed after specification and capacity review", moq: "Confirmed by terminal format, packing, and quantity" },
+  { product: "Lottery / Casino Rolls", availability: "Scheduled by SKU", leadTime: "Confirmed after specification and capacity review", moq: "Confirmed by format, marks, packing, and quantity" },
+  { product: "Custom Printed Rolls", availability: "Made to order", leadTime: "Confirmed after artwork, proof, and capacity review", moq: "Confirmed by print setup, packing, and quantity" },
+  { product: "Direct Thermal Labels", availability: "Reviewed by construction", leadTime: "Confirmed after material, tooling, and capacity review", moq: "Confirmed by size, adhesive, format, and quantity" },
+  { product: "Specialty Labels (HT/Cryo/PP)", availability: "Made to order", leadTime: "Confirmed after material and sample review", moq: "Confirmed by construction, tooling, and quantity" },
+  { product: "Custom Printed Labels", availability: "Made to order", leadTime: "Confirmed after artwork, tooling, and sample review", moq: "Confirmed by construction, print setup, and quantity" },
 ];
 
 export default function FactoryCapacityPage() {
@@ -76,15 +76,15 @@ export default function FactoryCapacityPage() {
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Buffer Stock Programme</h3>
-              <p className="text-slate-500 text-sm">We maintain 30-day buffer stock for top-selling SKUs, enabling same-week dispatch for urgent orders from established distributors.</p>
+              <p className="text-slate-500 text-sm">Buffer inventory and dispatch timing are confirmed by SKU, forecast, allocation, packing, and current stock records.</p>
             </div>
             <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Flexible MOQ</h3>
-              <p className="text-slate-500 text-sm">Standard products from 5,000 rolls. Custom OEM from 50,000 rolls. We work with distributors at all stages of growth.</p>
+              <p className="text-slate-500 text-sm">Minimum order quantity is confirmed from the product construction, dimensions, printing, tooling, packing, order mix, and current production setup.</p>
             </div>
             <div className="bg-blue-50  p-6">
               <h3 className="font-semibold text-slate-800 mb-2">Dedicated Account Management</h3>
-              <p className="text-slate-500 text-sm">Each distributor account is assigned a dedicated production planner to coordinate forecasts, rush orders, and seasonal demand peaks.</p>
+              <p className="text-slate-500 text-sm">Sales and production contacts coordinate forecasts, specification approvals, capacity checks, packing, and delivery planning for each program.</p>
             </div>
           </div>
         </div>

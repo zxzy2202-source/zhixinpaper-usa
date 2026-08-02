@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -92,7 +92,12 @@ export default function ImageSlotsPage() {
   const [picker, setPicker] = useState<SlotData | null>(null);
   const fileInputs = useRef<Record<string, HTMLInputElement | null>>({});
 
-  async function load() {
+  const flash = useCallback((msg: string, type: "ok" | "err" = "ok") => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 2800);
+  }, []);
+
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const r = await fetch("/api/admin/image-slots", { cache: "no-store" });
@@ -105,14 +110,9 @@ export default function ImageSlotsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [flash]);
 
-  useEffect(() => { load(); }, []);
-
-  function flash(msg: string, type: "ok" | "err" = "ok") {
-    setToast({ msg, type });
-    setTimeout(() => setToast(null), 2800);
-  }
+  useEffect(() => { load(); }, [load]);
 
   // ─────── 一键上传流程 ───────
   async function handlePickFile(slot: SlotData, file: File) {

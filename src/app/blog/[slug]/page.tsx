@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { BLOG_POSTS } from "@/lib/data";
 import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
@@ -50,7 +50,11 @@ export async function generateMetadata({
 
   let dbPost = null;
   try {
-    dbPost = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).then(r => r[0]);
+    dbPost = await db
+      .select()
+      .from(blogPosts)
+      .where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")))
+      .then((rows) => rows[0]);
   } catch {}
 
   if (dbPost) {
@@ -99,7 +103,11 @@ export default async function BlogPostPage({
 
   let dbPost = null;
   try {
-    dbPost = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).then(r => r[0]);
+    dbPost = await db
+      .select()
+      .from(blogPosts)
+      .where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")))
+      .then((rows) => rows[0]);
   } catch {}
 
   if (dbPost) {

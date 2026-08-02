@@ -30,6 +30,7 @@ const LinkedinIcon = () => (
 export default function ContactClient() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [autoReplySent, setAutoReplySent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
@@ -62,11 +63,12 @@ export default function ContactClient() {
         body: JSON.stringify(form),
       });
 
+      const data = await res.json();
       if (!res.ok) {
-        const data = await res.json();
         throw new Error(data.error || "Failed to send message");
       }
 
+      setAutoReplySent(Boolean(data.autoReplySent));
       setSubmitted(true);
     } catch (err) {
       setError(
@@ -92,13 +94,14 @@ export default function ContactClient() {
               Message sent successfully
             </h1>
             <p className="text-[#4f5f5a] mb-2">
-              Thank you for reaching out. Our sales team will respond within{" "}
-              <strong>24 business hours</strong>.
+              Thank you for reaching out. Our sales team has received your message and will review your project requirements.
             </p>
             <p className="text-[#4f5f5a] text-sm mb-8">
-              A confirmation email has been sent to{" "}
-              <strong>{form.email}</strong>. Please check your spam folder if
-              you don&apos;t see it within 10 minutes.
+              {autoReplySent ? (
+                <>A confirmation email was sent to <strong>{form.email}</strong>.</>
+              ) : (
+                <>Your message is recorded, but we could not confirm delivery of an automatic email. Keep this page for your records or contact us directly if the request is urgent.</>
+              )}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
@@ -139,14 +142,14 @@ export default function ContactClient() {
             </h1>
             <p className="text-[#4f5f5a] text-lg max-w-2xl mb-6">
               Contact our sales team for quotes, samples, compliance
-              documentation, or technical support. We respond within 24 hours.
+              documentation, or technical support. Response timing is confirmed after the request scope is reviewed.
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-[#4f5f5a]">
               {[
-                "ISO 9001:2015 Certified",
-                "Quote within 24 h",
-                "Free samples for qualified buyers",
-                "NDA available on request",
+                "Quality-system documents reviewed by scope",
+                "Quote timing confirmed after RFQ review",
+                "Sample terms confirmed by project",
+                "NDA scope available for review",
               ].map((t) => (
                 <div key={t} className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />
@@ -200,8 +203,8 @@ export default function ContactClient() {
                     },
                     {
                       icon: <Globe className="w-5 h-5" />,
-                      label: "Response Time",
-                      value: "Within 24 hours",
+                      label: "Response Planning",
+                      value: "Confirmed after request review",
                       href: null,
                     },
                     {

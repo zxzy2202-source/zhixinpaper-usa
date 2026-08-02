@@ -310,20 +310,20 @@ const COMPLIANCE_DOCS: Record<string, { name: string; desc: string; icon: string
   "standard-pos-rolls": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
-    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
-    { name: "Technical Data Sheet (TDS)", desc: "Full specifications, storage conditions, print parameters", icon: "download" },
+    { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
+    { name: "Technical Data Sheet (TDS)", desc: "Revision, storage guidance, and print parameters reviewed for the quoted grade", icon: "download" },
   ],
   "atm-banking-rolls": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
     { name: "REACH / RoHS Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
-    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
+    { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Image Stability Report", desc: "Test conditions matched to the selected grade and retention target", icon: "download" },
   ],
   "default": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade", icon: "shield" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
-    { name: "Quality Management Certificate", desc: "Current certificate supplied on request", icon: "award" },
-    { name: "Technical Data Sheet (TDS)", desc: "Full product specifications", icon: "download" },
+    { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
+    { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted grade", icon: "download" },
   ],
 };
 
@@ -333,7 +333,7 @@ export default async function RollDetailPage({ params }: Props) {
   if (!roll) notFound();
 
   const related = THERMAL_PAPER_ROLLS.filter((r) => r.slug !== slug).slice(0, 4);
-  const heroText = (roll as { heroDesc?: string }).heroDesc || `${roll.name} — manufactured to the highest quality standards. BPA-free options, custom OEM printing, and private label for distributors worldwide.`;
+  const heroText = (roll as { heroDesc?: string }).heroDesc || `${roll.name} for distributor and OEM projects. Paper grade, dimensions, printer compatibility, documents, printing, packing, and private-label scope are confirmed for the quotation.`;
   const descText = (roll as { description?: string }).description || `${roll.name} for wholesale distributors and importers. Paper-grade documents, order quantity, OEM printing, and private-label options are confirmed for the quoted specification and project.`;
 
   const printers = PRINTER_COMPAT[slug] || null;
@@ -594,7 +594,7 @@ export default async function RollDetailPage({ params }: Props) {
                         <div className="mt-5 grid grid-cols-3 gap-2 border-t border-slate-200 pt-5 text-center">
                           {[
                             ["MOQ", roll.moq],
-                            ["Lead", "10-15 days"],
+                            ["Lead", "By project"],
                             ["Markets", "EU / US / CA"],
                           ].map(([label, value]) => (
                             <div key={label} className="bg-[#f4f0e8] px-2 py-3">
@@ -615,9 +615,9 @@ export default async function RollDetailPage({ params }: Props) {
                       <div className="grid gap-3">
                         {[
                           { icon: <Package className="w-4 h-4" />, label: "MOQ", value: roll.moq },
-                          { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "10-15 Days" },
-                          { icon: <Award className="w-4 h-4" />, label: "Certified", value: "ISO 9001" },
-                          { icon: <Shield className="w-4 h-4" />, label: "BPA-Free", value: "Available" },
+                          { icon: <Clock className="w-4 h-4" />, label: "Lead Time", value: "Confirmed by project" },
+                          { icon: <Award className="w-4 h-4" />, label: "Documents", value: "Reviewed by scope" },
+                          { icon: <Shield className="w-4 h-4" />, label: "Phenol Route", value: "By selected grade" },
                         ].map((item) => (
                           <div key={item.label} className="flex items-center gap-3 bg-slate-50 p-4">
                             <span className="text-[#0f5f5c]">{item.icon}</span>
@@ -641,11 +641,11 @@ export default async function RollDetailPage({ params }: Props) {
           <div className="container-site">
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
               {[
-                { icon: <Factory className="w-3.5 h-3.5 text-[#d6b273]" />, text: "500M+ rolls/year factory capacity" },
-                { icon: <FileCheck className="w-3.5 h-3.5 text-emerald-400" />, text: "SGS & TÜV test reports available" },
-                { icon: <Truck className="w-3.5 h-3.5 text-[#d6b273]" />, text: "FOB Qingdao · DDP Europe/USA" },
-                { icon: <Users className="w-3.5 h-3.5 text-amber-400" />, text: "Trusted by 500+ distributors in 80+ countries" },
-                { icon: <Clock className="w-3.5 h-3.5 text-[#d6b273]" />, text: "24-hour quote response" },
+                { icon: <Factory className="w-3.5 h-3.5 text-[#d6b273]" />, text: "Capacity confirmed by SKU, quantity, and current loading" },
+                { icon: <FileCheck className="w-3.5 h-3.5 text-emerald-400" />, text: "Available reports matched to grade and scope" },
+                { icon: <Truck className="w-3.5 h-3.5 text-[#d6b273]" />, text: "Incoterm and delivery scope confirmed in writing" },
+                { icon: <Users className="w-3.5 h-3.5 text-amber-400" />, text: "Export packing and route reviewed by destination" },
+                { icon: <Clock className="w-3.5 h-3.5 text-[#d6b273]" />, text: "Quote timing depends on complete RFQ details" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   {item.icon}
@@ -1139,14 +1139,14 @@ export default async function RollDetailPage({ params }: Props) {
                   Your Brand, Our Manufacturing
                 </h2>
                 <p className="text-slate-600 text-base leading-relaxed mb-6">
-                  Build your own thermal paper brand with our end-to-end OEM service. Custom logo printing on the roll wrapper, branded outer cartons, Pantone color matching, and NDA protection — all included. MOQ from 5,000 rolls.
+                  Build a private-label thermal paper program through specification, artwork, color proof, packaging, document, quantity, and production review. NDA scope and timing are confirmed in writing when required.
                 </p>
                 <div className="space-y-3 mb-6">
                   {[
                     "Front-print & back-print with your logo, QR codes, or promotional content",
                      "Pantone spot-color matching available subject to proof approval",
                     "Custom core sizes, roll dimensions, and packaging to your spec",
-                    "NDA signed before any design work begins — your IP is protected",
+                    "NDA scope confirmed in writing before protected design material is exchanged",
                      "Sample schedule confirmed after artwork, material, and print-process review",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
@@ -1168,9 +1168,9 @@ export default async function RollDetailPage({ params }: Props) {
                 <h3 className="font-bold text-slate-900 text-lg mb-5">OEM Service at a Glance</h3>
                 <div className="space-y-4">
                   {[
-                    { label: "Minimum Order", value: "5,000 rolls" },
-                    { label: "Sample Turnaround", value: "7 business days" },
-                    { label: "Color Matching", value: "Pantone / CMYK" },
+                    { label: "Minimum Order", value: "Confirmed by SKU and setup" },
+                    { label: "Sample Turnaround", value: "Confirmed by sample plan" },
+                    { label: "Color Matching", value: "By approved proof" },
                     { label: "Print Options", value: "Front + Back print" },
                     { label: "NDA", value: "Signed before design" },
                     { label: "Packaging", value: "Custom carton & label" },
@@ -1190,14 +1190,14 @@ export default async function RollDetailPage({ params }: Props) {
         <section className="py-10 bg-slate-50 border-t border-slate-200">
           <div className="container-site">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Free Sample Card */}
+              {/* Sample Request Card */}
               <div className="flex items-start gap-4 p-6 bg-[#f4f0e8]  border border-[#ded6c8]">
                 <div className="w-10 h-10 bg-[#9c661d]  flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Request Samples</p>
-                  <p className="text-slate-500 text-xs mb-3">Test quality before you order. Shipped via DHL/FedEx within 3 business days.</p>
+                  <p className="text-slate-500 text-xs mb-3">Sample specification, quantity, fee, production method, courier route, and schedule are confirmed before dispatch.</p>
                   <Link href="/samples" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
                     Request Now <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -1210,9 +1210,9 @@ export default async function RollDetailPage({ params }: Props) {
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Custom Logo &amp; Back Print</p>
-                  <p className="text-slate-500 text-xs mb-3">Print your logo, coupons, QR codes or ads on every roll. MOQ 5,000 rolls.</p>
+                  <p className="text-slate-500 text-xs mb-3">Print approved logos, QR codes, or promotional content after artwork, material, proof, and quantity review.</p>
                   <Link href="/oem-custom/private-label" className="text-green-600 hover:text-green-700 font-semibold text-xs flex items-center gap-1">
-                    Learn More <ArrowRight className="w-3 h-3" />
+                    Explore private-label printing <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -1223,7 +1223,7 @@ export default async function RollDetailPage({ params }: Props) {
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Talk to a Specialist</p>
-                  <p className="text-slate-500 text-xs mb-3">WhatsApp or email our team directly. Response within 2 hours during business hours.</p>
+                  <p className="text-slate-500 text-xs mb-3">WhatsApp or email the team with product, quantity, destination, and timing details for a project-specific response.</p>
                   <a
                     href="https://wa.me/8618792771927"
                     target="_blank"
@@ -1266,7 +1266,7 @@ export default async function RollDetailPage({ params }: Props) {
                     <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{r.name}</h3>
                     <p className="text-slate-500 text-xs leading-5 flex-1">{r.subtitle}</p>
                     <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c]">
-                      View details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                      Explore {r.name} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </Link>

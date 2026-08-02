@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 };
 
 const states = [
-  { name: "California", code: "CA", agency: "DCC", system: "Metrc", notes: "Universal symbol, English required, QR to COA" },
-  { name: "Colorado", code: "CO", agency: "MED", system: "Metrc", notes: "Per-serving THC, 'NOT FOR RESALE' on individual servings" },
-  { name: "Michigan", code: "MI", agency: "MRA", system: "Metrc", notes: "Child-resistant, resealable packaging required" },
-  { name: "New York", code: "NY", agency: "OCM", system: "Metrc", notes: "English + Spanish required, QR to COA" },
-  { name: "Illinois", code: "IL", agency: "IDFPR", system: "BioTrackTHC", notes: "Universal symbol, batch number, expiry date" },
-  { name: "Washington", code: "WA", agency: "LCB", system: "Leaf Data", notes: "Traceability ID, serving size, THC/CBD per serving" },
-  { name: "Oregon", code: "OR", agency: "OLCC", system: "Metrc", notes: "Net weight, cannabinoid content, harvest date" },
-  { name: "Nevada", code: "NV", agency: "CCB", system: "Metrc", notes: "Distributor info, lab results, activation time for edibles" },
+  { name: "California", code: "CA", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Approved symbols, warnings, test references, identifiers, and packaging copy" },
+  { name: "Colorado", code: "CO", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Serving declarations, warnings, identifiers, and package configuration" },
+  { name: "Michigan", code: "MI", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Packaging construction, warnings, identifiers, and approved artwork" },
+  { name: "New York", code: "NY", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Language, symbols, test references, identifiers, and approved artwork" },
+  { name: "Illinois", code: "IL", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Symbols, batch information, date fields, warnings, and package copy" },
+  { name: "Washington", code: "WA", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Traceability fields, serving declarations, warnings, and identifiers" },
+  { name: "Oregon", code: "OR", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Quantity, cannabinoid, production, warning, and traceability fields" },
+  { name: "Nevada", code: "NV", authority: "Confirm the current state and local authority", workflow: "Confirm the buyer's current track-and-trace workflow", review: "Licensee details, test references, instructions, warnings, and identifiers" },
 ];
 
 export default function USCannabisLabelsPage() {
@@ -49,7 +49,7 @@ export default function USCannabisLabelsPage() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Cannabis Labels for US Dispensaries</h1>
             <p className="text-xl text-green-100 leading-relaxed mb-8">
-              State-compliant thermal labels for every US cannabis market. From California to New York, our labels meet the specific requirements of each state's regulatory framework — with track-and-trace barcodes, universal symbols, and compliant adhesives.
+              Thermal label materials for US cannabis projects, reviewed against the buyer&apos;s current state rules, approved artwork, packaging surface, print process, and track-and-trace workflow. Final regulatory approval remains the buyer&apos;s responsibility.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/quote" className="bg-white text-green-700 font-bold px-8 py-3  hover:bg-green-50 transition-colors">Get a Quote</Link>
@@ -62,16 +62,16 @@ export default function USCannabisLabelsPage() {
       {/* Key Requirements */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">Common US Cannabis Label Requirements</h2>
-          <p className="text-slate-500 text-center mb-10">While each state has specific rules, these elements are required in most jurisdictions.</p>
+          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">Cannabis Label Artwork Review Areas</h2>
+          <p className="text-slate-500 text-center mb-10">The applicable elements depend on the current state and local rules, product class, licence, packaging format, and buyer-approved artwork.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: "⚠️", title: "Universal Cannabis Symbol", desc: "Required in most states. Minimum size and color specifications apply — verify per state." },
-              { icon: "🧪", title: "THC/CBD Content", desc: "Total THC and CBD per serving and per package. Some states require both total and activated THC." },
-              { icon: "📱", title: "Track-and-Trace QR Code", desc: "Unique identifier linking to Metrc, BioTrackTHC, or state system. Must be scannable by inspectors." },
-              { icon: "⚕️", title: "Health Warning Statements", desc: "State-specific warning text. Keep away from children, no driving, pregnancy risk." },
-              { icon: "📦", title: "Batch & Lot Number", desc: "Links product to cultivation/manufacturing records for recall and compliance purposes." },
-              { icon: "📅", title: "Expiration / Best By Date", desc: "Required for edibles and most processed products. Format varies by state." },
+              { icon: "⚠️", title: "Required Symbols", desc: "Confirm current symbol artwork, size, color, placement, and exemptions with the licence holder before printing." },
+              { icon: "🧪", title: "Cannabinoid & Test Data", desc: "Use only buyer-approved values and test references tied to the applicable product, batch, and jurisdiction." },
+              { icon: "📱", title: "Traceability Identifier", desc: "Confirm the identifier format, data source, barcode or QR specification, and verification workflow used by the buyer." },
+              { icon: "⚕️", title: "Warning Statements", desc: "Use the current authority- and licence-holder-approved warning copy, language, formatting, and placement." },
+              { icon: "📦", title: "Batch & Product Fields", desc: "Confirm which production, licence, batch, lot, quantity, ingredient, and contact fields belong on the final artwork." },
+              { icon: "📅", title: "Date & Use Information", desc: "Confirm whether date, storage, serving, or use instructions apply and use the buyer-approved format." },
             ].map((item) => (
               <div key={item.title} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-2xl mb-3">{item.icon}</div>
@@ -86,31 +86,31 @@ export default function USCannabisLabelsPage() {
       {/* State-by-State */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">State-by-State Overview</h2>
-          <p className="text-slate-500 text-center mb-10">Key regulatory agencies and track-and-trace systems by state.</p>
+          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">State-Specific Review Starting Points</h2>
+          <p className="text-slate-500 text-center mb-10">These rows identify information to confirm for each project; they are not a substitute for current authority guidance or licence-holder approval.</p>
           <div className="overflow-x-auto  border border-slate-200">
             <table className="w-full text-sm">
               <thead className="bg-slate-50">
                 <tr>
                   <th className="text-left px-4 py-3 font-semibold text-slate-600">State</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Agency</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Track & Trace</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Key Notes</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Authority Review</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Buyer Workflow</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Artwork Review</th>
                 </tr>
               </thead>
               <tbody>
                 {states.map((state, i) => (
                   <tr key={state.code} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                     <td className="px-4 py-3 font-semibold text-slate-800">{state.name} ({state.code})</td>
-                    <td className="px-4 py-3 text-slate-600">{state.agency}</td>
-                    <td className="px-4 py-3 text-slate-600">{state.system}</td>
-                    <td className="px-4 py-3 text-slate-500">{state.notes}</td>
+                    <td className="px-4 py-3 text-slate-600">{state.authority}</td>
+                    <td className="px-4 py-3 text-slate-600">{state.workflow}</td>
+                    <td className="px-4 py-3 text-slate-500">{state.review}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-400 mt-3 text-center">* Requirements change frequently. Always verify current regulations with your state agency before printing.</p>
+          <p className="text-xs text-slate-400 mt-3 text-center">* Requirements and responsible authorities can change. Obtain current written approval from the licence holder and qualified advisers before printing.</p>
         </div>
       </section>
 
@@ -143,7 +143,7 @@ export default function USCannabisLabelsPage() {
       <section className="bg-gradient-to-r from-green-700 to-green-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Need State-Specific Cannabis Labels?</h2>
-          <p className="text-green-100 mb-8">Our compliance team can review your state's requirements and recommend the right label specification. Free consultation available.</p>
+          <p className="text-green-100 mb-8">Share the target state, current approved artwork, packaging, printer, and retention needs. Our team can review material and print options; the buyer is responsible for final regulatory approval.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/contact" className="bg-white text-green-700 font-bold px-10 py-4  hover:bg-green-50 transition-colors">Talk to Compliance Team</Link>
             <Link href="/blog/cannabis-label-requirements-usa" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Read US State Guide</Link>

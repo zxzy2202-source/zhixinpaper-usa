@@ -112,8 +112,8 @@ const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
   "default": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
-    { name: "Quality Management Certificate", desc: "Current certificate supplied on request" },
-    { name: "Technical Data Sheet (TDS)", desc: "Full product specifications" },
+    { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request" },
+    { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted construction" },
   ],
 };
 
@@ -123,7 +123,7 @@ export default async function LabelDetailPage({ params }: Props) {
   if (!label) notFound();
 
   const related = THERMAL_LABELS.filter((l) => l.slug !== slug).slice(0, 4);
-  const heroText = (label as { heroDesc?: string }).heroDesc || `${label.name} — custom OEM printing, private label capabilities, and specialized adhesive options for distributors and importers worldwide.`;
+  const heroText = (label as { heroDesc?: string }).heroDesc || `${label.name} for distributor and OEM projects. Facestock, adhesive, liner, printer compatibility, documents, printing, packing, and private-label scope are confirmed for the quotation.`;
   const descText = (label as { description?: string }).description || `${label.name} for wholesale distributors and importers. Material documents, order quantity, OEM printing, and private-label options are confirmed for the quoted construction and project.`;
 
   const printers = PRINTER_COMPAT[slug] || PRINTER_COMPAT["default"];
@@ -148,7 +148,7 @@ export default async function LabelDetailPage({ params }: Props) {
       keywords: label.keywords,
       additionalProperties: [
         { name: "BPA-Free", value: "Available by quoted material grade" },
-        { name: "Quality management", value: "ISO 9001:2015" },
+        { name: "Quality management documents", value: "Current site and certificate scope confirmed on request" },
       ],
     }),
   ];
@@ -315,7 +315,7 @@ export default async function LabelDetailPage({ params }: Props) {
                   <div className="px-8 py-6 bg-gradient-to-r from-[#0f5f5c] to-[#101b19] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <p className="font-bold text-white text-base">Need a custom label solution?</p>
-                      <p className="text-[#d6b273] text-sm">Custom sizes, adhesives, and print options available with low MOQ.</p>
+                      <p className="text-[#d6b273] text-sm">Custom sizes, adhesives, printing, tooling, samples, packing, and order quantity are confirmed by project review.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
                       <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
@@ -373,7 +373,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 <h2 className="font-bold text-slate-900 text-2xl">E-Commerce Platform Compatibility</h2>
               </div>
               <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-                Platform and carrier layouts change over time. Use the buyer's current approved template and verify label size, printer settings, barcode data, and scan performance before production.
+                Platform and carrier layouts change over time. Use the buyer&apos;s current approved template and verify label size, printer settings, barcode data, and scan performance before production.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {platforms.map((p) => (
@@ -391,7 +391,7 @@ export default async function LabelDetailPage({ params }: Props) {
                   <div className="flex-1">
                     <p className="font-bold text-slate-900 text-sm mb-1">Amazon FBA Seller?</p>
                     <p className="text-slate-500 text-xs">
-                      Share the current 4×6 template, printer, packaging surface, barcode data, and required retention period. The finished label should be sample-tested in the buyer's fulfillment workflow.
+                      Share the current 4×6 template, printer, packaging surface, barcode data, and required retention period. The finished label should be sample-tested in the buyer&apos;s fulfillment workflow.
                     </p>
                   </div>
                   <Link
@@ -460,6 +460,15 @@ export default async function LabelDetailPage({ params }: Props) {
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
               Available files depend on the selected facestock, adhesive, test scope, destination, and current document validity. Request the exact report or declaration required for procurement review.
+              {slug === "wristband-labels" && (
+                <>
+                  {" "}For medical-device applications, review our{" "}
+                  <Link href="/compliance/iso-15223" className="font-semibold text-[#0f5f5c] hover:underline">
+                    ISO 15223 medical-device labeling requirements
+                  </Link>
+                  .
+                </>
+              )}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {complianceDocs.map((doc) => (
@@ -523,7 +532,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Talk to a Specialist</p>
-                  <p className="text-slate-500 text-xs mb-3">WhatsApp or email our team. Response within 2 hours during business hours.</p>
+                  <p className="text-slate-500 text-xs mb-3">Share the application, dimensions, material, printer, quantity, and destination so the team can confirm the response plan.</p>
                   <a
                     href="https://wa.me/8618792771927"
                     target="_blank"
@@ -566,7 +575,7 @@ export default async function LabelDetailPage({ params }: Props) {
                     <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-[#0f5f5c] transition-colors leading-snug">{l.name}</h3>
                     <p className="text-slate-500 text-xs leading-5 flex-1">{l.subtitle}</p>
                     <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c]">
-                      View details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                      Explore {l.name} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </Link>

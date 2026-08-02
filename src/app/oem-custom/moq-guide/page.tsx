@@ -10,22 +10,22 @@ import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "MOQ Guide | Thermal Paper Minimum Order Quantity",
-  description: "Thermal paper MOQ from 5,000 rolls. Labels from 20,000 pieces. Custom OEM from 50,000 units. Flexible minimum orders for distributors at all stages of growth.",
+  description: "Plan thermal paper and label order quantities by product construction, dimensions, material, printing, tooling, packing, SKU mix, and current production review.",
   keywords: "thermal paper minimum order, MOQ labels wholesale, thermal paper MOQ guide",
   alternates: { canonical: canonicalUrl("/oem-custom/moq-guide") },
 };
 
 const moqTable = [
-  { category: "Standard POS Rolls", moq: "10,000 rolls", unit: "Per size/width", notes: "Stock sizes available for immediate dispatch" },
-  { category: "ATM / Banking Rolls", moq: "5,000 rolls", unit: "Per specification", notes: "Lower MOQ for specialized banking formats" },
-  { category: "Lottery / Casino Rolls", moq: "10,000–20,000 rolls", unit: "Per specification", notes: "Higher MOQ due to specialized coating" },
-  { category: "Medical / Transport Rolls", moq: "5,000 rolls", unit: "Per specification", notes: "Flexible for regulated industry customers" },
-  { category: "Custom Printed Rolls", moq: "50,000 rolls", unit: "Per design", notes: "Includes artwork setup and print plates" },
-  { category: "Direct Thermal Labels", moq: "50,000 labels", unit: "Per size/format", notes: "Roll or fanfold format" },
-  { category: "Specialty Labels (HT/Cryo/PP)", moq: "20,000 labels", unit: "Per specification", notes: "Higher cost materials justify lower MOQ" },
-  { category: "Tamper-Evident / Security Labels", moq: "20,000 labels", unit: "Per specification", notes: "Security features require minimum run" },
-  { category: "Custom Printed Labels", moq: "50,000 labels", unit: "Per design", notes: "Includes artwork, plates, and die" },
-  { category: "Private Label (OEM)", moq: "50,000 units", unit: "Per SKU", notes: "Includes custom packaging and documentation" },
+  { category: "Standard POS Rolls", moq: "Confirmed by RFQ", unit: "Per size and grade", notes: "Review stock, paper grade, core, packing, and quantity" },
+  { category: "ATM / Banking Rolls", moq: "Confirmed by RFQ", unit: "Per terminal specification", notes: "Review dimensions, marks, winding, packing, and quantity" },
+  { category: "Lottery / Casino Rolls", moq: "Confirmed by RFQ", unit: "Per approved specification", notes: "Review coating, marks, security fields, packing, and quantity" },
+  { category: "Medical / Transport Rolls", moq: "Confirmed by RFQ", unit: "Per device and use", notes: "Review device fit, retention, exposure, packing, and quantity" },
+  { category: "Custom Printed Rolls", moq: "Confirmed by RFQ", unit: "Per artwork and SKU", notes: "Includes paper, print setup, proof, packing, and quantity review" },
+  { category: "Direct Thermal Labels", moq: "Confirmed by RFQ", unit: "Per construction", notes: "Review size, facestock, adhesive, roll or fanfold format, and tooling" },
+  { category: "Specialty Labels (HT/Cryo/PP)", moq: "Confirmed by RFQ", unit: "Per construction", notes: "Review substrate, adhesive, exposure, tooling, and sample plan" },
+  { category: "Tamper-Evident / Security Labels", moq: "Confirmed by RFQ", unit: "Per security design", notes: "Review security feature, tooling, print, packing, and quantity" },
+  { category: "Custom Printed Labels", moq: "Confirmed by RFQ", unit: "Per artwork and die", notes: "Includes material, artwork, plates, die, packing, and quantity review" },
+  { category: "Private Label (OEM)", moq: "Confirmed by RFQ", unit: "Per SKU program", notes: "Review product mix, branded packaging, documents, and forecast" },
 ];
 
 export default function MOQGuidePage() {
@@ -79,17 +79,17 @@ export default function MOQGuidePage() {
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">New Distributor?</h3>
-              <p className="text-slate-500 text-sm mb-4">We offer reduced MOQ for first orders from new distributor accounts to help you test our products with your customers.</p>
+              <p className="text-slate-500 text-sm mb-4">First-order quantity, sample scope, and SKU mix are reviewed against the selected construction, production setup, packing, and commercial terms.</p>
               <Link href="/contact" className="text-blue-600 font-medium text-sm hover:text-blue-800">Talk to our sales team →</Link>
             </div>
             <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Volume Discounts</h3>
-              <p className="text-slate-500 text-sm mb-4">Orders above 5× MOQ qualify for volume pricing. Contact us for a tiered pricing schedule based on your annual volume.</p>
+              <p className="text-slate-500 text-sm mb-4">Tiered pricing is quoted from the approved specification, order quantity, SKU mix, packing, forecast, and delivery plan.</p>
               <Link href="/quote" className="text-blue-600 font-medium text-sm hover:text-blue-800">Request volume pricing →</Link>
             </div>
             <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Mixed Container Orders</h3>
-              <p className="text-slate-500 text-sm mb-4">Combine multiple products in a single FCL container to meet MOQ requirements across your full product range.</p>
+              <p className="text-slate-500 text-sm mb-4">Mixed-SKU loading is reviewed by production compatibility, carton and pallet plan, quantity per SKU, container utilisation, and destination requirements.</p>
               <Link href="/contact" className="text-blue-600 font-medium text-sm hover:text-blue-800">Ask about mixed orders →</Link>
             </div>
           </div>

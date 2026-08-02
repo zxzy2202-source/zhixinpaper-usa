@@ -154,7 +154,7 @@ export default function BlogEditor({ initialData }: Props) {
     coverImage: (initialData as BlogPost)?.coverImage || "",
   });
 
-  const handleChange = (field: keyof BlogPost, value: string) => {
+  const handleChange = useCallback((field: keyof BlogPost, value: string) => {
     setForm((prev) => {
       const updated = { ...prev, [field]: value };
       if (field === "title" && !initialData?.slug) {
@@ -163,7 +163,7 @@ export default function BlogEditor({ initialData }: Props) {
       if (field === "title" && !prev.seoTitle) updated.seoTitle = value;
       return updated;
     });
-  };
+  }, [initialData?.slug]);
 
   const handleGenerateSeo = () => {
     setForm((prev) => ({
@@ -196,7 +196,7 @@ export default function BlogEditor({ initialData }: Props) {
       contentRef.current?.focus();
       contentRef.current?.setSelectionRange(start, end);
     });
-  }, []);
+  }, [handleChange]);
 
   const insertMarkdown = useCallback((before: string, after = "", placeholder = "") => {
     const textarea = contentRef.current;
@@ -490,6 +490,8 @@ export default function BlogEditor({ initialData }: Props) {
             <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">封面图</label>
             {form.coverImage ? (
               <div className="relative">
+                {/* Admin media URLs may not be in the public image allowlist. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={form.coverImage} alt="封面图" className="w-full h-36 object-cover " />
                 <button onClick={() => handleChange("coverImage", "")} className="absolute top-2 right-2 w-6 h-6 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors"><X className="w-3 h-3" /></button>
               </div>
@@ -544,6 +546,8 @@ export default function BlogEditor({ initialData }: Props) {
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                   {filteredMedia.map((file) => (
                     <button key={file.id} onClick={() => { if (mediaPickerTarget === "content") insertImageMarkdown(file); else handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square  overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
+                      {/* Admin media URLs may not be in the public image allowlist. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                         <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold bg-blue-600 px-2 py-1  transition-opacity">选择</span>

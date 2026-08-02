@@ -20,7 +20,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Thermal Paper Rolls", href: "/products/thermal-paper-rolls" },
       { label: "Thermal Labels", href: "/products/thermal-labels" },
       { label: "OEM & Custom", href: "/oem-custom" },
-      { label: "All Products", href: "/products" },
+      { label: "Paper Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide" },
     ],
   },
   {
@@ -37,7 +37,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
     links: [
       { label: "About Us", href: "/about" },
       { label: "Case Studies", href: "/case-studies" },
-      { label: "FAQ", href: "/faq" },
+      { label: "Printer Compatibility Guide", href: "/blog/thermal-paper-printer-compatibility-guide" },
       { label: "Contact", href: "/contact" },
     ],
   },

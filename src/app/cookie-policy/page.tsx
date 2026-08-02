@@ -5,7 +5,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
-  description: "Zhixin Paper cookie policy. How we use cookies on our website. GDPR compliant.",
+  description: "How Zhixin Paper uses essential browser storage and optional analytics technologies.",
   alternates: { canonical: canonicalUrl("/cookie-policy") },
 };
 
@@ -22,17 +22,18 @@ export default function CookiePolicyPage() {
             </div>
             <h1 className="font-bold text-slate-900 text-4xl mb-8">Cookie Policy</h1>
             <div className="space-y-6 text-slate-500 text-sm leading-relaxed">
-              <p><strong className="text-slate-900">Last updated:</strong> January 2025</p>
-              <p>Zhixin Paper uses cookies and similar tracking technologies to improve your browsing experience on our website.</p>
-              <h2 className="font-bold text-slate-900 text-xl mt-8">What Are Cookies</h2>
-              <p>Cookies are small text files stored on your device when you visit a website. They help us remember your preferences and understand how you use our site.</p>
-              <h2 className="font-bold text-slate-900 text-xl mt-8">Types of Cookies We Use</h2>
-              <p><strong className="text-slate-900">Essential cookies:</strong> Required for the website to function properly. These cannot be disabled.</p>
-              <p><strong className="text-slate-900">Analytics cookies:</strong> Help us understand how visitors interact with our website. We use anonymized data only.</p>
-              <h2 className="font-bold text-slate-900 text-xl mt-8">Managing Cookies</h2>
-              <p>You can control and delete cookies through your browser settings. Note that disabling cookies may affect website functionality.</p>
+              <p><strong className="text-slate-900">Last updated:</strong> August 2, 2026</p>
+              <p>Zhixin Paper uses essential browser storage and, with your permission, analytics technologies to operate and improve this website.</p>
+              <h2 className="font-bold text-slate-900 text-xl mt-8">Essential Storage</h2>
+              <p>We store your cookie preference in your browser under the key <code>zhixin-cookie-consent</code>. This is necessary to remember whether you accepted optional analytics and does not require an advertising profile.</p>
+              <h2 className="font-bold text-slate-900 text-xl mt-8">Optional Analytics</h2>
+              <p>If you select “Accept analytics”, the website loads OKKI analytics. It may process visit information such as pages viewed, referring page, device or browser information, IP-derived network or location information, and interactions used to understand website performance and support sales enquiries. OKKI does not load when you choose “Essential only”.</p>
+              <h2 className="font-bold text-slate-900 text-xl mt-8">Your Choice</h2>
+              <p>You may decline optional analytics and continue using the website. To change a saved choice, clear this site&apos;s local storage or site data in your browser and reload the page; the preference prompt will appear again.</p>
+              <h2 className="font-bold text-slate-900 text-xl mt-8">Retention</h2>
+              <p>Your browser keeps the saved preference until you clear it. Analytics retention is governed by our service configuration and applicable provider terms; we review retained data according to business need and legal requirements.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Contact</h2>
-              <p>For cookie-related inquiries, contact us at Sales@zxpapers.com.</p>
+              <p>For cookie or privacy questions, contact Sales@zxpapers.com.</p>
             </div>
           </div>
         </section>

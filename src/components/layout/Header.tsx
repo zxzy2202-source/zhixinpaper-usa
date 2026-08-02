@@ -204,7 +204,7 @@ function ProductsMegaMenu() {
       </div>
 
       <div className="flex items-center justify-between border-t border-[#ded6c8] bg-[#f4f0e8] px-6 py-3">
-        <span className="text-xs text-[#687772]">BPA-free / ISO 9001 / FSC / REACH documentation available by quoted grade.</span>
+        <span className="text-xs text-[#687772]">Material, quality-system, chain-of-custody, and market documents are reviewed by quoted grade and current scope.</span>
         <Link href="/compliance" className="inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
           Compliance files <ArrowRight className="h-3 w-3" />
         </Link>
@@ -292,7 +292,7 @@ function IndustriesMegaMenu() {
 
       <div className="flex items-center justify-between border-t border-[#ded6c8] bg-[#f4f0e8] px-5 py-3">
         <div className="flex items-center gap-3">
-          <span className="text-xs text-[#87918c]">Serving 13+ industries worldwide</span>
+          <span className="text-xs text-[#87918c]">Explore industry-specific material reviews</span>
           <Link href="/quote" className="flex items-center gap-1 bg-[#0f5f5c] px-2.5 py-1 text-xs font-semibold text-white transition-[background-color,border-color,color,box-shadow,transform] hover:bg-[#0a4745]">
             Request a Quote
           </Link>
@@ -656,7 +656,7 @@ export default function Header() {
   useEffect(() => {
     setMobileOpen(false);
     setActiveMenu(null);
-  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   const openMenu  = (label: NavLabel) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);

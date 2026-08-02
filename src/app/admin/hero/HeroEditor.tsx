@@ -25,7 +25,7 @@ const FIELDS: Array<{
   type?: "text" | "textarea";
   placeholder?: string;
 }> = [
-  { key: "badge", label: "顶部小徽章", help: "Hero 最上方那行小字（如认证、行业地位）", placeholder: "ISO 9001 Certified Manufacturer · Est. 2010" },
+  { key: "badge", label: "顶部小徽章", help: "Hero 最上方那行小字（如经营历史、供应范围）", placeholder: "Thermal Paper Supply · Est. 2008" },
   { key: "headlineLine1", label: "主标题 - 第 1 行", help: "通常 1-2 个词", placeholder: "One-Stop" },
   { key: "headlineHighlight", label: "主标题 - 高亮词", help: "蓝色渐变高亮（紧跟第 1 行）", placeholder: "Thermal" },
   { key: "headlineLine2", label: "主标题 - 第 2 行", help: "", placeholder: "Consumables" },
@@ -33,7 +33,7 @@ const FIELDS: Array<{
   { key: "subtitle", label: "副标题", help: "1-2 句话讲清楚&ldquo;给谁卖什么&rdquo;", type: "textarea", placeholder: "Thermal paper rolls & thermal labels for distributors..." },
   { key: "primaryCtaText", label: "主按钮文案", placeholder: "Get a Custom Quote" },
   { key: "primaryCtaHref", label: "主按钮链接", help: "建议站内路径", placeholder: "/quote" },
-  { key: "secondaryCtaText", label: "次按钮文案", placeholder: "Request Free Samples" },
+  { key: "secondaryCtaText", label: "次按钮文案", placeholder: "Request Samples" },
   { key: "secondaryCtaHref", label: "次按钮链接", placeholder: "/samples" },
   { key: "tertiaryCtaText", label: "第三按钮文案", placeholder: "Browse Products" },
   { key: "tertiaryCtaHref", label: "第三按钮链接", placeholder: "/products" },

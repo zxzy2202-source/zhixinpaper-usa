@@ -9,9 +9,9 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "ISO 9001:2015 Certified Thermal Paper Manufacturer",
-  description: "ISO 9001:2015 certified thermal paper and label manufacturer. Full quality management system covering design, production, testing, and delivery.",
-  keywords: "ISO 9001 thermal paper manufacturer, quality management thermal paper, ISO certified label manufacturer",
+  title: "ISO 9001 Quality Management Review",
+  description: "Review the current ISO 9001 certificate holder, issuer, validity, scope, and quality-management evidence for thermal paper and label supplier qualification.",
+  keywords: "ISO 9001 thermal paper supplier review, quality management thermal paper, QMS certificate review",
   alternates: { canonical: canonicalUrl("/compliance/iso-9001") },
 };
 
@@ -43,21 +43,21 @@ export default function ISO9001Page() {
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">What ISO 9001:2015 Means for You</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                ISO 9001:2015 is the world's most widely recognised quality management standard. For our customers, it means that our quality processes are independently audited and verified by an accredited certification body.
+                ISO 9001:2015 is a widely used quality-management standard. For a procurement review, confirm the current certificate holder, issuing body, validity, and certified scope against the product and supplying entity.
               </p>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Our quality management system ensures consistent product quality, reliable delivery performance, and a systematic approach to identifying and resolving quality issues before they reach your customers.
+                Quality-management evidence should be evaluated together with product specifications, inspection records, test methods, corrective-action controls, and order-specific acceptance criteria. A certificate alone does not establish product conformity or delivery performance.
               </p>
               <div className="bg-blue-50  p-6 border border-blue-100 mt-6">
-                <h3 className="font-semibold text-slate-800 mb-3">Certificate Details</h3>
+                <h3 className="font-semibold text-slate-800 mb-3">Certificate Review Checklist</h3>
                 <div className="space-y-2 text-sm">
                   {[
-                    ["Standard", "ISO 9001:2015"],
-                    ["Certification Body", "Bureau Veritas"],
-                    ["Scope", "Design, manufacture and supply of thermal paper rolls and thermal labels"],
-                    ["Certificate Number", "BV-QMS-2024-001"],
-                    ["Valid Through", "December 2026"],
-                    ["Surveillance Audits", "Annual"],
+                    ["Standard", "Confirm the current standard and edition"],
+                    ["Certificate Holder", "Match the legal entity supplying the order"],
+                    ["Certification Body", "Confirm the issuer and accreditation route"],
+                    ["Certified Scope", "Match the activities, site, and products under review"],
+                    ["Validity", "Check issue, expiry, and current certificate status"],
+                    ["Supporting Evidence", "Review procedures and records relevant to the order"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex gap-3">
                       <span className="text-slate-500 w-36 flex-shrink-0">{k}:</span>
@@ -71,12 +71,12 @@ export default function ISO9001Page() {
               <h2 className="text-2xl font-bold text-slate-800 mb-6">QMS Scope & Coverage</h2>
               <div className="space-y-4">
                 {[
-                  { title: "Product Design & Development", desc: "New product development follows a structured design control process with defined review, verification, and validation stages." },
-                  { title: "Supplier Management", desc: "All raw material suppliers are qualified and monitored against defined quality criteria. Critical suppliers undergo annual audits." },
-                  { title: "Production Control", desc: "Manufacturing processes are controlled by documented work instructions, process parameters, and in-process inspection criteria." },
-                  { title: "Measurement & Testing", desc: "All measurement equipment is calibrated to traceable standards. Test methods follow recognised international standards." },
-                  { title: "Non-Conformance Management", desc: "Non-conforming products are identified, segregated, and dispositioned through a formal corrective action process." },
-                  { title: "Customer Satisfaction", desc: "Customer feedback is systematically collected and analysed to drive continuous improvement across all processes." },
+                  { title: "Product and Process Scope", desc: "Confirm which products, activities, and manufacturing sites are included in the current documented scope." },
+                  { title: "Supplier Controls", desc: "Review qualification criteria and incoming-material records relevant to the quoted construction." },
+                  { title: "Production Controls", desc: "Agree the work instructions, process checks, and acceptance criteria that apply to the order." },
+                  { title: "Measurement and Testing", desc: "Confirm equipment status, methods, sampling plan, and report format for required inspections." },
+                  { title: "Non-Conformance Handling", desc: "Review how affected material is identified, contained, investigated, and dispositioned." },
+                  { title: "Order Evidence", desc: "Define which specification, inspection, batch, and corrective-action records the buyer needs." },
                 ].map((item, i) => (
                   <div key={i} className="bg-white border border-slate-200  p-4 shadow-sm">
                     <h3 className="font-semibold text-slate-800 text-sm mb-1">{item.title}</h3>
@@ -90,7 +90,7 @@ export default function ISO9001Page() {
       </section>
 
     </main>
-      <CTABanner title="Need ISO 9001 Certified Supplier?" subtitle="Download our ISO 9001:2015 certificate and quality management documentation." primaryLabel="Download Certificate" secondaryLabel="Request a Quote" />
+      <CTABanner title="Review Quality-Management Evidence" subtitle="Request the current certificate, holder and scope details, relevant procedures, inspection records, and order-specific quality plan." primaryLabel="Request Current Documents" secondaryLabel="Request a Quote" />
     <Footer />
     </>
   );

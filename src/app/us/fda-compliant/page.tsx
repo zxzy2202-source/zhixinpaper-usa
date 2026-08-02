@@ -34,23 +34,23 @@ export const metadata: Metadata = {
 const FDA_FEATURES = [
   {
     icon: <ShieldCheck className="w-6 h-6" />,
-    title: "21 CFR Compliant",
-    desc: "All food-contact thermal paper meets FDA 21 CFR 176.170 and 176.180 requirements for indirect food additives.",
+    title: "21 CFR Scope Review",
+    desc: "Applicable paper, paperboard, or adhesive provisions are reviewed against the exact construction, contact conditions, and intended use.",
   },
   {
     icon: <CheckCircle className="w-6 h-6" />,
-    title: "BPA-Free Standard",
-    desc: "100% BPA-free across our entire US product range. No bisphenol A, bisphenol S, or bisphenol F in any formulation.",
-    },
+    title: "Phenol Options by Grade",
+    desc: "BPA-free, BPS-free, or phenol-free routes may be offered by selected grade and must be confirmed in the quotation and supporting documents.",
+  },
   {
     icon: <FileText className="w-6 h-6" />,
-    title: "Full Documentation",
-    desc: "Certificate of Compliance, Safety Data Sheets, and test reports available for all FDA-compliant products.",
+    title: "Grade-Level Documents",
+    desc: "Available declarations, safety data, and test reports are matched to the quoted material, supplier, report scope, and current validity.",
   },
   {
     icon: <AlertCircle className="w-6 h-6" />,
-    title: "Prop 65 Aware",
-    desc: "Products formulated with California Proposition 65 requirements in mind. Documentation available on request.",
+    title: "California Review",
+    desc: "California chemical and warning requirements are reviewed for the selected grade and intended use before approval.",
   },
 ];
 
@@ -85,7 +85,7 @@ export default function FDACompliantPage() {
       {/* Compliance Features */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-900 mb-10 text-center">Our FDA Compliance Framework</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-10 text-center">US Food-Contact Review Framework</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {FDA_FEATURES.map((f) => (
               <div key={f.title} className="flex gap-4 p-6 bg-slate-50  border border-slate-100">
@@ -105,7 +105,7 @@ export default function FDACompliantPage() {
       {/* FDA Products */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">FDA-Compliant Products</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Products for Scope Review</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {PRODUCTS.map((p) => (
               <Link key={p.href} href={p.href} className="group flex flex-col overflow-hidden border border-slate-200 bg-white transition-all hover:border-blue-300 hover:shadow-md">
@@ -133,14 +133,14 @@ export default function FDACompliantPage() {
       {/* CTA */}
       <section className="py-16 bg-blue-600 text-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-extrabold mb-4">Ready to Source FDA-Compliant Thermal Products?</h2>
-          <p className="text-blue-100 mb-8">Get a custom quote with full compliance documentation included.</p>
+          <h2 className="text-3xl font-extrabold mb-4">Planning a US Food-Contact Project?</h2>
+          <p className="text-blue-100 mb-8">Request a project-specific quote identifying the material grade, intended use, document scope, samples, packing, and destination requirements.</p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">
               Get a Quote <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/compliance/certificates" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">
-              Download Certificates
+              Review Available Documents
             </Link>
           </div>
         </div>

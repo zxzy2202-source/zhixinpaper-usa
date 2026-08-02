@@ -416,7 +416,7 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
                   <h3 className="mt-3 text-xl font-bold text-[#14211f] transition group-hover:text-[#0f5f5c]">{product.name}</h3>
                   <p className="mt-4 flex-1 text-sm leading-7 text-[#4f5f5a]">{product.copy}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-[#0f5f5c]">
-                    View details <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                    Explore {product.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </span>
                 </div>
               </Link>

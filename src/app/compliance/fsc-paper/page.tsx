@@ -8,9 +8,9 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "FSC Thermal Paper Sourcing",
-  description: "Review FSC paper sourcing for thermal rolls and labels. Confirm quoted grade, chain-of-custody scope, certificate route, claim use, and destination.",
-  keywords: "FSC thermal paper, sustainable receipt paper, FSC certified label manufacturer",
+  title: "FSC Paper Sourcing Review",
+  description: "Review FSC paper sourcing options for thermal rolls and labels. Confirm the quoted grade, certificate holder, chain-of-custody scope, product claim, trademark approval, and destination before use.",
+  keywords: "FSC thermal paper sourcing, responsible paper sourcing, FSC claim review",
   alternates: { canonical: canonicalUrl("/compliance/fsc-paper") },
 };
 
@@ -30,10 +30,10 @@ export default function FSCPaperPage() {
             <span className="text-white">FSC Paper</span>
           </nav>
           <div className="max-w-3xl">
-            <span className="inline-block bg-green-500/30 text-green-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Sustainability</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">FSC Certified Thermal Paper</h1>
+            <span className="inline-block bg-green-500/30 text-green-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Sourcing review</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">FSC Paper Sourcing for Thermal Products</h1>
             <p className="text-xl text-green-100 leading-relaxed">
-              Our FSC chain of custody certification ensures that the base paper used in our thermal products comes from responsibly managed forests that provide environmental, social, and economic benefits.
+              FSC-related paper options may be reviewed for selected thermal products and supply routes. Any claim depends on the quoted grade, current certificate chain, transaction documents, destination, and approved trademark use.
             </p>
           </div>
         </div>
@@ -43,22 +43,22 @@ export default function FSCPaperPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">About FSC Certification</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">About FSC Sourcing Review</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                The Forest Stewardship Council (FSC) is an international non-profit organisation that promotes responsible management of the world's forests. FSC certification provides a credible link between responsible production and consumption of forest products.
+                The Forest Stewardship Council (FSC) operates a certification and chain-of-custody system for forest-based materials. Buyers should verify the current certificate holder, issuer, validity, scope, product claim, and transaction evidence for the selected grade and supplying entities.
               </p>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Our FSC Chain of Custody (CoC) certification covers the full supply chain from forest to finished product, ensuring that FSC-certified raw materials are tracked and segregated throughout our manufacturing process.
+                A certificate held by one entity does not automatically cover every mill, converter, trader, product, or shipment. The documented chain and permitted claim must be confirmed before an order or printed artwork is approved.
               </p>
               <div className="bg-green-50  p-6 border border-green-100">
-                <h3 className="font-semibold text-slate-800 mb-3">FSC Certificate Details</h3>
+                <h3 className="font-semibold text-slate-800 mb-3">Documents to Verify</h3>
                 <div className="space-y-2 text-sm">
                   {[
-                    ["Certification Type", "FSC Chain of Custody (CoC)"],
-                    ["Certificate Code", "FSC-C123456"],
-                    ["Certification Body", "SGS"],
-                    ["Scope", "Thermal paper rolls and labels"],
-                    ["Valid Through", "2026"],
+                    ["Certificate Holder", "Confirm the legal entity on the current certificate"],
+                    ["Issuer and Validity", "Confirm with the issuing body or FSC database"],
+                    ["Certified Scope", "Match the supplier, activity, and product group"],
+                    ["Product Claim", "Confirm the claim stated on the quotation and invoice"],
+                    ["Trademark Use", "Require approval before printing an FSC mark or claim"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex gap-3">
                       <span className="text-slate-500 w-36 flex-shrink-0">{k}:</span>
@@ -69,14 +69,14 @@ export default function FSCPaperPage() {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">Why Choose FSC Thermal Paper?</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Project Review Points</h2>
               <div className="space-y-4">
                 {[
-                  { title: "Environmental Responsibility", desc: "Demonstrate your commitment to sustainable sourcing to your customers and stakeholders." },
-                  { title: "Regulatory Readiness", desc: "Meet increasing EU sustainability requirements including the Corporate Sustainability Reporting Directive (CSRD)." },
-                  { title: "Brand Differentiation", desc: "Use the FSC logo on your packaging and marketing materials to communicate your sustainability credentials." },
-                  { title: "Customer Demand", desc: "Respond to growing consumer and B2B customer demand for sustainably sourced products." },
-                  { title: "No Performance Compromise", desc: "FSC-certified thermal paper delivers identical print quality and performance to standard grades." },
+                  { title: "Material Route", desc: "Confirm that the selected base paper and converting route support the requested claim." },
+                  { title: "Chain of Custody", desc: "Review each relevant legal entity and transaction document in the supply chain." },
+                  { title: "Claim and Artwork", desc: "Confirm the permitted claim and obtain trademark approval before printing packaging or marketing material." },
+                  { title: "Destination Needs", desc: "Align sourcing evidence with the buyer's market, reporting process, and customer requirements." },
+                  { title: "Performance Validation", desc: "Test print quality, sensitivity, handling, and storage for the selected grade instead of assuming equivalence." },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4 items-start bg-white border border-slate-200  p-4">
                     <div className="w-8 h-8 bg-green-100  flex items-center justify-center flex-shrink-0">
@@ -96,16 +96,16 @@ export default function FSCPaperPage() {
 
       <section className="bg-gradient-to-r from-green-700 to-green-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Request FSC-Certified Products</h2>
-          <p className="text-green-100 mb-8">FSC-certified grades are available for most standard products. Contact us to discuss availability and pricing for your requirements.</p>
+          <h2 className="text-3xl font-bold mb-4">Review an FSC Paper Requirement</h2>
+          <p className="text-green-100 mb-8">Share the product construction, quantity, destination, requested claim, and artwork needs so the available paper route and current documents can be reviewed.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Get FSC Quote</Link>
-            <Link href="/compliance/certificates" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Download FSC Certificate</Link>
+            <Link href="/quote" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Request Sourcing Review</Link>
+            <Link href="/compliance/certificates" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Current Documents</Link>
           </div>
         </div>
       </section>
     </main>
-      <CTABanner title="Need FSC Certified Paper?" subtitle="Request FSC Chain of Custody certified products with logo printing for your brand." primaryLabel="Request FSC Products" secondaryLabel="Request Free Samples" />
+      <CTABanner title="Need an FSC Paper Option?" subtitle="Request a review of the paper grade, certificate chain, product claim, trademark route, destination, and sample plan." primaryLabel="Request FSC Review" secondaryLabel="Request Samples" />
     <Footer />
     </>
   );

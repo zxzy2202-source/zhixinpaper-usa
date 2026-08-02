@@ -17,13 +17,16 @@ export interface AdminSession {
   role: string;
 }
 
-/** 获取 JWT 签名密钥（从环境变量读取，回退到内置密钥） */
+/** 获取 JWT 签名密钥；生产环境必须显式配置 */
 function getSecretKey(): Uint8Array {
-  const secret =
-    process.env.ADMIN_SESSION_SECRET ||
-    process.env.NEXTAUTH_SECRET ||
-    "zhixinpaper-admin-secret-2025-please-change-in-production";
-  return new TextEncoder().encode(secret);
+  const secret = process.env.ADMIN_SESSION_SECRET || process.env.NEXTAUTH_SECRET;
+  if (secret) return new TextEncoder().encode(secret);
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("ADMIN_SESSION_SECRET or NEXTAUTH_SECRET is required in production");
+  }
+
+  return new TextEncoder().encode("zhixinpaper-local-development-session-secret");
 }
 
 /** 签发 JWT 并写入 HttpOnly Cookie */

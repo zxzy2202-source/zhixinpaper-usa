@@ -111,7 +111,7 @@ function CategoryModal({
     onRefresh();
   };
 
-  const FormBlock = ({ isNew }: { isNew: boolean }) => (
+  const renderFormBlock = (isNew: boolean) => (
     <div className={` p-4 space-y-3 border-2 ${isNew ? "border-emerald-300 bg-emerald-50" : "border-blue-300 bg-blue-50"}`}>
       {isNew && <p className="text-sm font-semibold text-emerald-700">新建分类</p>}
       <div className="grid grid-cols-2 gap-3">
@@ -180,7 +180,7 @@ function CategoryModal({
           )}
           {categories.map((cat) => (
             <div key={cat.id}>
-              {editingId === cat.id ? <FormBlock isNew={false} /> : (
+              {editingId === cat.id ? renderFormBlock(false) : (
                 <div className="flex items-center gap-3 px-3 py-2.5  hover:bg-slate-50 group transition-colors">
                   <div className="w-8 h-8  flex items-center justify-center shrink-0" style={{ backgroundColor: cat.color + "20" }}>
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
@@ -201,7 +201,7 @@ function CategoryModal({
               )}
             </div>
           ))}
-          {creating && <FormBlock isNew={true} />}
+          {creating && renderFormBlock(true)}
         </div>
 
         <div className="px-6 py-4 border-t border-slate-100 flex justify-between items-center">
@@ -258,6 +258,8 @@ function ImageDetailModal({
         <div className="flex h-[480px]">
           {/* 左侧：图片预览 */}
           <div className="w-56 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center shrink-0 relative">
+            {/* Admin media URLs may not be in the public image allowlist. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={file.url} alt={file.alt || file.originalName}
               className="max-w-full max-h-full object-contain p-4" />
             <div className="absolute bottom-3 left-3 right-3">
@@ -407,6 +409,8 @@ function UploadPreviewModal({
               <div key={idx} className="relative  border border-slate-200 overflow-hidden bg-slate-50">
                 {/* 预览图 */}
                 <div className="aspect-square relative">
+                  {/* Blob previews must render before upload. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={item.preview} alt={item.file.name} className="w-full h-full object-cover" />
                   {/* 状态遮罩 */}
                   {item.status === "compressing" && (
@@ -946,6 +950,8 @@ export default function MediaManager() {
                   className={`group relative bg-white border-2  overflow-hidden cursor-pointer transition-all hover:shadow-md ${isSelected ? "border-blue-500 shadow-md" : "border-transparent hover:border-slate-200"}`}>
                   {/* 图片 */}
                   <div className="aspect-square bg-slate-100 overflow-hidden">
+                    {/* Admin media URLs may not be in the public image allowlist. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={file.url} alt={file.alt || file.originalName}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy" />
@@ -1015,7 +1021,9 @@ export default function MediaManager() {
                       </td>
                       <td className="px-3 py-3 cursor-pointer" onClick={() => setSelectedFile(file)}>
                         <div className="w-12 h-12 bg-slate-100  overflow-hidden">
-                          <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" loading="lazy" />
+                          {/* Admin media URLs may not be in the public image allowlist. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" loading="lazy" />
                         </div>
                       </td>
                       <td className="px-3 py-3 cursor-pointer" onClick={() => setSelectedFile(file)}>

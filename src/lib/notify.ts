@@ -94,10 +94,10 @@ function buildEmailHtml(p: InquiryPayload): string {
     p.kind === "quote" ? "#f59e0b" : p.kind === "samples" ? "#059669" : "#1e40af";
   const banner =
     p.kind === "quote"
-      ? "⚡ Priority Lead — respond within 4 business hours"
+      ? "Review product fit, commercial terms, and the requested follow-up"
       : p.kind === "samples"
-        ? "📋 Prepare and ship sample kit to address above"
-        : "Reply directly to respond. Target: 24 business hours.";
+        ? "Review sample eligibility, specification, and destination before dispatch"
+        : "Review the enquiry and reply with the next qualification step.";
   const bgBanner =
     p.kind === "quote" ? "#fef3c7" : p.kind === "samples" ? "#ecfdf5" : "#eff6ff";
   const textBanner =

@@ -33,6 +33,32 @@ export type IndustryBuyerInsight = {
   quoteChecklist: string[];
 };
 
+export type IndustrySolutionComparison = {
+  decision: string;
+  optionA: string;
+  optionB: string;
+  chooseBy: string;
+};
+
+export type IndustryResourceLink = {
+  label: string;
+  href: string;
+  description: string;
+};
+
+export type IndustryResourceSet = {
+  caseStudy: IndustryResourceLink;
+  technicalGuide: IndustryResourceLink;
+  compliance: IndustryResourceLink;
+};
+
+export type IndustryEvidenceAnswer = {
+  question: string;
+  answer: string;
+  condition: string;
+  evidence: Pick<IndustryResourceLink, "label" | "href">[];
+};
+
 export const HOMEPAGE_BUYER_PROBLEMS: HomepageBuyerProblem[] = [
   {
     title: "Compliance files before deposit",
@@ -348,3 +374,172 @@ export const INDUSTRY_BUYER_INSIGHTS: Record<string, IndustryBuyerInsight> = {
     quoteChecklist: ["Destination market", "Container material and size", "Required variable fields", "Tamper-evident need", "Printer and applicator model", "Artwork approval process"],
   },
 };
+
+export const INDUSTRY_SOLUTION_COMPARISONS: Record<string, IndustrySolutionComparison[]> = {
+  "lottery-gaming": [
+    { decision: "Ticket media", optionA: "Standard thermal stock for controlled indoor use", optionB: "Top-coated stock for longer validity or heavier handling", chooseBy: "Validity period, handling, storage, and terminal qualification" },
+    { decision: "Sensing", optionA: "Continuous roll with terminal-controlled cut", optionB: "Black-mark or pre-defined ticket format", chooseBy: "Terminal sensor, ticket length, and system specification" },
+    { decision: "Security", optionA: "Plain or branded print", optionB: "Numbering, UV response, or controlled security artwork", chooseBy: "Operator audit process and approved security requirements" },
+  ],
+  casino: [
+    { decision: "Media grade", optionA: "Standard ticket-grade thermal media", optionB: "Top-coated media for extended handling or storage", chooseBy: "TITO platform validation, image life, humidity, and retention" },
+    { decision: "Format", optionA: "Roll media for compatible ticket mechanisms", optionB: "Fanfold or pre-cut stock where the platform specifies it", chooseBy: "OEM media path, sensor, stack, core, and cutter configuration" },
+    { decision: "Packing", optionA: "Standard sealed inner packs", optionB: "Enhanced moisture-control and batch-separated packing", chooseBy: "Storage humidity, floor consumption, and traceability plan" },
+  ],
+  "retail-pos": [
+    { decision: "Roll size", optionA: "57mm compact rolls for payment terminals", optionB: "80mm rolls for receipt and kitchen printers", chooseBy: "Printer model, paper path, core ID, and maximum outer diameter" },
+    { decision: "Paper grade", optionA: "Standard BPA-free receipt grade", optionB: "Top-coated or phenol-free grade", chooseBy: "Heat, oil, moisture, handling, destination, and buyer policy" },
+    { decision: "Print format", optionA: "Plain thermal roll", optionB: "Front or back printed branded roll", chooseBy: "Campaign artwork, QR readability, proof approval, and repeat volume" },
+  ],
+  "banking-finance": [
+    { decision: "Image retention", optionA: "Standard transaction receipt grade", optionB: "Longer-life top-coated grade", chooseBy: "Required retention period, storage, light, heat, and handling" },
+    { decision: "Roll construction", optionA: "Standard core and winding", optionB: "OEM-specific core, OD, or low-static construction", chooseBy: "ATM or kiosk model and approved media specification" },
+    { decision: "Printed content", optionA: "Plain transaction roll", optionB: "Controlled back print for disclosures or branding", chooseBy: "Legal copy approval, destination rules, revision control, and proof sign-off" },
+  ],
+  transportation: [
+    { decision: "Exposure", optionA: "Indoor ticket-grade thermal stock", optionB: "Top-coated stock for outdoor or prolonged handling", chooseBy: "UV, moisture, temperature, ticket validity, and storage conditions" },
+    { decision: "Sensor format", optionA: "Continuous roll", optionB: "Black-mark, gap, or fixed-length ticket stock", chooseBy: "Machine sensor, cutter, validator, and integrator specification" },
+    { decision: "Identification", optionA: "Direct thermal barcode or QR", optionB: "Custom print with numbering or security features", chooseBy: "Validation method, audit requirements, artwork control, and scan testing" },
+  ],
+  "events-hospitality": [
+    { decision: "Use period", optionA: "Short-duration receipt or ticket grade", optionB: "Top-coated stock for multi-day use or keepsakes", chooseBy: "Event duration, handling, moisture, heat, and image-life need" },
+    { decision: "Brand treatment", optionA: "Plain stock with variable print", optionB: "Preprinted colors, sponsors, QR, or promotional copy", chooseBy: "Artwork deadline, proof cycle, scan area, and campaign volume" },
+    { decision: "Supply format", optionA: "Rolls for fixed POS or ticket printers", optionB: "Fanfold or pre-cut stock for specified systems", chooseBy: "Printer path, loading speed, sensor, and venue workflow" },
+  ],
+  "food-cold-chain": [
+    { decision: "Print method", optionA: "Direct thermal for controlled short-life workflows", optionB: "Thermal transfer for tougher handling or longer identification", chooseBy: "Required life, moisture, abrasion, ribbon, and printer setup" },
+    { decision: "Adhesive", optionA: "Chill adhesive for refrigerated application", optionB: "Freezer-grade adhesive for low-temperature application", chooseBy: "Application temperature, service temperature, surface, and freeze-thaw cycle" },
+    { decision: "Supply format", optionA: "Roll labels for automated or desktop printing", optionB: "Fanfold labels for high-volume batch workflows", chooseBy: "Printer, applicator, label size, core, stack, and line speed" },
+  ],
+  "healthcare-pharma": [
+    { decision: "Print method", optionA: "Direct thermal for short-duration identification", optionB: "Thermal transfer for longer retention or chemical exposure", chooseBy: "Retention, cleaning agents, abrasion, printer, and approved material" },
+    { decision: "Adhesive", optionA: "General permanent adhesive", optionB: "Specialty adhesive for cold, curved, or small surfaces", chooseBy: "Container substrate, diameter, application temperature, and handling" },
+    { decision: "Verification", optionA: "Material declaration and application sample", optionB: "Project-specific test pack and controlled approval", chooseBy: "Intended use, destination rules, buyer quality system, and risk classification" },
+  ],
+  "logistics-warehouse": [
+    { decision: "Print method", optionA: "Direct thermal for shipping and short-cycle labels", optionB: "Thermal transfer for storage, abrasion, or longer tracking", chooseBy: "Journey length, handling, environment, ribbon, and scanner requirement" },
+    { decision: "Format", optionA: "Roll labels for print-and-apply or desktop printers", optionB: "Fanfold labels for batch desks and reduced roll changes", chooseBy: "Printer, applicator, throughput, core, stack, and workspace" },
+    { decision: "Adhesive", optionA: "Permanent carton adhesive", optionB: "Specialty adhesive for recycled, dusty, cold, or plastic surfaces", chooseBy: "Substrate, surface condition, application temperature, and dwell time" },
+  ],
+  ecommerce: [
+    { decision: "Format", optionA: "Roll labels for thermal desktop printers", optionB: "Fanfold labels for batch fulfillment stations", chooseBy: "Printer model, daily volume, loading preference, and available space" },
+    { decision: "Label construction", optionA: "Standard shipping label for clean cartons", optionB: "Higher-tack label for poly mailers or difficult surfaces", chooseBy: "Package substrate, surface energy, temperature, and transit handling" },
+    { decision: "Print method", optionA: "Direct thermal for standard parcel journeys", optionB: "Thermal transfer for extended storage or severe abrasion", chooseBy: "Carrier journey, storage duration, exposure, and printer capability" },
+  ],
+  "automotive-industrial": [
+    { decision: "Facestock", optionA: "Coated paper for controlled indoor identification", optionB: "Synthetic film for moisture, abrasion, or chemicals", chooseBy: "Service environment, durability target, printer, and validation test" },
+    { decision: "Adhesive", optionA: "Permanent adhesive for clean smooth surfaces", optionB: "Specialty adhesive for textured, curved, oily, or low-energy surfaces", chooseBy: "Substrate, preparation, application temperature, and service exposure" },
+    { decision: "Print method", optionA: "Direct thermal for short-process labels", optionB: "Thermal transfer for durable parts and asset identification", chooseBy: "Retention, ribbon compatibility, abrasion, heat, and chemical exposure" },
+  ],
+  "government-legal": [
+    { decision: "Retention", optionA: "Standard thermal media for short-term transaction records", optionB: "Longer-life media or another approved record medium", chooseBy: "Document retention policy, storage, handling, and legal review" },
+    { decision: "Printed content", optionA: "Plain roll with variable transaction data", optionB: "Controlled back print or security artwork", chooseBy: "Disclosure text, revision authority, audit process, and proof approval" },
+    { decision: "Supply control", optionA: "Standard commercial packing", optionB: "Batch-separated packing with controlled carton identification", chooseBy: "Tender specification, receiving controls, traceability, and distribution plan" },
+  ],
+  "cannabis-specialty": [
+    { decision: "Print method", optionA: "Direct thermal for short-life variable data", optionB: "Thermal transfer for longer handling or tougher exposure", chooseBy: "Jurisdictional workflow, retention, printer, container, and environment" },
+    { decision: "Closure", optionA: "Standard permanent label", optionB: "Tamper-evident construction where the approved package requires it", chooseBy: "Container geometry, opening method, destination rules, and packaging review" },
+    { decision: "Artwork control", optionA: "Common master design with controlled variable fields", optionB: "Market-specific versions by jurisdiction or product", chooseBy: "Required statements, variable data, approval owner, and revision history" },
+  ],
+};
+
+const caseStudyDirectory: IndustryResourceLink = {
+  label: "Browse relevant project reviews",
+  href: "/case-studies",
+  description: "See the available anonymized qualification projects without implying an industry-specific customer result.",
+};
+
+export const INDUSTRY_RESOURCES: Record<string, IndustryResourceSet> = {
+  "lottery-gaming": {
+    caseStudy: { label: "European lottery terminal qualification", href: "/case-studies/european-lottery-operator", description: "An anonymized review of terminal fit, sensing, barcode readability, retention, and sample approval." },
+    technicalGuide: { label: "Lottery ticket paper specifications", href: "/blog/lottery-ticket-paper-specifications", description: "Prepare terminal, ticket geometry, sensing, barcode, retention, and security-print requirements." },
+    compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Check certificate scope, production-site coverage, inspection records, and project-specific acceptance criteria." },
+  },
+  casino: {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Casino TITO paper qualification guide", href: "/blog/casino-receipt-paper-guide", description: "Review platform fit, barcode rules, ticket validity, environment, packing, and trial requirements." },
+    compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Separate quality-system evidence from ticket performance and platform-specific approval." },
+  },
+  "retail-pos": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Thermal printer compatibility guide", href: "/blog/thermal-paper-printer-compatibility-guide", description: "Match width, OD, core, winding, sensitivity, sensing, and compartment geometry to the named printer." },
+    compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Confirm the quoted grade, named chemical scope, destination needs, and current supporting file." },
+  },
+  "banking-finance": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Thermal roll size guide", href: "/blog/thermal-paper-roll-sizes-guide", description: "Build an ATM, teller, or kiosk roll specification from measured dimensions and device constraints." },
+    compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Review handling policy and chemical documentation for the exact transaction-paper grade." },
+  },
+  transportation: {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Thermal printer compatibility guide", href: "/blog/thermal-paper-printer-compatibility-guide", description: "Qualify printer path, dimensions, sensing, cutting, environment, and sample acceptance." },
+    compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Review production scope and batch controls separately from system-integrator approval." },
+  },
+  "events-hospitality": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Custom printed roll artwork guide", href: "/blog/how-to-print-logo-on-thermal-paper-rolls", description: "Plan print side, artwork, colors, QR area, proof approval, packing, and campaign timing." },
+    compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Confirm the selected grade and document scope for staff and guest handling requirements." },
+  },
+  "food-cold-chain": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Freezer label adhesive guide", href: "/blog/freezer-label-adhesive-guide", description: "Compare application temperature, service temperature, surface, moisture, and freeze-thaw exposure." },
+    compliance: { label: "Food-contact construction review", href: "/compliance/eu-food-contact", description: "Review the complete construction, intended food, contact type, time, temperature, and destination." },
+  },
+  "healthcare-pharma": {
+    caseStudy: { label: "US pharmacy documentation review", href: "/case-studies/us-pharmacy-chain", description: "An anonymized workflow covering printer qualification, grade-specific documents, samples, and rollout planning." },
+    technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Choose a print route by retention, handling, abrasion, chemicals, printer, and ribbon requirements." },
+    compliance: { label: "Medical label applicability review", href: "/compliance/iso-15223", description: "Review material, symbols, substrate, exposure, retention, print system, and buyer-approved artwork." },
+  },
+  "logistics-warehouse": {
+    caseStudy: { label: "German fanfold label qualification", href: "/case-studies/german-logistics-provider", description: "An anonymized review of printer path, fold pitch, sensing, barcode workflow, adhesive, and pilot stacks." },
+    technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Compare short-cycle shipping labels with more durable warehouse identification routes." },
+    compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Check relevance against the exact facestock, adhesive, intended use, destination, and current documents." },
+  },
+  ecommerce: {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "FBA thermal label sourcing guide", href: "/blog/amazon-fba-thermal-labels-guide", description: "Prepare size, printer, barcode, facestock, adhesive, packing, sample, and volume requirements." },
+    compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Review destination and material-document needs for the selected shipping-label construction." },
+  },
+  "automotive-industrial": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Select the print method by retention, heat, abrasion, chemicals, ribbon, and service environment." },
+    compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Confirm substance scope and any electrical-product relevance for the exact construction and use." },
+  },
+  "government-legal": {
+    caseStudy: caseStudyDirectory,
+    technicalGuide: { label: "Thermal paper technical guide", href: "/blog/what-is-thermal-paper", description: "Review material types, image formation, storage, handling, and specification fundamentals." },
+    compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Check certificate holder, site, activities, validity, inspection records, and tender-specific controls." },
+  },
+  "cannabis-specialty": {
+    caseStudy: { label: "Canadian variable-data label review", href: "/case-studies/canadian-cannabis-dispensary", description: "An anonymized workflow separating material testing, artwork responsibility, and jurisdictional review." },
+    technicalGuide: { label: "US cannabis label qualification guide", href: "/blog/cannabis-label-requirements-usa", description: "Use a state-specific qualification framework without treating it as legal or artwork approval." },
+    compliance: { label: "Material substance-scope review", href: "/compliance/reach-rohs", description: "Review the exact facestock, adhesive, ink, intended use, destination, and current substance documentation separately from cannabis artwork approval." },
+  },
+};
+
+export function buildIndustryEvidenceAnswers(
+  comparisons: IndustrySolutionComparison[],
+  resources: IndustryResourceSet
+): IndustryEvidenceAnswer[] {
+  const evidenceRoutes = [
+    {
+      label: `Technical context: ${resources.technicalGuide.label}`,
+      href: resources.technicalGuide.href,
+    },
+    {
+      label: `Document scope: ${resources.compliance.label}`,
+      href: resources.compliance.href,
+    },
+    {
+      label: "Application proof: sample validation",
+      href: "/samples",
+    },
+  ];
+
+  return comparisons.slice(0, 3).map((comparison) => ({
+    question: `How should buyers decide on ${comparison.decision.toLowerCase()}?`,
+    answer: `Compare ${comparison.optionA} with ${comparison.optionB}. Neither option is universally preferable; the purchasing specification should record the project conditions and the approved construction. Technical guidance supports specification planning, document review confirms only its stated scope, and application suitability requires representative sample testing.`,
+    condition: comparison.chooseBy,
+    evidence: evidenceRoutes,
+  }));
+}

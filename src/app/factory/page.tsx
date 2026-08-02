@@ -49,10 +49,10 @@ type SlotName =
   | "home.compliance";
 
 const capabilityStats = [
-  { value: "500M+", label: "Rolls produced annually", detail: "POS, ATM, ticketing, and custom roll formats" },
-  { value: "80+", label: "Countries served", detail: "Export cartons, pallets, and mixed SKU programs" },
-  { value: "15+", label: "Years experience", detail: "Thermal paper rolls, labels, and OEM packaging" },
-  { value: "ISO", label: "9001:2015 managed", detail: "Batch records, inspection steps, and document control" },
+  { value: "By RFQ", label: "Production planning", detail: "Capacity confirmed by product mix, specification, quantity, and current loading" },
+  { value: "By Route", label: "Export coverage", detail: "Packing and delivery scope confirmed by destination and written terms" },
+  { value: "Since 2008", label: "Operating history", detail: "Thermal paper rolls, labels, and OEM packaging" },
+  { value: "By Scope", label: "Quality documents", detail: "Site, certificate scope, batch records, and inspection documents reviewed per project" },
 ];
 
 const factoryProof = [
@@ -198,7 +198,7 @@ export default function FactoryPage() {
               <div className="max-w-4xl">
                 <div className="mb-5 inline-flex items-center gap-3 border border-white/25 bg-white/15 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-sky-50 shadow-sm backdrop-blur-sm">
                   <Factory className="h-3.5 w-3.5 text-cyan-300" aria-hidden="true" />
-                  ISO 9001:2015 certified thermal paper factory
+                  Quality system and production evidence available for review
                 </div>
                 <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-normal text-white drop-shadow-sm md:text-6xl lg:text-7xl">
                   Factory capacity buyers can verify before a bulk order.
@@ -338,7 +338,7 @@ export default function FactoryPage() {
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/samples" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
-                  Request Free Samples
+                  Request Samples
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
                 <Link href="/factory/quality-control" className="inline-flex items-center justify-center gap-2 border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10">

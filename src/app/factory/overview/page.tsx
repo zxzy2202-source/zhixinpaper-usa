@@ -16,30 +16,30 @@ export const metadata: Metadata = {
 
 export default function FactoryOverviewPage() {
   const stats = [
-    { value: "50,000 m²", label: "Production Floor Area" },
-    { value: "20+", label: "Slitting Production Lines" },
-    { value: "500M+", label: "Rolls Annual Capacity" },
-    { value: "ISO 9001:2015", label: "Quality Certification" },
-    { value: "15+", label: "Years in Operation" },
-    { value: "200+", label: "Skilled Employees" },
+    { value: "By Site", label: "Production Area Review" },
+    { value: "By Line", label: "Equipment Inventory" },
+    { value: "By RFQ", label: "Capacity Planning" },
+    { value: "By Scope", label: "Quality Documents" },
+    { value: "Since 2008", label: "Operating History" },
+    { value: "By Function", label: "Production Team" },
   ];
 
   const sections = [
     {
       title: "Coating & Base Paper Division",
-      desc: "Our coating division houses 6 high-speed thermal coating lines, each capable of processing base paper at speeds up to 800 m/min. We apply proprietary thermal coating formulations developed in-house, ensuring consistent sensitivity, image density, and archival performance across every batch.",
+      desc: "Coating routes, line availability, material formulation, sensitivity, image density, and retention targets are reviewed against the exact product specification and current production plan.",
     },
     {
       title: "Slitting & Converting Division",
-      desc: "With 20+ precision slitting lines, we convert large-format thermal paper rolls into finished product specifications with tolerances of ±0.5mm. Our automated tension control systems ensure consistent roll hardness and diameter across all standard and custom sizes.",
+      desc: "Slitting and converting equipment is selected by roll width, OD, core, winding, material, tolerance, and approved specification. Inspection records are defined by project.",
     },
     {
       title: "Label Manufacturing Division",
-      desc: "Our dedicated label division features 8 flexographic printing lines, 4 die-cutting stations, and full lamination capability. We produce direct thermal, thermal transfer, and specialty labels on paper, PP, polyester, and polyimide facestocks.",
+      desc: "Label converting routes are reviewed by facestock, adhesive, liner, printing, die cutting, lamination, format, and approved sample before production planning.",
     },
     {
       title: "Quality Control Laboratory",
-      desc: "Every production batch is tested in our on-site laboratory equipped with image density analyzers, adhesion testers, environmental chambers, and chemical analysis equipment. We maintain full traceability from raw material to finished goods.",
+      desc: "Inspection methods and records are selected from the product specification, intended use, acceptance criteria, and available equipment. Requested traceability and batch documents must be included in the project scope.",
     },
   ];
 

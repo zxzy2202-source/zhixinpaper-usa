@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { sampleRequests } from "@/lib/db/schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { notifyAll } from "@/lib/notify";
+import { buildInquiryResponse } from "@/lib/inquiry-delivery";
 import { COMPANY } from "@/lib/data";
 
 function getResend() {
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to database
+    let stored = false;
     try {
       await db.insert(sampleRequests).values({
         firstName,
@@ -59,6 +60,7 @@ export async function POST(request: NextRequest) {
         source: "samples_form",
         ipAddress: request.headers.get("x-forwarded-for") || null,
       });
+      stored = true;
     } catch (dbError) {
       console.error("DB insert error (samples):", dbError);
     }
@@ -67,8 +69,7 @@ export async function POST(request: NextRequest) {
       ? products.join(", ")
       : "Not specified";
 
-    // 销售通知：Server酱（微信秒推）+ Resend 邮件兜底，必须 await
-    await notifyAll({
+    const notification = await notifyAll({
       kind: "samples",
       name: `${firstName} ${lastName}`,
       email,
@@ -84,10 +85,22 @@ export async function POST(request: NextRequest) {
       source: "samples_form",
     });
 
-    // 客户自动回复
+    const acceptedResponse = buildInquiryResponse({
+      stored,
+      notificationSent: notification.anyOk,
+      autoReplySent: false,
+    });
+    if (!acceptedResponse) {
+      return NextResponse.json(
+        { error: "We could not confirm your sample request was received. Please contact us directly by email or WhatsApp." },
+        { status: 503 }
+      );
+    }
+
+    let autoReplySent = false;
     try {
       const resend = getResend();
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: `${COMPANY.name} <Sales@zxpapers.com>`,
         to: [email],
         subject: `Sample Request Received — ${COMPANY.name}`,
@@ -100,15 +113,15 @@ export async function POST(request: NextRequest) {
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; padding: 24px; border-radius: 0 0 8px 8px;">
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">Dear ${firstName},</p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
-              Thank you for requesting samples from ${COMPANY.name}. We have received your request and will prepare your sample kit within <strong>2–3 business days</strong>.
+              Thank you for requesting samples from ${COMPANY.name}. We have received your request. Our team will review product availability, shipping details, and qualification requirements before confirming the sample plan.
             </p>
             <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0;">
               <p style="font-weight: bold; color: #475569; margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">What to Expect:</p>
               <ul style="color: #1e293b; font-size: 14px; line-height: 2; margin: 0; padding-left: 20px;">
-                <li>Our team will confirm your shipping address via email</li>
-                <li>Sample kit will be shipped via DHL/FedEx Express</li>
-                <li>Tracking number will be provided once shipped</li>
-                <li>Delivery time: 3–5 business days (international)</li>
+                <li>Our team will review the requested products and shipping destination</li>
+                <li>Availability, courier options, and any sample charges will be confirmed before dispatch</li>
+                <li>A tracking number will be provided if and when the sample kit ships</li>
+                <li>Transit time depends on destination, courier service, and customs clearance</li>
               </ul>
             </div>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
@@ -125,11 +138,15 @@ export async function POST(request: NextRequest) {
         </div>
       `,
       });
+      if (error) {
+        throw new Error(error.message);
+      }
+      autoReplySent = true;
     } catch (e) {
       console.warn("[samples] auto-reply failed:", (e as Error).message);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ...acceptedResponse, autoReplySent });
   } catch (error) {
     console.error("Samples API error:", error);
     return NextResponse.json(

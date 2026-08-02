@@ -80,7 +80,7 @@ export default async function BlogAdminPage() {
           <div className="text-center py-16 text-slate-400">
             <FileText className="w-10 h-10 mx-auto mb-3 opacity-30" />
             <p className="font-medium mb-2">暂无数据库文章</p>
-            <p className="text-xs mb-4">点击"新建文章"创建第一篇动态博客文章</p>
+            <p className="text-xs mb-4">点击“新建文章”创建第一篇动态博客文章</p>
             <Link href="/admin/blog/new" className="text-blue-600 hover:underline text-sm">
               创建第一篇文章
             </Link>

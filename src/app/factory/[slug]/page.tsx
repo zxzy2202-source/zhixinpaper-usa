@@ -18,34 +18,34 @@ const FACTORY_PAGES: Record<string, {
 }> = {
   overview: {
     title: "Factory Overview",
-    metaTitle: "Thermal Paper Manufacturing Plant | ISO Certified Factory | Zhixin Paper",
-    metaDesc: "Tour our ISO 9001:2015 certified thermal paper manufacturing facility in China, with 500M+ rolls annual capacity serving distributors worldwide.",
+    metaTitle: "Thermal Paper Manufacturing Facility Review | Zhixin Paper",
+    metaDesc: "Review Zhixin Paper manufacturing scope, converting routes, quality controls, and the documents buyers should verify during supplier qualification.",
     hero: "bg-gradient-to-br from-slate-800 to-slate-600",
-    subtitle: "ISO 9001:2015 Certified Manufacturing Excellence",
+    subtitle: "Manufacturing Scope and Supplier-Qualification Review",
     content: (
       <div className="space-y-12">
         <section className="grid md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-4">About Our Manufacturing Facility</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Established in 2008, our manufacturing facility in Xi'an, Shaanxi, China spans 25,000 m² and houses state-of-the-art thermal paper production equipment. Dedicated coating and precision slitting lines support annual capacity of more than 500 million finished rolls.
+              Established in 2008, our manufacturing facility in Xi&apos;an, Shaanxi, China includes thermal paper converting and production equipment. Current floor area, line configuration, and output capacity should be confirmed during supplier qualification.
             </p>
             <p className="text-slate-600 leading-relaxed">
-              Our facility is ISO 9001:2015 certified, with full traceability from raw material receipt to finished goods dispatch. Every batch is tested against our internal quality standards before shipment.
+              The applicable manufacturing site, quality controls, traceability records, inspection plan, and release documents are confirmed for the quoted product and current project scope.
             </p>
           </div>
           <div className="bg-slate-50  p-6 border border-slate-200">
             <h3 className="font-bold text-slate-800 mb-4">Facility at a Glance</h3>
             <div className="space-y-3">
               {[
-                ["Floor Area", "25,000 m²"],
+                ["Floor Area", "Confirmed by site review"],
                 ["Established", "2008"],
-                ["Coating Lines", "4 production lines"],
-                ["Slitting Machines", "15 precision slitters"],
-                ["Annual Capacity", "500M+ finished rolls"],
-                ["Employees", "320+ staff"],
-                ["Certifications", "ISO 9001:2015, FSC, BPA-Free"],
-                ["Export Markets", "80+ countries"],
+                ["Coating Route", "Confirmed by quoted grade"],
+                ["Converting Lines", "Confirmed by site and SKU"],
+                ["Annual Capacity", "Confirmed by RFQ and schedule"],
+                ["Workforce", "Confirmed by function and site"],
+                ["Documents", "Reviewed by holder, scope, and validity"],
+                ["Export Routes", "Confirmed by destination and Incoterm"],
               ].map(([label, value]) => (
                 <div key={label} className="flex justify-between items-center py-2 border-b border-slate-200 last:border-0">
                   <span className="text-slate-500 text-sm">{label}</span>
@@ -59,10 +59,10 @@ const FACTORY_PAGES: Record<string, {
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Production Capabilities</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: "🏭", title: "Thermal Paper Coating", desc: "High-speed coating lines applying thermal-sensitive chemistry to base paper at controlled temperatures." },
-              { icon: "✂️", title: "Precision Slitting", desc: "15 slitting machines cutting parent rolls to exact customer specifications from 25mm to 210mm width." },
-              { icon: "🏷️", title: "Label Die-Cutting", desc: "Rotary die-cutting equipment for custom label shapes, perforations, and fanfold configurations." },
-              { icon: "🖨️", title: "Custom Printing", desc: "1–4 color flexographic printing for logos, barcodes, and custom designs on rolls and labels." },
+              { icon: "🏭", title: "Thermal Paper Coating", desc: "Coating route, source mill, chemistry, basis weight, and applicable quality records are confirmed for the quoted grade." },
+              { icon: "✂️", title: "Precision Slitting", desc: "Slitting route, dimensions, core, winding, tolerance, and inspection method are confirmed from the approved specification." },
+              { icon: "🏷️", title: "Label Die-Cutting", desc: "Tooling, shape, perforation, liner, roll or fanfold format, and dimensional acceptance criteria are confirmed by project." },
+              { icon: "🖨️", title: "Custom Printing", desc: "Artwork, ink system, color target, registration criteria, approved sample, and inspection plan are confirmed before production." },
             ].map((item) => (
               <div key={item.title} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-3xl mb-3">{item.icon}</div>
@@ -78,7 +78,7 @@ const FACTORY_PAGES: Record<string, {
   equipment: {
     title: "Equipment & Technology",
     metaTitle: "Thermal Paper Slitting Machines & Label Die Cutting Equipment | Zhixin Paper",
-    metaDesc: "Advanced thermal paper manufacturing equipment: 4 coating lines, 15 slitting machines, rotary die-cutting. See our production technology.",
+    metaDesc: "Review thermal paper coating, slitting, die-cutting, and printing routes. Equipment identity, operating range, tolerance, and current availability are confirmed during project review.",
     hero: "bg-gradient-to-br from-blue-800 to-blue-600",
     subtitle: "Advanced Production Technology for Precision Output",
     content: (
@@ -88,24 +88,24 @@ const FACTORY_PAGES: Record<string, {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                name: "Thermal Coating Lines (×4)",
-                specs: ["Width: up to 1,600mm", "Speed: 300m/min", "Coating weight: 3–8 g/m²", "Temperature control: ±0.5°C"],
-                desc: "High-speed coating machines apply thermal-sensitive chemistry to base paper. Precise temperature and speed control ensures consistent coating weight and sensitivity across every roll.",
+                name: "Thermal Coating Route",
+                specs: ["Web width: confirmed by selected line", "Speed: confirmed by grade and run", "Coating weight: confirmed by specification", "Controls: reviewed during qualification"],
+                desc: "Confirm the source mill or coating site, selected line, chemistry, control plan, and records that apply to the quoted thermal grade.",
               },
               {
-                name: "Precision Slitting Machines (×15)",
-                specs: ["Slit width: 25–210mm", "Speed: 600m/min", "Tension control: servo-driven", "Edge quality: <0.1mm tolerance"],
-                desc: "Servo-driven slitting machines cut parent rolls to exact customer specifications. Automatic tension control prevents telescoping and ensures tight, uniform roll winding.",
+                name: "Precision Slitting Route",
+                specs: ["Slit width: confirmed by SKU", "Run speed: confirmed by material", "Tension control: reviewed by line", "Tolerance: agreed in the specification"],
+                desc: "Confirm the selected converting line, core, winding, OD, dimensional tolerance, edge criteria, and inspection records for the order.",
               },
               {
-                name: "Rotary Die-Cutting (×6)",
-                specs: ["Label size: 10×10mm to 200×300mm", "Speed: 150m/min", "Die tolerance: ±0.05mm", "Fanfold & roll configurations"],
-                desc: "Rotary die-cutting lines produce labels in any shape or size. Compatible with fanfold, roll, and sheet configurations for all thermal printer types.",
+                name: "Rotary Die-Cutting Route",
+                specs: ["Label size: confirmed by tooling review", "Run speed: confirmed by construction", "Die tolerance: agreed in the drawing", "Roll and fanfold options reviewed"],
+                desc: "Confirm tooling, gap, liner, perforation, matrix removal, roll or fanfold format, and measurable dimensional acceptance criteria.",
               },
               {
-                name: "Flexographic Printing (×3)",
-                specs: ["Colors: 1–4 process colors", "Registration: ±0.1mm", "Speed: 200m/min", "UV & water-based inks"],
-                desc: "Flexographic printing lines apply logos, barcodes, and custom designs. UV and water-based inks available, with Pantone color matching for brand consistency.",
+                name: "Flexographic Printing Route",
+                specs: ["Color count: confirmed from artwork", "Registration: agreed in the print standard", "Run speed: confirmed by construction", "Ink system: reviewed by application"],
+                desc: "Confirm artwork, ink, color target, registration criteria, approved sample, and inspection method for the printed construction.",
               },
             ].map((eq) => (
               <div key={eq.name} className="bg-white  p-6 border border-slate-200 shadow-sm">
@@ -131,20 +131,20 @@ const FACTORY_PAGES: Record<string, {
   },
   capacity: {
     title: "Production Capacity",
-    metaTitle: "Thermal Paper Production Capacity | 500M+ Rolls/Year | Zhixin Paper",
-    metaDesc: "Zhixin Paper supports 500M+ rolls annual production capacity with inventory planning and stable supply for distributors worldwide.",
+    metaTitle: "Thermal Paper Production Planning | Capacity Review | Zhixin Paper",
+    metaDesc: "Plan thermal paper and label supply by SKU, material, quantity, tooling, packing, samples, current capacity, and required schedule.",
     hero: "bg-gradient-to-br from-green-800 to-green-600",
-    subtitle: "500M+ Rolls/Year · Inventory Planning · 15-Day Standard Lead Time",
+    subtitle: "Capacity, MOQ, Inventory, and Schedule Confirmed by RFQ",
     content: (
       <div className="space-y-12">
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Annual Production Capacity</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
             {[
-              { value: "500M+", label: "Rolls / Year", sub: "Annual converting capacity" },
-              { value: "20+", label: "Slitting Lines", sub: "Precision converting" },
-              { value: "30 Days", label: "Buffer Programme", sub: "For selected core SKUs" },
-              { value: "15 Days", label: "Standard Lead Time", sub: "Ex-factory, FOB Qingdao" },
+              { value: "By RFQ", label: "Output Plan", sub: "SKU and schedule review" },
+              { value: "By Line", label: "Converting Route", sub: "Selected for the construction" },
+              { value: "By SKU", label: "Inventory Plan", sub: "Confirmed before quotation" },
+              { value: "By Order", label: "Production Schedule", sub: "Confirmed in writing" },
             ].map((stat) => (
               <div key={stat.label} className="bg-white  p-6 border border-slate-200 shadow-sm text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-1">{stat.value}</div>
@@ -154,9 +154,9 @@ const FACTORY_PAGES: Record<string, {
             ))}
           </div>
           <div className="bg-blue-50  p-6 border border-blue-100">
-            <h3 className="font-bold text-slate-800 mb-3">Inventory Buffer Policy</h3>
+            <h3 className="font-bold text-slate-800 mb-3">Inventory and Schedule Review</h3>
             <p className="text-slate-600 leading-relaxed">
-              We maintain a 30-day finished goods inventory buffer for our top-selling SKUs, ensuring immediate availability for urgent orders. For custom specifications, we recommend placing orders 21 days in advance to guarantee on-time delivery.
+              Stock, reserved material, production slots, and dispatch timing vary by SKU and current demand. The quotation or order confirmation should record the approved specification, quantity, packing plan, capacity allocation, and project schedule.
             </p>
           </div>
         </section>
@@ -174,12 +174,12 @@ const FACTORY_PAGES: Record<string, {
               </thead>
               <tbody>
                 {[
-                  ["Standard POS Rolls", "5,000 rolls", "10,000 rolls", "Free (5 rolls)"],
-                  ["ATM / Banking Rolls", "2,000 rolls", "5,000 rolls", "Free (3 rolls)"],
-                  ["Lottery / Casino Rolls", "1,000 rolls", "5,000 rolls", "Free (3 rolls)"],
-                  ["Direct Thermal Labels", "10,000 labels", "50,000 labels", "Free (1 roll)"],
-                  ["Thermal Transfer Labels", "10,000 labels", "50,000 labels", "Free (1 roll)"],
-                  ["Specialty Labels (Freezer/High-Temp)", "5,000 labels", "20,000 labels", "Free (1 roll)"],
+                  ["Standard POS Rolls", "Confirmed by size and packing", "Confirmed by artwork and setup", "Terms confirmed after review"],
+                  ["ATM / Banking Rolls", "Confirmed by specification", "Confirmed by artwork and setup", "Terms confirmed after review"],
+                  ["Lottery / Casino Rolls", "Confirmed by device and specification", "Confirmed by artwork and setup", "Terms confirmed after review"],
+                  ["Direct Thermal Labels", "Confirmed by construction", "Confirmed by printing and tooling", "Terms confirmed after review"],
+                  ["Thermal Transfer Labels", "Confirmed by construction", "Confirmed by printing and tooling", "Terms confirmed after review"],
+                  ["Specialty Labels (Freezer/High-Temp)", "Confirmed by material and test plan", "Confirmed by printing and tooling", "Terms confirmed after review"],
                 ].map(([type, moq, custom, sample], i) => (
                   <tr key={type} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                     <td className="p-3 font-medium text-slate-800 border-b border-slate-100">{type}</td>
@@ -197,25 +197,25 @@ const FACTORY_PAGES: Record<string, {
   },
   "quality-control": {
     title: "Quality Control",
-    metaTitle: "ISO 9001 Quality Management | Thermal Paper Quality Testing | Zhixin Paper",
-    metaDesc: "ISO 9001:2015 certified quality management system. Full traceability from raw material to finished goods. BPA testing, sensitivity testing, and archival life verification.",
+    metaTitle: "Thermal Paper Quality Control Review | Zhixin Paper",
+    metaDesc: "Review quality controls, traceability, inspection methods, acceptance criteria, and the current documents applicable to a quoted thermal paper or label project.",
     hero: "bg-gradient-to-br from-purple-800 to-purple-600",
-    subtitle: "ISO 9001:2015 Certified · Full Traceability · Zero-Defect Target",
+    subtitle: "Quality Controls, Traceability, and Documents Reviewed by Project",
     content: (
       <div className="space-y-12">
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Quality Management System</h2>
           <p className="text-slate-600 leading-relaxed mb-8">
-            Our ISO 9001:2015 certified quality management system covers every stage of production, from incoming raw material inspection to final goods release. Every batch is assigned a unique lot number enabling full traceability throughout the supply chain.
+            The applicable quality-system documents, material controls, lot identification, inspection plan, test methods, release records, and traceability scope are reviewed against the quoted manufacturing entity and product.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { step: "01", title: "Incoming Inspection", desc: "Base paper, thermal coating chemicals, and adhesives tested against specification before entering production." },
-              { step: "02", title: "In-Process Control", desc: "Coating weight, sensitivity, and dimensional checks performed every 30 minutes during production runs." },
-              { step: "03", title: "BPA/Chemical Testing", desc: "Batch testing for BPA, BPS, and REACH SVHC substances. Third-party lab verification available on request." },
-              { step: "04", title: "Print Quality Test", desc: "Sensitivity, contrast, and barcode readability verified against ISO 15416 barcode quality standards." },
-              { step: "05", title: "Archival Life Test", desc: "Accelerated ageing tests verify image stability at 60°C/50% RH for 72 hours, equivalent to 5+ years storage." },
-              { step: "06", title: "Final Release", desc: "QC manager sign-off required before goods are released. Certificate of Analysis available for every shipment." },
+              { step: "01", title: "Incoming Inspection", desc: "Agree which base-paper, coating, adhesive, liner, ink, and packaging properties require incoming evidence or inspection." },
+              { step: "02", title: "In-Process Control", desc: "Define measurable checks and frequencies for dimensions, winding, coating or print quality, and other critical characteristics." },
+              { step: "03", title: "Chemical Documents", desc: "Confirm the material, substance scope, test method, report date, and destination requirements before relying on a declaration or report." },
+              { step: "04", title: "Print and Scan Testing", desc: "Confirm density, contrast, barcode method, scanner or printer, sample conditioning, and acceptance threshold for the application." },
+              { step: "05", title: "Image Stability Review", desc: "Match the selected material, storage environment, test profile, and required retention period; avoid converting accelerated tests into unconditional life claims." },
+              { step: "06", title: "Final Release", desc: "Agree final inspection, release authority, retained records, and the certificate or report package required for the shipment." },
             ].map((item) => (
               <div key={item.step} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <div className="text-blue-600 font-bold text-sm mb-2">STEP {item.step}</div>
@@ -227,13 +227,13 @@ const FACTORY_PAGES: Record<string, {
         </section>
         <section className="bg-slate-50  p-8 border border-slate-200">
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Certifications & Test Reports</h2>
-          <p className="text-slate-600 mb-6">All certificates are available for download. Third-party test reports from SGS, Intertek, and Bureau Veritas available on request.</p>
+          <p className="text-slate-600 mb-6">Request the current holder, issuer, scope, validity period, report method, product grade, and destination applicability before relying on any certificate, declaration, or test report.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { name: "ISO 9001:2015", issuer: "Bureau Veritas", href: "/compliance/iso-9001" },
-              { name: "BPA-Free", issuer: "SGS", href: "/compliance/bpa-free" },
-              { name: "REACH/RoHS", issuer: "Intertek", href: "/compliance/reach-rohs" },
-              { name: "FSC Chain of Custody", issuer: "FSC International", href: "/compliance/fsc-paper" },
+              { name: "Quality-System Documents", issuer: "Current holder and scope", href: "/compliance/iso-9001" },
+              { name: "Phenol / Material Documents", issuer: "Quoted grade and report scope", href: "/compliance/bpa-free" },
+              { name: "REACH/RoHS Review", issuer: "Selected material and destination", href: "/compliance/reach-rohs" },
+              { name: "Chain-of-Custody Review", issuer: "Current certificate route and claim", href: "/compliance/fsc-paper" },
             ].map((cert) => (
               <Link key={cert.name} href={cert.href} className="bg-white  p-4 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all text-center group">
                 <div className="text-2xl mb-2">📋</div>
@@ -257,7 +257,7 @@ const FACTORY_PAGES: Record<string, {
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Tour Our Facility</h2>
           <p className="text-slate-600 leading-relaxed mb-8">
-            Can't visit in person? Our virtual factory tour gives you a comprehensive view of our manufacturing capabilities, quality control processes, and warehouse operations. Schedule a live video tour with our team, or browse the facility highlights below.
+            Can&apos;t visit in person? Our virtual factory tour provides a view of selected manufacturing, quality-control, and warehouse areas. Schedule a live video review with our team or browse the available facility highlights below.
           </p>
           <div className="bg-slate-800  aspect-video flex items-center justify-center mb-8">
             <div className="text-center text-white">
@@ -268,12 +268,12 @@ const FACTORY_PAGES: Record<string, {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { area: "Coating Hall", desc: "4 high-speed thermal coating lines producing 30 tonnes of coated paper per day." },
-              { area: "Slitting Room", desc: "15 precision slitting machines converting parent rolls to customer specifications." },
-              { area: "Label Production", desc: "Rotary die-cutting and flexographic printing lines for thermal labels." },
-              { area: "QC Laboratory", desc: "In-house testing lab for sensitivity, BPA, archival life, and barcode quality." },
-              { area: "Finished Goods Warehouse", desc: "Temperature-controlled warehouse with 30-day buffer stock for key SKUs." },
-              { area: "Shipping & Logistics", desc: "Daily container loading for EU, US, and CA markets. FOB Qingdao." },
+              { area: "Coating Hall", desc: "Review the selected coating route, applicable line, material controls, and records for the quoted grade." },
+              { area: "Slitting Room", desc: "Review converting equipment, dimensions, winding, tolerance, inspection, and line availability for the SKU." },
+              { area: "Label Production", desc: "Review tooling, printing, die-cutting, liner, roll or fanfold format, and approved acceptance criteria." },
+              { area: "QC Laboratory", desc: "Review available methods, calibrated equipment, sample conditioning, limits, and external-laboratory needs." },
+              { area: "Finished Goods Warehouse", desc: "Review storage conditions, lot identification, stock status, packing, and release controls for the order." },
+              { area: "Shipping & Logistics", desc: "Confirm loading site, Incoterm, export documents, customs responsibilities, and destination delivery scope." },
             ].map((area) => (
               <div key={area.area} className="bg-white  p-5 border border-slate-200 shadow-sm">
                 <h3 className="font-bold text-slate-800 mb-2">{area.area}</h3>

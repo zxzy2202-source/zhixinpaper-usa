@@ -53,10 +53,10 @@ const heroSignals = [
 ];
 
 const proofBand = [
-  { value: "ISO", label: "9001:2015", text: "Quality system and inspection records" },
-  { value: "BPA", label: "Free routes", text: "Thermal paper roll and label options" },
-  { value: "REACH", label: "RoHS files", text: "Chemical compliance review path" },
-  { value: "FSC", label: "FDA support", text: "Responsible paper and food-contact files" },
+  { value: "QMS", label: "Scope review", text: "Current certificate and inspection evidence" },
+  { value: "BPA", label: "Grade review", text: "Material declarations by quoted construction" },
+  { value: "REACH", label: "RoHS route", text: "Current chemical-document review" },
+  { value: "FSC", label: "Food contact", text: "Claim and application-specific document routes" },
 ];
 
 const documentRoutes = [

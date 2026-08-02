@@ -17,6 +17,14 @@ interface Props {
 
 const euRegion = GEO_REGIONS.find((r) => r.slug === "eu")!;
 
+const OPEN_GRAPH_LOCALES: Record<string, string> = {
+  germany: "en_DE",
+  uk: "en_GB",
+  france: "en_FR",
+  netherlands: "en_NL",
+  poland: "en_PL",
+};
+
 export async function generateStaticParams() {
   return (euRegion.countries || []).map((c) => ({ country: c.slug }));
 }
@@ -27,89 +35,68 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!c) return {};
   return {
     title: `${country === "uk" ? "UK" : c.name} Thermal Paper Supplier`,
-    description: `BPA-free thermal paper rolls and labels for distributors in ${c.name}. REACH/RoHS documentation, factory-direct supply, samples, and delivery options.`,
+    description: `Thermal paper rolls and labels for distributors in ${c.name}. Review material chemistry, document scope, printer fit, samples, packing, and shipping terms by project.`,
     keywords: c.keywords,
     alternates: {
       canonical: `https://www.zhixinpaper.com/eu/${country}`,
     },
     openGraph: {
-      title: `Thermal Paper Supplier ${c.name} — BPA-Free Rolls & Labels | Zhixin Paper`,
-      description: `ISO 9001 certified thermal paper rolls and labels for ${c.name} distributors. REACH/RoHS compliant, BPA-free, DDP delivery.`,
+      title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,
+      description: `Thermal paper rolls and labels for ${c.name} distributors, with grade-level document, packing, sample, and delivery review.`,
       url: `https://www.zhixinpaper.com/eu/${country}`,
       siteName: "Zhixin Paper",
+      locale: OPEN_GRAPH_LOCALES[country] ?? "en_GB",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `Thermal Paper Supplier ${c.name} — BPA-Free Rolls & Labels | Zhixin Paper`,
-      description: `ISO 9001 certified thermal paper rolls and labels for ${c.name} distributors.`,
+      title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,
+      description: `Thermal paper rolls and labels configured for ${c.name} distribution projects.`,
     },
   };
 }
 
-// ── Market insights per country ──
+// Country procurement checkpoints shown without unsupported market-size claims.
 const MARKET_INSIGHTS: Record<string, { stat: string; label: string }[]> = {
   germany: [
-    { stat: "€2.1B+", label: "Annual thermal paper market" },
-    { stat: "#1", label: "Largest EU thermal paper market" },
-    { stat: "80mm", label: "Most popular POS roll width" },
-    { stat: "Jan 2025", label: "BPA ban effective date" },
+    { stat: "80mm", label: "Common POS format to verify" },
+    { stat: "Hamburg", label: "Routing option subject to booking" },
+    { stat: "DE", label: "Local-language artwork review" },
+    { stat: "By SKU", label: "Chemistry and document scope" },
   ],
   uk: [
-    { stat: "£1.4B+", label: "Annual thermal consumables market" },
-    { stat: "57mm", label: "Most popular till roll width" },
-    { stat: "UK REACH", label: "Post-Brexit compliance standard" },
-    { stat: "DDP UK", label: "Customs-free delivery available" },
+    { stat: "57/80mm", label: "Common till-roll formats" },
+    { stat: "UK REACH", label: "Scope reviewed by material" },
+    { stat: "GB", label: "Import and VAT responsibility review" },
+    { stat: "By Route", label: "Port and delivery plan" },
   ],
   france: [
-    { stat: "€1.2B+", label: "Annual thermal paper market" },
-    { stat: "FSC", label: "Required by major French retailers" },
-    { stat: "EU 2024/3190", label: "BPA ban compliance required" },
-    { stat: "Le Havre", label: "Primary import port" },
+    { stat: "FR", label: "Local-language artwork review" },
+    { stat: "Le Havre", label: "Routing option subject to booking" },
+    { stat: "By Grade", label: "Phenol chemistry confirmation" },
+    { stat: "By Use", label: "Food-contact scope review" },
   ],
   netherlands: [
-    { stat: "Rotterdam", label: "Europe's largest port" },
-    { stat: "EU Hub", label: "Re-distribution to 27 EU countries" },
-    { stat: "20–24 days", label: "Sea freight from Qingdao" },
-    { stat: "DDP NL", label: "Customs-free delivery available" },
+    { stat: "Rotterdam", label: "Routing and redistribution option" },
+    { stat: "EU Hub", label: "Onward delivery planned by route" },
+    { stat: "Euro Pallet", label: "Warehouse packing option" },
+    { stat: "By Quote", label: "Customs and VAT responsibilities" },
   ],
   poland: [
-    { stat: "€450M+", label: "Annual thermal paper market" },
-    { stat: "+12%", label: "YoY market growth (logistics)" },
-    { stat: "Gdańsk", label: "Primary import port" },
-    { stat: "Central EU", label: "Gateway to CEE markets" },
+    { stat: "Gdansk", label: "Routing option subject to booking" },
+    { stat: "Central EU", label: "Onward distribution planning" },
+    { stat: "PL", label: "Local-language artwork review" },
+    { stat: "By SKU", label: "MOQ and packing confirmation" },
   ],
 };
 
-// ── Logistics timeline per country ──
 const LOGISTICS_STEPS: Record<string, { step: string; time: string; detail: string }[]> = {
-  germany: [
-    { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production scheduled" },
-    { step: "Production", time: "Days 1–10", detail: "Manufacturing & QC inspection" },
-    { step: "Export", time: "Days 11–13", detail: "FOB Qingdao — customs clearance" },
-    { step: "Sea Freight", time: "Days 14–32", detail: "Qingdao → Hamburg (18–22 days)" },
-    { step: "Delivery", time: "Days 33–35", detail: "DDP delivery to your warehouse" },
-  ],
-  uk: [
-    { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production scheduled" },
-    { step: "Production", time: "Days 1–10", detail: "Manufacturing & QC inspection" },
-    { step: "Export", time: "Days 11–13", detail: "FOB Qingdao — customs clearance" },
-    { step: "Sea Freight", time: "Days 14–40", detail: "Qingdao → Felixstowe (25–30 days)" },
-    { step: "Delivery", time: "Days 41–43", detail: "DDP delivery to your UK warehouse" },
-  ],
-  netherlands: [
-    { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production scheduled" },
-    { step: "Production", time: "Days 1–10", detail: "Manufacturing & QC inspection" },
-    { step: "Export", time: "Days 11–13", detail: "FOB Qingdao — customs clearance" },
-    { step: "Sea Freight", time: "Days 14–34", detail: "Qingdao → Rotterdam (20–24 days)" },
-    { step: "Delivery", time: "Days 35–37", detail: "DDP delivery to your NL warehouse" },
-  ],
   default: [
-    { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production scheduled" },
-    { step: "Production", time: "Days 1–10", detail: "Manufacturing & QC inspection" },
-    { step: "Export", time: "Days 11–13", detail: "FOB Qingdao — customs clearance" },
-    { step: "Sea Freight", time: "Days 14–38", detail: "Qingdao → EU port (18–28 days)" },
-    { step: "Delivery", time: "Days 39–42", detail: "DDP delivery to your warehouse" },
+    { step: "Specification & Quote", time: "Project stage", detail: "Confirm SKU, quantity, packing, destination, Incoterm, and responsibilities" },
+    { step: "Artwork or Sample", time: "When required", detail: "Approve artwork and production-intent samples before bulk release" },
+    { step: "Production & QC", time: "After approval", detail: "Timing follows the approved specification and current capacity" },
+    { step: "Export & Transport", time: "After booking", detail: "Port, route, and carrier schedule are recorded in the shipment plan" },
+    { step: "Import & Delivery", time: "By agreed Incoterm", detail: "Customs, VAT, and final-delivery responsibilities follow the written quotation" },
   ],
 };
 
@@ -148,22 +135,22 @@ const POPULAR_PRODUCTS_LINKS: Record<string, { name: string; href: string; tag?:
 // ── Country-specific FAQ ──
 const COUNTRY_FAQ: Record<string, { q: string; a: string }[]> = {
   germany: [
-    { q: "Is your thermal paper BPA-free and compliant with EU 2024/3190?", a: "Yes. All our products are available in BPA-free formulation, compliant with EU Commission Regulation 2024/3190 which banned BPA in thermal paper effective January 2, 2025. SGS test reports are available on request at no charge." },
-    { q: "Do you provide German-language compliance documentation?", a: "Yes. We provide German-language REACH declarations, BPA-free certificates, and technical data sheets for German procurement teams and regulatory audits." },
-    { q: "Can you ship DDP to our warehouse in Germany?", a: "Yes. We offer DDP (Delivered Duty Paid) shipping to any German address via Hamburg port. All customs duties and VAT are handled on our side — you receive goods at your door with no additional charges." },
-    { q: "What is the minimum order quantity for Germany?", a: "MOQ is 10,000 rolls for standard POS rolls, or 50,000 labels for thermal labels. Container load pricing is available for 200+ cartons with significant volume discounts." },
+    { q: "Can you offer phenol options for German projects?", a: "BPA-free, BPS-free, or phenol-free routes may be offered by selected grade. The quotation identifies the chemistry, intended use, destination, and available report scope for procurement review." },
+    { q: "Can German-language project documents be reviewed?", a: "German-language artwork or project documents can be reviewed when required. The buyer supplies or approves regulated wording and translations, and the quotation records the final deliverables." },
+    { q: "Can delivered terms be quoted for Germany?", a: "Delivered terms may be quoted after destination, classification, customs, duties, VAT, inland delivery, and responsibility allocation are reviewed. Included costs are stated in writing." },
+    { q: "What is the minimum order quantity for Germany?", a: "MOQ is confirmed by dimensions, material, printing, tooling, packing, and volume. Share the target SKU and quantity so the quotation can state the applicable minimum and price breakpoints." },
   ],
   uk: [
-    { q: "Are your products UK REACH compliant post-Brexit?", a: "Yes. We provide UK REACH compliance documentation independent of EU REACH, including UK SVHC declarations and BPA-free certificates valid for UK import requirements." },
-    { q: "Do you ship DDP to UK addresses?", a: "Yes. We offer DDP delivery to any UK address via Felixstowe or Southampton port. All UK customs duties and import VAT are handled by us — no unexpected charges for you." },
-    { q: "What UK-specific sizes do you stock?", a: "We stock all standard UK till roll sizes: 57×40mm, 57×50mm, 80×70mm, and 80×80mm. Custom widths are available for specialist applications." },
-    { q: "How long does delivery take to the UK?", a: "Sea freight from Qingdao to Felixstowe takes 25–30 days. With 10–15 days production, total lead time is typically 35–45 days. Air freight is available for urgent orders." },
+    { q: "Can you provide documents for UK REACH review?", a: "Available declarations or reports are matched to the selected material and applicable UK scope. Procurement should review the exact SKU, intended use, report coverage, and current validity before approval." },
+    { q: "Can delivered terms be quoted for UK addresses?", a: "Delivered terms may be quoted after destination, classification, duties, import VAT, customs responsibilities, and inland delivery are reviewed. The quotation states what is included." },
+    { q: "Which UK roll sizes can be reviewed?", a: "Common 57mm and 80mm formats and custom widths can be reviewed. Printer model, width, outer diameter, core, winding direction, and sensing requirements should be confirmed before ordering." },
+    { q: "How is the UK delivery schedule confirmed?", a: "The schedule is confirmed after specification and artwork approval, current capacity, carton data, carrier booking, destination, customs scope, and Incoterm are known." },
   ],
   default: [
-    { q: "Are your products BPA-free and REACH compliant?", a: "Yes. All our products are available in BPA-free formulation, compliant with EU Commission Regulation 2024/3190. Full REACH SVHC declarations and SGS test reports are available on request." },
-    { q: "Do you offer DDP shipping to EU countries?", a: "Yes. We offer DDP (Delivered Duty Paid) shipping to most EU countries. All customs duties and VAT are handled on our side — you receive goods at your warehouse with no additional charges." },
-    { q: "What is the minimum order quantity?", a: "MOQ is 10,000 rolls for standard POS rolls, or 50,000 labels for thermal labels. Volume discounts are available from 50 cartons, with container load pricing for 200+ cartons." },
-    { q: "Can you provide compliance documentation for our procurement team?", a: "Yes. We provide a full compliance documentation package including ISO 9001:2015 certificate, BPA-free test reports, REACH declarations, and TDS — all within 24 hours of request." },
+    { q: "Can you offer BPA-free or other phenol options?", a: "BPA-free, BPS-free, or phenol-free routes may be offered by selected grade. Chemistry, intended use, destination, and current supporting documents are confirmed for the quoted SKU." },
+    { q: "Can delivered terms be quoted for European destinations?", a: "Delivered terms may be quoted after destination, classification, duties, VAT, customs responsibilities, and inland delivery are reviewed. The written quotation states included costs and responsibilities." },
+    { q: "What is the minimum order quantity?", a: "MOQ is confirmed by dimensions, material, printing, die-cut or tooling needs, packing, and volume. Share the target SKU and quantity for the applicable minimum and price breakpoints." },
+    { q: "Can procurement request supporting documents?", a: "Available quality, chemistry, chain-of-custody, food-contact, and technical documents are matched to the exact quoted material, intended use, report scope, language need, and current validity." },
   ],
 };
 
@@ -173,17 +160,17 @@ export default async function EUCountryPage({ params }: Props) {
   if (!c) notFound();
 
   const highlights: string[] = c.highlights || [
-    `Dedicated ${c.name} market support with local language documentation`,
-    "BPA-free and REACH/RoHS compliant products for EU market entry",
-    "ISO 9001:2015 certified factory with full quality traceability",
-    "Competitive pricing with stable supply for distributors and importers",
-    `Custom OEM and private label for ${c.name} brands`,
-    "Fast EU logistics with DDP delivery available",
+    `${c.name} project support with language needs reviewed in the specification`,
+    "Phenol chemistry and REACH or RoHS document scope reviewed by selected grade",
+    "Quality-system and batch documents matched to the approved project scope",
+    "Pricing and supply plan confirmed against quantity and current capacity",
+    `Custom OEM and private-label options reviewed for ${c.name} brands`,
+    "Incoterm, customs, VAT, and final-delivery responsibilities stated in the quotation",
   ];
 
-  const compliance: string[] = c.compliance || ["BPA-Free (EU 2024/3190)", "REACH/RoHS", "ISO 9001:2015", "FSC Certified"];
+  const compliance: string[] = c.compliance || ["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Chain-of-Custody Options"];
   const marketInsights = MARKET_INSIGHTS[country] || null;
-  const logisticsSteps = LOGISTICS_STEPS[country] || LOGISTICS_STEPS["default"];
+  const logisticsSteps = LOGISTICS_STEPS["default"];
   const popularProductLinks = POPULAR_PRODUCTS_LINKS[country] || POPULAR_PRODUCTS_LINKS["default"];
   const faq = COUNTRY_FAQ[country] || COUNTRY_FAQ["default"];
   const isPilot = country === "uk";
@@ -216,7 +203,7 @@ export default async function EUCountryPage({ params }: Props) {
               </div>
             </div>
             <p className="text-slate-500 text-lg max-w-3xl mb-5">
-              {c.description || `ISO 9001 certified thermal paper manufacturer with dedicated support for the ${c.name} market. BPA-free, REACH compliant, DDP delivery available.`}
+              {c.description || `Thermal paper rolls and labels for ${c.name} distributors. Material chemistry, document scope, printer fit, packing, and shipping responsibilities are confirmed for the quoted product.`}
             </p>
             {/* Compliance badges */}
             <div className="flex flex-wrap gap-2 mb-6">
@@ -232,7 +219,7 @@ export default async function EUCountryPage({ params }: Props) {
                 Get {c.name} Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
-                {isPilot ? "Request Samples" : "Free Samples"}
+                Request Samples
               </Link>
               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
                 <Download className="w-4 h-4" /> Compliance Docs
@@ -265,7 +252,7 @@ export default async function EUCountryPage({ params }: Props) {
                 </div>
               )}
               <div className="flex items-center gap-2 ml-auto">
-                <span className="text-blue-200 text-xs">DDP · FOB · CIF available</span>
+                 <span className="text-blue-200 text-xs">FOB · CIF · delivered terms reviewed by destination, tax, and responsibility</span>
               </div>
             </div>
           </section>
@@ -311,10 +298,10 @@ export default async function EUCountryPage({ params }: Props) {
                 {/* Trust signals row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {[
-                    { icon: <Factory className="w-4 h-4 text-blue-600" />, label: "500M+", sub: "Rolls/year capacity" },
-                    { icon: <Users className="w-4 h-4 text-blue-600" />, label: "500+", sub: "Distributors served" },
-                    { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "80+", sub: "Countries supplied" },
-                    { icon: <Star className="w-4 h-4 text-blue-600" />, label: "15+", sub: "Years experience" },
+                    { icon: <Factory className="w-4 h-4 text-blue-600" />, label: "By RFQ", sub: "Capacity and production plan" },
+                    { icon: <Users className="w-4 h-4 text-blue-600" />, label: "By SKU", sub: "MOQ and packing review" },
+                    { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "By Route", sub: "Incoterm and delivery plan" },
+                    { icon: <Star className="w-4 h-4 text-blue-600" />, label: "Since 2008", sub: "Manufacturing experience" },
                   ].map((item) => (
                     <div key={item.label} className="bg-slate-50 border border-slate-200  p-4 text-center">
                       <div className="flex justify-center mb-2">{item.icon}</div>
@@ -365,8 +352,8 @@ export default async function EUCountryPage({ params }: Props) {
                     {[
                       { label: "Thermal Paper Rolls", href: "/products/thermal-paper-rolls" },
                       { label: "Thermal Labels", href: "/products/thermal-labels" },
-                      { label: "BPA-Free Products", href: "/compliance/bpa-free" },
-                      { label: "REACH/RoHS Compliance", href: "/compliance/reach-rohs" },
+                      { label: "Phenol Option Review", href: "/compliance/bpa-free" },
+                      { label: "REACH/RoHS Document Review", href: "/compliance/reach-rohs" },
                       { label: "Custom OEM / Private Label", href: "/oem-custom" },
                       { label: "Request Compliance Docs", href: "/contact" },
                       { label: "Request Quote", href: "/quote" },
@@ -386,7 +373,7 @@ export default async function EUCountryPage({ params }: Props) {
                     <h3 className="font-bold text-slate-900 text-sm">Talk to a Specialist</h3>
                   </div>
                   <p className="text-slate-500 text-xs mb-3">
-                    WhatsApp our {c.name} sales team directly. Response within 2 hours during business hours.
+                    Message our {c.name} sales team with your SKU, quantity, destination, and requested documents. The team will respond during business hours.
                   </p>
                   <a
                     href="https://wa.me/8618792771927"
@@ -453,20 +440,20 @@ export default async function EUCountryPage({ params }: Props) {
             <div className="flex items-center gap-3 mb-2">
               <FileCheck className="w-5 h-5 text-blue-600" />
               <h2 className="font-bold text-slate-900 text-2xl">
-                Compliance &amp; Certifications for {c.name}
+                 Compliance &amp; Document Review for {c.name}
               </h2>
             </div>
             <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              All compliance documents are issued by accredited third-party laboratories and updated annually. Request the full compliance pack for your procurement team within 24 hours.
+               Available documents are matched to the exact quoted material, intended use, destination, report scope, language need, and current validity. Request the relevant files for procurement review before approval.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
               {[
-                { label: "BPA-Free", desc: "EU 2024/3190 ban compliant", href: "/compliance/bpa-free" },
-                { label: "REACH/RoHS", desc: "SVHC compliant, Annex XVII", href: "/compliance/reach-rohs" },
-                { label: "ISO 9001:2015", desc: "Certified quality management", href: "/compliance/iso-9001" },
-                { label: "FSC Certified", desc: "Responsible forest sourcing", href: "/compliance/fsc-paper" },
-                { label: "EU Food Contact", desc: "Food-safe labeling compliant", href: "/compliance/eu-food-contact" },
-                { label: "SGS / Intertek", desc: "Third-party test reports", href: "/compliance/certificates" },
+                { label: "Phenol Options", desc: "Chemistry confirmed by grade", href: "/compliance/bpa-free" },
+                { label: "REACH/RoHS Review", desc: "Applicable scope checked by material", href: "/compliance/reach-rohs" },
+                { label: "Quality Documents", desc: "Available system files reviewed", href: "/compliance/iso-9001" },
+                { label: "Chain of Custody", desc: "Option confirmed by quoted SKU", href: "/compliance/fsc-paper" },
+                { label: "Food-Contact Review", desc: "Scope checked by construction and use", href: "/compliance/eu-food-contact" },
+                { label: "Test Reports", desc: "Matched to selected grade and scope", href: "/compliance/certificates" },
               ].map((item) => (
                 <Link key={item.label} href={item.href} className="bg-slate-50 border border-slate-200  p-4 hover:border-blue-300 hover:shadow-sm transition-all group text-center">
                   <div className="flex justify-center mb-2">
@@ -481,10 +468,10 @@ export default async function EUCountryPage({ params }: Props) {
             {/* Compliance pack CTA */}
             <div className="bg-blue-50 border border-blue-200  p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
-                <p className="font-bold text-slate-900 text-base mb-1">Request Full {c.name} Compliance Pack</p>
-                <p className="text-slate-500 text-sm">
-                  ISO 9001 certificate, BPA-free SGS test report, REACH declaration, TDS — all in one package. Sent within 24 hours.
-                </p>
+                 <p className="font-bold text-slate-900 text-base mb-1">Request Project Documents for {c.name}</p>
+                 <p className="text-slate-500 text-sm">
+                   Share the product grade, intended use, destination, and requested document list. Available reports and declarations will be matched to the quoted SKU and stated scope.
+                 </p>
               </div>
               <Link
                 href="/contact"
@@ -509,15 +496,15 @@ export default async function EUCountryPage({ params }: Props) {
                   Build Your {c.name} Brand
                 </h2>
                 <p className="text-slate-600 text-base leading-relaxed mb-6">
-                  Launch your own thermal paper brand in the {c.name} market with our end-to-end OEM service. Custom logo printing, branded packaging, Pantone color matching, and NDA protection — all included. MOQ from 5,000 rolls.
+                   Develop a private-label thermal paper range for the {c.name} market. Logo printing, branded packaging, color targets, language needs, confidentiality terms, MOQ, and sample timing are confirmed for the approved specification.
                 </p>
                 <div className="space-y-3 mb-6">
                   {[
                     `Custom logo and back-print for ${c.name} market branding`,
-                    "Pantone color matching — exact brand color reproduction",
-                    "Local language packaging (German, French, Dutch, Polish, etc.)",
-                    "NDA signed before any design work begins",
-                    "7-day branded sample turnaround",
+                     "Color target and tolerance confirmed with approved artwork",
+                     "Local-language packaging reviewed against buyer-approved copy",
+                     "Confidentiality terms available for project review",
+                     "Sample cost and turnaround confirmed by specification",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -533,12 +520,12 @@ export default async function EUCountryPage({ params }: Props) {
                 <h3 className="font-bold text-slate-900 text-lg mb-5">OEM Service Summary</h3>
                 <div className="space-y-4">
                   {[
-                    { label: "Minimum Order", value: "5,000 rolls" },
-                    { label: "Sample Turnaround", value: "7 business days" },
-                    { label: "Color Matching", value: "Pantone / CMYK" },
-                    { label: "Print Options", value: "Front + Back print" },
-                    { label: "Language Support", value: c.lang + " documentation" },
-                    { label: "NDA", value: "Signed before design" },
+                     { label: "Minimum Order", value: "Confirmed by SKU" },
+                     { label: "Sample Turnaround", value: "Confirmed by project" },
+                     { label: "Color Matching", value: "Approved target and tolerance" },
+                     { label: "Print Options", value: "Confirmed by construction" },
+                     { label: "Language Support", value: "Reviewed when required" },
+                     { label: "Confidentiality", value: "Terms available for review" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center
  justify-between py-2 border-b border-slate-200 last:border-0">
@@ -575,7 +562,7 @@ export default async function EUCountryPage({ params }: Props) {
 
         <CTABanner
           title={`Ready to Source for ${c.name}?`}
-          subtitle={`Get a custom quote with full EU compliance documentation. ${c.shipping ? `Shipping: ${c.shipping}.` : ""} Free samples available.`}
+           subtitle={`Request a project-specific quote covering material, documents, samples, packing, Incoterm, destination, and responsibility allocation.${c.shipping ? ` Route options: ${c.shipping}.` : ""}`}
         />
       </main>
       <Footer />

@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zhixin Paper Website
 
-## Getting Started
+Next.js App Router website for Zhixin Paper's thermal paper roll and thermal label catalog, regional and industry pages, compliance-document review content, inquiry workflows, blog, case studies, and internal administration.
 
-First, run the development server:
+## Requirements
+
+- Node.js and npm
+- Environment variables copied from `.env.example`
+- A local libSQL file for development, or Turso credentials for a hosted database
+
+## Local Development
 
 ```bash
+npm install
+npm run db:init
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The development server uses the URL printed by Next.js. The database defaults to `data/zhixinpaper.db` when `TURSO_DATABASE_URL` is not set.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality Gates
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the repository-defined checks before release:
 
-## Learn More
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+The test suite covers product-explorer behavior, optimization-log behavior, route and architecture contracts, and inquiry-delivery status handling.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Application Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app`: public pages, admin pages, metadata routes, and API routes
+- `src/components`: shared layout, UI, product, and admin components
+- `src/lib/data.ts`: shared product, industry, region, compliance, and blog index data
+- `src/lib/blog-content.ts`: long-form static blog content
+- `src/lib/db`: Drizzle schema and libSQL client
+- `src/lib/inquiry-delivery.ts`: inquiry acceptance and notification result contract
+- `public`: static images, video, icons, and other public assets
+- `tests`: Node-based unit and contract tests
+- `scripts`: database, administration, migration, and operational scripts
 
-## Deploy on Vercel
+## Environment Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use `.env.example` as the source of truth for variable names. Main groups are:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Database: `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`
+- Admin session: `ADMIN_SESSION_SECRET` or legacy `NEXTAUTH_SECRET`
+- Media storage: Cloudflare R2 variables
+- Inquiry notification: ServerChan and/or Resend variables
+- Canonical site URL: `NEXT_PUBLIC_SITE_URL`
+- Optional Feishu reader variables
+
+Do not commit `.env.local`, credentials, API keys, database tokens, or storage secrets.
+
+## Content And Compliance Rules
+
+Public claims about certificates, regulatory scope, product performance, compatibility, order quantity, samples, delivery, customs, and destination terms must be tied to the quoted product construction and current project evidence. Do not publish fixed certificate identifiers, universal compliance claims, or unconditional commercial promises without approved documentation.
+
+## Database And Admin
+
+`npm run db:init` initializes the configured database. Admin routes live under `/admin` and require a production-grade session secret. Media uploads require the configured R2 account, bucket, and public URL.
+
+## Release Notes
+
+A successful local build does not deploy the site. Production publishing, database changes, and production optimization-log entries are separate authorized operations and require post-release verification of public pages, forms, sitemap, canonical URLs, and genuine 404 responses.

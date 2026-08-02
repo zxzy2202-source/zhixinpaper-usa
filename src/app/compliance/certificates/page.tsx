@@ -8,21 +8,21 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Certificates",
-  description: "Download thermal paper compliance certificates: ISO 9001:2015, BPA-free declaration, REACH SVHC statement, FSC chain of custody, EU food contact, FDA 21 CFR.",
-  keywords: "thermal paper certificates download, ISO certificate thermal paper, BPA free thermal paper certificate",
+  title: "Thermal Paper Documentation Requests",
+  description: "Request current, product-specific thermal paper declarations, test reports, and management-system documents for project review.",
+  keywords: "thermal paper documentation request, thermal paper test reports, product declaration thermal paper",
   alternates: { canonical: canonicalUrl("/compliance/certificates") },
 };
 
 const certificates = [
-  { name: "ISO 9001:2015 Certificate", scope: "Quality Management System — Full manufacturing scope", validity: "Valid through 2026", format: "PDF", size: "245 KB" },
-  { name: "BPA-Free Declaration", scope: "All standard thermal paper rolls and labels", validity: "Current", format: "PDF", size: "128 KB" },
-  { name: "REACH SVHC Statement", scope: "All products — SVHC substances below 0.1% threshold", validity: "Updated annually", format: "PDF", size: "156 KB" },
-  { name: "RoHS Compliance Declaration", scope: "All thermal labels and electronic-compatible products", validity: "Current", format: "PDF", size: "134 KB" },
-  { name: "FSC Chain of Custody Certificate", scope: "FSC-certified base paper grades", validity: "Valid through 2026", format: "PDF", size: "312 KB" },
-  { name: "EU Food Contact Declaration", scope: "Food-safe thermal paper — EU Regulation 10/2011", validity: "Current", format: "PDF", size: "189 KB" },
-  { name: "FDA 21 CFR Compliance", scope: "US food contact thermal paper and labels", validity: "Current", format: "PDF", size: "167 KB" },
-  { name: "Bisphenol-S Free Declaration", scope: "BPS-free grades — EU market", validity: "Current", format: "PDF", size: "142 KB" },
+  { name: "Quality Management Documentation", scope: "Available scope and current status confirmed during project review" },
+  { name: "Bisphenol Declaration", scope: "Provided for the selected thermal paper or label grade when available" },
+  { name: "REACH / SVHC Statement", scope: "Reviewed against the selected material and current supplier documentation" },
+  { name: "RoHS Declaration", scope: "Provided when relevant to the product construction and intended application" },
+  { name: "Responsible Fiber Documentation", scope: "Availability depends on the approved base paper and chain-of-custody scope" },
+  { name: "Food-Contact Documentation", scope: "Requires review of material, intended contact, jurisdiction, and current evidence" },
+  { name: "Safety Data or Technical Data", scope: "Supplied according to product type, document availability, and project need" },
+  { name: "Batch or Product Test Report", scope: "Test items and acceptance criteria agreed before production where applicable" },
 ];
 
 export default function CertificatesPage() {
@@ -41,10 +41,10 @@ export default function CertificatesPage() {
             <span className="text-white">Certificates</span>
           </nav>
           <div className="max-w-3xl">
-            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Documentation Centre</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Compliance Certificates & Declarations</h1>
+            <span className="inline-block bg-blue-500/30 text-blue-200 text-sm font-medium px-3 py-1 rounded-full mb-4">Documentation Request Centre</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Product Documentation for Buyer Review</h1>
             <p className="text-xl text-blue-100 leading-relaxed">
-              Download our full suite of compliance certificates, declarations, and test reports. All documents are current and available for use in your own compliance submissions.
+              Request the current documents relevant to your selected product, intended use, destination market, and approved specification. Availability and scope are confirmed during project review.
             </p>
           </div>
         </div>
@@ -52,7 +52,8 @@ export default function CertificatesPage() {
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">Available Documents</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-3">Documents Commonly Requested</h2>
+          <p className="mb-8 max-w-3xl text-sm leading-6 text-slate-500">Documents are not universal across every grade. Send the product, application, destination, and required standard so the team can confirm the current document scope.</p>
           <div className="space-y-4">
             {certificates.map((cert, i) => (
               <div key={i} className="flex items-center justify-between bg-white border border-slate-200  p-5 shadow-sm hover:shadow-md transition-shadow">
@@ -63,11 +64,11 @@ export default function CertificatesPage() {
                   <div>
                     <h3 className="font-semibold text-slate-800">{cert.name}</h3>
                     <p className="text-slate-500 text-sm">{cert.scope}</p>
-                    <p className="text-slate-400 text-xs mt-1">{cert.validity} · {cert.format} · {cert.size}</p>
+                    <p className="text-slate-400 text-xs mt-1">Scope and current version confirmed for the reviewed project</p>
                   </div>
                 </div>
                 <Link href="/contact" className="flex-shrink-0 bg-blue-600 text-white text-sm font-medium px-4 py-2  hover:bg-blue-700 transition-colors">
-                  Request
+                  Request Review
                 </Link>
               </div>
             ))}

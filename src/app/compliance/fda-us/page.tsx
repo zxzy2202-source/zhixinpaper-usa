@@ -9,8 +9,8 @@ import { canonicalUrl } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: "FDA Compliant Thermal Paper | US Food Contact Labels",
-  description: "FDA 21 CFR compliant thermal paper and labels for US food contact applications. BPA-free, food-safe thermal paper for US distributors and food manufacturers.",
+  title: "US Food-Contact Thermal Paper Document Review",
+  description: "Review thermal paper and label constructions for US food-contact projects by intended use, applicable 21 CFR scope, supporting documents, and sample validation.",
   keywords: "FDA compliant thermal paper, US food contact labels, FDA 21 CFR thermal paper",
   alternates: { canonical: canonicalUrl("/compliance/fda-us") },
 };
@@ -41,12 +41,12 @@ export default function FDAUSPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">FDA 21 CFR Compliance</h2>
+               <h2 className="text-2xl font-bold text-slate-800 mb-6">FDA 21 CFR Scope Review</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
                 The US Food and Drug Administration (FDA) regulates food contact materials under 21 CFR (Code of Federal Regulations). For thermal paper and labels, the relevant sections cover paper and paperboard components (21 CFR 176) and adhesive components (21 CFR 175).
               </p>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Our FDA-compliant grades use only substances listed in the relevant 21 CFR sections, ensuring that migration to food does not exceed safe limits under intended conditions of use.
+                 Candidate grades are reviewed against the complete construction, intended conditions of use, and the applicable provisions. Any declaration or test must identify the covered material, conditions, method, and current report scope; availability does not establish universal approval for every food-contact application.
               </p>
               <div className="bg-blue-50  p-6 border border-blue-100 mt-6">
                 <h3 className="font-semibold text-slate-800 mb-3">Applicable Regulations</h3>
@@ -56,7 +56,7 @@ export default function FDAUSPage() {
                     "FDA 21 CFR 176.180 — Components of paper and paperboard (aqueous contact)",
                     "FDA 21 CFR 175.105 — Adhesives",
                     "FDA 21 CFR 175.125 — Pressure-sensitive adhesives",
-                    "California Proposition 65 — No required warnings",
+                     "California Proposition 65 — Review selected grade and warning scope",
                   ].map((reg, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0 mt-2" />
@@ -88,7 +88,7 @@ export default function FDAUSPage() {
       </section>
 
     </main>
-      <CTABanner title="Need FDA Compliance Documentation?" subtitle="Request our FDA 21 CFR compliance declarations and test reports for the US market." primaryLabel="Get Documents" secondaryLabel="Request a Quote" />
+       <CTABanner title="Need US Food-Contact Documents?" subtitle="Request a review of the exact material grade, intended use, applicable 21 CFR scope, current reports, and sample plan." primaryLabel="Request Documents" secondaryLabel="Request a Quote" />
     <Footer />
     </>
   );

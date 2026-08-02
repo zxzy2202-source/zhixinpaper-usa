@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { quoteRequests } from "@/lib/db/schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { notifyAll } from "@/lib/notify";
+import { buildInquiryResponse } from "@/lib/inquiry-delivery";
 import { COMPANY } from "@/lib/data";
 
 function getResend() {
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
       ? products.join(", ")
       : "Not specified";
 
-    // Save to database
+    let stored = false;
     try {
       await db.insert(quoteRequests).values({
         firstName,
@@ -68,12 +69,12 @@ export async function POST(request: NextRequest) {
         source: source || "quote_form",
         ipAddress: request.headers.get("x-forwarded-for") || null,
       });
+      stored = true;
     } catch (dbError) {
       console.error("DB insert error (quote):", dbError);
     }
 
-    // 销售通知：Server酱（微信秒推）+ Resend 邮件兜底，必须 await
-    await notifyAll({
+    const notification = await notifyAll({
       kind: "quote",
       name: `${firstName} ${lastName}`,
       email,
@@ -92,10 +93,22 @@ export async function POST(request: NextRequest) {
       source: source || "quote_form",
     });
 
-    // 客户自动回复
+    const acceptedResponse = buildInquiryResponse({
+      stored,
+      notificationSent: notification.anyOk,
+      autoReplySent: false,
+    });
+    if (!acceptedResponse) {
+      return NextResponse.json(
+        { error: "We could not confirm your quote request was received. Please contact us directly by email or WhatsApp." },
+        { status: 503 }
+      );
+    }
+
+    let autoReplySent = false;
     try {
       const resend = getResend();
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: `${COMPANY.name} <Sales@zxpapers.com>`,
         to: [email],
         subject: `Quote Request Received — ${COMPANY.name}`,
@@ -108,7 +121,7 @@ export async function POST(request: NextRequest) {
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; padding: 24px; border-radius: 0 0 8px 8px;">
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">Dear ${firstName},</p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
-              Thank you for your quote request. Our sales team has received your enquiry and will prepare a detailed quotation within <strong>24 business hours</strong>.
+              Thank you for your quote request. Our sales team has received your enquiry and will review the specifications, destination, and project requirements before replying.
             </p>
             <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0;">
               <p style="font-weight: bold; color: #475569; margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Your Quote Summary:</p>
@@ -145,11 +158,15 @@ export async function POST(request: NextRequest) {
         </div>
       `,
       });
+      if (error) {
+        throw new Error(error.message);
+      }
+      autoReplySent = true;
     } catch (e) {
       console.warn("[quote] auto-reply failed:", (e as Error).message);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ...acceptedResponse, autoReplySent });
   } catch (error) {
     console.error("Quote API error:", error);
     return NextResponse.json(

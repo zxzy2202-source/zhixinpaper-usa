@@ -12,7 +12,7 @@ const FIELDS: Array<{
   type?: "text" | "textarea";
 }> = [
   { key: "siteTitle", label: "全站默认标题", help: "未单独配置标题的页面使用", placeholder: "Thermal Paper Manufacturer | ..." },
-  { key: "siteDescription", label: "全站默认描述", type: "textarea", placeholder: "ISO 9001 certified manufacturer of..." },
+  { key: "siteDescription", label: "全站默认描述", type: "textarea", placeholder: "Thermal paper rolls and labels for distributors..." },
   { key: "keywords", label: "默认关键词", help: "逗号分隔", placeholder: "thermal paper, thermal labels, ..." },
   { key: "ogImage", label: "OG 分享图 URL", help: "Facebook/LinkedIn 分享时显示，1200x630 最佳", placeholder: "https://your-r2.../og.jpg" },
   { key: "twitterHandle", label: "Twitter Handle", help: "带 @", placeholder: "@yourbrand" },

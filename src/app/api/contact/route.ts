@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { contactInquiries } from "@/lib/db/schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { notifyAll } from "@/lib/notify";
+import { buildInquiryResponse } from "@/lib/inquiry-delivery";
 import { COMPANY } from "@/lib/data";
 
 function getResend() {
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to database
+    let stored = false;
     try {
       await db.insert(contactInquiries).values({
         firstName,
@@ -47,13 +48,12 @@ export async function POST(request: NextRequest) {
         source: "contact_form",
         ipAddress: request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || null,
       });
+      stored = true;
     } catch (dbError) {
       console.error("DB insert error (contact):", dbError);
-      // Don't fail the request if DB write fails — notification still goes out
     }
 
-    // 销售通知：Server酱（微信秒推）+ Resend 邮件兜底，必须 await
-    await notifyAll({
+    const notification = await notifyAll({
       kind: "contact",
       name: `${firstName} ${lastName}`,
       email,
@@ -64,10 +64,22 @@ export async function POST(request: NextRequest) {
       source: "contact_form",
     });
 
-    // 客户自动回复（独立通道，失败不影响询盘流程）
+    const acceptedResponse = buildInquiryResponse({
+      stored,
+      notificationSent: notification.anyOk,
+      autoReplySent: false,
+    });
+    if (!acceptedResponse) {
+      return NextResponse.json(
+        { error: "We could not confirm your message was received. Please contact us directly by email or WhatsApp." },
+        { status: 503 }
+      );
+    }
+
+    let autoReplySent = false;
     try {
       const resend = getResend();
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: `${COMPANY.name} <Sales@zxpapers.com>`,
         to: [email],
         subject: `We received your message — ${COMPANY.name}`,
@@ -80,7 +92,7 @@ export async function POST(request: NextRequest) {
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; padding: 24px; border-radius: 0 0 8px 8px;">
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">Dear ${firstName},</p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
-              Thank you for reaching out to ${COMPANY.name}. We have received your message and our sales team will respond within <strong>24 business hours</strong>.
+              Thank you for reaching out to ${COMPANY.name}. We have received your message. Our sales team will review it and follow up based on your project requirements.
             </p>
             <p style="color: #1e293b; font-size: 15px; line-height: 1.6;">
               For urgent inquiries, you can also reach us via:
@@ -105,11 +117,15 @@ export async function POST(request: NextRequest) {
         </div>
       `,
       });
+      if (error) {
+        throw new Error(error.message);
+      }
+      autoReplySent = true;
     } catch (e) {
       console.warn("[contact] auto-reply failed:", (e as Error).message);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ...acceptedResponse, autoReplySent });
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json(

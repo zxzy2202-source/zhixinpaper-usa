@@ -19,7 +19,7 @@ const FAQ_ITEMS = [
       },
       {
         q: "Do you offer BPA-free thermal paper?",
-        a: "Yes. All our standard products are available in BPA-free versions. BPA-free thermal paper uses alternative developers (such as Vitamin C or BPS-free formulations) and is required for EU market compliance under REACH regulations. We provide full test reports from accredited EU laboratories.",
+        a: "BPA-free formulations are available for selected grades. The correct developer chemistry and supporting test documents should be confirmed against the product specification, destination market, and intended application before ordering.",
         link: { href: "/compliance/bpa-free", text: "BPA-Free Compliance Details" },
       },
       {
@@ -39,23 +39,23 @@ const FAQ_ITEMS = [
     questions: [
       {
         q: "What is the minimum order quantity (MOQ)?",
-        a: "MOQ varies by product: standard thermal rolls from 50,000 rolls, thermal labels from 100,000 labels, custom printed products from 50,000 units. Sample orders are available before bulk commitment. See our MOQ guide for full details.",
+        a: "MOQ depends on paper grade, dimensions, packing, printing, and production setup. Share the product specification and forecast volume so sales can confirm the current project minimum and available sample path.",
         link: { href: "/oem-custom/moq-guide", text: "View MOQ Guide" },
       },
       {
         q: "How do I request a quote?",
-        a: "Use our online quote form, email us at Sales@zxpapers.com, or contact via WhatsApp (+86 187 9277 1927). Include product type, size, quantity, and target market. We respond within 24 business hours.",
+        a: "Use our online quote form, email us at Sales@zxpapers.com, or contact via WhatsApp (+86 187 9277 1927). Include product type, size, quantity, destination, and target market so the team can qualify the request and confirm the next step.",
         link: { href: "/quote", text: "Get a Quote Now" },
       },
       {
         q: "What is the lead time for production?",
-        a: "Standard products: 10–15 business days. Custom printed or OEM products: 15–20 business days. Rush orders may be available for standard products. All orders ship FOB Qingdao.",
+        a: "Production lead time is confirmed after the grade, dimensions, printing, packing, quantity, artwork approval, and current capacity are reviewed. The quotation or order confirmation should be treated as the project-specific schedule.",
         link: null,
       },
       {
-        q: "Can I request free samples before placing a bulk order?",
-        a: "Yes. We offer free samples for qualified distributors and importers. Sample delivery takes 3–7 business days via DHL or FedEx. Use our sample request form to get started.",
-        link: { href: "/samples", text: "Request Free Samples" },
+        q: "Can I request samples before placing a bulk order?",
+        a: "Yes. Sample availability, charges, courier method, and delivery estimate are confirmed after the product specification, testing purpose, and destination are reviewed. Use our sample request form to provide those details.",
+        link: { href: "/samples", text: "Request Samples" },
       },
     ],
   },
@@ -64,22 +64,22 @@ const FAQ_ITEMS = [
     questions: [
       {
         q: "Are your products REACH compliant?",
-        a: "Yes. All products are tested for REACH SVHC (Substances of Very High Concern) compliance. We provide full SVHC declarations and test reports from accredited EU laboratories. This is required for all products sold in the European Union.",
+        a: "REACH and SVHC documentation must be reviewed for the selected material, grade, intended use, and current regulatory scope. Request the applicable declaration or test evidence for your project before approval.",
         link: { href: "/compliance/reach-rohs", text: "REACH & RoHS Details" },
       },
       {
         q: "Do you have ISO 9001 certification?",
-        a: "Yes. Our factory is ISO 9001:2015 certified since 2012. Annual third-party surveillance audits ensure continuous compliance. Certificates are available for download from our compliance page.",
+        a: "A quality management certificate can be reviewed on request. Buyers should verify the current certificate holder, issuer, validity period, and scope against the manufacturing entity and products covered by their order.",
         link: { href: "/compliance/iso-9001", text: "ISO 9001 Certificate" },
       },
       {
         q: "Can you provide FDA compliance documentation for the US market?",
-        a: "Yes. We provide FDA compliance documentation for food contact applications. Our BPA-free products meet FDA 21 CFR requirements for food contact materials. This is particularly important for grocery and food service applications.",
+        a: "For US food-service or food-contact projects, request a grade- and application-specific document review. Suitability depends on the paper formulation, printed or unprinted use, contact conditions, and the current evidence applicable to the intended use.",
         link: { href: "/compliance/fda-us", text: "FDA Compliance Details" },
       },
       {
         q: "Do you have FSC certification?",
-        a: "Yes. We offer FSC Chain of Custody certified paper for customers who require sustainable sourcing documentation. FSC logo can be printed on products and packaging upon request.",
+        a: "FSC-related sourcing options may be available for selected paper and supply chains. Any FSC claim or logo use requires verification of the current certificate holder, scope, product claim, and trademark approval before printing.",
         link: { href: "/compliance/fsc-paper", text: "FSC Certification Details" },
       },
     ],
@@ -89,7 +89,7 @@ const FAQ_ITEMS = [
     questions: [
       {
         q: "Can you produce thermal paper with our brand?",
-        a: "Yes. We offer full private label and OEM services including custom packaging design, brand name printing, and logo on rolls. MOQ for private label starts from 50,000 units. We have served 200+ private label customers globally.",
+        a: "Private-label and OEM options can include packaging design, brand printing, and roll marking. Feasibility and MOQ are confirmed after the material, dimensions, artwork, printing process, packing, and forecast volume are reviewed.",
         link: { href: "/oem-custom/private-label", text: "Private Label Services" },
       },
       {
@@ -104,12 +104,12 @@ const FAQ_ITEMS = [
     questions: [
       {
         q: "What shipping methods do you use?",
-        a: "We ship via sea freight (FCL/LCL) for large orders and air freight or express (DHL/FedEx) for smaller orders. All sea freight shipments are FOB Qingdao. We work with major freight forwarders and can arrange door-to-door delivery.",
+        a: "Sea, air, express, and door-delivery options can be reviewed according to shipment size and destination. The quotation should confirm the selected carrier or forwarder, Incoterm, customs responsibilities, and delivery scope.",
         link: null,
       },
       {
         q: "Do you ship to Europe, USA, and Canada?",
-        a: "Yes. We regularly ship to all major European countries (Germany, UK, France, Netherlands, Poland), the United States, and Canada. We provide all necessary export documentation including commercial invoices, packing lists, and certificates of origin.",
+        a: "We review enquiries for Europe, the United States, and Canada. Export documents, product evidence, shipping terms, and destination requirements are confirmed for each order before acceptance.",
         link: { href: "/eu", text: "Europe Market Details" },
       },
     ],

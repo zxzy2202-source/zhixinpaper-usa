@@ -27,6 +27,7 @@ export default function SamplesClient() {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [autoReplySent, setAutoReplySent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
@@ -64,11 +65,12 @@ export default function SamplesClient() {
         body: JSON.stringify({ ...form, products: selectedProducts }),
       });
 
+      const data = await res.json();
       if (!res.ok) {
-        const data = await res.json();
         throw new Error(data.error || "Failed to submit");
       }
 
+      setAutoReplySent(Boolean(data.autoReplySent));
       setSubmitted(true);
     } catch (err) {
       setSubmitError(
@@ -94,12 +96,14 @@ export default function SamplesClient() {
               Sample request confirmed
             </h1>
             <p className="text-[#4f5f5a] mb-2">
-              Thank you, <strong>{form.firstName}</strong>! Our team will prepare
-              your sample kit within <strong>2–3 business days</strong>.
+              Thank you, <strong>{form.firstName}</strong>. Our team has received your request and will review product availability, shipping details, and qualification requirements.
             </p>
             <p className="text-[#4f5f5a] text-sm mb-8">
-              A confirmation email has been sent to <strong>{form.email}</strong>.
-              We will contact you with shipping details once dispatched.
+              {autoReplySent ? (
+                <>A confirmation email was sent to <strong>{form.email}</strong>. We will contact you after the sample plan has been reviewed.</>
+              ) : (
+                <>Your request is recorded, but we could not confirm delivery of an automatic email. Contact us directly if the request is urgent.</>
+              )}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
@@ -131,16 +135,16 @@ export default function SamplesClient() {
             <div className="flex items-center gap-3 mb-4">
               <span className="h-0.5 w-8 bg-[#9c661d]" />
               <span className="text-xs font-bold text-[#0f5f5c]">
-                Free Samples
+                Sample Evaluation
               </span>
             </div>
             <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
               Request production samples before bulk order
             </h1>
             <p className="text-[#4f5f5a] text-lg max-w-2xl">
-              Test our thermal paper rolls and labels before placing a bulk
-              order. Free samples available for qualified distributors and
-              importers in Europe, USA, and Canada.
+              Test the selected thermal paper or label construction before a bulk
+              order. Availability, sample charges, preparation, documents, and
+              courier terms are confirmed after reviewing the project and destination.
             </p>
           </div>
         </section>
@@ -324,7 +328,7 @@ export default function SamplesClient() {
                           Submitting...
                         </>
                       ) : (
-                        "Request Free Samples"
+                        "Submit Sample Request"
                       )}
                     </button>
                   </form>
@@ -340,23 +344,23 @@ export default function SamplesClient() {
                     {[
                       {
                         icon: <Package className="w-4 h-4" />,
-                        title: "Free Samples",
-                        desc: "No charge for standard samples for qualified buyers",
+                        title: "Sample Terms",
+                        desc: "Availability and charges confirmed after product and destination review",
                       },
                       {
                         icon: <Truck className="w-4 h-4" />,
                         title: "Shipping",
-                        desc: "DHL/FedEx express, 3-5 business days worldwide",
+                        desc: "Courier method and delivery estimate confirmed by destination",
                       },
                       {
                         icon: <Star className="w-4 h-4" />,
                         title: "Quality",
-                        desc: "Production-grade samples from actual production runs",
+                        desc: "Production-intent construction confirmed for the evaluation plan",
                       },
                       {
                         icon: <CheckCircle2 className="w-4 h-4" />,
                         title: "Certificates",
-                        desc: "Compliance certificates included with samples",
+                        desc: "Applicable documents confirmed by grade, use, and current scope",
                       },
                     ].map((item) => (
                       <div key={item.title} className="flex items-start gap-3">

@@ -13,10 +13,11 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Canada Thermal Paper Supplier — Health Canada Compliant | Zhixin Paper",
+  title: "Canada Thermal Paper Rolls & Labels Supplier | Zhixin Paper",
   description:
-    "BPA-free thermal paper rolls and labels for Canadian distributors. Health Canada compliant, Cannabis Act labels, bilingual EN/FR documentation. DDP shipping via Vancouver or Montreal.",
+    "Thermal paper rolls and labels for Canadian distributors. Review material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping terms by project.",
   path: "/ca",
+  locale: "en_CA",
   keywords: [
     "thermal paper supplier Canada",
     "BPA free thermal paper Canada",
@@ -36,69 +37,69 @@ const CA_PRODUCTS = [
     title: "Thermal Paper Rolls",
     href: "/products/thermal-paper-rolls",
     slotKey: "home.product.thermal-rolls" as const,
-    alt: "BPA-free thermal paper rolls for Canadian retail and POS systems",
-    copy: "Standard POS, payment terminal, ATM, lottery, and gaming rolls — BPA-free, Health Canada compliant, compatible with all Canadian retail and gaming printer brands.",
-    specs: ["3 1/8\" & 80mm POS rolls", "BPA-free / BPS-free grades", "Lottery & gaming certified"],
+    alt: "Thermal paper rolls configured for Canadian retail and POS systems",
+    copy: "POS, payment-terminal, ATM, lottery, and gaming rolls configured by printer model, dimensions, winding, paper grade, and packing plan.",
+    specs: ["3 1/8 inch and metric formats", "Phenol options by selected grade", "Device fit confirmed by model and sample"],
   },
   {
     title: "Thermal Labels",
     href: "/products/thermal-labels",
     slotKey: "home.product.thermal-labels" as const,
     alt: "Direct thermal shipping and barcode labels for Canadian logistics",
-    copy: "Direct thermal labels for shipping, barcode, retail, cannabis, and food applications. Cannabis Act compliant label options for all provinces. Bilingual packaging available.",
-    specs: ["4x6\" & 100×150mm shipping", "Cannabis Act compliant die-cuts", "Permanent & removable adhesive"],
+    copy: "Direct thermal labels for shipping, barcode, retail, regulated, and food-label projects. Bilingual artwork, adhesive, construction, and document scope are confirmed by application.",
+    specs: ["4x6 and 100x150mm formats", "Regulated-label artwork review", "Permanent and removable adhesive options"],
   },
 ];
 
 const CA_COMPLIANCE = [
-  { label: "Health Canada", desc: "Compliant substrates & documentation", href: "/compliance/fda-us" },
-  { label: "Cannabis Act", desc: "Provincial labeling compliance", href: "/ca/cannabis-labels" },
-  { label: "BPA-Free", desc: "BPA/BPS-free certified by SGS", href: "/compliance/bpa-free" },
-  { label: "ISO 9001:2015", desc: "Certified quality management", href: "/compliance/iso-9001" },
-  { label: "FSC Certified", desc: "Responsible forest sourcing", href: "/compliance/fsc-paper" },
-  { label: "CEPA Compliant", desc: "Canadian Environmental Protection Act", href: "/compliance/reach-rohs" },
+  { label: "Canadian Material Review", desc: "Chemical and intended-use scope checked by grade", href: "/compliance/fda-us" },
+  { label: "Regulated Labels", desc: "Federal and provincial requirements reviewed", href: "/ca/cannabis-labels" },
+  { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
+  { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
+  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "CEPA Scope Review", desc: "Material and chemical scope checked by project", href: "/compliance/reach-rohs" },
 ];
 
 const CA_LOGISTICS = [
-  { step: "Order Confirmed", time: "Day 0", detail: "Quote accepted, production slot reserved" },
-  { step: "Production & QC", time: "Days 1–10", detail: "Manufacturing with ISO 9001 quality checks" },
-  { step: "Export Clearance", time: "Days 11–13", detail: "FOB Qingdao — Chinese customs clearance" },
-  { step: "Sea Freight", time: "Days 14–28", detail: "Qingdao → Vancouver (10–15 days) or Montreal (22–26 days)" },
-  { step: "DDP Delivery", time: "Days 29–33", detail: "Customs cleared, delivered to your Canadian warehouse" },
+  { step: "Specification & Quote", time: "Project stage", detail: "Confirm SKU, quantity, packing, destination, Incoterm, and responsibilities" },
+  { step: "Artwork or Sample", time: "When required", detail: "Approve bilingual artwork and production-intent samples before bulk release" },
+  { step: "Production & QC", time: "After approval", detail: "Production timing follows the approved specification and current capacity" },
+  { step: "Export & Transport", time: "After booking", detail: "Port, route, and carrier schedule are confirmed in the shipment plan" },
+  { step: "Import & Delivery", time: "By agreed Incoterm", detail: "Customs, taxes, and final-delivery responsibilities follow the written quotation" },
 ];
 
 const CA_FAQ = [
   {
-    q: "Are your thermal paper products compliant with Canadian regulations?",
-    a: "Yes. Our thermal paper products are manufactured with BPA-free coatings and comply with the Canadian Environmental Protection Act (CEPA). We provide full Health Canada compliance documentation for applicable product grades, including BPA-free certifications and third-party SGS test reports.",
+    q: "How are Canadian material and regulatory requirements reviewed?",
+    a: "The exact material grade, intended use, chemical scope, province, and current supporting documents are reviewed before approval. Available documents depend on the selected construction and report scope rather than applying universally to every product.",
   },
   {
-    q: "Do you provide bilingual English/French documentation for Quebec and federal requirements?",
-    a: "Yes. We provide bilingual EN/FR compliance documentation, including BPA-free certificates, ISO 9001 certificates, technical data sheets, and packaging labels. This is particularly important for Quebec-based distributors and for meeting federal bilingual labeling requirements.",
+    q: "Can you provide English and French artwork or documents?",
+    a: "English and French artwork or project documents can be reviewed when required. The buyer supplies or approves regulated wording and translations, and the final deliverables are stated in the quotation.",
   },
   {
-    q: "Can you supply Cannabis Act compliant labels for Canadian provinces?",
-    a: "Yes. We manufacture thermal labels that meet the Cannabis Act and provincial regulations for Ontario (OCS), British Columbia (BCLDB), Alberta (AGLC), Quebec (SQDC), and all other provinces. Labels include mandatory health warnings, THC symbols, excise stamps where applicable, and bilingual text as required.",
+    q: "Can you supply labels for regulated cannabis products?",
+    a: "We can manufacture labels to buyer-approved specifications. The buyer should provide current federal, provincial, product-class, bilingual, warning, symbol, variable-data, and packaging requirements for review before production.",
   },
   {
-    q: "Do you offer DDP shipping to Canadian addresses?",
-    a: "Yes. We offer DDP (Delivered Duty Paid) shipping to any Canadian destination via Vancouver (Prince Rupert) or Montreal ports. All customs duties, GST/HST, and clearance fees are handled on our side — you receive goods at your warehouse door with no additional charges.",
+    q: "Can delivered shipping terms be quoted for Canada?",
+    a: "Delivered terms may be quoted after destination, classification, duties, GST or HST, customs responsibilities, and inland delivery are reviewed. The written quotation states included costs and each party's responsibilities.",
   },
   {
-    q: "What are your delivery times to Canada?",
-    a: "Sea freight from Qingdao to Vancouver takes 10–15 days, making Western Canada our fastest North American route. Montreal delivery takes 22–26 days. With 10–15 days production, total lead time is approximately 25–40 days depending on destination. Air freight is available for urgent orders.",
+    q: "How is the delivery schedule confirmed?",
+    a: "The schedule is confirmed after specification and artwork approval, current capacity review, carton data, carrier booking, destination, customs scope, and the agreed Incoterm are known.",
   },
   {
     q: "What is the minimum order quantity for Canadian buyers?",
-    a: "MOQ is 10,000 rolls for standard POS rolls or 50,000 pieces for thermal labels. We offer flexible pallet-load (LCL) pricing for smaller orders and full container load (FCL) pricing for volume buyers. Samples are available for first-time buyers to verify quality before committing to larger volumes.",
+    a: "MOQ is confirmed by dimensions, material, printing, die-cut or tooling needs, packing, and annual volume. Share the target SKU and quantity so the quotation can state the applicable minimum and price breakpoints.",
   },
 ];
 
 const TRUST_SIGNALS = [
-  { icon: <Factory className="w-4 h-4 text-red-600" />, label: "500M+", sub: "Rolls/year capacity" },
-  { icon: <Users className="w-4 h-4 text-red-600" />, label: "500+", sub: "Distributors served" },
-  { icon: <Globe className="w-4 h-4 text-red-600" />, label: "80+", sub: "Countries supplied" },
-  { icon: <Star className="w-4 h-4 text-red-600" />, label: "15+", sub: "Years experience" },
+  { icon: <Factory className="w-4 h-4 text-red-600" />, label: "By RFQ", sub: "Capacity and production plan" },
+  { icon: <Users className="w-4 h-4 text-red-600" />, label: "By SKU", sub: "MOQ and packing review" },
+  { icon: <Globe className="w-4 h-4 text-red-600" />, label: "By Route", sub: "Incoterm and delivery plan" },
+  { icon: <Star className="w-4 h-4 text-red-600" />, label: "Since 2008", sub: "Manufacturing experience" },
 ];
 
 export default function CanadaPage() {
@@ -145,10 +146,10 @@ export default function CanadaPage() {
               </div>
             </div>
             <p className="text-red-50/90 text-lg max-w-2xl mb-5 leading-relaxed">
-              Health Canada compliant, BPA-free thermal paper rolls and labels for Canadian distributors and importers. Cannabis Act compliant labels for all provinces. Bilingual EN/FR documentation available. DDP shipping via Vancouver (10–15 days) or Montreal (22–26 days).
+              Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
-              {["Health Canada Compliant", "BPA-Free / BPS-Free", "Cannabis Act Labels", "ISO 9001", "DDP Canada", "Bilingual EN/FR Docs", "FSC Certified"].map((f) => (
+              {["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"].map((f) => (
                 <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white shadow-sm">
                   <CheckCircle2 className="w-3 h-3 text-red-300" />
                   {f}
@@ -160,7 +161,7 @@ export default function CanadaPage() {
                 Get Canada Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
-                Free Samples
+                Request Samples
               </Link>
             </div>
           </div>
@@ -187,7 +188,7 @@ export default function CanadaPage() {
                   >
                     <h3 className="font-bold text-slate-900 text-lg group-hover:text-red-600 transition-colors mb-2">{page.name}</h3>
                     <p className="text-sm text-slate-500 leading-relaxed mb-4">
-                      Cannabis Act compliant thermal labels for all Canadian provinces. Confirm bilingual requirements, excise stamp integration, health warning placement, and provincial-specific regulations.
+                      Regulated-label projects require buyer-approved federal, provincial, product-class, bilingual, warning, symbol, variable-data, and packaging requirements.
                     </p>
                     <div className="flex items-center gap-2 text-sm font-bold text-red-600 group-hover:gap-3 transition-all">
                       View {page.name} details
@@ -213,10 +214,10 @@ export default function CanadaPage() {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-red-200" />
-              <span>Lead time: <strong>25–40 days</strong> (production + sea freight + clearance)</span>
+              <span>Schedule: <strong>confirmed by quotation</strong> after specification, capacity, route, and booking review</span>
             </div>
             <div className="flex items-center gap-2 ml-auto">
-              <span className="text-red-200 text-xs">DDP · FOB · CIF available — GST/HST included in DDP</span>
+              <span className="text-red-200 text-xs">FOB · CIF · delivered terms reviewed by destination, tax, and responsibility</span>
             </div>
           </div>
         </section>
@@ -229,7 +230,7 @@ export default function CanadaPage() {
                 Two product lines. Built for Canada.
               </h2>
               <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
-                Every product we ship to Canada is manufactured with BPA-free thermal coating, documented with Health Canada compliance declarations, and packed for Canadian pallet standards. Bilingual labeling included.
+                Each project is reviewed against the exact product grade, printer, intended use, documents, bilingual artwork, packing, and destination requirements. Select a product line to browse available configurations.
               </p>
             </div>
             <div className="grid gap-6 lg:grid-cols-2">
@@ -271,7 +272,7 @@ export default function CanadaPage() {
                   Why Canadian distributors choose Zhixin.
                 </h2>
                 <p className="mt-4 text-base leading-8 text-slate-500 max-w-xl">
-                  Canada has unique bilingual, regulatory, and logistics requirements. We built our export process around Canadian customs and provincial regulations — every shipment includes the documentation your procurement team and provincial regulators need.
+                  Canada projects can involve bilingual artwork, material review, regulated-label requirements, and destination-specific import responsibilities. These items are recorded in the approved specification and quotation.
                 </p>
                 <div className="mt-8 space-y-4">
                   {(caRegion.highlights as string[]).map((item: string) => (
@@ -305,7 +306,7 @@ export default function CanadaPage() {
               </h2>
             </div>
             <p className="text-slate-500 text-base mb-10 max-w-2xl">
-              All compliance documents are issued by accredited third-party laboratories (SGS, Intertek) and updated annually. Bilingual EN/FR documentation available for Quebec and federal requirements. Request the full compliance pack within 24 hours.
+              Documents are matched to the exact quoted material, intended use, province, report scope, language need, and current validity. Request the relevant files for procurement review before approval.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
               {CA_COMPLIANCE.map((item) => (
@@ -322,7 +323,7 @@ export default function CanadaPage() {
               <div className="flex-1">
                 <p className="font-bold text-slate-900 text-base mb-1">Request Full Canadian Compliance Pack</p>
                 <p className="text-slate-500 text-sm">
-                  Health Canada compliance documentation, BPA-free SGS test report, ISO 9001 certificate, CEPA declaration, bilingual TDS — all in one package. Sent within 24 hours.
+                  Material declarations, applicable test reports, quality-system documents, technical data, and bilingual files are assembled according to the selected grade and project scope.
                 </p>
               </div>
               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition-colors shrink-0 shadow-sm">
@@ -342,7 +343,7 @@ export default function CanadaPage() {
               </h2>
             </div>
             <p className="text-slate-500 text-base mb-10 max-w-2xl">
-              From order confirmation to delivery at your Canadian warehouse — Vancouver is our fastest North American route at just 10–15 days sea freight from Qingdao.
+              The delivery plan is confirmed after specification and artwork approval, current production capacity, carton data, carrier booking, destination, customs scope, and the agreed Incoterm are known.
             </p>
             <div className="relative">
               <div className="absolute top-5 left-5 right-5 h-0.5 bg-red-200 hidden md:block" style={{ zIndex: 0 }} />
@@ -365,8 +366,8 @@ export default function CanadaPage() {
             </div>
             <div className="mt-8 bg-red-50 border border-red-200 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex-1">
-                <p className="font-bold text-slate-900 text-sm mb-1">Need faster delivery?</p>
-                <p className="text-slate-500 text-xs">Air freight available for urgent orders (5–7 days to YVR, YUL, or YYZ). Contact us for air freight pricing and availability to your nearest Canadian airport.</p>
+                <p className="font-bold text-slate-900 text-sm mb-1">Need an alternative transport plan?</p>
+                <p className="text-slate-500 text-xs">Air, ocean, or combined transport can be reviewed after carton data, destination, required date, carrier availability, and customs responsibilities are confirmed.</p>
               </div>
               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition-colors shrink-0">
                 Contact Us <ArrowRight className="w-3 h-3" />
@@ -388,16 +389,16 @@ export default function CanadaPage() {
                   Build your Canadian brand.
                 </h2>
                 <p className="text-slate-600 text-base leading-relaxed mb-6">
-                  Launch your own thermal paper brand in Canada with our end-to-end OEM service. Custom logo printing, branded bilingual packaging, Pantone color matching, and NDA protection — all included. MOQ from 5,000 rolls.
+                  Plan a private-label thermal paper program for Canada. Logo printing, bilingual packaging, color targets, confidentiality terms, samples, MOQ, and schedule are confirmed after specification and market review.
                 </p>
                 <div className="space-y-3 mb-6">
                   {[
                     "Custom logo and back-print for Canadian market branding",
-                    "Pantone color matching — exact brand color reproduction",
-                    "Bilingual EN/FR packaging for Quebec and federal compliance",
-                    "Canadian-standard pallet packing with branded carton marks",
-                    "NDA signed before any design work begins",
-                    "7-day branded sample turnaround",
+                    "Color target reviewed against the approved sample",
+                    "English and French packaging text reviewed against current buyer and market requirements",
+                    "Pallet dimensions and packing plan confirmed by route",
+                    "NDA scope and signing point confirmed when required",
+                    "Branded sample timing confirmed after review",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -413,8 +414,8 @@ export default function CanadaPage() {
                 <h3 className="font-bold text-slate-900 text-lg mb-6">OEM Service Summary</h3>
                 <div className="space-y-4">
                   {[
-                    { label: "Minimum Order", value: "5,000 rolls" },
-                    { label: "Sample Turnaround", value: "7 business days" },
+                    { label: "Minimum Order", value: "Confirmed by SKU" },
+                    { label: "Sample Turnaround", value: "Confirmed after review" },
                     { label: "Color Matching", value: "Pantone / CMYK" },
                     { label: "Print Options", value: "Front + Back print" },
                     { label: "Language Support", value: "English + French (bilingual)" },
@@ -457,7 +458,7 @@ export default function CanadaPage() {
 
         <CTABanner
           title="Ready to source for Canada?"
-          subtitle="Get a custom quote with full Health Canada compliance documentation and bilingual labeling. Free samples for qualified buyers. DDP shipping to any Canadian destination."
+          subtitle="Get a project-specific quote covering material selection, bilingual artwork, supporting documents, sample options, packing, Incoterm, and destination responsibilities."
         />
       </main>
       <Footer />

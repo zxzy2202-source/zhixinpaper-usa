@@ -9,18 +9,18 @@ import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Tour",
-  description: "Take a virtual tour of our thermal paper manufacturing facility. See our coating lines, slitting machines, label production, and quality control laboratory.",
+  description: "Review the production areas shown in our factory video, including material handling, converting, label production, inspection, packing, and warehousing.",
   keywords: "thermal paper factory tour, manufacturing facility video, thermal paper factory China",
   alternates: { canonical: canonicalUrl("/factory/virtual-tour") },
 };
 
 const tourStops = [
-  { id: "01", name: "Raw Material Warehouse", desc: "Our climate-controlled raw material warehouse stores base paper, thermal coating chemicals, adhesives, and packaging materials. All incoming materials are quarantined and tested before release to production." },
-  { id: "02", name: "Thermal Coating Lines", desc: "Six high-speed coating lines apply our proprietary thermal formulations to base paper at speeds up to 800 m/min. Real-time sensors monitor coating weight and uniformity across the full web width." },
-  { id: "03", name: "Slitting & Converting Hall", desc: "Our 20+ precision slitting lines convert large-format coated rolls into finished product specifications. Automated tension control ensures consistent roll hardness and diameter." },
-  { id: "04", name: "Label Production Division", desc: "Eight flexographic printing lines, four die-cutting stations, and full lamination capability produce direct thermal, thermal transfer, and specialty labels on a range of facestocks." },
-  { id: "05", name: "Quality Control Laboratory", desc: "Our on-site laboratory tests every production batch for image density, fade resistance, adhesion, chemical compliance, and dimensional accuracy using calibrated instruments." },
-  { id: "06", name: "Finished Goods Warehouse", desc: "Our 10,000 m² finished goods warehouse maintains buffer stock for key SKUs and handles packing, labeling, and dispatch for shipments to distributors worldwide." },
+  { id: "01", name: "Raw Material Warehouse", desc: "Review the visible storage and material-control areas used for base paper, coating inputs, adhesives, and packaging materials. Incoming inspection and release records can be discussed for the quoted project." },
+  { id: "02", name: "Thermal Coating Area", desc: "Review the coating equipment and process-control points visible during the walkthrough. Available line configuration, coating method, inspection controls, and production scheduling must be confirmed for the selected grade." },
+  { id: "03", name: "Slitting & Converting Hall", desc: "Review the converting equipment used to produce quoted roll dimensions and winding formats. Tension, roll hardness, diameter, core, and tolerance criteria are confirmed through the approved specification and inspection plan." },
+  { id: "04", name: "Label Production Area", desc: "Review the printing, die-cutting, and finishing capabilities relevant to the requested label construction. Process availability depends on facestock, adhesive, liner, artwork, finishing, quantity, and schedule." },
+  { id: "05", name: "Quality Control Laboratory", desc: "Review the visible inspection equipment and discuss which incoming, in-process, and finished-product checks apply to the quoted construction. Acceptance criteria and report availability require project confirmation." },
+  { id: "06", name: "Finished Goods Warehouse", desc: "Review the packing, labeling, storage, and dispatch areas shown in the tour. Stock availability, storage conditions, packing method, and shipment timing are confirmed for each order." },
 ];
 
 export default function VirtualTourPage() {

@@ -60,7 +60,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "anthropic-ai", disallow: ["/"] },           // Claude
       { userAgent: "Claude-Web", disallow: ["/"] },
       { userAgent: "Google-Extended", disallow: ["/"] },        // Google Bard/Gemini 训练
-      { userAgent: "PerplexityBot", disallow: ["/"] },
+      { userAgent: "PerplexityBot", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
       { userAgent: "Bytespider", disallow: ["/"] },             // 字节跳动 AI
       { userAgent: "Amazonbot", disallow: ["/"] },              // Alexa 训练
       { userAgent: "Applebot-Extended", disallow: ["/"] },      // Apple AI

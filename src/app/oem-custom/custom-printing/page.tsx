@@ -10,7 +10,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Custom Printed Thermal Paper | Logo Printed Receipt Rolls",
-  description: "Custom printed thermal paper rolls and labels with your logo, promotional messaging, and QR codes. Full-color flexographic printing from 50,000 rolls.",
+  description: "Custom printed thermal paper rolls and labels developed through artwork, print-method, color, sample, quantity, packing, and production review.",
   keywords: "custom printed thermal paper, logo printed receipt rolls, custom thermal paper printing",
   alternates: { canonical: canonicalUrl("/oem-custom/custom-printing") },
 };
@@ -73,8 +73,8 @@ export default function CustomPrintingPage() {
                   ["Color Matching", "Pantone color matching available"],
                   ["Minimum Print Area", "10mm × 10mm"],
                   ["Registration Accuracy", "±0.5mm"],
-                  ["Minimum Order Quantity", "50,000 rolls / 100,000 labels"],
-                  ["Lead Time", "20–30 working days from artwork approval"],
+                  ["Minimum Order Quantity", "Confirmed by material, artwork, print setup, tooling, packing, and quantity"],
+                  ["Production Schedule", "Confirmed after artwork, proof or sample, capacity, and packing review"],
                   ["Artwork Format", "AI, EPS, PDF (vector preferred)"],
                 ].map(([key, val]) => (
                   <tr key={key} className="hover:bg-blue-50/30">

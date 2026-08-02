@@ -1,9 +1,11 @@
 "use client";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import CTABanner from "@/components/ui/CTABanner";
 import { BLOG_POSTS } from "@/lib/data";
 import { BLOG_CONTENT } from "@/lib/blog-content";
+import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
 import { ArrowRight, Clock, Calendar, CheckCircle, BookOpen, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -88,7 +90,16 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
 
         {dbPost.coverImage && (
           <div className="max-w-6xl mx-auto px-6 mt-8 mb-0">
-            <img src={dbPost.coverImage} alt={dbPost.title} className="w-full max-h-96 object-cover  shadow-lg" />
+            <div className="relative w-full aspect-[16/7] max-h-96 overflow-hidden shadow-lg">
+              <Image
+                src={dbPost.coverImage}
+                alt={dbPost.title}
+                fill
+                priority
+                sizes="(min-width: 1152px) 1152px, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         )}
 
@@ -155,6 +166,7 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) notFound();
   const content = BLOG_CONTENT.find((c) => c.slug === slug);
+  const industryLinks = BLOG_INDUSTRY_LINKS[slug] || [];
   const related = BLOG_POSTS.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 3);
   const otherPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
@@ -224,6 +236,31 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
                   </div>
                   <p className="text-slate-600 leading-relaxed">This comprehensive guide covers everything you need to know about {post.title.toLowerCase()}.</p>
                 </div>
+              )}
+              {industryLinks.length > 0 && (
+                <section className="mt-10 border-y border-slate-200 bg-slate-50 p-6" aria-labelledby="related-industries-heading">
+                  <p className="text-xs font-bold uppercase text-blue-700">Related applications</p>
+                  <h2 id="related-industries-heading" className="mt-2 text-xl font-bold text-slate-900">
+                    Apply this guide to an industry specification.
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    These links provide application context. They do not replace device qualification, document-scope review, or representative sample testing.
+                  </p>
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {industryLinks.map((industry) => (
+                      <Link
+                        key={industry.slug}
+                        href={`/industries/${industry.slug}`}
+                        className="group border border-slate-200 bg-white p-4 transition-colors hover:border-blue-300"
+                      >
+                        <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
+                          {industry.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <span className="mt-2 block text-sm leading-6 text-slate-600">{industry.description}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
               )}
               <div className="mt-10 p-6 bg-gradient-to-r from-blue-600 to-blue-700  text-white">
                 <h3 className="font-bold text-xl mb-2">Need Expert Guidance?</h3>
