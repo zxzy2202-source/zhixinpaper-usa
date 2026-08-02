@@ -14,10 +14,24 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["thermal paper project examples", "thermal label qualification", "thermal paper application review"],
 });
 
+const listJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Thermal Paper Project Case Studies",
+  description: "Anonymized project overviews showing how thermal paper and label requirements are qualified.",
+  itemListElement: CASE_STUDIES.map((cs, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `https://www.zhixinpaper.com/case-studies/${cs.slug}`,
+    name: cs.title,
+  })),
+};
+
 export default function CaseStudiesPage() {
   return (
     <>
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listJsonLd) }} />
       <main className="min-h-screen bg-white">
         <HeroBanner
           eyebrow="Project case studies"

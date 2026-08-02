@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
+import { canonicalUrl } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Truck, ShieldCheck, Package, MapPin,
   Clock, Download, Factory, FileCheck, Users, TrendingUp, Phone,
@@ -38,12 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Thermal paper rolls and labels for distributors in ${c.name}. Review material chemistry, document scope, printer fit, samples, packing, and shipping terms by project.`,
     keywords: c.keywords,
     alternates: {
-      canonical: `https://www.zhixinpaper.com/eu/${country}`,
+      canonical: canonicalUrl(`/eu/${country}`),
     },
     openGraph: {
       title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,
       description: `Thermal paper rolls and labels for ${c.name} distributors, with grade-level document, packing, sample, and delivery review.`,
-      url: `https://www.zhixinpaper.com/eu/${country}`,
+      url: canonicalUrl(`/eu/${country}`),
       siteName: "Zhixin Paper",
       locale: OPEN_GRAPH_LOCALES[country] ?? "en_GB",
       type: "website",
