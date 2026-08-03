@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import FaqSection from "@/components/ui/FaqSection";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, COMPANY } from "@/lib/data";
 import { THERMAL_PAPER_GRADE_PATHS } from "@/config/thermalPaperArchitecture";
@@ -50,6 +51,16 @@ const THERMAL_ROLL_FAQS = [
     question: "Are 57mm and 2 1/4-inch receipt paper the same width?",
     answer:
       "They are the same common width family because 2.25 inches is about 57.15mm. However, they are not a complete specification — payment terminals can require different outer diameters, lengths, core IDs, or winding directions even when the paper width matches. Confirm the exact terminal model.",
+  },
+  {
+    question: "How should thermal paper rolls be stored before use?",
+    answer:
+      "Storage conditions depend on the paper grade, coating, packing, and intended image-life target. Keep rolls in the agreed temperature and humidity range, away from direct sunlight, heat, moisture, plasticizers, solvents, and pressure that can deform the roll. Confirm the supplier storage guidance and rotate stock by lot when image retention matters.",
+  },
+  {
+    question: "What documents should buyers request for a thermal paper roll?",
+    answer:
+      "Request the technical data sheet and any grade-specific test report, declaration, image-life evidence, or compliance file required for the destination and application. Check that each document identifies the quoted paper grade, manufacturer or certificate holder, test scope, issue date, and relevant conditions before approval.",
   },
   {
     question: "What information is needed for a thermal paper roll quote?",
@@ -356,31 +367,14 @@ export default function ThermalPaperRollsPage() {
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section className="border-t border-[#ded6c8] bg-[#f4f0e8] py-20">
-          <div className="container-site grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-            <div>
-              <p className="section-label">Thermal roll FAQ</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                Clear answers before you request a quote.
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#4f5f5a]">
-                These answers define the naming and measurement rules used throughout this product category.
-              </p>
-            </div>
-            <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
-              {THERMAL_ROLL_FAQS.map((faq) => (
-                <details key={faq.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-base font-bold text-[#14211f]">
-                    {faq.question}
-                    <span aria-hidden="true" className="text-xl font-normal text-[#0f5f5c] transition-transform group-open:rotate-45">+</span>
-                  </summary>
-                  <p className="mt-4 max-w-3xl pr-10 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="faq"
+          faqs={THERMAL_ROLL_FAQS}
+          title="Clear answers before you request a quote."
+          intro="These answers define the naming and measurement rules used throughout this product category."
+          eyebrow="Thermal roll FAQ"
+          className="bg-[#f4f0e8]"
+        />
 
         <CTABanner />
       </main>

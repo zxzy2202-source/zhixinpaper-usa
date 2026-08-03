@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import FaqSection from "@/components/ui/FaqSection";
 import HeroBanner from "@/components/ui/HeroBanner";
 import SlotImage from "@/components/ui/SlotImage";
 import { INDUSTRIES, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
@@ -419,30 +420,14 @@ export default async function IndustryDetailPage({ params }: Props) {
           </section>
         )}
 
-        <section className="bg-white py-16" id="faq">
-          <div className="container-site">
-            <div className="max-w-3xl">
-              <p className="section-label">Industry FAQ</p>
-              <h2 className="mt-3 text-3xl font-extrabold text-slate-950 md:text-4xl">
-                Practical sourcing answers for {industry.name} buyers.
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                Use these answers to prepare a comparable specification. Final performance is validated against
-                the named printer, material, environment, and destination requirements.
-              </p>
-            </div>
-            <div className="mt-10 grid gap-4 lg:grid-cols-2">
-              {faqs.map((faq) => (
-                <details key={faq.question} className="group border border-slate-200 bg-slate-50 p-6 open:bg-white">
-                  <summary className="cursor-pointer list-none pr-6 text-base font-extrabold leading-6 text-slate-950">
-                    {faq.question}
-                  </summary>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="faq"
+          faqs={faqs}
+          title={`Practical sourcing answers for ${industry.name} buyers.`}
+          intro="Use these answers to prepare a comparable specification. Final performance is validated against the named printer, material, environment, and destination requirements."
+          eyebrow="Industry FAQ"
+          tone="light"
+        />
 
         <CTABanner />
       </main>

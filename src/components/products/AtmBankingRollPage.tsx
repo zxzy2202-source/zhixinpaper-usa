@@ -1,3 +1,4 @@
+import FaqSection from "@/components/ui/FaqSection";
 import Image from "next/image";
 import Link from "next/link";
 import { SlotImage } from "@/components/ui/SlotImage";
@@ -7,7 +8,6 @@ import {
   ChevronRight,
   FileCheck2,
   Landmark,
-  ShieldCheck,
 } from "lucide-react";
 
 interface RollData {
@@ -430,25 +430,13 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
         </div>
       </section>
 
-      <section id="faq" className="bg-[#fbfaf6] py-14 md:py-16">
-        <div className="container-site grid gap-12 lg:grid-cols-[0.7fr_1fr]">
-          <div>
-            <ShieldCheck className="h-7 w-7 text-[#0f5f5c]" />
-            <h2 className="mt-5 text-3xl font-bold text-[#14211f] md:text-4xl">Frequently asked questions</h2>
-          </div>
-          <div className="border-t border-[#ded6c8]">
-            {faqs.map((faq, index) => (
-              <details key={faq.question} className="group border-b border-[#ded6c8]" open={index === 0}>
-                <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-5 text-left marker:content-none">
-                  <span className="text-base font-bold leading-6 text-[#14211f]">{faq.question}</span>
-                  <ChevronRight className="h-5 w-5 shrink-0 text-[#0f5f5c] transition-transform duration-200 group-open:rotate-90" aria-hidden="true" />
-                </summary>
-                <p className="max-w-3xl pb-6 pr-10 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqSection
+        id="faq"
+        faqs={faqs}
+        title="Questions buyers ask before ordering."
+        intro="Confirm terminal fit, retention, documents, and delivery details before requesting samples."
+        eyebrow="Buyer questions"
+      />
 
       <section className="bg-[#9c661d] py-14 text-white">
         <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

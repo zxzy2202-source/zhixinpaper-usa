@@ -1,4 +1,5 @@
 import SlotImage from "@/components/ui/SlotImage";
+import FaqSection from "@/components/ui/FaqSection";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -268,24 +269,12 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
         </div>
       </section>
 
-      <section className="bg-[#fbfaf6] py-20 md:py-24">
-        <div className="container-site grid gap-12 lg:grid-cols-[0.7fr_1fr]">
-          <div>
-            <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Questions buyers ask before ordering.</h2>
-            <p className="mt-5 max-w-lg text-base leading-8 text-[#4f5f5a]">
-              Confirm these points before requesting samples to shorten internal approval and avoid a second specification round.
-            </p>
-          </div>
-          <div className="border-t border-[#ded6c8]">
-            {faqs.map((faq) => (
-              <article key={faq.question} className="border-b border-[#ded6c8] py-6">
-                <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqSection
+        faqs={faqs}
+        title="Questions buyers ask before ordering."
+        intro="Confirm these points before requesting samples to shorten internal approval and avoid a second specification round."
+        eyebrow="Buyer questions"
+      />
 
       <section className="bg-[#9c661d] py-14 text-white">
         <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

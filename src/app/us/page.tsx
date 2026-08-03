@@ -5,7 +5,9 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SlotImage from "@/components/ui/SlotImage";
 import RegionHero from "@/components/ui/RegionHero";
-import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
+import FaqSection from "@/components/ui/FaqSection";
+import { buildMetadata, organizationSchema, breadcrumbSchema, faqSchema } from "@/lib/seo";
+import { normalizeFaqItem } from "@/lib/faq";
 import { GEO_REGIONS } from "@/lib/data";
 import {
   ArrowRight, CheckCircle2, Truck, MapPin, ShieldCheck, Package,
@@ -104,13 +106,13 @@ const TRUST_SIGNALS = [
 ];
 
 export default function USPage() {
+  const faqs = US_FAQ.map(normalizeFaqItem);
   const jsonLd = [
     organizationSchema(),
-    breadcrumbSchema([
-      { name: "Home", url: "/" },
-      { name: "United States", url: "/us" },
-    ]),
+    breadcrumbSchema([{ name: "Home", url: "/" }, { name: "USA", url: "/us" }]),
+    faqSchema(faqs),
   ];
+
 
   return (
     <>
@@ -410,28 +412,13 @@ export default function USPage() {
           </div>
         </section>
 
-        {/* ── US FAQ ── */}
-        <section className="py-20 bg-slate-50 border-b border-slate-200">
-          <div className="container-site">
-            <div className="flex items-center gap-3 mb-2">
-              <Layers className="w-5 h-5 text-blue-600" />
-              <h2 className="font-bold text-slate-900 text-2xl md:text-4xl">
-                Frequently Asked Questions — USA
-              </h2>
-            </div>
-            <p className="text-slate-500 text-base mb-10 max-w-2xl">
-              Common questions from US distributors and importers about our products, compliance, logistics, and ordering process.
-            </p>
-            <div className="space-y-4 max-w-3xl">
-              {US_FAQ.map((item, i) => (
-                <div key={i} className="bg-white border border-slate-200 p-6">
-                  <p className="font-bold text-slate-900 text-sm mb-2">{item.q}</p>
-                  <p className="text-slate-600 text-sm leading-relaxed">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          faqs={faqs}
+          title="Frequently Asked Questions — USA"
+          intro="Common questions from US distributors and importers about products, compliance, logistics, and ordering."
+          eyebrow="US buyer FAQ"
+          tone="light"
+        />
 
         <CTABanner
           title="Ready to source for the USA?"

@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import ProductExplorer from "@/components/products/ProductExplorer";
 import { createProductExplorerItems } from "@/components/products/productExplorerModel";
 import CTABanner from "@/components/ui/CTABanner";
+import FaqSection from "@/components/ui/FaqSection";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { buildMetadata, breadcrumbSchema, canonicalUrl, faqSchema, SITE_NAME } from "@/lib/seo";
@@ -545,32 +546,15 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <section aria-labelledby="products-faq" className="bg-[#f4f0e8] py-18">
-          <div className="container-site">
-            <div className="grid gap-10 lg:grid-cols-[0.75fr_1fr]">
-              <div>
-                <p className="section-label">Product sourcing FAQ</p>
-                <h2 id="products-faq" className="mt-3 text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
-                  Answers buyers often need before opening product pages.
-                </h2>
-                <p className="mt-5 text-sm leading-7 text-[#4f5f5a]">
-                  These answers are written in plain language so buyers, search engines, and AI answer engines can understand the category before a quote request.
-                </p>
-              </div>
-              <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
-                {productFaqs.map((faq) => (
-                  <details key={faq.question} className="group py-5">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-base font-bold text-[#14211f]">
-                      {faq.question}
-                      <span aria-hidden="true" className="text-xl font-normal text-[#0f5f5c] transition-transform group-open:rotate-45">+</span>
-                    </summary>
-                    <p className="mt-4 max-w-3xl pr-10 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="products-faq"
+          faqs={productFaqs}
+          title="Answers buyers often need before opening product pages."
+          intro="These answers are written in plain language so buyers, search engines, and AI answer engines can understand the category before a quote request."
+          eyebrow="Product sourcing FAQ"
+          tone="paper"
+          className="bg-[#f4f0e8]"
+        />
 
         <CTABanner
           title="Need a product quote or sample pack?"

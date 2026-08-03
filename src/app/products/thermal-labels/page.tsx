@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import FaqSection from "@/components/ui/FaqSection";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_LABELS, COMPANY } from "@/lib/data";
 import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
@@ -29,23 +30,31 @@ export const metadata: Metadata = buildMetadata({
 const THERMAL_LABEL_FAQS = [
   {
     question: "What are thermal labels?",
-    answer: "Thermal labels are adhesive labels that use heat to produce an image. Direct thermal labels create images directly on the label surface without ribbon, ink, or toner — ideal for short-life applications such as shipping, barcode, warehouse, retail, and receipt labeling. Thermal transfer labels use a ribbon to fuse ink onto the label, producing durable images that resist chemicals, UV, and abrasion. Buyers should confirm facestock type, adhesive, size, core ID, printer model, and application conditions before ordering.",
+    answer: "Thermal labels are adhesive labels made for thermal printing. Direct thermal labels form an image on a heat-sensitive surface without a ribbon, while thermal transfer labels use a ribbon to create the printed image. The suitable construction depends on the facestock, adhesive, size, core ID, printer model, required image life, handling, and application environment.",
   },
   {
     question: "What is the difference between direct thermal and thermal transfer labels?",
-    answer: "Direct thermal labels create images through heat on a chemically coated surface — no ribbon needed. Best for short-term applications like shipping labels that last 6–24 months. Thermal transfer labels use a heated ribbon to transfer ink onto the label, producing images that withstand chemicals, UV, extreme temperatures, and abrasion. Better for industrial asset tracking, outdoor equipment, and long-life applications. The choice depends on durability requirements, printer type, and total cost of ownership.",
+    answer: "Direct thermal labels do not require a ribbon and are commonly considered for applications with a defined service and storage period. Thermal transfer labels use a matched ribbon and may provide higher resistance to selected chemicals, UV exposure, temperature, or abrasion. Actual readable life and resistance depend on the complete label and ribbon construction, print settings, exposure conditions, and representative testing.",
   },
   {
     question: "What sizes and formats are available for thermal labels?",
-    answer: "Standard sizes include 4×6 inch, 4×4 inch, 100×150mm, 100×100mm, and many custom dimensions. Labels come in rolls (fits most label printers), fanfold (stacked, efficient for high-volume), and individual sheets. Die-cut options include rounded corners, perforations, and perforated backings. Core sizes are typically 1 inch, 1.5 inch, and 3 inch. Custom dimensions are available subject to order quantity and die-making lead time.",
+    answer: "Common formats include 4×6 inch, 4×4 inch, 100×150mm, and 100×100mm labels in roll or fanfold form. Core ID, roll OD, gap or black-mark sensing, perforations, corners, liner, and die-cut shape must match the printer and dispensing process. Custom formats are reviewed according to material, tooling, packing, quantity, and the current production plan.",
   },
   {
     question: "What information is needed for a thermal label quote?",
-    answer: "Provide label dimensions, core ID, facestock material, adhesive type, printer model, expected application environment, image life requirements, compliance needs, quantity, packing, and destination. If the label will be exposed to cold, heat, moisture, chemicals, or UV, specify those conditions so the right material can be quoted.",
+    answer: "Provide label dimensions, core ID, roll OD or fanfold format, gap or black-mark sensing, facestock, adhesive, printer model, application surface, operating environment, image-life target, compliance needs, quantity, packing, and destination. Include exposure to cold, heat, moisture, chemicals, UV, or abrasion so the quoted construction can be reviewed against those conditions.",
+  },
+  {
+    question: "How should buyers validate a thermal label sample?",
+    answer: "Test a production-intent sample with the named printer, ribbon where applicable, substrate, temperature, handling, scanner, and storage conditions. Check feeding, sensing, barcode readability, adhesion, removal behavior, print durability, and label conversion before approving the bulk specification.",
+  },
+  {
+    question: "How should thermal labels be stored before use?",
+    answer: "Storage limits depend on the facestock, adhesive, liner, and supplier specification. Keep unopened labels in the agreed temperature and humidity range, away from direct sunlight, heat, moisture, plasticizers, solvents, and reactive chemicals. Record lot numbers and use stock rotation when image life or adhesive performance is critical.",
   },
   {
     question: "Can thermal labels be used for food and healthcare applications?",
-    answer: "Yes, subject to material selection and documentation. For direct food contact, we provide EU food-contact compliant labels per Regulation (EC) No 1935/2004. For indirect contact, migration-tested adhesives are available. Healthcare applications may require FDA 21 CFR compliant materials. Confirm the specific application, regulatory body, and document scope before ordering. Material suitability must be validated against the named substrate, contact conditions, and current regulations.",
+    answer: "They may be considered only after the complete label construction and intended use are reviewed. For food-contact or healthcare projects, confirm the facestock, adhesive, coating, ink or ribbon, contact type, temperature, duration, destination rules, and supporting evidence. A declaration or test file applies only to the named material and conditions; it should not be treated as approval for every finished label or application.",
   },
 ];
 
@@ -303,30 +312,14 @@ export default function ThermalLabelsPage() {
           </div>
         </section>
 
-        <section className="border-t border-[#ded6c8] bg-[#f4f0e8] py-20">
-          <div className="container-site grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-            <div>
-              <p className="section-label">Thermal label FAQ</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                Clear answers before you request a quote.
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#4f5f5a]">
-                These answers cover the most common questions about thermal label materials, formats, and ordering requirements.
-              </p>
-            </div>
-            <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
-              {THERMAL_LABEL_FAQS.map((faq) => (
-                <details key={faq.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-base font-bold text-[#14211f]">
-                    {faq.question}
-                    <span aria-hidden="true" className="text-xl font-normal text-[#0f5f5c] transition-transform group-open:rotate-45">+</span>
-                  </summary>
-                  <p className="mt-4 max-w-3xl pr-10 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="faq"
+          faqs={THERMAL_LABEL_FAQS}
+          title="Clear answers before you request a quote."
+          intro="These answers cover the most common questions about thermal label materials, formats, and ordering requirements."
+          eyebrow="Thermal label FAQ"
+          className="bg-[#f4f0e8]"
+        />
 
         <CTABanner />
       </main>

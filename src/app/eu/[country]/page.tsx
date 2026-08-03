@@ -4,8 +4,10 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
+import FaqSection from "@/components/ui/FaqSection";
 import { GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { canonicalUrl, faqSchema } from "@/lib/seo";
+import { normalizeFaqItem } from "@/lib/faq";
 import {
   ArrowRight, CheckCircle2, Truck, ShieldCheck, Package, MapPin,
   Clock, Download, Factory, FileCheck, Users, TrendingUp, Phone,
@@ -174,11 +176,14 @@ export default async function EUCountryPage({ params }: Props) {
   const logisticsSteps = LOGISTICS_STEPS["default"];
   const popularProductLinks = POPULAR_PRODUCTS_LINKS[country] || POPULAR_PRODUCTS_LINKS["default"];
   const faq = COUNTRY_FAQ[country] || COUNTRY_FAQ["default"];
+  const faqs = faq.map(normalizeFaqItem);
+  const faqJsonLd = faqSchema(faqs);
   const isPilot = country === "uk";
 
   return (
     <>
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
 
         {/* ── HERO ── */}
@@ -540,26 +545,13 @@ export default async function EUCountryPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── COUNTRY-SPECIFIC FAQ ── */}
-        <section className="py-16 bg-white border-t border-slate-100">
-          <div className="container-site">
-            <div className="flex items-center gap-3 mb-2">
-              <Layers className="w-5 h-5 text-blue-600" />
-              <h2 className="font-bold text-slate-900 text-2xl">Frequently Asked Questions — {c.name}</h2>
-            </div>
-            <p className="text-slate-500 text-sm mb-8 max-w-2xl">
-              Common questions from {c.name} distributors and importers about our products, compliance, and logistics.
-            </p>
-            <div className="space-y-4 max-w-3xl">
-              {faq.map((item, i) => (
-                <div key={i} className="bg-slate-50 border border-slate-200  p-6">
-                  <p className="font-bold text-slate-900 text-sm mb-2">{item.q}</p>
-                  <p className="text-slate-600 text-sm leading-relaxed">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          faqs={faqs}
+          title={`Frequently Asked Questions — ${c.name}`}
+          intro={`Common questions from ${c.name} distributors and importers about products, compliance, logistics, and ordering.`}
+          eyebrow={`${c.name} buyer FAQ`}
+          tone="light"
+        />
 
         <CTABanner
           title={`Ready to Source for ${c.name}?`}

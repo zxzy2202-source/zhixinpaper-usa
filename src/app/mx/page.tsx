@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FaqSection from "@/components/ui/FaqSection";
 import { breadcrumbSchema, canonicalUrl, faqSchema } from "@/lib/seo";
 
 const TITLE = "Thermal Paper Supplier for Mexico";
@@ -280,22 +281,14 @@ export default function MexicoPage() {
           </div>
         </section>
 
-        <section className="py-20 md:py-24">
-          <div className="container-site grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-            <div>
-              <p className="text-sm font-semibold text-[#9c661d]">Frequently asked questions</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f]">Before requesting a price</h2>
-            </div>
-            <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
-              {FAQS.map((faq) => (
-                <div key={faq.question} className="py-6">
-                  <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="faq"
+          faqs={FAQS}
+          title="Before requesting a price"
+          intro="Confirm the product specification, documents, packing, and destination details needed for a comparable quotation."
+          eyebrow="Frequently asked questions"
+          tone="light"
+        />
 
         <section className="border-t border-[#ded6c8] bg-[#e7eee9] py-16">
           <div className="container-site flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">

@@ -1191,27 +1191,6 @@ export default async function RollDetailPage({ params }: Props) {
           </div>
         </section>
 
-        {isStandardPos && (
-          <section className="bg-white py-14 border-t border-slate-100">
-            <div className="container-site">
-              <div className="mb-8 max-w-3xl">
-                <p className="section-label">POS roll FAQ</p>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-normal text-slate-950 md:text-4xl">
-                  Questions buyers ask before ordering POS receipt paper.
-                </h2>
-              </div>
-              <div className="grid gap-px bg-slate-200 md:grid-cols-2">
-                {STANDARD_POS_PAGE.faqs.map((faq) => (
-                  <div key={faq.question} className="bg-white p-6">
-                    <h3 className="text-lg font-bold tracking-normal text-slate-950">{faq.question}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* ── OEM / PRIVATE LABEL CALLOUT ── */}
         <section className="py-14 bg-white border-t border-slate-100">
           <div className="container-site">

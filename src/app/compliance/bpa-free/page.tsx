@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FaqSection from "@/components/ui/FaqSection";
 import { ArrowRight, ChevronRight, FileCheck2, ShieldCheck } from "lucide-react";
 import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
 
@@ -257,22 +258,13 @@ export default function BPAFreePage() {
           </div>
         </section>
 
-        <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-16 md:py-20">
-          <div className="container-site grid gap-12 lg:grid-cols-[0.7fr_1fr]">
-            <div>
-              <p className="section-label">Buyer questions</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Clarify the developer before approving the wording.</h2>
-            </div>
-            <div className="border-t border-[#ded6c8]">
-              {FAQS.map((faq) => (
-                <article key={faq.question} className="border-b border-[#ded6c8] py-6">
-                  <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          id="faq"
+          faqs={FAQS}
+          title="Clarify the developer before approving the wording."
+          eyebrow="Buyer questions"
+          tone="light"
+        />
 
         <section className="bg-[#9c661d] py-14 text-white">
           <div className="container-site grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

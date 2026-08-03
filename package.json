@@ -11,7 +11,7 @@
     "test": "npm run test:product-explorer && npm run test:optimization-log && npm run test:contracts && npm run test:inquiry-delivery && npm run test:sitemap-health",
     "test:product-explorer": "node --import tsx --test tests/product-explorer.test.ts",
     "test:optimization-log": "node --import tsx --test tests/optimization-log.test.ts",
-    "test:contracts": "node --import tsx --test tests/thermal-paper-keyword-owners.contract.test.mjs tests/product-hub.contract.test.mjs tests/thermal-paper-architecture.contract.test.mjs",
+    "test:contracts": "node --import tsx --test tests/thermal-paper-keyword-owners.contract.test.mjs tests/product-hub.contract.test.mjs tests/thermal-paper-architecture.contract.test.mjs tests/faq-unification.contract.test.mjs",
     "test:inquiry-delivery": "node --import tsx --test tests/inquiry-delivery.test.ts",
     "test:sitemap-health": "node --import tsx --test tests/sitemap-health.test.ts",
     "db:init": "node scripts/init-db.mjs",
