@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SlotImage from "@/components/ui/SlotImage";
+import RegionHero from "@/components/ui/RegionHero";
 import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
 import { GEO_REGIONS } from "@/lib/data";
 import {
@@ -118,53 +119,27 @@ export default function EUPage() {
       ))}
       <main id="main-content" className="pt-[88px]">
         {/* ── HERO ── */}
-        <section className="relative isolate overflow-hidden bg-[#0f1f2d] text-white">
-          <SlotImage
-            slotKey="geo.eu.hero"
-            alt="Thermal paper rolls and labels manufacturing for European distribution"
-            fill
-            fetchPriority="high"
-            loading="eager"
-            sizes="100vw"
-            quality={76}
-            className="-z-20 object-cover object-center"
-          />
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,24,36,0.72)_0%,rgba(10,24,36,0.54)_48%,rgba(10,24,36,0.18)_82%,rgba(10,24,36,0.06)_100%)]" />
-
-          <div className="container-site py-16 md:py-20 lg:py-24">
-            <div className="flex items-center gap-4 mb-5">
-              <span className="text-5xl drop-shadow-lg">🇪🇺</span>
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="w-8 h-0.5 bg-blue-400 rounded-full" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-blue-200">European Union Market</span>
-                </div>
-                <h1 className="font-bold text-white leading-[1.08] text-4xl sm:text-5xl md:text-6xl">
-                  Thermal Paper Supplier<br className="sm:hidden" /> Europe
-                </h1>
-              </div>
-            </div>
-            <p className="text-blue-50/90 text-lg max-w-2xl mb-5 leading-relaxed">
-              Thermal paper rolls and labels for European distributors. Material chemistry, REACH or RoHS document scope, food-contact use, printer fit, packing, and destination responsibilities are confirmed for the quoted product.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Delivered-Term Review", "Euro-Pallet Options", "Chain-of-Custody Options", "Food-Contact Review"].map((f) => (
-                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white shadow-sm">
-                  <CheckCircle2 className="w-3 h-3 text-blue-300" />
-                  {f}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-600/30 text-sm">
-                Get Europe Quote <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
-                Request Samples
-              </Link>
-            </div>
-          </div>
-        </section>
+        <RegionHero
+          slotKey="geo.eu.hero"
+          alt="Thermal paper rolls and labels manufacturing for European distribution"
+          flagEmoji="🇪🇺"
+          marketLabel="European Union Market"
+          title="Thermal Paper Supplier Europe"
+          description="Thermal paper rolls and labels for European distributors. Material chemistry, REACH or RoHS document scope, food-contact use, printer fit, packing, and destination responsibilities are confirmed for the quoted product."
+          features={["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Delivered-Term Review", "Euro-Pallet Options", "Chain-of-Custody Options", "Food-Contact Review"]}
+          ctaPrimaryLabel="Get Europe Quote"
+          ctaPrimaryHref="/quote"
+          theme={{
+            bgColor: "bg-[#0f1f2d]",
+            overlayGradient: "bg-[linear-gradient(90deg,rgba(10,24,36,0.65)_0%,rgba(10,24,36,0.48)_48%,rgba(10,24,36,0.18)_82%,rgba(10,24,36,0.06)_100%)]",
+            accentBarColor: "bg-blue-400",
+            accentTextColor: "text-blue-200",
+            checkColor: "text-blue-300",
+            primaryButtonColor: "bg-blue-600",
+            primaryButtonHoverColor: "hover:bg-blue-500",
+            primaryButtonShadowColor: "shadow-blue-600/30",
+          }}
+        />
 
         {/* ── COUNTRY CARDS ── */}
         <section className="py-20 bg-white border-b border-slate-200">

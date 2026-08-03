@@ -147,7 +147,7 @@ export default function HomePage() {
             fetchPriority="high"
             loading="eager"
             sizes="100vw"
-            quality={76}
+            quality={65}
             className="-z-20 object-cover object-[62%_center]"
           />
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />

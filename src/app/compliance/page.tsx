@@ -190,9 +190,8 @@ export default function CompliancePage() {
                     slotKey="home.compliance"
                     alt="Thermal paper compliance certificates and quality documents"
                     fill
-                    fetchPriority="high"
-                    loading="eager"
                     sizes="(min-width: 1024px) 42vw, 100vw"
+                    quality={65}
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02)_0%,rgba(15,23,42,0.58)_100%)]" />

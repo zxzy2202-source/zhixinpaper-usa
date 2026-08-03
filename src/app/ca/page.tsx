@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SlotImage from "@/components/ui/SlotImage";
+import RegionHero from "@/components/ui/RegionHero";
 import { buildMetadata, organizationSchema, breadcrumbSchema } from "@/lib/seo";
 import { GEO_REGIONS } from "@/lib/data";
 import {
@@ -119,53 +120,27 @@ export default function CanadaPage() {
       ))}
       <main id="main-content" className="pt-[88px]">
         {/* ── HERO ── */}
-        <section className="relative isolate overflow-hidden bg-[#1f0d0d] text-white">
-          <SlotImage
-            slotKey="geo.ca.hero"
-            alt="Thermal paper rolls and labels manufacturing for Canadian distribution"
-            fill
-            fetchPriority="high"
-            loading="eager"
-            sizes="100vw"
-            quality={76}
-            className="-z-20 object-cover object-center"
-          />
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(20,8,8,0.68)_0%,rgba(20,8,8,0.48)_48%,rgba(20,8,8,0.18)_82%,rgba(20,8,8,0.05)_100%)]" />
-
-          <div className="container-site py-16 md:py-20 lg:py-24">
-            <div className="flex items-center gap-4 mb-5">
-              <span className="text-5xl drop-shadow-lg">🇨🇦</span>
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="w-8 h-0.5 bg-red-400 rounded-full" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-red-200">Canada Market</span>
-                </div>
-                <h1 className="font-bold text-white leading-[1.08] text-4xl sm:text-5xl md:text-6xl">
-                  Thermal Paper Supplier<br className="sm:hidden" /> Canada
-                </h1>
-              </div>
-            </div>
-            <p className="text-red-50/90 text-lg max-w-2xl mb-5 leading-relaxed">
-              Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"].map((f) => (
-                <span key={f} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-xs tracking-wide uppercase text-white shadow-sm">
-                  <CheckCircle2 className="w-3 h-3 text-red-300" />
-                  {f}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-bold transition-all shadow-lg shadow-red-600/30 text-sm">
-                Get Canada Quote <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm">
-                Request Samples
-              </Link>
-            </div>
-          </div>
-        </section>
+        <RegionHero
+          slotKey="geo.ca.hero"
+          alt="Thermal paper rolls and labels manufacturing for Canadian distribution"
+          flagEmoji="🇨🇦"
+          marketLabel="Canada Market"
+          title="Thermal Paper Supplier Canada"
+          description="Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province."
+          features={["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"]}
+          ctaPrimaryLabel="Get Canada Quote"
+          ctaPrimaryHref="/quote"
+          theme={{
+            bgColor: "bg-[#1f0d0d]",
+            overlayGradient: "bg-[linear-gradient(90deg,rgba(20,8,8,0.68)_0%,rgba(20,8,8,0.48)_48%,rgba(20,8,8,0.18)_82%,rgba(20,8,8,0.05)_100%)]",
+            accentBarColor: "bg-red-400",
+            accentTextColor: "text-red-200",
+            checkColor: "text-red-300",
+            primaryButtonColor: "bg-red-600",
+            primaryButtonHoverColor: "hover:bg-red-500",
+            primaryButtonShadowColor: "shadow-red-600/30",
+          }}
+        />
 
         {/* ── SUBPAGE CARDS ── */}
         {subpages.length > 0 && (

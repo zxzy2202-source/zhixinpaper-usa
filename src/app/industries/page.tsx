@@ -289,9 +289,11 @@ export default function IndustriesPage() {
                   <SlotImage
                     slotKey="home.product.thermal-rolls"
                     fill
+                    fetchPriority="high"
+                    loading="eager"
                     sizes="(max-width: 1024px) 100vw, 44vw"
                     className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    quality={76}
+                    quality={65}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#101b19] via-[#101b19]/48 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6">

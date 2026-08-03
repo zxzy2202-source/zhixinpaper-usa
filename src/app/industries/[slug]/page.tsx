@@ -125,7 +125,7 @@ export default async function IndustryDetailPage({ params }: Props) {
             { label: "Request Samples", href: "/samples", kind: "secondary" },
           ]}
           aside={(
-            <aside className="border border-[#ded6c8] bg-white/80 p-6 shadow-[0_18px_48px_rgba(20,33,31,0.08)] backdrop-blur-sm">
+            <aside className="hidden border border-[#ded6c8] bg-white/80 p-6 shadow-[0_18px_48px_rgba(20,33,31,0.08)] backdrop-blur-sm lg:block">
               <h2 className="text-lg font-bold text-[#14211f]">Key products</h2>
               <div className="mt-4 space-y-3">
                 {industry.products.map((product) => (
@@ -141,6 +141,23 @@ export default async function IndustryDetailPage({ params }: Props) {
             </aside>
           )}
         />
+
+        <section className="border-b border-[#ded6c8] bg-[#f4f0e8] py-8 lg:hidden" aria-labelledby="mobile-key-products-heading">
+          <div className="container-site">
+            <h2 id="mobile-key-products-heading" className="text-lg font-bold text-[#14211f]">Key products</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {industry.products.map((product) => (
+                <div key={product} className="flex items-center gap-2.5 text-sm text-[#4f5f5a]">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0f5f5c]" aria-hidden="true" />
+                  {product}
+                </div>
+              ))}
+            </div>
+            <Link href="/industries" className="mt-6 inline-flex items-center gap-2 border-t border-[#ded6c8] pt-4 text-sm font-semibold text-[#0f5f5c] hover:underline">
+              Browse other industries <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
 
         {insight && (
           <section className="bg-white py-16">

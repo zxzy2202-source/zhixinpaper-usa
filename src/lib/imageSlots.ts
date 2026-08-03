@@ -404,6 +404,15 @@ export const SLOT_REGISTRY = [
     defaultAlt: "REACH-compliant thermal paper rolls for European market",
     recommendedSize: "2400 × 1000 px",
   },
+  {
+    key: "geo.mx.hero",
+    label: "/mx 页 - 顶部 Hero",
+    description: "墨西哥市场落地页 Hero 图",
+    group: "geo",
+    fallback: "/images/thermal-rolls-product.jpg",
+    defaultAlt: "Thermal paper rolls supplied DDP to Mexico distributors",
+    recommendedSize: "2400 × 1000 px",
+  },
 ] as const satisfies readonly SlotDefinition[];
 
 // ── 强类型派生 ───────────────────────────────────────────────────

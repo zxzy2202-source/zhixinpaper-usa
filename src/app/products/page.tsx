@@ -7,7 +7,7 @@ import { createProductExplorerItems } from "@/components/products/productExplore
 import CTABanner from "@/components/ui/CTABanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { SITE_NAME, breadcrumbSchema, canonicalUrl, faqSchema } from "@/lib/seo";
+import { buildMetadata, breadcrumbSchema, canonicalUrl, faqSchema, SITE_NAME } from "@/lib/seo";
 import {
   ArrowRight,
   Boxes,
@@ -24,9 +24,10 @@ import {
 const productPageDescription =
   "Browse wholesale thermal paper rolls and labels by use case, size, compliance files, packing, and RFQ details for repeat import orders.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Wholesale Thermal Paper Products",
   description: productPageDescription,
+  path: "/products",
   keywords: [
     "thermal paper products",
     "thermal paper rolls wholesale",
@@ -40,8 +41,7 @@ export const metadata: Metadata = {
     "custom printed thermal rolls",
     "OEM thermal paper manufacturer",
   ],
-  alternates: { canonical: canonicalUrl("/products") },
-};
+});
 
 const productLines = [
   {
@@ -244,7 +244,7 @@ export default function ProductsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-28 text-white md:pt-32">
+        <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-24 text-white md:pt-28">
           <div className="absolute inset-0">
             <SlotImage
               slotKey="home.hero"
@@ -253,27 +253,28 @@ export default function ProductsPage() {
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
+              quality={65}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(185,130,47,0.08),transparent_24rem),linear-gradient(90deg,rgba(10,24,22,0.74)_0%,rgba(16,27,25,0.48)_48%,rgba(16,27,25,0.12)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
           </div>
 
-          <div className="container-site relative pb-16">
-            <nav className="mb-8 flex items-center gap-2 text-xs font-semibold text-[#c7d0cb]/70">
+          <div className="container-site relative pb-10 md:pb-12">
+            <nav className="mb-5 flex items-center gap-2 text-xs font-semibold text-[#c7d0cb]/70">
               <Link href="/" className="hover:text-white">Home</Link>
               <span>/</span>
               <span className="text-white">Products</span>
             </nav>
 
-            <div className="grid gap-10 lg:grid-cols-[1.08fr_0.64fr] lg:items-end">
+            <div className="grid gap-7 lg:grid-cols-[1.08fr_0.64fr] lg:items-center">
               <div className="max-w-4xl">
                 <h1 className="max-w-4xl text-4xl font-bold leading-[1.04] text-white md:text-5xl">
                   Thermal paper rolls and labels for wholesale reorders.
                 </h1>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-[#c7d0cb] md:text-lg">
+                <p className="mt-4 max-w-2xl text-base leading-7 text-[#c7d0cb] md:text-lg">
                   Choose the product line first. We help confirm size, coating or adhesive, printer fit, documents, packing, and freight terms before bulk production.
                 </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link href="#product-lines" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                     Choose a Product Line
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -284,31 +285,31 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              <aside className="border border-white/12 bg-[#0b1513]/86 p-5 shadow-[0_24px_80px_rgba(5,16,14,0.38)] backdrop-blur-sm md:p-6">
-                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+              <aside className="border border-white/12 bg-[#0b1513]/86 p-4 shadow-[0_24px_80px_rgba(5,16,14,0.38)] backdrop-blur-sm md:p-5">
+                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
                   <div>
                     <p className="text-xs font-bold text-[#d6b273]">Route buyers faster</p>
-                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white">Pick the stock family, then quote the spec.</h2>
+                    <h2 className="mt-1 text-xl font-bold leading-tight text-white">Pick the stock family, then quote the spec.</h2>
                   </div>
                   <Boxes className="h-6 w-6 shrink-0 text-[#d6b273]" aria-hidden="true" />
                 </div>
-                <div className="mt-5 grid gap-3">
+                <div className="mt-3 grid gap-2">
                   {productLines.map((line) => (
-                    <Link key={line.title} href={line.href} className="group grid grid-cols-[1fr_auto] gap-4 border border-white/10 bg-white/[0.04] p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[#d6b273]/40 hover:bg-white/[0.07]">
+                    <Link key={line.title} href={line.href} className="group grid grid-cols-[1fr_auto] gap-3 border border-white/10 bg-white/[0.04] p-3 transition duration-200 hover:-translate-y-0.5 hover:border-[#d6b273]/40 hover:bg-white/[0.07]">
                       <div>
                         <h3 className="text-base font-bold text-white">{line.title}</h3>
-                        <p className="mt-1 text-sm leading-6 text-[#c7d0cb]">{line.specs.slice(0, 2).join(" / ")}</p>
+                        <p className="mt-1 text-xs leading-5 text-[#c7d0cb]">{line.specs.slice(0, 2).join(" / ")}</p>
                       </div>
                       <ArrowRight className="mt-1 h-4 w-4 text-[#d6b273] transition-transform group-hover:translate-x-1" aria-hidden="true" />
                     </Link>
                   ))}
                 </div>
-                <div className="mt-5 grid gap-px bg-white/10 sm:grid-cols-3">
+                <div className="mt-3 grid gap-px bg-white/10 sm:grid-cols-3">
                   {sourcingProof.map((item) => (
-                    <div key={item.label} className="bg-[#101b19]/80 p-4">
+                    <div key={item.label} className="bg-[#101b19]/80 p-3">
                       <p className="text-2xl font-bold text-white">{item.value}</p>
                       <p className="mt-1 text-xs font-bold text-[#d6b273]">{item.label}</p>
-                      <p className="mt-2 text-xs leading-5 text-[#c7d0cb]/78">{item.text}</p>
+                      <p className="mt-1 text-[11px] leading-4 text-[#c7d0cb]/78">{item.text}</p>
                     </div>
                   ))}
                 </div>
@@ -556,12 +557,15 @@ export default function ProductsPage() {
                   These answers are written in plain language so buyers, search engines, and AI answer engines can understand the category before a quote request.
                 </p>
               </div>
-              <div className="divide-y divide-[#ded6c8] border border-[#ded6c8] bg-[#fbfaf6]">
+              <div className="divide-y divide-[#ded6c8] border-y border-[#ded6c8]">
                 {productFaqs.map((faq) => (
-                  <article key={faq.question} className="p-6">
-                    <h3 className="text-lg font-bold text-[#14211f]">{faq.question}</h3>
-                    <p className="mt-3 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
-                  </article>
+                  <details key={faq.question} className="group py-5">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-base font-bold text-[#14211f]">
+                      {faq.question}
+                      <span aria-hidden="true" className="text-xl font-normal text-[#0f5f5c] transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <p className="mt-4 max-w-3xl pr-10 text-sm leading-7 text-[#4f5f5a]">{faq.answer}</p>
+                  </details>
                 ))}
               </div>
             </div>

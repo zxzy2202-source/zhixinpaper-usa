@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PageHeader from "@/components/ui/PageHeader";
 import { COMPANY } from "@/lib/data";
 import {
   CheckCircle2,
@@ -130,24 +131,11 @@ export default function SamplesClient() {
     <>
       <Header />
       <main>
-        <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
-          <div className="container-site">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-0.5 w-8 bg-[#9c661d]" />
-              <span className="text-xs font-bold text-[#0f5f5c]">
-                Sample Evaluation
-              </span>
-            </div>
-            <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
-              Request production samples before bulk order
-            </h1>
-            <p className="text-[#4f5f5a] text-lg max-w-2xl">
-              Test the selected thermal paper or label construction before a bulk
-              order. Availability, sample charges, preparation, documents, and
-              courier terms are confirmed after reviewing the project and destination.
-            </p>
-          </div>
-        </section>
+        <PageHeader
+          eyebrow="Sample Evaluation"
+          title="Request production samples before bulk order"
+          description="Test the selected thermal paper or label construction before a bulk order. Availability, sample charges, preparation, documents, and courier terms are confirmed after reviewing the project and destination."
+        />
 
         <section className="py-20 bg-[#fbfaf6]">
           <div className="container-site">

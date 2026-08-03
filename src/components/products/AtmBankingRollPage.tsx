@@ -156,12 +156,13 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
           </div>
 
           <div className="relative aspect-[4/3] overflow-hidden border border-white/15 bg-[#0b1513]">
-            <Image
-              src="/images/thermal-rolls-product.jpg"
+            <SlotImage
+              slotKey="products.card.atm-banking-rolls"
               alt="ATM and bank receipt thermal paper rolls"
               fill
               fetchPriority="high"
               loading="eager"
+              quality={65}
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"
             />

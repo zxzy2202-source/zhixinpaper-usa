@@ -31,7 +31,8 @@ test("products page keeps crawlable SEO entities", () => {
   assert.match(page, /CollectionPage/);
   assert.match(page, /ItemList/);
   assert.match(page, /faqSchema/);
-  assert.match(page, /alternates: \{ canonical:/);
+  assert.match(page, /buildMetadata\(\{/);
+  assert.match(page, /path: "\/products"/);
 });
 
 test("products page supplies the complete catalog to the explorer", () => {

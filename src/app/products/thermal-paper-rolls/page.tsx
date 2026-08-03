@@ -4,16 +4,10 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { SlotImage } from "@/components/ui/SlotImage";
-import {
-  THERMAL_PAPER_GRADE_PATHS,
-  THERMAL_PAPER_PRODUCT_GROUPS,
-  THERMAL_PAPER_SKU_LAYERS,
-  THERMAL_PAPER_TIERS,
-} from "@/config/thermalPaperArchitecture";
-import { THERMAL_PAPER_ROLLS } from "@/lib/data";
-import { THERMAL_ROLL_SCENARIOS } from "@/lib/marketInsights";
+import { THERMAL_PAPER_ROLLS, COMPANY } from "@/lib/data";
+import { THERMAL_PAPER_GRADE_PATHS } from "@/config/thermalPaperArchitecture";
 import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Factory, Layers, Printer, ScanLine, Scissors, Truck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Thermal Paper Rolls: Sizes & Specifications",
@@ -36,57 +30,6 @@ export const metadata: Metadata = buildMetadata({
   ],
 });
 
-const THERMAL_ROLL_TERMS = [
-  {
-    term: "Thermal paper rolls",
-    alsoCalled: "Direct thermal paper rolls, thermal printer paper rolls",
-    use: "The broad product family. Add the printer, application, or full roll specification before quoting.",
-  },
-  {
-    term: "Thermal receipt paper",
-    alsoCalled: "Receipt paper rolls, POS rolls, POS receipt paper",
-    use: "Receipt stock for POS and cash-register printers. Width alone does not confirm printer fit.",
-  },
-  {
-    term: "Till rolls",
-    alsoCalled: "Cash register rolls, register rolls",
-    use: "Common UK and European buying terms for receipt rolls used at a checkout or till.",
-  },
-  {
-    term: "Receipt tape",
-    alsoCalled: "Register tape, cash register tape",
-    use: "North American legacy terms that can refer to thermal or non-thermal paper; confirm the print method.",
-  },
-  {
-    term: "Terminal paper rolls",
-    alsoCalled: "Credit card machine paper, payment terminal rolls",
-    use: "Usually compact 57mm or 2 1/4-inch rolls. Confirm model, OD, core ID, and winding direction.",
-  },
-];
-
-const THERMAL_ROLL_SPEC_NAMES = [
-  {
-    name: "80 x 80 mm",
-    meaning: "Usually 80mm roll width x approximately 80mm outer diameter",
-    confirm: "Core ID, paper GSM, measured roll length, winding direction, and carton count",
-  },
-  {
-    name: "3 1/8 in x 230 ft",
-    meaning: "3.125-inch roll width x 230-foot nominal roll length",
-    confirm: "OD, core ID, paper GSM, actual length tolerance, and printer model",
-  },
-  {
-    name: "57 x 40 mm",
-    meaning: "57mm roll width x approximately 40mm outer diameter",
-    confirm: "Core ID, target length, terminal paper compartment, and pack count",
-  },
-  {
-    name: "2 1/4 in x 50 ft / 85 ft",
-    meaning: "2.25-inch roll width x nominal roll length in feet",
-    confirm: "Finished OD, core ID, winding direction, and exact terminal model",
-  },
-];
-
 const THERMAL_ROLL_FAQS = [
   {
     question: "What are thermal paper rolls?",
@@ -96,22 +39,22 @@ const THERMAL_ROLL_FAQS = [
   {
     question: "How are thermal paper roll sizes named?",
     answer:
-      "Metric names commonly use width x outer diameter, such as 80 x 80 mm or 57 x 40 mm. Inch-based names often use width x roll length, such as 3 1/8 in x 230 ft or 2 1/4 in x 50 ft. Always confirm which dimensions a supplier is quoting.",
+      "Metric names commonly use width x outer diameter, such as 80 x 80 mm or 57 x 40 mm. Inch-based names often use width x roll length, such as 3 1/8 in x 230 ft or 2 1/4 in x 50 ft. Always confirm which dimensions a supplier is quoting — width alone does not confirm printer fit.",
   },
   {
-    question: "Are 80 x 80 mm and 3 1/8 in x 230 ft the same roll?",
+    question: "Are 80 x 80 mm and 3 1/8 in x 230 ft interchangeable?",
     answer:
-      "Not automatically. Both are about 80mm or 3.125 inches wide, but 80 x 80 mm usually states width and outer diameter while 3 1/8 in x 230 ft states width and nominal length. Paper GSM, core ID, winding tension, and actual measured length determine the finished OD.",
+      "Not automatically. Both are about 80mm or 3.125 inches wide, but 80 x 80 mm usually states width and outer diameter while 3 1/8 in x 230 ft states width and nominal length. Paper GSM, core ID, winding tension, and actual measured length determine the finished OD. Always confirm the full spec.",
   },
   {
     question: "Are 57mm and 2 1/4-inch receipt paper the same width?",
     answer:
-      "They are the same common width family because 2.25 inches is about 57.15mm. They are not a complete specification. Payment terminals can require different outer diameters, lengths, core IDs, or winding directions even when the paper width matches.",
+      "They are the same common width family because 2.25 inches is about 57.15mm. However, they are not a complete specification — payment terminals can require different outer diameters, lengths, core IDs, or winding directions even when the paper width matches. Confirm the exact terminal model.",
   },
   {
     question: "What information is needed for a thermal paper roll quote?",
     answer:
-      "Send the application or printer model, roll width, target length or outer diameter, core ID, paper GSM or grade, winding direction, coating or compliance needs, quantity per SKU, packing method, and destination. A current roll photo or sample helps verify ambiguous size names.",
+      "Send the application or printer model, roll width, target length or outer diameter, core ID, paper GSM or grade, winding direction, coating or compliance needs, quantity per SKU, packing method, and destination. A current roll photo or sample helps verify ambiguous size names before quoting.",
   },
 ];
 
@@ -141,32 +84,6 @@ const thermalRollCollectionSchema = {
   },
 };
 
-const thermalRollTerminologySchema = {
-  "@context": "https://schema.org",
-  "@type": "DefinedTermSet",
-  name: "Thermal paper roll terminology and size notation",
-  description:
-    "Common English names and metric or imperial specification formats used when sourcing thermal paper rolls.",
-  url: `${canonicalUrl("/products/thermal-paper-rolls")}#thermal-roll-terminology`,
-  hasDefinedTerm: THERMAL_ROLL_TERMS.map((item) => ({
-    "@type": "DefinedTerm",
-    name: item.term,
-    alternateName: item.alsoCalled.split(", "),
-    description: item.use,
-  })),
-};
-
-const thermalRollsBySlug = new Map(
-  THERMAL_PAPER_ROLLS.map((roll) => [roll.slug, roll]),
-);
-
-function getRollsForGroup(slugs: readonly string[]) {
-  return slugs.flatMap((slug) => {
-    const roll = thermalRollsBySlug.get(slug);
-    return roll ? [roll] : [];
-  });
-}
-
 export default function ThermalPaperRollsPage() {
   const jsonLd = [
     breadcrumbSchema([
@@ -175,7 +92,6 @@ export default function ThermalPaperRollsPage() {
       { name: "Thermal Paper Rolls", url: "/products/thermal-paper-rolls" },
     ]),
     thermalRollCollectionSchema,
-    thermalRollTerminologySchema,
     faqSchema(THERMAL_ROLL_FAQS),
   ];
 
@@ -192,10 +108,11 @@ export default function ThermalPaperRollsPage() {
         />
       ))}
       <main id="main-content">
+        {/* ── HERO ── */}
         <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
           <div className="container-site">
             <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-[#87918c]">
-              <Link href="/products" className="hover:text-[#0f5f5c] transition-colors">Products</Link>
+              <Link href="/products" className="transition-colors hover:text-[#0f5f5c]">Products</Link>
               <span>/</span>
               <span className="text-[#4f5f5a]">Thermal Paper Rolls</span>
             </nav>
@@ -207,8 +124,22 @@ export default function ThermalPaperRollsPage() {
               Thermal Paper Rolls
             </h1>
             <p className="text-[#4f5f5a] text-lg max-w-2xl mb-6">
-              Choose thermal paper rolls by the buying scenario: POS receipts, payment terminals, kitchen tickets, lottery and casino tickets, parking tickets, or custom printed campaigns. We help distributors confirm size, coating, documents, packaging, and landed cost before bulk orders.
+              Standard POS rolls, payment terminal rolls, ATM rolls, lottery and casino tickets, parking tickets, and custom printed receipt paper. BPA-free, REACH compliant, with OEM printing and DDP shipping options.
             </p>
+            <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href="/quote"
+                className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16]"
+              >
+                Request a Roll Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/samples"
+                className="inline-flex min-h-11 items-center justify-center border border-[#0f5f5c]/35 bg-white/55 px-7 py-3 text-sm font-semibold text-[#0f5f5c] transition-colors hover:border-[#0f5f5c] hover:bg-white"
+              >
+                Request Samples
+              </Link>
+            </div>
             <div className="flex flex-wrap gap-3">
               {["BPA-Free Documents", "Roll Size Control", "Scan Reliability", "OEM Printing", "Pallet & DDP Options"].map((f) => (
                 <span key={f} className="flex items-center gap-1.5 border border-[#ded6c8] bg-[#f4f0e8] px-3 py-1.5 text-xs font-semibold text-[#4f5f5a]">
@@ -220,171 +151,64 @@ export default function ThermalPaperRollsPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#ded6c8] bg-[#101b19] py-12 text-white">
-          <div className="container-site grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-            <div>
-              <p className="text-xs font-bold text-[#c8a96b]">Direct answer</p>
-              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
-                What are thermal paper rolls?
-              </h2>
-            </div>
-            <p className="max-w-4xl text-base leading-8 text-[#e7eee9]">
-              Thermal paper rolls are heat-sensitive paper rolls used in direct thermal printers without ink or toner.
-              Buyers may call them thermal receipt paper, POS rolls, till rolls, register tape, or terminal paper. A
-              quote-ready specification includes width, length or outer diameter, core ID, paper GSM, winding direction,
-              coating, quantity, packing, and the printer or application.
-            </p>
-          </div>
-        </section>
-
-        <section id="product-tiers" className="scroll-mt-28 border-b border-[#ded6c8] bg-[#f4f0e8] py-16">
+        {/* ── PRODUCT CARDS ── */}
+        <section className="py-20 bg-[#fbfaf6]">
           <div className="container-site">
-            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-              <div>
-                <p className="section-label">Five buying paths</p>
-                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                  Start with the commercial task, then configure the roll.
-                </h2>
-              </div>
-              <p className="text-sm leading-7 text-[#4f5f5a]">
-                These tiers describe how an order is qualified, not five grades of quality. A single SKU can combine a
-                core roll, a compliance route, a resistance requirement, custom printing, and a system approval. The
-                highest-risk requirement controls the quotation and validation process.
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-px border border-[#c8bcaa] bg-[#c8bcaa] md:grid-cols-2 xl:grid-cols-5">
-              {THERMAL_PAPER_TIERS.map((tier) => (
-                <Link
-                  key={tier.code}
-                  href={tier.href}
-                  className="group flex min-h-[250px] flex-col bg-[#fbfaf6] p-5 transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f5f5c]"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="border border-[#0f5f5c]/25 bg-[#e7eee9] px-2 py-1 text-xs font-bold text-[#0f5f5c]">
-                      {tier.code}
-                    </span>
-                    <span className="text-[11px] font-bold text-[#9f6e25]">{tier.maturity}</span>
-                  </div>
-                  <h3 className="mt-5 text-lg font-bold text-[#14211f] group-hover:text-[#0f5f5c]">{tier.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{tier.summary}</p>
-                  <p className="mt-4 text-xs leading-5 text-[#687772]">{tier.buyerTask}</p>
-                  <span className="mt-auto flex items-center gap-1.5 pt-5 text-xs font-bold text-[#0f5f5c]">
-                    Follow this path <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {THERMAL_PAPER_ROLLS.map((roll) => (
+                <div key={roll.slug} className="group flex flex-col overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] transition-all hover:border-[#0f5f5c]/40">
+                  <Link href={`/products/thermal-paper-rolls/${roll.slug}`} className="flex flex-col flex-1 hover:bg-[#f4f0e8] transition-colors">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eee9]">
+                      <SlotImage
+                        slotKey={`products.card.${roll.slug}`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h2 className="font-bold text-[#14211f] text-xl transition-colors group-hover:text-[#0f5f5c]">{roll.name}</h2>
+                        {roll.tag && (
+                          <span className={`ml-2 shrink-0 border px-2 py-0.5 text-[10px] font-bold ${roll.tag === "New" ? "border-[#0f5f5c]/25 bg-[#0f5f5c]/10 text-[#0f5f5c]" : "bg-[#e7eee9] text-[#0f5f5c] border-[#0f5f5c]/25"}`}>{roll.tag}</span>
+                        )}
+                      </div>
+                      <p className="text-[#4f5f5a] text-sm mb-4">{roll.subtitle}</p>
+                      <div className="space-y-1.5 mb-4">
+                        {roll.features.slice(0, 3).map((f) => (
+                          <div key={f} className="flex items-center gap-2 text-xs text-[#4f5f5a]">
+                            <CheckCircle2 className="w-3 h-3 text-[#0f5f5c]/60 shrink-0" />
+                            {f}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-auto flex items-center justify-between border-t border-[#ded6c8] pt-4">
+                        <span className="text-[#87918c] text-xs">MOQ: {roll.moq}</span>
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-[#0f5f5c]">
+                          Details <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                  <a
+                    href={`https://wa.me/${COMPANY.whatsapp.replace(/\D/g, "")}?text=Hi,%20I'm%20interested%20in%20${encodeURIComponent(roll.name)}%20thermal%20paper%20rolls.%20Please%20send%20details.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 w-full border-t border-[#ded6c8] bg-[#f0fff4] hover:bg-[#d8f5e0] text-[#128C7E] text-xs font-semibold py-2.5 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Inquire via WhatsApp
+                  </a>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-16">
+        {/* ── T3 PERFORMANCE GRADES ── */}
+        <section id="performance-grades" className="scroll-mt-28 border-t border-[#ded6c8] bg-[#101b19] py-20 text-white">
           <div className="container-site">
-            <div className="mb-8 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-              <div>
-                <p className="section-label">Buying scenarios</p>
-                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                  Match the roll to the risk your buyer is trying to avoid.
-                </h2>
-              </div>
-              <p className="text-sm leading-7 text-[#4f5f5a]">
-                The same paper width can behave very differently in a supermarket POS, a mobile payment terminal,
-                a lottery machine, or an outdoor parking kiosk. Start with the use case, then confirm the spec.
-              </p>
-            </div>
-
-            <div className="overflow-x-auto border border-[#ded6c8]">
-              <table className="min-w-[980px] w-full text-left">
-                <thead className="bg-[#101b19] text-white">
-                  <tr>
-                    <th className="px-5 py-4 text-xs font-bold">Scenario</th>
-                    <th className="px-5 py-4 text-xs font-bold">Common spec</th>
-                    <th className="px-5 py-4 text-xs font-bold">Buyer risk</th>
-                    <th className="px-5 py-4 text-xs font-bold">Recommended path</th>
-                    <th className="px-5 py-4 text-xs font-bold">Ask for</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {THERMAL_ROLL_SCENARIOS.map((scenario, index) => (
-                    <tr key={scenario.scenario} className={index % 2 === 0 ? "bg-[#fbfaf6]" : "bg-[#f4f0e8]"}>
-                      <td className="px-5 py-5 align-top text-sm font-bold text-[#14211f]">{scenario.scenario}</td>
-                      <td className="px-5 py-5 align-top text-sm text-[#4f5f5a]">{scenario.commonSpec}</td>
-                      <td className="px-5 py-5 align-top text-sm text-[#4f5f5a]">{scenario.buyerRisk}</td>
-                      <td className="px-5 py-5 align-top">
-                        <Link href={scenario.href} className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
-                          {scenario.recommendedProduct}
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </td>
-                      <td className="px-5 py-5 align-top text-sm text-[#4f5f5a]">{scenario.askFor}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section id="thermal-roll-terminology" className="scroll-mt-28 border-b border-[#ded6c8] bg-[#f4f0e8] py-20">
-          <div className="container-site">
-            <div className="max-w-3xl">
-              <p className="section-label">Names and specifications</p>
-              <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                Read the roll name before comparing the price.
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#4f5f5a]">
-                Thermal roll names change by market. Metric listings often state width x outer diameter, while US and
-                Canadian listings often state width x nominal length. A familiar name is not a complete specification.
-              </p>
-            </div>
-
-            <div className="mt-10 overflow-x-auto border border-[#ded6c8] bg-[#fbfaf6]">
-              <table className="min-w-[880px] w-full text-left">
-                <thead className="bg-[#101b19] text-white">
-                  <tr>
-                    <th className="px-5 py-4 text-xs font-bold">Buyer term</th>
-                    <th className="px-5 py-4 text-xs font-bold">Also called</th>
-                    <th className="px-5 py-4 text-xs font-bold">How to use the term</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {THERMAL_ROLL_TERMS.map((item, index) => (
-                    <tr key={item.term} className={index % 2 === 0 ? "bg-[#fbfaf6]" : "bg-[#eee9df]"}>
-                      <th scope="row" className="px-5 py-5 align-top text-sm font-bold text-[#14211f]">{item.term}</th>
-                      <td className="px-5 py-5 align-top text-sm text-[#4f5f5a]">{item.alsoCalled}</td>
-                      <td className="px-5 py-5 align-top text-sm leading-6 text-[#4f5f5a]">{item.use}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="mt-10 overflow-x-auto border border-[#ded6c8] bg-[#fbfaf6]">
-              <table className="min-w-[880px] w-full text-left">
-                <thead className="bg-[#0f5f5c] text-white">
-                  <tr>
-                    <th className="px-5 py-4 text-xs font-bold">Common size name</th>
-                    <th className="px-5 py-4 text-xs font-bold">What it usually means</th>
-                    <th className="px-5 py-4 text-xs font-bold">Confirm before ordering</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {THERMAL_ROLL_SPEC_NAMES.map((item, index) => (
-                    <tr key={item.name} className={index % 2 === 0 ? "bg-[#fbfaf6]" : "bg-[#eee9df]"}>
-                      <th scope="row" className="px-5 py-5 align-top text-sm font-bold text-[#14211f]">{item.name}</th>
-                      <td className="px-5 py-5 align-top text-sm text-[#4f5f5a]">{item.meaning}</td>
-                      <td className="px-5 py-5 align-top text-sm leading-6 text-[#4f5f5a]">{item.confirm}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section id="performance-grades" className="scroll-mt-28 border-b border-[#ded6c8] bg-[#101b19] py-20 text-white">
-          <div className="container-site">
-            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end mb-10">
               <div>
                 <p className="text-xs font-bold text-[#d6b273]">T3 functional performance</p>
                 <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
@@ -392,12 +216,11 @@ export default function ThermalPaperRollsPage() {
                 </h2>
               </div>
               <p className="text-sm leading-7 text-[#c7d0cb]">
-                Water-resistant, three-proof, and long-life are incomplete buying terms. Qualification starts with the
-                named risk, contact method, temperature and humidity, duration, readability target, and acceptance test.
+                Water-resistant, three-proof, and long-life are incomplete buying terms. Qualification starts with the named risk, contact method, temperature and humidity, duration, readability target, and acceptance test.
               </p>
             </div>
 
-            <div className="mt-10 divide-y divide-white/15 border-y border-white/15">
+            <div className="divide-y divide-white/15 border-y border-white/15">
               {THERMAL_PAPER_GRADE_PATHS.map((grade) => (
                 <div key={grade.name} className="grid gap-4 py-6 md:grid-cols-[0.7fr_0.9fr_1.4fr] md:gap-8">
                   <div>
@@ -412,8 +235,7 @@ export default function ThermalPaperRollsPage() {
 
             <div className="mt-8 flex flex-col gap-4 border-l-2 border-[#d6b273] pl-5 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-3xl text-sm leading-6 text-[#e7eee9]">
-                A performance option remains a configuration or project candidate until the quoted grade, test method,
-                sample result, and application conditions are linked to the order.
+                A performance option remains a configuration or project candidate until the quoted grade, test method, sample result, and application conditions are linked to the order.
               </p>
               <Link href="/quote" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-[#e7c98f] hover:text-white">
                 Submit test conditions <ArrowRight className="h-4 w-4" />
@@ -422,114 +244,120 @@ export default function ThermalPaperRollsPage() {
           </div>
         </section>
 
-        <section className="bg-[#fbfaf6] py-20">
+        {/* ── PRODUCTION LINE ── */}
+        <section className="border-t border-[#ded6c8] bg-[#101b19] py-20 text-white">
           <div className="container-site">
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center mb-12">
               <div>
-                <p className="section-label">Portfolio by buying path</p>
-                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                  Keep product pages focused on distinct customer tasks.
+                <p className="text-xs font-bold text-[#d6b273]">Production line</p>
+                <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+                  From jumbo roll to finished roll.
                 </h2>
+                <p className="mt-5 text-sm leading-7 text-[#c7d0cb] max-w-xl">
+                  Every thermal paper roll order follows a documented production path. From slitting and rewinding to packing and palletizing, each step is tracked against the approved specification.
+                </p>
               </div>
-              <Link href="/quote" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
-                Send a roll spec
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="relative aspect-[16/10] overflow-hidden border border-white/10">
+                <SlotImage
+                  slotKey="factory.equipment.slitting-rewinding"
+                  alt="Thermal paper roll slitting and rewinding production line"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
             </div>
-            <div className="mt-10 space-y-14">
-              {THERMAL_PAPER_PRODUCT_GROUPS.map((group) => (
-                <section key={group.id} id={group.id} className="scroll-mt-28">
-                  <div className="grid gap-4 border-b border-[#c8bcaa] pb-5 md:grid-cols-[0.65fr_1.35fr] md:items-end">
-                    <div>
-                      <p className="text-xs font-bold text-[#9f6e25]">{group.eyebrow}</p>
-                      <h3 className="mt-2 text-2xl font-bold text-[#14211f]">{group.title}</h3>
+
+            <div className="relative">
+              <div className="absolute top-7 left-7 right-7 h-0.5 bg-[#2a4a3c] hidden lg:block" aria-hidden="true" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
+                {[
+                  { icon: <Layers className="w-5 h-5" />, step: "Coating", detail: "Thermal coating applied to base paper with controlled sensitivity and density" },
+                  { icon: <Scissors className="w-5 h-5" />, step: "Slitting", detail: "Jumbo rolls slit to ordered width with precise edge control" },
+                  { icon: <Factory className="w-5 h-5" />, step: "Rewinding", detail: "Slit rolls rewound to specified outer diameter and core ID" },
+                  { icon: <Printer className="w-5 h-5" />, step: "Printing", detail: "Custom logo, patterns, or compliance text printed on roll back" },
+                  { icon: <ScanLine className="w-5 h-5" />, step: "QC inspection", detail: "OD, core fit, image density, and scan reliability tested per batch" },
+                  { icon: <Truck className="w-5 h-5" />, step: "Packing & dispatch", detail: "Carton labels, pallet plans, and shipping documents matched to order" },
+                ].map((item, i) => (
+                  <div key={item.step} className="relative flex flex-col items-center text-center">
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 z-10 ${
+                      i === 5 ? "bg-emerald-600 text-white" : "bg-[#1a3a2e] text-[#d6b273]"
+                    }`}>
+                      {item.icon}
                     </div>
-                    <p className="text-sm leading-7 text-[#4f5f5a]">{group.description}</p>
+                    <p className="font-bold text-white text-sm mb-1">{i + 1}. {item.step}</p>
+                    <p className="text-[#8ca39a] text-xs leading-relaxed">{item.detail}</p>
                   </div>
-                  <div className="grid gap-px border-x border-b border-[#ded6c8] bg-[#ded6c8] sm:grid-cols-2 lg:grid-cols-3">
-                    {getRollsForGroup(group.slugs).map((roll) => (
-                      <Link
-                        key={roll.slug}
-                        href={`/products/thermal-paper-rolls/${roll.slug}`}
-                        className="group flex flex-col overflow-hidden bg-[#fbfaf6] transition-colors hover:bg-[#f4f0e8] focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f5f5c]"
-                      >
-                        <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eee9]">
-                          <SlotImage
-                            slotKey={`products.card.${roll.slug}`}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                        </div>
-                        <div className="flex min-h-[220px] flex-1 flex-col p-5">
-                          <div className="flex items-start justify-between gap-3">
-                            <h4 className="text-lg font-bold text-[#14211f] transition-colors group-hover:text-[#0f5f5c]">{roll.name}</h4>
-                            {roll.tag && (
-                              <span className="shrink-0 border border-[#0f5f5c]/25 bg-[#e7eee9] px-2 py-0.5 text-[10px] font-bold text-[#0f5f5c]">
-                                {roll.tag}
-                              </span>
-                            )}
-                          </div>
-                          <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">{roll.subtitle}</p>
-                          <p className="mt-4 text-xs leading-5 text-[#687772]">Common sizes: {roll.sizes.slice(0, 3).join(" / ")}</p>
-                          <span className="mt-auto flex items-center justify-between gap-3 border-t border-[#ded6c8] pt-4 text-xs">
-                            <span className="text-[#87918c]">MOQ: {roll.moq}</span>
-                            <span className="flex items-center gap-1.5 font-semibold text-[#0f5f5c]">
-                              Details <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-                            </span>
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-[#ded6c8] bg-[#f4f0e8] py-20">
-          <div className="container-site">
-            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-              <div>
-                <p className="section-label">L0-L7 quote structure</p>
-                <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
-                  Define the complete SKU before comparing quotes.
-                </h2>
+                ))}
               </div>
-              <p className="text-sm leading-7 text-[#4f5f5a]">
-                Product names, sizes, compliance terms, and durability labels belong to different layers. Confirming all
-                eight prevents a familiar name such as 80x80, BPA-free, or custom printed from hiding a critical mismatch.
-              </p>
             </div>
 
-            <ol className="mt-10 grid gap-px border border-[#c8bcaa] bg-[#c8bcaa] md:grid-cols-2 xl:grid-cols-4">
-              {THERMAL_PAPER_SKU_LAYERS.map((layer) => (
-                <li key={layer.code} className="min-h-[180px] bg-[#fbfaf6] p-5">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#0f5f5c] text-xs font-bold text-white">
-                      {layer.code}
-                    </span>
-                    <h3 className="text-base font-bold text-[#14211f]">{layer.name}</h3>
-                  </div>
-                  <p className="mt-5 text-sm leading-6 text-[#4f5f5a]">{layer.prompt}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
+                <SlotImage
+                  slotKey="factory.equipment.thermal-coating"
+                  alt="Thermal coating production line for paper rolls"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
+                <SlotImage
+                  slotKey="factory.equipment.slitting-rewinding"
+                  alt="Roll slitting and rewinding equipment"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
+                <SlotImage
+                  slotKey="factory.equipment.flexographic-printing"
+                  alt="Flexographic printing for custom roll branding"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
+                <SlotImage
+                  slotKey="factory.equipment.quality-inspection"
+                  alt="Quality inspection station for thermal paper rolls"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+            </div>
 
-            <div className="mt-8 flex flex-col gap-4 border-l-2 border-[#0f5f5c] pl-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-3xl text-sm leading-6 text-[#4f5f5a]">
-                Minimum RFQ: application, printer model, width, maximum OD or required length, core ID, paper grade,
-                winding, mark or sensor, printing, packaging, quantity, and destination.
+            <div className="mt-10 grid gap-5 sm:grid-cols-3">
+              {[
+                { label: "Coating width", value: "Up to 1,600mm", desc: "Accommodates large-format jumbo rolls" },
+                { label: "Slitting precision", value: "±0.5mm", desc: "Consistent width across every roll in the order" },
+                { label: "Annual capacity", value: "500M+ rolls", desc: "Multi-line production for volume buyers" },
+              ].map((stat) => (
+                <div key={stat.label} className="border border-white/10 bg-white/[0.04] p-6 text-center">
+                  <p className="font-bold text-[#d6b273] text-2xl mb-1">{stat.value}</p>
+                  <p className="font-semibold text-white text-sm">{stat.label}</p>
+                  <p className="text-[#8ca39a] text-xs mt-2">{stat.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 border-l-2 border-[#d6b273] pl-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-3xl text-sm leading-6 text-[#e7eee9]">
+                Production capacity and capability statements are provided for reference. The actual process, timeline, and quality plan for each order are defined by the approved material, specification, sample, and current production schedule.
               </p>
-              <Link href="/quote" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#0a4745]">
-                Get a specification-based quote <ArrowRight className="h-4 w-4" />
+              <Link href="/factory/overview" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-[#e7c98f] hover:text-white">
+                View factory overview <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-[#ded6c8] bg-[#fbfaf6] py-20">
+        {/* ── FAQ ── */}
+        <section className="border-t border-[#ded6c8] bg-[#f4f0e8] py-20">
           <div className="container-site grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
             <div>
               <p className="section-label">Thermal roll FAQ</p>

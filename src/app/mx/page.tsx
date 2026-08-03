@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SlotImage } from "@/components/ui/SlotImage";
 import {
   ArrowRight,
   CheckCircle2,
@@ -133,19 +134,19 @@ export default function MexicoPage() {
       ))}
 
       <main id="main-content" lang="en" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
-        <section className="relative isolate min-h-[620px] overflow-hidden bg-[#101b19] text-white">
-          <Image
-            src="/images/thermal-rolls-product.jpg"
+        <section className="relative isolate min-h-[clamp(380px,50vh,620px)] overflow-hidden bg-[#101b19] text-white">
+          <SlotImage
+            slotKey="geo.mx.hero"
             alt="Thermal paper rolls prepared for wholesale supply"
             fill
             fetchPriority="high"
             loading="eager"
-            quality={76}
+            quality={65}
             sizes="100vw"
             className="-z-20 object-cover"
           />
           <div className="absolute inset-0 -z-10 bg-[#101b19]/62" />
-          <div className="container-site flex min-h-[620px] items-center py-16 md:py-20">
+          <div className="container-site flex min-h-[clamp(380px,50vh,620px)] items-center py-16 md:py-20">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold text-[#d6b273]">B2B supply for Mexico</p>
               <h1 className="mt-4 text-4xl font-bold leading-tight text-white md:text-6xl">

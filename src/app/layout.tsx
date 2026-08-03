@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CookieConsent from "@/components/ui/CookieConsent";
+import ScrollToHash from "@/components/ui/ScrollToHash";
 import { websiteSchema, organizationSchema } from "@/lib/seo";
 import { getSeoGlobal } from "@/lib/siteSettings";
 import "./globals.css";
@@ -112,6 +113,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <ScrollToHash />
         <WhatsAppButton />
         <CookieConsent />
       </body>

@@ -47,12 +47,12 @@ test("performance terms stay evidence-aware modules instead of new URLs", () => 
   assert.match(architecture, /no fixed year claim/i);
 });
 
-test("thermal paper hub renders paths, performance, projects, and quote layers", () => {
-  assert.match(hub, /id="product-tiers"/);
+test("thermal paper hub renders products, performance, production, and quote paths", () => {
+  assert.match(hub, /THERMAL_PAPER_ROLLS\.map/);
   assert.match(hub, /id="performance-grades"/);
-  assert.match(hub, /id=\{group\.id\}/);
-  assert.match(hub, /THERMAL_PAPER_SKU_LAYERS\.map/);
-  assert.match(hub, /Get a specification-based quote/);
+  assert.match(hub, /THERMAL_PAPER_GRADE_PATHS\.map/);
+  assert.match(hub, /Production line/);
+  assert.match(hub, /Request a Roll Quote/);
   assert.match(hub, /<h1[^>]*>[\s\S]*Thermal Paper Rolls[\s\S]*<\/h1>/);
   assert.doesNotMatch(hub, /<h1[^>]*>[\s\S]*(Europe|USA|Canada|Mexico|North America)[\s\S]*<\/h1>/);
 });

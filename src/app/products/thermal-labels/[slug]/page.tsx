@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
@@ -188,15 +188,15 @@ export default async function LabelDetailPage({ params }: Props) {
             { label: "Request Samples", href: "/samples", kind: "secondary" },
           ]}
           media={(
-            <Image
-              src="/images/thermal-labels-product.jpg"
+            <SlotImage
+              slotKey={`products.card.${label.slug}`}
               alt={`${label.name} - Thermal Labels`}
               fill
               className="object-cover object-[62%_center]"
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
-              quality={76}
+              quality={65}
             />
           )}
         />

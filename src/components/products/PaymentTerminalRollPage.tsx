@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SlotImage from "@/components/ui/SlotImage";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -112,12 +112,13 @@ export default function PaymentTerminalRollPage({ roll, faqs }: PaymentTerminalR
           </div>
 
           <div className="relative aspect-[4/3] overflow-hidden border border-white/12 bg-[#0b1513]">
-            <Image
-              src="/images/thermal-rolls-product.jpg"
+            <SlotImage
+              slotKey="products.card.credit-card-terminal-rolls"
               alt="Compact credit card terminal thermal paper rolls"
               fill
               fetchPriority="high"
               loading="eager"
+              quality={65}
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
             />

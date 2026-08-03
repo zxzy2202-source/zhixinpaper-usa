@@ -168,7 +168,7 @@ export default function AboutPage() {
       ))}
 
       <main id="main-content" className="bg-[#fbfaf6] pt-[88px] text-[#14211f]">
-        <section className="relative min-h-[620px] overflow-hidden border-b border-white/15 bg-[#14211f] text-white lg:min-h-[700px]">
+        <section className="relative min-h-[clamp(380px,52vh,540px)] overflow-hidden border-b border-white/15 bg-[#14211f] text-white lg:min-h-[clamp(460px,48vh,590px)]">
           <div className="absolute inset-0">
             <SlotImage
               slotKey="about.banner"
@@ -177,13 +177,13 @@ export default function AboutPage() {
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
+              quality={65}
               className="object-cover object-center opacity-90"
             />
-            <div className="absolute inset-0 bg-[#0c1715]/45" />
-            <div className="absolute inset-y-0 left-0 w-full bg-[#0c1715]/35 lg:w-[68%]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,23,21,0.62)_0%,rgba(12,23,21,0.42)_46%,rgba(12,23,21,0.22)_100%)]" />
           </div>
 
-          <div className="container-site relative flex min-h-[620px] flex-col justify-between py-8 lg:min-h-[700px] lg:py-12">
+          <div className="container-site relative flex min-h-[clamp(380px,52vh,540px)] flex-col justify-between py-6 lg:min-h-[clamp(460px,48vh,590px)] lg:py-8">
             <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/70" aria-label="Breadcrumb">
               <Link href="/" className="transition-colors hover:text-white">
                 Home
@@ -192,18 +192,18 @@ export default function AboutPage() {
               <span className="text-white">About</span>
             </nav>
 
-            <div className="max-w-4xl py-14">
-              <div className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#e1c18a]">
+            <div className="max-w-4xl py-8 lg:py-10">
+              <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#e1c18a]">
                 <span className="h-px w-10 bg-[#e1c18a]" />
                 Manufacturing history since 2006
               </div>
               <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.04] tracking-normal text-white md:text-6xl lg:text-7xl">
                 A manufacturing record, built year by year.
               </h1>
-              <p className="mt-7 max-w-2xl text-base leading-8 text-white/82 md:text-lg">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/82 md:text-lg">
                 Zhixin Paper grew from a one-person trading business into a thermal paper converting and international supply partner through practical investment in equipment, people, processes, and buyer service.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="#history"
                   className="inline-flex items-center justify-center gap-2 bg-[#f4f0e8] px-6 py-3 text-sm font-bold text-[#14211f] transition-colors hover:bg-white"
@@ -226,7 +226,7 @@ export default function AboutPage() {
                 ["2008", "First thermal slitter"],
                 ["2026", "Global cooperation stage"],
               ].map(([value, label]) => (
-                <div key={value} className="border-white/20 py-5 sm:border-l sm:px-6 first:sm:border-l-0 first:sm:pl-0">
+                <div key={value} className="border-white/20 py-3 sm:border-l sm:px-6 first:sm:border-l-0 first:sm:pl-0">
                   <div className="text-2xl font-extrabold text-white">{value}</div>
                   <div className="mt-1 text-xs uppercase tracking-[0.14em] text-white/62">{label}</div>
                 </div>

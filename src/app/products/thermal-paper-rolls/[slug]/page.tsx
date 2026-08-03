@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
@@ -343,6 +343,7 @@ export default async function RollDetailPage({ params }: Props) {
   const isStandardPos = slug === "standard-pos-rolls";
   const isAtmBanking = slug === "atm-banking-rolls";
   const isPaymentTerminal = slug === "credit-card-terminal-rolls";
+  const isCustomPrinted = slug === "custom-printed-rolls";
   const productJsonLd = productSchema({
     name: isStandardPos ? "POS Receipt Paper Rolls" : isPaymentTerminal ? "Credit Card Terminal Paper Rolls" : roll.name,
     description: isStandardPos ? STANDARD_POS_PAGE.intro : isPaymentTerminal ? roll.description : descText,
@@ -480,18 +481,18 @@ export default async function RollDetailPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      {isStandardPos && (
+      {(isStandardPos || isCustomPrinted) && (
         <style
           dangerouslySetInnerHTML={{
             __html: `
-              .standard-pos-hero-grid {
+              .product-hero-grid {
                 display: grid;
                 gap: 2rem;
               }
               @media (min-width: 1024px) {
-                .standard-pos-hero-grid {
+                .product-hero-grid {
                   grid-template-columns: minmax(0, 1fr) minmax(340px, 410px);
-                  align-items: center;
+                  align-items: start;
                 }
               }
             `,
@@ -517,30 +518,54 @@ export default async function RollDetailPage({ params }: Props) {
 
           {/* Large product image */}
           <div className="relative overflow-hidden">
-            <Image
-              src="/images/thermal-rolls-product.jpg"
+            <SlotImage
+              slotKey={`products.card.${roll.slug}`}
               alt={isStandardPos ? "BPA-free POS receipt paper rolls for Europe USA and Canada distributors" : `${roll.name} - Thermal Paper Rolls`}
               fill
               className="object-cover object-center"
-              preload
+              fetchPriority="high"
+              loading="eager"
               sizes="100vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
 
             {/* Overlay content */}
             <div className="relative z-10">
               <div className="container-site py-10 md:py-14 lg:py-16">
-                <div className="standard-pos-hero-grid">
+                <div className={isStandardPos || isCustomPrinted ? "product-hero-grid" : ""}>
                   <div className="max-w-3xl">
+                  {isCustomPrinted && (
+                    <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#d6b273]">
+                      OEM &amp; Private Label · Flexographic Print
+                    </p>
+                  )}
                   <h1 className="font-bold text-white text-4xl md:text-5xl xl:text-6xl leading-tight mb-4 drop-shadow-lg">
                     {isStandardPos ? STANDARD_POS_PAGE.title : roll.name}
                   </h1>
                   <p className="max-w-xl text-[#d6b273] text-xl font-medium mb-5">
                     {isStandardPos ? STANDARD_POS_PAGE.subtitle : roll.subtitle}
                   </p>
-                  <p className="text-slate-200 text-base leading-relaxed mb-8 max-w-xl font-light">
+                  <p className="text-slate-200 text-base leading-relaxed mb-6 max-w-xl font-light">
                     {isStandardPos ? STANDARD_POS_PAGE.intro : heroText}
                   </p>
+                  {isCustomPrinted && (
+                    <div className="mb-7 flex flex-wrap gap-3">
+                      {[
+                        { step: "01", label: "Submit artwork", desc: "AI · EPS · PDF" },
+                        { step: "02", label: "Approve proof", desc: "Print template provided" },
+                        { step: "03", label: "Production sample", desc: "Before bulk order" },
+                      ].map(({ step, label, desc }) => (
+                        <div key={step} className="flex items-center gap-2.5 border border-white/15 bg-white/8 px-3 py-2 backdrop-blur-sm">
+                          <span className="text-[10px] font-black text-[#d6b273]">{step}</span>
+                          <div>
+                            <p className="text-xs font-bold text-white leading-none">{label}</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">{desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   {isStandardPos && (
                     <div className="mb-8 grid gap-2 sm:grid-cols-2">
                       {STANDARD_POS_HERO_PROOFS.map((proof) => (
@@ -552,22 +577,39 @@ export default async function RollDetailPage({ params }: Props) {
                     </div>
                   )}
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
-                      Request a Quote <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
-                      Request Samples
-                    </Link>
-                    <a
-                      href="/contact"
-                      className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20"
-                    >
-                      <Download className="w-4 h-4" /> Compliance Docs
-                    </a>
+                    {isCustomPrinted ? (
+                      <>
+                        <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
+                          Request a Print Sample <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
+                          Submit Artwork &amp; Get Quote
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
+                          Request a Quote <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
+                          Request Samples
+                        </Link>
+                        <a
+                          href="/contact"
+                          className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20"
+                        >
+                          <Download className="w-4 h-4" /> Compliance Docs
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
 
-                  <div className="border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-950/30 md:p-6">
+                  <div
+                    className={`border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-950/30 md:p-6 ${
+                      isCustomPrinted ? "hidden lg:block" : ""
+                    }`}
+                  >
                     {isStandardPos ? (
                       <>
                         <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-5">
@@ -609,6 +651,50 @@ export default async function RollDetailPage({ params }: Props) {
                         >
                           Request a Quote
                           <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </>
+                    ) : isCustomPrinted ? (
+                      <>
+                        <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-4">
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f5f5c]">Print project checklist</p>
+                            <h2 className="mt-1.5 text-lg font-extrabold text-slate-950 leading-snug">
+                              What to send for your first print quote
+                            </h2>
+                          </div>
+                          <div className="hidden h-10 w-10 shrink-0 items-center justify-center bg-[#9c661d] text-white sm:flex">
+                            <Layers className="h-4 w-4" />
+                          </div>
+                        </div>
+                        <div className="mt-4 grid gap-2.5">
+                          {[
+                            "Roll width, OD, core ID, and winding direction",
+                            "Print side: front, back, or both",
+                            "Number of colors and Pantone reference (if any)",
+                            "Artwork file: AI / EPS / PDF (vector)",
+                            "QR or barcode size and scanner target",
+                            "Destination market and document requirements",
+                          ].map((item, i) => (
+                            <div key={i} className="flex items-start gap-2.5 bg-slate-50 px-3 py-2.5">
+                              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-[#0f5f5c] text-[10px] font-black text-white">
+                                {i + 1}
+                              </span>
+                              <span className="text-xs font-semibold leading-5 text-slate-700">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <Link
+                          href="/samples"
+                          className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-[#9c661d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
+                        >
+                          Request a Print Sample
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                        <Link
+                          href="/quote"
+                          className="mt-2 inline-flex min-h-10 w-full items-center justify-center gap-2 border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                        >
+                          Submit Artwork &amp; Get Quote
                         </Link>
                       </>
                     ) : (

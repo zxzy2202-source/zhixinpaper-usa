@@ -808,7 +808,7 @@ export const GEO_REGIONS = [
       {
         slug: "germany",
         name: "Germany",
-        flag: "🇩��",
+        flag: "🇩🇪",
         lang: "DE",
         keywords: "Thermopapier Lieferant, Etiketten Hersteller Deutschland, Kassenrollen Großhandel, BPA-freies Thermopapier Deutschland",
         description: "Thermal rolls and labels for German distributors, retail programs, logistics operations, and equipment channels. Buyers should confirm material chemistry, document language, printer fit, packing, and the applicable regulatory scope before approval.",

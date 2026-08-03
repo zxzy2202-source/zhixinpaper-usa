@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PageHeader from "@/components/ui/PageHeader";
 import { COMPANY } from "@/lib/data";
 import {
   Phone,
@@ -129,36 +130,17 @@ export default function ContactClient() {
       <Header />
       <main>
         {/* Page Hero */}
-        <section className="paper-noise border-b border-[#ded6c8] bg-[#fbfaf6] pt-32 pb-16">
-          <div className="container-site">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-0.5 w-8 bg-[#9c661d]" />
-              <span className="text-xs font-bold text-[#0f5f5c]">
-                Contact
-              </span>
-            </div>
-            <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
-              Talk to a paper specialist
-            </h1>
-            <p className="text-[#4f5f5a] text-lg max-w-2xl mb-6">
-              Contact our sales team for quotes, samples, compliance
-              documentation, or technical support. Response timing is confirmed after the request scope is reviewed.
-            </p>
-            <div className="flex flex-wrap gap-4 text-xs text-[#4f5f5a]">
-              {[
-                "Quality-system documents reviewed by scope",
-                "Quote timing confirmed after RFQ review",
-                "Sample terms confirmed by project",
-                "NDA scope available for review",
-              ].map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />
-                  <span>{t}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHeader
+          eyebrow="Contact"
+          title="Talk to a paper specialist"
+          description="Contact our sales team for quotes, samples, compliance documentation, or technical support. Response timing is confirmed after the request scope is reviewed."
+          actions={[
+            { icon: <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />, label: "Quality-system documents reviewed by scope" },
+            { icon: <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />, label: "Quote timing confirmed after RFQ review" },
+            { icon: <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />, label: "Sample terms confirmed by project" },
+            { icon: <ShieldCheck className="w-4 h-4 text-[#0f5f5c]" aria-hidden="true" />, label: "NDA scope available for review" },
+          ]}
+        />
 
         {/* Contact Section */}
         <section className="py-20 bg-[#fbfaf6]">

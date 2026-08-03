@@ -20,6 +20,10 @@ interface HeroBannerProps {
   aside?: ReactNode;
   media?: ReactNode;
   variant?: "standard" | "media" | "overview";
+  /** Overlay left/center/right opacity stops. Defaults to the existing dark overlay. */
+  overlayStrength?: { left?: number; center?: number; right?: number };
+  /** Mobile object-position for the first media child. Only applied when media is present. */
+  mediaMobilePosition?: string;
   className?: string;
 }
 
@@ -32,6 +36,8 @@ export default function HeroBanner({
   aside,
   media,
   variant = "standard",
+  overlayStrength,
+  mediaMobilePosition,
   className = "",
 }: HeroBannerProps) {
   const isDark = variant !== "standard";
@@ -40,6 +46,10 @@ export default function HeroBanner({
     ? "paper-noise bg-[#101b19] text-white"
     : "border-b border-[#ded6c8] bg-[linear-gradient(135deg,#fbfaf6_0%,#f4f0e8_60%,#e7eee9_100%)] text-[#14211f]";
   const contentGrid = aside || media ? "lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.62fr)] lg:items-center" : "";
+
+  const l = overlayStrength?.left ?? 0.78;
+  const c = overlayStrength?.center ?? 0.56;
+  const r = overlayStrength?.right ?? 0.18;
 
   return (
     <section
@@ -50,7 +60,10 @@ export default function HeroBanner({
     >
       {media && <div className="absolute inset-0">{media}</div>}
       {media && (
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,20,18,0.78)_0%,rgba(8,20,18,0.56)_48%,rgba(8,20,18,0.18)_100%)]" />
+        <div
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(90deg,rgba(8,20,18,${l})_0%,rgba(8,20,18,${c})_48%,rgba(8,20,18,${r})_100%)` }}
+        />
       )}
       {isDark && !media && (
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_16%,rgba(185,130,47,0.14),transparent_28rem)]" />
