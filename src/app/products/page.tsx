@@ -9,6 +9,7 @@ import FaqSection from "@/components/ui/FaqSection";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { buildMetadata, breadcrumbSchema, canonicalUrl, faqSchema, SITE_NAME } from "@/lib/seo";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import {
   ArrowRight,
   Boxes,
@@ -22,27 +23,17 @@ import {
   Truck,
 } from "lucide-react";
 
-const productPageDescription =
-  "Browse wholesale thermal paper rolls and labels by use case, size, compliance files, packing, and RFQ details for repeat import orders.";
+const productSeoDefaults = DEFAULT_SEO_SECTIONS.products;
+const productPageDescription = productSeoDefaults.siteDescription;
 
-export const metadata: Metadata = buildMetadata({
-  title: "Wholesale Thermal Paper Products",
-  description: productPageDescription,
-  path: "/products",
-  keywords: [
-    "thermal paper products",
-    "thermal paper rolls wholesale",
-    "thermal labels wholesale",
-    "BPA free thermal paper rolls",
-    "POS paper rolls supplier",
-    "ATM paper rolls",
-    "lottery ticket thermal paper",
-    "direct thermal labels",
-    "freezer labels",
-    "custom printed thermal rolls",
-    "OEM thermal paper manufacturer",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("products", {
+    fallbackTitle: productSeoDefaults.siteTitle,
+    fallbackDescription: productSeoDefaults.siteDescription,
+    path: "/products",
+    fallbackKeywords: productSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 const productLines = [
   {

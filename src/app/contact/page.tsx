@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import ContactClient from "./ContactClient";
-import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Contact Us — Get a Quote or Request Samples",
-  description:
-    "Contact Zhixin Paper about wholesale thermal paper rolls and labels. Request a specification review, sample, document pack, packing plan, or custom quote.",
-  path: "/contact",
-  keywords: [
-    "contact thermal paper manufacturer",
-    "thermal paper wholesale inquiry",
-    "thermal paper quote request",
-    "Zhixin Paper contact",
-    "thermal paper supplier contact China",
-  ],
-});
+const contactSeoDefaults = DEFAULT_SEO_SECTIONS.contact;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("contact", {
+    fallbackTitle: contactSeoDefaults.siteTitle,
+    fallbackDescription: contactSeoDefaults.siteDescription,
+    path: "/contact",
+    fallbackKeywords: contactSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 export default function ContactPage() {
   return <ContactClient />;

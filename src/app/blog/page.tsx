@@ -1,25 +1,22 @@
 import type { Metadata } from "next";
+import { desc, eq } from "drizzle-orm";
+import { BLOG_POSTS } from "@/lib/data";
 import { db } from "@/lib/db";
 import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
-import { eq, desc } from "drizzle-orm";
-import { BLOG_POSTS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import BlogListClient from "./BlogListClient";
 
-export const metadata: Metadata = {
-  title: "Thermal Paper Guides & Industry News",
-  description:
-    "Thermal paper sourcing guides covering specifications, printer fit, materials, compliance scope, packing, and market requirements for distributors.",
-  keywords: [
-    "thermal paper guide",
-    "BPA-free thermal paper compliance",
-    "thermal paper distributor resources",
-    "thermal paper regulations Europe",
-    "thermal paper industry news",
-  ],
-  alternates: { canonical: canonicalUrl("/blog") },
-};
+const blogSeoDefaults = DEFAULT_SEO_SECTIONS.blog;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("blog", {
+    fallbackTitle: blogSeoDefaults.siteTitle,
+    fallbackDescription: blogSeoDefaults.siteDescription,
+    path: "/blog",
+    fallbackKeywords: blogSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 // ISR：列表页静态化，后台 saveBlogPost/deleteBlogPost 里的
 // revalidatePath("/blog") 会在发布/删除时立即刷新
@@ -61,38 +58,44 @@ export default async function BlogPage() {
     console.error("Failed to fetch blog posts from DB:", e);
   }
 
-  const dynamicPosts = dbPosts.map((p) => ({
-    id: p.id,
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt || "",
-    category: p.category || "General",
-    tags: p.tags || "",
-    readTime: p.readTime || "5 min read",
-    coverImage: p.coverImage || null,
-    date: p.publishedAt
-      ? new Date(p.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-      : new Date(p.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+  const dynamicPosts = dbPosts.map((post) => ({
+    id: post.id,
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt || "",
+    category: post.category || "General",
+    tags: post.tags || "",
+    readTime: post.readTime || "5 min read",
+    coverImage: post.coverImage || null,
+    date: post.publishedAt
+      ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : new Date(post.createdAt).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
     tag: null as string | null,
     fromDB: true,
   }));
 
-  const dbSlugs = new Set(dynamicPosts.map((p) => p.slug));
-  const staticPosts = BLOG_POSTS.filter((p) => !dbSlugs.has(p.slug)).map((p) => ({
+  const dbSlugs = new Set(dynamicPosts.map((post) => post.slug));
+  const staticPosts = BLOG_POSTS.filter((post) => !dbSlugs.has(post.slug)).map((post) => ({
     id: null as number | null,
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    category: p.category,
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    category: post.category,
     tags: "",
-    readTime: p.readTime,
+    readTime: post.readTime,
     coverImage: null as string | null,
-    date: p.date,
-    tag: p.tag || null,
+    date: post.date,
+    tag: post.tag || null,
     fromDB: false,
   }));
 
-  const allPosts = [...dynamicPosts, ...staticPosts];
-
-  return <BlogListClient posts={allPosts} />;
+  return <BlogListClient posts={[...dynamicPosts, ...staticPosts]} />;
 }

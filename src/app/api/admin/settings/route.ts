@@ -4,13 +4,15 @@ import {
   setSetting,
   getHeroHome,
   getSeoGlobal,
+  getSeoSections,
   SETTING_KEYS,
   type HeroConfig,
   type SeoConfig,
+  type SeoSectionSettings,
 } from "@/lib/siteSettings";
 
 /**
- * GET /api/admin/settings?key=hero.home | seo.global
+ * GET /api/admin/settings?key=hero.home | seo.global | seo.sections
  * 返回该 key 当前值（带默认值合并）
  */
 export async function GET(req: Request) {
@@ -27,6 +29,10 @@ export async function GET(req: Request) {
     }
     if (key === SETTING_KEYS.SEO_GLOBAL) {
       const data = await getSeoGlobal();
+      return NextResponse.json({ key, data });
+    }
+    if (key === SETTING_KEYS.SEO_SECTIONS) {
+      const data = await getSeoSections();
       return NextResponse.json({ key, data });
     }
     return NextResponse.json({ error: "未知 key" }, { status: 400 });
@@ -66,6 +72,10 @@ export async function PUT(req: Request) {
     }
     if (key === SETTING_KEYS.SEO_GLOBAL) {
       await setSetting<SeoConfig>(key, "seo", data as SeoConfig, session.id);
+      return NextResponse.json({ ok: true });
+    }
+    if (key === SETTING_KEYS.SEO_SECTIONS) {
+      await setSetting<SeoSectionSettings>(key, "seo", data as SeoSectionSettings, session.id);
       return NextResponse.json({ ok: true });
     }
     return NextResponse.json({ error: `未知 key: ${key}` }, { status: 400 });

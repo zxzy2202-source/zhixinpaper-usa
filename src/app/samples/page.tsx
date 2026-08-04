@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import SamplesClient from "./SamplesClient";
-import { canonicalUrl } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Request Free Thermal Paper Samples",
-  description:
-    "Request thermal paper roll and label samples for specification, printer-fit, material, print-quality, adhesive, and document checks before a wholesale order.",
-  keywords: [
-    "free thermal paper samples",
-    "thermal paper sample request",
-    "thermal label samples wholesale",
-    "BPA-free thermal paper sample",
-    "thermal paper distributor samples",
-  ],
-  alternates: { canonical: canonicalUrl("/samples") },
-};
+const samplesSeoDefaults = DEFAULT_SEO_SECTIONS.samples;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("samples", {
+    fallbackTitle: samplesSeoDefaults.siteTitle,
+    fallbackDescription: samplesSeoDefaults.siteDescription,
+    path: "/samples",
+    fallbackKeywords: samplesSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 export default function SamplesPage() {
   return <SamplesClient />;

@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { canonicalUrl } from "@/lib/seo";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 
-export const metadata: Metadata = {
-  title: "Request a Thermal Paper Quote",
-  description:
-    "Request a thermal paper roll or label quote. Share size, material, quantity, printer, market, documents, packing, destination, and preferred delivery terms.",
-  alternates: { canonical: canonicalUrl("/quote") },
-};
+const quoteSeoDefaults = DEFAULT_SEO_SECTIONS.quote;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("quote", {
+    fallbackTitle: quoteSeoDefaults.siteTitle,
+    fallbackDescription: quoteSeoDefaults.siteDescription,
+    path: "/quote",
+    fallbackKeywords: quoteSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 export default function QuoteLayout({ children }: { children: ReactNode }) {
   return children;

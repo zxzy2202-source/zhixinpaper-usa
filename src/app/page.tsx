@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SlotImage from "@/components/ui/SlotImage";
 import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
+import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import { THERMAL_LABELS } from "@/lib/data";
 import {
   ArrowRight,
@@ -20,23 +21,16 @@ import {
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Rolls & Labels Manufacturer",
-  description:
-    "Thermal paper rolls and labels for distributors, importers, and private-label buyers. Confirm size, material, files, samples, packing, and delivery terms.",
-  path: "/",
-  keywords: [
-    "thermal paper rolls manufacturer",
-    "thermal labels manufacturer",
-    "receipt paper rolls wholesale",
-    "80mm thermal paper rolls",
-    "POS paper rolls supplier",
-    "4x6 shipping labels wholesale",
-    "direct thermal labels supplier",
-    "BPA free thermal paper",
-    "private label thermal paper",
-  ],
-});
+const homeSeoDefaults = DEFAULT_SEO_SECTIONS.home;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSectionMetadata("home", {
+    fallbackTitle: homeSeoDefaults.siteTitle,
+    fallbackDescription: homeSeoDefaults.siteDescription,
+    path: "/",
+    fallbackKeywords: homeSeoDefaults.keywords.split(",").map((item) => item.trim()),
+  });
+}
 
 const PRODUCT_LINES = [
   {

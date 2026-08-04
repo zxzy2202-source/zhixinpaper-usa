@@ -1,18 +1,10 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QuoteForm from "./QuoteForm";
-import { breadcrumbSchema, buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, FileCheck, Shield, Truck } from "lucide-react";
-
-export const metadata: Metadata = buildMetadata({
-  title: "Request a Quote — Thermal Paper Rolls & Labels",
-  description:
-    "Submit an RFQ for thermal paper rolls and labels. Share product, destination, volume, and compliance needs. Sales reviews spec, samples, and freight before quoting.",
-  path: "/quote",
-});
 
 const HERO_TRUST = [
   { icon: <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d6b273]" />, text: "Specification & printer fit review" },
