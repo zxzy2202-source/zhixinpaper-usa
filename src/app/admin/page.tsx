@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { contactInquiries, quoteRequests, sampleRequests, blogPosts, imageSlots } from "@/lib/db/schema";
 import Link from "next/link";
 import {
@@ -11,6 +12,8 @@ import { getSeoGlobal, calculateSeoScore } from "@/lib/siteSettings";
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
+  await ensureBlogPostSchema();
+
   // 并发拉数据
   const [allInquiries, allQuotes, allSamples, allPosts, allSlots, seo] = await Promise.all([
     db.select().from(contactInquiries),

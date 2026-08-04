@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
+import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { BLOG_POSTS } from "@/lib/data";
@@ -39,6 +40,7 @@ export default async function BlogPage() {
   }[] = [];
 
   try {
+    await ensureBlogPostSchema();
     dbPosts = await db
       .select({
         id: blogPosts.id,

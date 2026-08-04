@@ -1,55 +1,47 @@
-/**
- * 一次性数据库初始化脚本
- * ─────────────────────────────────────────────────────────────────
- * 用法：npm run db:init
- *
- * 行为：
- *   - 读取 TURSO_DATABASE_URL（默认 file:./data/zhixinpaper.db）
- *   - 自动创建 data/ 目录
- *   - 用 CREATE TABLE IF NOT EXISTS 建所有表（幂等，可重复跑）
- *   - 不会删数据
- *
- * 设计原因：项目用 drizzle-orm 但没有 migrations 目录，
- *   生产走 Turso，开发本地需要一把"建表"工具。
- */
-
 import { createClient } from "@libsql/client";
+import { existsSync } from "node:fs";
 import { mkdir, readFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import { existsSync } from "node:fs";
 
-// ── 极简 .env 解析（避免引入 dotenv 依赖） ──────────────────────
 async function loadEnv(path) {
   if (!existsSync(path)) return;
+
   const raw = await readFile(path, "utf8");
   for (const line of raw.split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
-    if (!m) continue;
-    const [, k, vRaw] = m;
-    if (k.startsWith("#")) continue;
-    let v = vRaw.trim();
-    // 去掉两端的单/双引号
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-      v = v.slice(1, -1);
+    const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
+    if (!match) continue;
+
+    const [, key, rawValue] = match;
+    if (key.startsWith("#")) continue;
+
+    let value = rawValue.trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
     }
-    if (!(k in process.env)) process.env[k] = v;
+
+    if (!(key in process.env)) {
+      process.env[key] = value;
+    }
   }
 }
+
 await loadEnv(".env.local");
 await loadEnv(".env");
 
 const url = process.env.TURSO_DATABASE_URL ?? "file:./data/zhixinpaper.db";
 const authToken = process.env.TURSO_AUTH_TOKEN;
 
-console.log(`📦 Init DB → ${url}`);
+console.log(`Init DB -> ${url}`);
 
-// 本地 file:// 自动建目录
 if (url.startsWith("file:")) {
   const filePath = url.replace(/^file:/, "").replace(/^\.\//, "");
   const dir = dirname(filePath);
   if (dir && dir !== "." && !existsSync(dir)) {
     await mkdir(dir, { recursive: true });
-    console.log(`✓ Created directory: ${dir}`);
+    console.log(`Created directory: ${dir}`);
   }
 }
 
@@ -58,7 +50,6 @@ const client = createClient({
   ...(authToken ? { authToken } : {}),
 });
 
-// ── DDL（与 src/lib/db/schema.ts 同步） ──────────────────────────
 const statements = [
   `CREATE TABLE IF NOT EXISTS admin_users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -69,7 +60,6 @@ const statements = [
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     last_login_at TEXT
   )`,
-
   `CREATE TABLE IF NOT EXISTS contact_inquiries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
@@ -87,7 +77,6 @@ const statements = [
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS quote_requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
@@ -108,7 +97,6 @@ const statements = [
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS sample_requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
@@ -128,7 +116,6 @@ const statements = [
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS blog_posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT NOT NULL UNIQUE,
@@ -141,6 +128,9 @@ const statements = [
     status TEXT NOT NULL DEFAULT 'draft',
     author_id INTEGER REFERENCES admin_users(id),
     published_at TEXT,
+    scheduled_at TEXT,
+    publish_approved INTEGER NOT NULL DEFAULT 0,
+    campaign_id TEXT,
     seo_title TEXT,
     seo_description TEXT,
     seo_keywords TEXT,
@@ -148,7 +138,6 @@ const statements = [
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS product_overrides (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT NOT NULL UNIQUE,
@@ -162,7 +151,6 @@ const statements = [
     moq TEXT,
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS media_categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
@@ -172,7 +160,6 @@ const statements = [
     sort_order INTEGER DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS media_files (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     filename TEXT NOT NULL,
@@ -188,14 +175,12 @@ const statements = [
     uploaded_by INTEGER REFERENCES admin_users(id),
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS image_slots (
     slot_key TEXT PRIMARY KEY,
     media_file_id INTEGER REFERENCES media_files(id) ON DELETE SET NULL,
     updated_by INTEGER REFERENCES admin_users(id),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS site_settings (
     key TEXT PRIMARY KEY,
     section_key TEXT NOT NULL,
@@ -203,7 +188,6 @@ const statements = [
     updated_by INTEGER REFERENCES admin_users(id),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
-
   `CREATE TABLE IF NOT EXISTS activity_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     admin_id INTEGER REFERENCES admin_users(id),
@@ -216,16 +200,32 @@ const statements = [
 ];
 
 try {
-  for (const sql of statements) {
-    const tableName = sql.match(/CREATE TABLE IF NOT EXISTS (\w+)/)?.[1];
-    await client.execute(sql);
-    console.log(`  ✓ ${tableName}`);
+  for (const statement of statements) {
+    const tableName = statement.match(/CREATE TABLE IF NOT EXISTS (\w+)/)?.[1];
+    await client.execute(statement);
+    console.log(`  OK ${tableName}`);
   }
-  console.log("\n✅ Database initialized successfully");
+
+  const blogColumns = await client.execute("PRAGMA table_info(blog_posts)");
+  const blogColumnNames = new Set(blogColumns.rows.map((row) => String(row.name)));
+  const blogColumnAlters = [
+    ["scheduled_at", "ALTER TABLE blog_posts ADD COLUMN scheduled_at TEXT"],
+    ["publish_approved", "ALTER TABLE blog_posts ADD COLUMN publish_approved INTEGER NOT NULL DEFAULT 0"],
+    ["campaign_id", "ALTER TABLE blog_posts ADD COLUMN campaign_id TEXT"],
+  ];
+
+  for (const [columnName, statement] of blogColumnAlters) {
+    if (!blogColumnNames.has(columnName)) {
+      await client.execute(statement);
+      console.log(`  OK blog_posts.${columnName}`);
+    }
+  }
+
+  console.log("\nDatabase initialized successfully");
   console.log(`   Tables: ${statements.length}`);
   console.log(`   Location: ${url}`);
-} catch (e) {
-  console.error("\n❌ Init failed:", e.message);
+} catch (error) {
+  console.error("\nInit failed:", error.message);
   process.exit(1);
 } finally {
   client.close();

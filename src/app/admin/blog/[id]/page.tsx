@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
@@ -12,6 +13,8 @@ interface Props {
 
 export default async function EditBlogPostPage({ params }: Props) {
   const { id } = await params;
+  await ensureBlogPostSchema();
+
   const postRows = await db
     .select()
     .from(blogPosts)
@@ -36,6 +39,9 @@ export default async function EditBlogPostPage({ params }: Props) {
         seoDescription: post.seoDescription || "",
         seoKeywords: post.seoKeywords || "",
         coverImage: post.coverImage || "",
+        scheduledAt: post.scheduledAt || "",
+        publishApproved: post.publishApproved || false,
+        campaignId: post.campaignId || "",
       }}
     />
   );

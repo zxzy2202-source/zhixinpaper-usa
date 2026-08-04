@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 import { BLOG_POSTS } from "@/lib/data";
@@ -50,6 +51,7 @@ export async function generateMetadata({
 
   let dbPost = null;
   try {
+    await ensureBlogPostSchema();
     dbPost = await db
       .select()
       .from(blogPosts)
@@ -103,6 +105,7 @@ export default async function BlogPostPage({
 
   let dbPost = null;
   try {
+    await ensureBlogPostSchema();
     dbPost = await db
       .select()
       .from(blogPosts)

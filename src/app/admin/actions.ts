@@ -4,8 +4,11 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
+import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { getBuiltInBlogSeeds } from "@/lib/blogBuiltInSeeds";
 import { validateBlogPost } from "@/lib/blogPostValidation";
+import { BLOG_CAMPAIGNS, getBlogCampaign } from "@/content/blogCampaigns/registry";
+import { publishDueScheduledBlogPosts } from "@/lib/blogPublishing";
 import {
   blogPosts,
   contactInquiries,
@@ -22,6 +25,31 @@ async function requireAdminSession() {
   }
 
   return session;
+}
+
+function normalizeScheduledAt(value?: string | null) {
+  if (!value?.trim()) return null;
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error("Scheduled publish time is invalid.");
+  }
+
+  return date.toISOString();
+}
+
+function revalidateBlogPaths(slug?: string | null, previousSlug?: string | null) {
+  revalidatePath("/admin");
+  revalidatePath("/admin/blog");
+  revalidatePath("/blog");
+  revalidatePath("/sitemap.xml");
+
+  if (slug) {
+    revalidatePath(`/blog/${slug}`);
+  }
+  if (previousSlug && previousSlug !== slug) {
+    revalidatePath(`/blog/${previousSlug}`);
+  }
 }
 
 export async function updateLeadStatus({
@@ -94,8 +122,13 @@ export async function saveBlogPost(data: {
   seoKeywords: string;
   coverImage?: string;
   publishedAt?: string;
+  scheduledAt?: string | null;
+  publishApproved?: boolean;
+  campaignId?: string | null;
 }) {
   const session = await requireAdminSession();
+  await ensureBlogPostSchema();
+
   const now = new Date().toISOString();
   const validation = validateBlogPost({
     title: data.title,
@@ -125,58 +158,65 @@ export async function saveBlogPost(data: {
     };
   }
 
+  let scheduledAt: string | null;
+  try {
+    scheduledAt = data.status === "published" || data.status === "archived"
+      ? null
+      : normalizeScheduledAt(data.scheduledAt);
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Scheduled publish time is invalid.",
+      validation,
+    };
+  }
+
+  const publishApproved = data.status === "draft" ? Boolean(data.publishApproved) : false;
+  if (publishApproved && !scheduledAt) {
+    return {
+      success: false,
+      error: "Choose a scheduled publish time before approving automatic publication.",
+      validation,
+    };
+  }
+
   const publishedAt = data.status === "published"
     ? existing?.publishedAt || data.publishedAt || now
-    : data.status === "draft"
-      ? null
-      : existing?.publishedAt || data.publishedAt || null;
+    : existing?.publishedAt || data.publishedAt || null;
+
+  const values = {
+    slug: data.slug,
+    title: data.title,
+    excerpt: data.excerpt,
+    content: data.content,
+    category: data.category,
+    tags: data.tags,
+    readTime: data.readTime,
+    status: data.status,
+    seoTitle: data.seoTitle,
+    seoDescription: data.seoDescription,
+    seoKeywords: data.seoKeywords,
+    coverImage: data.coverImage || null,
+    publishedAt: data.status === "published" ? publishedAt : data.status === "archived" ? publishedAt : null,
+    scheduledAt,
+    publishApproved,
+    campaignId: data.campaignId || existing?.campaignId || null,
+    updatedAt: now,
+  } as const;
 
   if (data.id) {
     await db.update(blogPosts)
-      .set({
-        slug: data.slug,
-        title: data.title,
-        excerpt: data.excerpt,
-        content: data.content,
-        category: data.category,
-        tags: data.tags,
-        readTime: data.readTime,
-        status: data.status,
-        seoTitle: data.seoTitle,
-        seoDescription: data.seoDescription,
-        seoKeywords: data.seoKeywords,
-        coverImage: data.coverImage || null,
-        publishedAt,
-        updatedAt: now,
-      })
+      .set(values)
       .where(eq(blogPosts.id, data.id));
   } else {
     await db.insert(blogPosts).values({
-      slug: data.slug,
-      title: data.title,
-      excerpt: data.excerpt,
-      content: data.content,
-      category: data.category,
-      tags: data.tags,
-      readTime: data.readTime,
-      status: data.status,
+      ...values,
       authorId: session.id,
-      seoTitle: data.seoTitle,
-      seoDescription: data.seoDescription,
-      seoKeywords: data.seoKeywords,
-      coverImage: data.coverImage || null,
-      publishedAt,
+      createdAt: now,
     });
   }
 
-  revalidatePath("/admin");
-  revalidatePath("/admin/blog");
-  revalidatePath("/blog");
-  revalidatePath(`/blog/${data.slug}`);
-  if (previousSlug && previousSlug !== data.slug) {
-    revalidatePath(`/blog/${previousSlug}`);
-  }
-  revalidatePath("/sitemap.xml");
+  revalidateBlogPaths(data.slug, previousSlug);
 
   return {
     success: true,
@@ -186,6 +226,8 @@ export async function saveBlogPost(data: {
 
 export async function deleteBlogPost(id: number) {
   await requireAdminSession();
+  await ensureBlogPostSchema();
+
   const existing = await db
     .select({ slug: blogPosts.slug })
     .from(blogPosts)
@@ -193,18 +235,12 @@ export async function deleteBlogPost(id: number) {
     .then((rows) => rows[0]);
 
   await db.delete(blogPosts).where(eq(blogPosts.id, id));
-
-  revalidatePath("/admin");
-  revalidatePath("/admin/blog");
-  revalidatePath("/blog");
-  if (existing?.slug) {
-    revalidatePath(`/blog/${existing.slug}`);
-  }
-  revalidatePath("/sitemap.xml");
+  revalidateBlogPaths(existing?.slug || null, null);
 }
 
 export async function importBuiltInBlogPosts() {
   await requireAdminSession();
+  await ensureBlogPostSchema();
 
   const seeds = getBuiltInBlogSeeds();
   const slugs = seeds.map((seed) => seed.slug);
@@ -254,16 +290,16 @@ export async function importBuiltInBlogPosts() {
       seoDescription: seed.seoDescription,
       seoKeywords: seed.seoKeywords,
       publishedAt: seed.publishedAt,
+      scheduledAt: null,
+      publishApproved: false,
+      campaignId: null,
       createdAt: seed.publishedAt,
       updatedAt: seed.publishedAt,
     });
     created.push(seed.slug);
   }
 
-  revalidatePath("/admin");
-  revalidatePath("/admin/blog");
-  revalidatePath("/blog");
-  revalidatePath("/sitemap.xml");
+  revalidateBlogPaths(null, null);
 
   return {
     success: invalid.length === 0,
@@ -271,6 +307,94 @@ export async function importBuiltInBlogPosts() {
     skipped,
     invalid,
   };
+}
+
+export async function importBlogCampaign({
+  campaignId,
+  startAt,
+}: {
+  campaignId: string;
+  startAt: string;
+}) {
+  const session = await requireAdminSession();
+  await ensureBlogPostSchema();
+
+  const campaign = getBlogCampaign(campaignId);
+  if (!campaign) {
+    throw new Error("Campaign not found.");
+  }
+
+  const startDate = new Date(startAt);
+  if (Number.isNaN(startDate.getTime())) {
+    throw new Error("Choose a valid first publish slot.");
+  }
+
+  const existing = await db
+    .select({ slug: blogPosts.slug })
+    .from(blogPosts)
+    .where(inArray(blogPosts.slug, campaign.posts.map((post) => post.slug)));
+  const existingSlugs = new Set(existing.map((row) => row.slug));
+  const created: Array<{ slug: string; scheduledAt: string }> = [];
+  const skipped: string[] = [];
+  const now = new Date().toISOString();
+
+  for (const [index, post] of campaign.posts.entries()) {
+    if (existingSlugs.has(post.slug)) {
+      skipped.push(post.slug);
+      continue;
+    }
+
+    const scheduledAt = new Date(
+      startDate.getTime() + index * campaign.cadenceDays * 24 * 60 * 60 * 1000,
+    ).toISOString();
+
+    await db.insert(blogPosts).values({
+      slug: post.slug,
+      title: post.title,
+      excerpt: post.excerpt,
+      content: post.content,
+      category: post.category,
+      tags: post.tags || "",
+      readTime: post.readTime || "",
+      status: "draft",
+      authorId: session.id,
+      publishedAt: null,
+      scheduledAt,
+      publishApproved: false,
+      campaignId: campaign.id,
+      seoTitle: post.title,
+      seoDescription: post.excerpt,
+      seoKeywords: "",
+      coverImage: null,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    existingSlugs.add(post.slug);
+    created.push({ slug: post.slug, scheduledAt });
+  }
+
+  revalidateBlogPaths(null, null);
+
+  return {
+    campaign: campaign.id,
+    created,
+    skipped,
+  };
+}
+
+export async function publishDueBlogPostsNow() {
+  await requireAdminSession();
+  const result = await publishDueScheduledBlogPosts();
+
+  if (result.published.length > 0) {
+    revalidateBlogPaths(null, null);
+    for (const post of result.published) {
+      revalidatePath(`/blog/${post.slug}`);
+    }
+  }
+
+  return result;
 }
 
 export async function saveProductOverride(data: {
@@ -332,4 +456,25 @@ export async function changeAdminPassword({
     .where(eq(adminUsers.id, user.id));
 
   return { success: true };
+}
+
+export async function getBlogCampaignSummaries() {
+  await requireAdminSession();
+  await ensureBlogPostSchema();
+
+  const posts = await db
+    .select({
+      campaignId: blogPosts.campaignId,
+      slug: blogPosts.slug,
+    })
+    .from(blogPosts);
+
+  return BLOG_CAMPAIGNS.map((campaign) => ({
+    id: campaign.id,
+    name: campaign.name,
+    description: campaign.description || "",
+    cadenceDays: campaign.cadenceDays,
+    total: campaign.posts.length,
+    imported: posts.filter((post) => post.campaignId === campaign.id).length,
+  }));
 }
