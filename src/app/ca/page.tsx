@@ -23,8 +23,9 @@ export const metadata: Metadata = buildMetadata({
   locale: "en_CA",
   keywords: [
     "thermal paper supplier Canada",
-    "BPA free thermal paper Canada",
-    "Health Canada compliant thermal paper",
+    "thermal paper rolls and labels for Canadian importers",
+    "Canadian thermal paper procurement",
+    "Canadian material review for thermal paper",
     "thermal labels wholesale Canada",
     "cannabis labels Canada",
     "receipt paper rolls Canada",

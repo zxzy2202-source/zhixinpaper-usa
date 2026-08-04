@@ -367,7 +367,7 @@ export const THERMAL_LABELS = [
     subtitle: "No Ribbon Required — Shipping & Logistics Grade",
     heroDesc: "Direct thermal labels configured by printer, label size, roll or fanfold format, surface, barcode requirement, and service environment.",
     description: "Direct thermal labels for shipping, e-commerce fulfillment, warehouse identification, and retail workflows. The approved specification should define the printer, dimensions, core or fanfold stack, winding, carton or mailer surface, adhesive, barcode symbology, scanner target, handling, and retention requirement. GS1, carrier, and marketplace formats are produced from the buyer's approved data and template. Samples support feed, print-density, barcode, abrasion, adhesion, and pack validation before bulk production.",
-    keywords: "direct thermal labels bulk, DT labels supplier, shipping labels 4x6, Zebra compatible labels, 100x150mm thermal labels wholesale, Amazon FBA labels, Zebra GX430t labels, GS1 barcode labels, DHL shipping labels, ecommerce fulfillment labels, 3PL thermal labels Europe",
+    keywords: "direct thermal labels bulk, direct thermal shipping labels, 4x6 shipping labels wholesale, DT labels supplier, Zebra compatible labels, 100x150mm thermal labels wholesale, Amazon FBA labels, GS1 barcode labels, DHL shipping labels, ecommerce fulfillment labels, 3PL thermal labels Europe",
     sizes: ["55×25mm", "60×40mm", "75×50mm", "100×50mm", "100×150mm", "4×6 inch", "Custom"],
     applications: ["Amazon FBA fulfillment", "E-commerce shipping", "3PL warehouse operations", "Retail pricing", "Logistics & distribution"],
     features: [
@@ -402,7 +402,7 @@ export const THERMAL_LABELS = [
     subtitle: "Durable Long-Life Labels",
     heroDesc: "Thermal transfer label constructions selected by facestock, ribbon, adhesive, abrasion, UV, chemical exposure, and service-life requirements.",
     description: "Thermal transfer labels for industrial assets, outdoor equipment, and chemical-handling workflows. Finished durability depends on the facestock, ribbon, adhesive, topcoat or overlaminate, print settings, application surface, and named exposure conditions. Paper, polyester, and polypropylene constructions are available subject to project review and should be tested against the buyer's chemical, UV, abrasion, temperature, and readability criteria before approval.",
-    keywords: "thermal transfer labels, TT labels manufacturer",
+    keywords: "thermal transfer labels wholesale, thermal transfer labels, TT labels manufacturer, ribbon compatible labels, industrial barcode labels, outdoor asset labels, chemical resistant label stock",
     sizes: ["55×25mm", "60×40mm", "75×50mm", "100×50mm", "100×150mm", "Custom"],
     applications: ["Industrial assets", "Outdoor use", "Chemical exposure"],
     features: [

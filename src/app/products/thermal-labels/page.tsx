@@ -10,15 +10,17 @@ import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/
 import { ArrowRight, CheckCircle2, Factory, Layers, Printer, ScanLine, Scissors, Truck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Wholesale Thermal Labels",
+  title: "Thermal Labels Wholesale | Direct, Transfer & 4x6",
   description:
-    "Wholesale direct thermal, thermal transfer, freezer, high-temperature, synthetic, tamper-evident, and custom labels for distributors and OEM buyers.",
+    "Wholesale thermal labels for distributors and OEM buyers. Compare direct thermal, thermal transfer, 4x6 shipping, barcode, freezer, and custom label routes by printer, material, adhesive, and application.",
   path: "/products/thermal-labels",
   keywords: [
     "thermal labels wholesale",
-    "direct thermal labels bulk",
-    "shipping labels manufacturer",
+    "direct thermal labels",
+    "thermal transfer labels",
+    "4x6 shipping labels wholesale",
     "barcode labels supplier",
+    "shipping labels manufacturer",
     "freezer cold chain labels",
     "custom die-cut thermal labels",
     "permanent adhesive labels",
@@ -144,6 +146,14 @@ export default function ThermalLabelsPage() {
                   {f}
                 </span>
               ))}
+            </div>
+            <div className="mt-8 border-t border-[#ded6c8] pt-6">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#87918c]">Choose the right label route</p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-[#0f5f5c]">
+                <Link href="/products/thermal-labels/direct-thermal-labels" className="underline-offset-4 hover:underline">Direct thermal and 4x6 shipping labels</Link>
+                <Link href="/products/thermal-labels/thermal-transfer-labels" className="underline-offset-4 hover:underline">Thermal transfer and durable labels</Link>
+                <Link href="/blog/direct-vs-thermal-transfer" className="underline-offset-4 hover:underline">Direct vs thermal transfer guide</Link>
+              </div>
             </div>
           </div>
         </section>

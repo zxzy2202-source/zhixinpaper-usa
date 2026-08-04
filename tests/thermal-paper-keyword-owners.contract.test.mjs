@@ -15,6 +15,9 @@ const blogContent = read("src/lib/blog-content.ts");
 const header = read("src/components/layout/Header.tsx");
 const footer = read("src/components/layout/Footer.tsx");
 const llms = read("public/llms.txt");
+const thermalLabelsHub = read("src/app/products/thermal-labels/page.tsx");
+const usPage = read("src/app/us/page.tsx");
+const caPage = read("src/app/ca/page.tsx");
 
 test("POS receipt page keeps a product H1 and links buyer tools", () => {
   assert.match(posPage, />\s*POS receipt paper rolls built for repeat wholesale orders\.\s*</);
@@ -66,4 +69,23 @@ test("llms publishes unique cluster-to-page ownership", () => {
   assert.match(llms, /credit card terminal paper rolls.*Credit Card Terminal Paper Rolls page/is);
   assert.match(llms, /BPA free thermal paper.*compliance terminology page/is);
   assert.match(llms, /thermal printer paper.*printer compatibility guide/is);
+});
+
+test("thermal label cluster keeps category and print-method owners distinct", () => {
+  assert.match(thermalLabelsHub, /Thermal Labels Wholesale \| Direct, Transfer & 4x6/);
+  assert.match(thermalLabelsHub, /direct thermal labels/);
+  assert.match(thermalLabelsHub, /4x6 shipping labels wholesale/);
+  assert.match(thermalLabelsHub, /direct-thermal-labels/);
+  assert.match(thermalLabelsHub, /thermal-transfer-labels/);
+  assert.match(data, /direct thermal shipping labels/);
+  assert.match(data, /thermal transfer labels wholesale/);
+});
+
+test("regional pages own procurement context rather than product-specific keyword clusters", () => {
+  assert.match(usPage, /US thermal paper procurement/);
+  assert.match(usPage, /California thermal paper requirements/);
+  assert.match(caPage, /Canadian thermal paper procurement/);
+  assert.match(caPage, /Canadian material review for thermal paper/);
+  assert.doesNotMatch(usPage, /FDA compliant thermal paper/);
+  assert.doesNotMatch(caPage, /Health Canada compliant thermal paper/);
 });

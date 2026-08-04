@@ -23,8 +23,9 @@ export const metadata: Metadata = buildMetadata({
   locale: "en_US",
   keywords: [
     "thermal paper supplier USA",
-    "FDA compliant thermal paper",
-    "Prop 65 thermal paper",
+    "thermal paper rolls and labels for US importers",
+    "US thermal paper procurement",
+    "California thermal paper requirements",
     "thermal labels wholesale USA",
     "receipt paper rolls US distributor",
     "BPA free thermal paper United States",
