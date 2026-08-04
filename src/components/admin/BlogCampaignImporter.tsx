@@ -23,7 +23,7 @@ function nextPublishSlot() {
 
 export default function BlogCampaignImporter({ campaigns }: { campaigns: CampaignSummary[] }) {
   const [isPending, startTransition] = useTransition();
-  const defaultSlot = useMemo(nextPublishSlot, []);
+  const defaultSlot = useMemo(() => nextPublishSlot(), []);
   const [campaignId, setCampaignId] = useState(campaigns[0]?.id || "");
   const [startAt, setStartAt] = useState(defaultSlot);
   const [message, setMessage] = useState<string | null>(null);

@@ -236,7 +236,6 @@ function buildSeoFields(form: BlogPost) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 function formatAiRiskLabel(risk: BlogValidationResult["qualityAudit"]["aiStyleRisk"]) {
   switch (risk) {
     case "high":

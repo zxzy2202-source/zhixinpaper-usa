@@ -1,10 +1,19 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { BLOG_INDUSTRY_LINKS } from "../src/lib/blog-industry-links.ts";
-import { BLOG_POSTS, COMPLIANCE_ITEMS, INDUSTRIES } from "../src/lib/data.ts";
-import { CASE_STUDIES } from "../src/lib/case-studies.ts";
-import { buildIndustryEvidenceAnswers, INDUSTRY_RESOURCES, INDUSTRY_SOLUTION_COMPARISONS } from "../src/lib/marketInsights.ts";
+import blogIndustryLinksModule from "../src/lib/blog-industry-links.ts";
+import dataModule from "../src/lib/data.ts";
+import caseStudiesModule from "../src/lib/case-studies.ts";
+import marketInsightsModule from "../src/lib/marketInsights.ts";
+
+const { BLOG_INDUSTRY_LINKS } = blogIndustryLinksModule;
+const { BLOG_POSTS, COMPLIANCE_ITEMS, INDUSTRIES } = dataModule;
+const { CASE_STUDIES } = caseStudiesModule;
+const {
+  buildIndustryEvidenceAnswers,
+  INDUSTRY_RESOURCES,
+  INDUSTRY_SOLUTION_COMPARISONS,
+} = marketInsightsModule;
 
 const read = (path) => readFileSync(path, "utf8");
 
