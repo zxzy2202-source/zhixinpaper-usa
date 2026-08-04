@@ -13,22 +13,38 @@ import { BLOG_POSTS } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
+const CATEGORY_LABELS: Record<string, string> = {
+  Compliance: "合规",
+  Education: "知识科普",
+  "Industry News": "行业动态",
+  "Product Guide": "产品指南",
+  "E-Commerce": "电商",
+  Sustainability: "可持续",
+  "Technical Tips": "技术技巧",
+  "Market Insights": "市场洞察",
+};
+
+function getCategoryLabel(category?: string | null) {
+  if (!category) return "";
+  return CATEGORY_LABELS[category] || category;
+}
+
 function getPostStatus(post: {
   status: string;
   scheduledAt: string | null;
   publishApproved: boolean;
 }) {
   if (post.status === "published") {
-    return { label: "Published", className: "bg-emerald-100 text-emerald-700", detail: null };
+    return { label: "已发布", className: "bg-emerald-100 text-emerald-700", detail: null };
   }
   if (post.status === "archived") {
-    return { label: "Archived", className: "bg-amber-100 text-amber-700", detail: null };
+    return { label: "已归档", className: "bg-amber-100 text-amber-700", detail: null };
   }
   if (post.scheduledAt && post.publishApproved) {
     return {
-      label: "Approved Queue",
+      label: "待自动发布",
       className: "bg-blue-100 text-blue-700",
-      detail: new Date(post.scheduledAt).toLocaleString("en-US", {
+      detail: new Date(post.scheduledAt).toLocaleString("zh-CN", {
         year: "numeric",
         month: "short",
         day: "2-digit",
@@ -39,9 +55,9 @@ function getPostStatus(post: {
   }
   if (post.scheduledAt) {
     return {
-      label: "Scheduled Draft",
+      label: "定时草稿",
       className: "bg-amber-100 text-amber-800",
-      detail: new Date(post.scheduledAt).toLocaleString("en-US", {
+      detail: new Date(post.scheduledAt).toLocaleString("zh-CN", {
         year: "numeric",
         month: "short",
         day: "2-digit",
@@ -51,7 +67,7 @@ function getPostStatus(post: {
     };
   }
 
-  return { label: "Draft", className: "bg-slate-100 text-slate-600", detail: null };
+  return { label: "草稿", className: "bg-slate-100 text-slate-600", detail: null };
 }
 
 export default async function BlogAdminPage() {
@@ -83,9 +99,9 @@ export default async function BlogAdminPage() {
     <div className="mx-auto max-w-6xl">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Blog Articles</h1>
+          <h1 className="text-2xl font-bold text-slate-900">博客文章管理</h1>
           <p className="mt-1 text-sm text-slate-500">
-            {counts.total} database article{counts.total === 1 ? "" : "s"}, with {counts.approvedQueue} currently approved for scheduled release.
+            当前共有 {counts.total} 篇数据库文章，其中 {counts.approvedQueue} 篇已批准按计划自动发布。
           </p>
         </div>
         <div className="flex items-start gap-3">
@@ -96,7 +112,7 @@ export default async function BlogAdminPage() {
             className="inline-flex items-center gap-2 bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-blue-700"
           >
             <Plus className="h-4 w-4" />
-            New Article
+            新建文章
           </Link>
         </div>
       </div>
@@ -107,21 +123,21 @@ export default async function BlogAdminPage() {
         <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
         <div>
           <p className="text-sm font-medium text-blue-800">
-            The public blog currently includes {BLOG_POSTS.length} built-in articles plus any database posts you publish from the admin.
+            当前前台博客包含 {BLOG_POSTS.length} 篇内置文章，以及您在后台发布的数据库文章。
           </p>
           <p className="mt-1 text-xs text-blue-600">
-            Built-in articles can be imported for editing, while campaign batches create scheduled drafts that still need a human review and publish approval.
+            内置文章可导入后继续编辑；活动批量导入会生成定时草稿，但仍需人工复核并批准自动发布。
           </p>
         </div>
       </div>
 
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
         {[
-          { label: "Database Articles", value: counts.total, color: "text-slate-900" },
-          { label: "Published", value: counts.published, color: "text-emerald-600" },
-          { label: "Drafts", value: counts.draft, color: "text-slate-500" },
-          { label: "Scheduled", value: counts.scheduled, color: "text-amber-700" },
-          { label: "Approved Queue", value: counts.approvedQueue, color: "text-blue-700" },
+          { label: "数据库文章", value: counts.total, color: "text-slate-900" },
+          { label: "已发布", value: counts.published, color: "text-emerald-600" },
+          { label: "普通草稿", value: counts.draft, color: "text-slate-500" },
+          { label: "定时草稿", value: counts.scheduled, color: "text-amber-700" },
+          { label: "待自动发布", value: counts.approvedQueue, color: "text-blue-700" },
         ].map((stat) => (
           <div key={stat.label} className="border border-slate-200 bg-white p-4">
             <p className="mb-1 text-xs text-slate-500">{stat.label}</p>
@@ -134,12 +150,12 @@ export default async function BlogAdminPage() {
         {posts.length === 0 ? (
           <div className="py-16 text-center text-slate-400">
             <FileText className="mx-auto mb-3 h-10 w-10 opacity-30" />
-            <p className="mb-2 font-medium">No database articles yet</p>
+            <p className="mb-2 font-medium">还没有数据库文章</p>
             <p className="mb-4 text-xs">
-              Import built-in posts, import a campaign batch, or create your first backend-managed article.
+              可以先导入内置文章、导入活动草稿，或直接新建第一篇后台文章。
             </p>
             <Link href="/admin/blog/new" className="text-sm text-blue-600 hover:underline">
-              Create the first article
+              新建第一篇文章
             </Link>
           </div>
         ) : (
@@ -153,10 +169,10 @@ export default async function BlogAdminPage() {
                       <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${status.className}`}>
                         {status.label}
                       </span>
-                      {post.category ? <span className="text-xs text-slate-400">{post.category}</span> : null}
+                      {post.category ? <span className="text-xs text-slate-400">{getCategoryLabel(post.category)}</span> : null}
                       {post.campaignId ? (
                         <span className="rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-violet-700">
-                          Campaign
+                          活动
                         </span>
                       ) : null}
                     </div>
@@ -168,7 +184,7 @@ export default async function BlogAdminPage() {
                     </div>
                   </div>
                   <div className="whitespace-nowrap text-xs text-slate-400">
-                    {new Date(post.updatedAt || post.createdAt).toLocaleDateString("en-US", {
+                    {new Date(post.updatedAt || post.createdAt).toLocaleDateString("zh-CN", {
                       year: "numeric",
                       month: "short",
                       day: "2-digit",
@@ -180,7 +196,7 @@ export default async function BlogAdminPage() {
                       className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-200"
                     >
                       <Pencil className="h-3 w-3" />
-                      Edit
+                      编辑
                     </Link>
                     <DeleteBlogButton id={post.id} title={post.title} />
                   </div>

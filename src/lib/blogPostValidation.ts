@@ -157,15 +157,15 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
     (heading) => heading.level === 2 && /frequently asked questions|faq/i.test(heading.text),
   );
 
-  if (!title) push(issues, "error", "title-required", "Article title is required.");
-  if (!content) push(issues, "error", "content-required", "Article content is required.");
+  if (!title) push(issues, "error", "title-required", "文章标题不能为空。");
+  if (!content) push(issues, "error", "content-required", "文章正文不能为空。");
 
   if (headings.some((heading) => heading.level === 1)) {
     push(
       issues,
       "error",
       "duplicate-h1",
-      "Remove the Markdown H1. The article title is already rendered as the page H1.",
+      "请删除 Markdown 中的 H1。页面会自动把文章标题渲染为 H1。",
     );
   }
 
@@ -175,23 +175,23 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
         issues,
         "error",
         "heading-jump",
-        `Heading level jumps from H${headings[index - 1].level} to H${headings[index].level}.`,
+        `标题层级从 H${headings[index - 1].level} 跳到了 H${headings[index].level}，请按顺序组织标题。`,
       );
       break;
     }
   }
 
   if (PLACEHOLDER_PATTERN.test(content)) {
-    push(issues, "error", "placeholder-copy", "Remove drafting placeholders before approval or publication.");
+    push(issues, "error", "placeholder-copy", "发布前请删除占位词或待补内容。");
   }
   if (wordCount < 600) {
-    push(issues, "error", "content-depth", `The article has ${wordCount} words; publishable guides need at least 600.`);
+    push(issues, "error", "content-depth", `当前文章约 ${wordCount} 词，建议发布级内容至少达到 600 词。`);
   }
   if (h2Count < 3) {
-    push(issues, "error", "section-structure", "Use at least three H2 sections to make the guide scannable.");
+    push(issues, "error", "section-structure", "请至少设置 3 个 H2 小节，方便读者快速扫描。");
   }
   if (!INTERNAL_LINK_PATTERN.test(content)) {
-    push(issues, "error", "internal-link", "Add at least one internal product, industry, compliance, contact, or quote link.");
+    push(issues, "error", "internal-link", "请至少添加 1 个站内链接，例如产品页、行业页、合规页、联系页或询盘页。");
   }
 
   if (clicheCount > 0) {
@@ -199,7 +199,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       clicheCount >= 3 ? "error" : "warning",
       "ai-cliche-language",
-      `Found ${clicheCount} generic AI-style phrase${clicheCount === 1 ? "" : "s"}. Replace them with buyer-specific facts or actions.`,
+      `检测到 ${clicheCount} 处较泛的 AI 套话，建议替换为更具体的买家事实或操作建议。`,
       "ai-style",
     );
   }
@@ -208,7 +208,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-vague-buzzwords",
-      `Found ${vagueBuzzwordCount} vague marketing terms. Explain the measurable buyer outcome instead.`,
+      `检测到 ${vagueBuzzwordCount} 处偏空泛的营销词，建议改成可验证的采购结果或指标。`,
       "ai-style",
     );
   }
@@ -217,7 +217,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-transition-density",
-      "Formulaic transition words are unusually dense. Vary the flow and remove transitions that add no meaning.",
+      "套话式过渡词偏多，建议减少无意义衔接词并调整句式节奏。",
       "ai-style",
     );
   }
@@ -226,7 +226,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-repetitive-openings",
-      "Several sentences repeat the same opening pattern. Vary sentence structure where it improves clarity.",
+      "多句使用了重复开头，建议适当变化句式以提升可读性。",
       "ai-style",
     );
   }
@@ -235,7 +235,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "error",
       "ai-style-high-risk",
-      "AI-style writing risk is high. Complete a human line edit before approval or publication.",
+      "AI 写作痕迹风险较高，批准或发布前请先进行人工润色。",
       "ai-style",
     );
   } else if (aiStyleRisk === "medium") {
@@ -243,7 +243,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-style-manual-review",
-      "AI-style writing risk is medium. Review the highlighted patterns before approval.",
+      "AI 写作痕迹风险中等，批准前请先检查高亮问题。",
       "ai-style",
     );
   }
@@ -253,7 +253,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "evidence-gap",
-      "Regulatory or certification claims appear without an external source. Add one or mark the claim for verification.",
+      "文中出现合规或认证相关表述，但缺少外部依据。请补充来源或标记为待核实。",
       "evidence",
     );
   }
@@ -262,7 +262,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "absolute-claim-review",
-      `Review ${absoluteClaimCount} absolute or superlative claim${absoluteClaimCount === 1 ? "" : "s"} for proof and qualification.`,
+      `检测到 ${absoluteClaimCount} 处绝对化或夸张表述，请确认是否有证据支撑并补充限定条件。`,
       "evidence",
     );
   }
@@ -271,7 +271,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "low-specificity",
-      "The guide has few measurable specifications or operating details. Add concrete buyer decision criteria.",
+      "文章中可量化规格或操作细节偏少，建议增加更具体的采购判断标准。",
       "buyer-value",
     );
   }
@@ -280,7 +280,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "weak-buyer-actions",
-      "Add more actions a buyer can take, such as testing samples, confirming specifications, or documenting acceptance criteria.",
+      "建议增加更多买家可执行动作，例如打样、确认规格、记录验收标准等。",
       "buyer-value",
     );
   }
@@ -293,30 +293,30 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "long-sentence-density",
-      "Long sentences are dense. Split selected sentences so procurement readers can scan requirements faster.",
+      "长句偏多，建议拆分部分句子，便于采购读者更快抓取要求。",
       "buyer-value",
     );
   }
 
-  if (title.length > 75) push(issues, "warning", "long-title", "The on-page title is longer than 75 characters.", "seo");
+  if (title.length > 75) push(issues, "warning", "long-title", "页面标题超过 75 个字符，建议压缩。", "seo");
   if (!excerpt) {
-    push(issues, "warning", "missing-excerpt", "Add a concise excerpt for Blog cards and fallback metadata.", "seo");
+    push(issues, "warning", "missing-excerpt", "请补充简短摘要，用于博客卡片和元信息兜底。", "seo");
   } else if (excerpt.length < 80 || excerpt.length > 220) {
-    push(issues, "warning", "excerpt-length", "Keep the excerpt between 80 and 220 characters.", "seo");
+    push(issues, "warning", "excerpt-length", "摘要建议控制在 80-220 个字符之间。", "seo");
   }
   if (metaTitle && metaTitle.length > 60) {
-    push(issues, "warning", "meta-title-length", "Keep the SEO title at 60 characters or fewer.", "seo");
+    push(issues, "warning", "meta-title-length", "SEO 标题建议不超过 60 个字符。", "seo");
   }
   if (!metaDescription) {
-    push(issues, "warning", "missing-meta-description", "Add a dedicated SEO description.", "seo");
+    push(issues, "warning", "missing-meta-description", "请补充独立的 SEO 描述。", "seo");
   } else if (metaDescription.length < 120 || metaDescription.length > 165) {
-    push(issues, "warning", "meta-description-length", "Keep the SEO description between 120 and 165 characters.", "seo");
+    push(issues, "warning", "meta-description-length", "SEO 描述建议控制在 120-165 个字符之间。", "seo");
   }
   if (!hasFaq) {
-    push(issues, "warning", "missing-faq", "Add a Frequently Asked Questions section when the topic supports it.");
+    push(issues, "warning", "missing-faq", "若主题适合，建议补充 FAQ 常见问题小节。");
   }
   if (/^#{2,6}\s/m.test(content.split("\n").find((line) => line.trim()) || "")) {
-    push(issues, "warning", "missing-lead", "Open with a direct-answer paragraph before the first heading.");
+    push(issues, "warning", "missing-lead", "建议在第一个标题前先写一段直接回答式导语。");
   }
 
   return {

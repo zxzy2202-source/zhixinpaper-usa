@@ -16,7 +16,7 @@ export default function ImportBuiltInPostsButton({ totalBuiltInPosts }: Props) {
   const [error, setError] = useState<string>("");
 
   const handleImport = () => {
-    if (!confirm(`Import ${totalBuiltInPosts} built-in blog posts into the admin database? Existing database posts with the same slug will be skipped.`)) {
+    if (!confirm(`要把 ${totalBuiltInPosts} 篇内置博客文章导入后台数据库吗？若 slug 已存在，将自动跳过。`)) {
       return;
     }
 
@@ -27,13 +27,13 @@ export default function ImportBuiltInPostsButton({ totalBuiltInPosts }: Props) {
       try {
         const result = await importBuiltInBlogPosts();
         if (result.invalid.length > 0) {
-          setError(`Imported ${result.created.length}, skipped ${result.skipped.length}, and blocked ${result.invalid.length} due to validation errors.`);
+          setError(`已导入 ${result.created.length} 篇，跳过 ${result.skipped.length} 篇，另有 ${result.invalid.length} 篇因校验未通过而被拦截。`);
         } else {
-          setMessage(`Imported ${result.created.length} built-in posts. Skipped ${result.skipped.length} existing posts.`);
+          setMessage(`已导入 ${result.created.length} 篇内置文章，跳过 ${result.skipped.length} 篇已存在文章。`);
         }
         router.refresh();
       } catch (importError) {
-        setError(importError instanceof Error ? importError.message : "Import failed.");
+        setError(importError instanceof Error ? importError.message : "导入失败。");
       }
     });
   };
@@ -44,10 +44,10 @@ export default function ImportBuiltInPostsButton({ totalBuiltInPosts }: Props) {
         type="button"
         onClick={handleImport}
         disabled={isPending}
-        className="inline-flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white hover:border-blue-300 hover:text-blue-700 text-slate-700 font-semibold text-sm transition-colors disabled:opacity-50"
+        className="inline-flex items-center gap-2 border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:text-blue-700 disabled:opacity-50"
       >
-        {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-        Import Built-In Posts
+        {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+        导入内置文章
       </button>
       {message ? <p className="text-xs text-emerald-600">{message}</p> : null}
       {error ? <p className="max-w-sm text-right text-xs text-amber-600">{error}</p> : null}

@@ -28,7 +28,7 @@ import {
   X,
 } from "lucide-react";
 import { saveBlogPost } from "@/app/admin/actions";
-import { validateBlogPost } from "@/lib/blogPostValidation";
+import { validateBlogPost, type BlogValidationResult } from "@/lib/blogPostValidation";
 import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
 interface BlogPost {
@@ -64,15 +64,15 @@ interface Props {
 
 type MediaPickerTarget = "cover" | "content";
 
-const CATEGORIES = [
-  "Compliance",
-  "Education",
-  "Industry News",
-  "Product Guide",
-  "E-Commerce",
-  "Sustainability",
-  "Technical Tips",
-  "Market Insights",
+const CATEGORY_OPTIONS = [
+  { value: "Compliance", label: "合规" },
+  { value: "Education", label: "知识科普" },
+  { value: "Industry News", label: "行业动态" },
+  { value: "Product Guide", label: "产品指南" },
+  { value: "E-Commerce", label: "电商" },
+  { value: "Sustainability", label: "可持续" },
+  { value: "Technical Tips", label: "技术技巧" },
+  { value: "Market Insights", label: "市场洞察" },
 ];
 
 const KEYWORD_STOP_WORDS = new Set([
@@ -224,6 +224,17 @@ function buildSeoFields(form: BlogPost) {
   };
 }
 
+function formatAiRiskLabel(risk: BlogValidationResult["qualityAudit"]["aiStyleRisk"]) {
+  switch (risk) {
+    case "high":
+      return "高";
+    case "medium":
+      return "中";
+    default:
+      return "低";
+  }
+}
+
 export default function BlogEditor({ initialData }: Props) {
   const router = useRouter();
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -273,10 +284,10 @@ export default function BlogEditor({ initialData }: Props) {
         : "draft";
   const draftActionLabel =
     draftActionStatus === "published"
-      ? "Update Published"
+      ? "更新已发布文章"
       : draftActionStatus === "archived"
-        ? "Save Archived"
-        : "Save Draft";
+        ? "保存归档文章"
+        : "保存草稿";
 
   const handleChange = useCallback((field: keyof BlogPost, value: string) => {
     setSaveError("");
@@ -342,7 +353,7 @@ export default function BlogEditor({ initialData }: Props) {
       });
 
       if (!result.success) {
-        setSaveError(result.error || "Save failed.");
+        setSaveError(result.error || "保存失败。");
         setSaveMessage("");
         if (status === "published") {
           setActiveTab("content");
@@ -353,10 +364,10 @@ export default function BlogEditor({ initialData }: Props) {
       setSaveError("");
       setSaveMessage(
         status === "published"
-          ? "Article published."
+          ? "文章已发布。"
           : status === "archived"
-            ? "Article archived."
-            : "Draft saved.",
+            ? "文章已归档。"
+            : "草稿已保存。",
       );
       setForm((prev) => ({
         ...prev,
@@ -410,7 +421,7 @@ export default function BlogEditor({ initialData }: Props) {
     const value = form.content;
     const start = textarea?.selectionStart ?? value.length;
     const end = textarea?.selectionEnd ?? value.length;
-    const selected = value.slice(start, end) || "List item";
+    const selected = value.slice(start, end) || "列表项";
     const inserted = selected
       .split(/\r?\n/)
       .map((line) => (line.trim() ? `${prefix}${line}` : line))
@@ -524,18 +535,18 @@ export default function BlogEditor({ initialData }: Props) {
         <div className="flex items-center gap-3">
           <Link href="/admin/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
             <ArrowLeft className="h-4 w-4" />
-            Back to Blog
+            返回博客列表
           </Link>
           <span className="text-slate-300">/</span>
           <h1 className="text-lg font-bold text-slate-900">
-            {form.id ? "Edit Article" : "New Article"}
+            {form.id ? "编辑文章" : "新建文章"}
           </h1>
         </div>
         <div className="flex items-center gap-3">
           {saved ? (
             <span className="flex items-center gap-1.5 text-sm font-medium text-emerald-600">
               <CheckCircle2 className="h-4 w-4" />
-              Saved
+              已保存
             </span>
           ) : null}
           {saveMessage ? <span className="text-sm text-slate-500">{saveMessage}</span> : null}
@@ -547,7 +558,7 @@ export default function BlogEditor({ initialData }: Props) {
               className="inline-flex items-center gap-1.5 border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-blue-600"
             >
               <Eye className="h-4 w-4" />
-              View Page
+              查看页面
             </Link>
           ) : null}
           <button
@@ -566,7 +577,7 @@ export default function BlogEditor({ initialData }: Props) {
             className="inline-flex items-center gap-1.5 bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-blue-700 disabled:opacity-50"
           >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
-            Publish
+            立即发布
           </button>
         </div>
       </div>
@@ -578,17 +589,17 @@ export default function BlogEditor({ initialData }: Props) {
               type="text"
               value={form.title}
               onChange={(event) => handleChange("title", event.target.value)}
-              placeholder="Article title..."
+              placeholder="输入文章标题..."
               className="w-full border-none bg-transparent text-2xl font-bold text-slate-900 outline-none placeholder:text-slate-300"
             />
             <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3">
-              <span className="shrink-0 text-xs text-slate-400">URL:</span>
+              <span className="shrink-0 text-xs text-slate-400">链接：</span>
               <span className="text-xs font-mono text-blue-600">/blog/</span>
               <input
                 type="text"
                 value={form.slug}
                 onChange={(event) => handleChange("slug", event.target.value)}
-                placeholder="url-slug"
+                placeholder="文章 slug"
                 className="flex-1 border-none bg-transparent text-xs font-mono text-slate-600 outline-none"
               />
             </div>
@@ -600,7 +611,7 @@ export default function BlogEditor({ initialData }: Props) {
               onClick={() => setActiveTab("content")}
               className={`px-4 py-1.5 text-sm font-semibold transition-all ${activeTab === "content" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
-              Content
+              内容
             </button>
             <button
               type="button"
@@ -615,28 +626,28 @@ export default function BlogEditor({ initialData }: Props) {
             <div className="space-y-4">
               <div className="border border-slate-200 bg-white p-5">
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-                  Excerpt
+                  摘要
                 </label>
                 <textarea
                   value={form.excerpt}
                   onChange={(event) => handleChange("excerpt", event.target.value)}
                   rows={3}
-                  placeholder="Short summary for cards and search previews..."
+                  placeholder="用于文章卡片和搜索摘要的简短说明..."
                   className="w-full resize-none border-none bg-transparent text-sm text-slate-700 outline-none"
                 />
-                <p className="mt-1 text-xs text-slate-400">{form.excerpt.length} chars</p>
+                <p className="mt-1 text-xs text-slate-400">{form.excerpt.length} 字符</p>
               </div>
 
               <div className="overflow-hidden border border-slate-200 bg-white">
                 <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
                   <label className="text-xs font-bold uppercase tracking-wide text-slate-400">
-                    Article Content (Markdown)
+                    文章正文（Markdown）
                   </label>
                   <div className="flex gap-1 bg-slate-100 p-0.5">
                     <button
                       type="button"
                       onClick={() => setEditorMode("edit")}
-                      title="Edit"
+                      title="编辑"
                       className={`p-1.5 transition-all ${editorMode === "edit" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
                     >
                       <FileText className="h-3.5 w-3.5" />
@@ -644,7 +655,7 @@ export default function BlogEditor({ initialData }: Props) {
                     <button
                       type="button"
                       onClick={() => setEditorMode("split")}
-                      title="Split"
+                      title="分栏"
                       className={`p-1.5 transition-all ${editorMode === "split" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
                     >
                       <SplitSquareHorizontal className="h-3.5 w-3.5" />
@@ -652,7 +663,7 @@ export default function BlogEditor({ initialData }: Props) {
                     <button
                       type="button"
                       onClick={() => setEditorMode("preview")}
-                      title="Preview"
+                      title="预览"
                       className={`p-1.5 transition-all ${editorMode === "preview" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
                     >
                       <Eye className="h-3.5 w-3.5" />
@@ -662,16 +673,16 @@ export default function BlogEditor({ initialData }: Props) {
 
                 <div className="flex items-center gap-2 overflow-x-auto border-b border-slate-100 px-5 py-2">
                   <div className="flex gap-1 bg-slate-100 p-0.5">
-                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading2 className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading3 className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Bold className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Italic className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><List className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ListOrdered className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Quote className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Link2 className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ImageIcon className="h-3.5 w-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Minus className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("## ", "", "二级标题")} title="二级标题" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading2 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("### ", "", "三级标题")} title="三级标题" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading3 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("**", "**", "加粗文字")} title="加粗" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Bold className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("*", "*", "斜体文字")} title="斜体" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Italic className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="无序列表" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><List className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="有序列表" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ListOrdered className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="引用" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Quote className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "链接文字")} title="链接" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Link2 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => openMediaPicker("content")} title="插入图片" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ImageIcon className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="分隔线" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Minus className="h-3.5 w-3.5" /></button>
                   </div>
                 </div>
 
@@ -683,7 +694,7 @@ export default function BlogEditor({ initialData }: Props) {
                       onChange={(event) => handleChange("content", event.target.value)}
                       onPaste={handleContentPaste}
                       rows={24}
-                      placeholder="Write your article in Markdown..."
+                      placeholder="请使用 Markdown 编写文章..."
                       className="w-full resize-y border-none bg-transparent p-5 font-mono text-sm leading-relaxed text-slate-700 outline-none"
                     />
                   ) : null}
@@ -691,7 +702,7 @@ export default function BlogEditor({ initialData }: Props) {
                     <div className="max-h-[600px] overflow-auto p-5">
                       <div className="prose prose-slate prose-sm max-w-none">
                         <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>
-                          {form.content || "*Start typing to see a preview...*"}
+                          {form.content || "*开始输入后可在这里预览...*"}
                         </ReactMarkdown>
                       </div>
                     </div>
@@ -701,13 +712,13 @@ export default function BlogEditor({ initialData }: Props) {
 
               <div className="border border-slate-200 bg-white p-4">
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-                  Tags
+                  标签
                 </label>
                 <input
                   type="text"
                   value={form.tags}
                   onChange={(event) => handleChange("tags", event.target.value)}
-                  placeholder="bpa-free, thermal paper, compliance"
+                  placeholder="例如：bpa-free, thermal paper, compliance"
                   className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
                 />
               </div>
@@ -716,9 +727,9 @@ export default function BlogEditor({ initialData }: Props) {
             <div className="space-y-4">
               <div className="flex items-center justify-between gap-4 border border-blue-100 bg-blue-50 p-4">
                 <div>
-                  <p className="text-sm font-bold text-slate-900">SEO Autofill</p>
+                  <p className="text-sm font-bold text-slate-900">SEO 自动生成</p>
                   <p className="mt-1 text-xs text-slate-500">
-                    Generate title, meta description, and keyword hints from the current article draft.
+                    根据当前文章内容生成 SEO 标题、描述和关键词建议。
                   </p>
                 </div>
                 <button
@@ -728,57 +739,57 @@ export default function BlogEditor({ initialData }: Props) {
                   className="inline-flex shrink-0 items-center gap-1.5 bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
                 >
                   <Search className="h-4 w-4" />
-                  Generate
+                  生成
                 </button>
               </div>
 
               <div className="border border-slate-200 bg-white p-5">
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-                  SEO Title
+                  SEO 标题
                 </label>
                 <input
                   type="text"
                   value={form.seoTitle}
                   onChange={(event) => handleChange("seoTitle", event.target.value)}
-                  placeholder="SEO title (up to 60 characters)"
+                  placeholder="SEO 标题（建议不超过 60 个字符）"
                   className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
                 />
                 <div className="mt-1 flex justify-between">
-                  <p className="text-xs text-slate-400">{form.seoTitle.length} chars</p>
+                  <p className="text-xs text-slate-400">{form.seoTitle.length} 字符</p>
                   <p className={`text-xs ${form.seoTitle.length > 60 ? "text-red-500" : form.seoTitle.length >= 50 ? "text-emerald-600" : "text-slate-400"}`}>
-                    {form.seoTitle.length > 60 ? "Too long" : form.seoTitle.length >= 50 ? "Good" : "Target 50-60"}
+                    {form.seoTitle.length > 60 ? "过长" : form.seoTitle.length >= 50 ? "合适" : "建议 50-60"}
                   </p>
                 </div>
               </div>
 
               <div className="border border-slate-200 bg-white p-5">
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-                  Meta Description
+                  Meta 描述
                 </label>
                 <textarea
                   value={form.seoDescription}
                   onChange={(event) => handleChange("seoDescription", event.target.value)}
                   rows={3}
-                  placeholder="Meta description (120-165 characters)"
+                  placeholder="Meta 描述（建议 120-165 个字符）"
                   className="w-full resize-none border-none bg-transparent text-sm text-slate-700 outline-none"
                 />
                 <div className="mt-1 flex justify-between">
-                  <p className="text-xs text-slate-400">{form.seoDescription.length} chars</p>
+                  <p className="text-xs text-slate-400">{form.seoDescription.length} 字符</p>
                   <p className={`text-xs ${form.seoDescription.length > 165 ? "text-red-500" : form.seoDescription.length >= 120 ? "text-emerald-600" : "text-slate-400"}`}>
-                    {form.seoDescription.length > 165 ? "Too long" : form.seoDescription.length >= 120 ? "Good" : "Target 120-165"}
+                    {form.seoDescription.length > 165 ? "过长" : form.seoDescription.length >= 120 ? "合适" : "建议 120-165"}
                   </p>
                 </div>
               </div>
 
               <div className="border border-slate-200 bg-white p-5">
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-                  Keywords
+                  关键词
                 </label>
                 <input
                   type="text"
                   value={form.seoKeywords}
                   onChange={(event) => handleChange("seoKeywords", event.target.value)}
-                  placeholder="thermal paper manufacturer, receipt paper rolls"
+                  placeholder="例如：thermal paper manufacturer, receipt paper rolls"
                   className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
                 />
               </div>
@@ -786,7 +797,7 @@ export default function BlogEditor({ initialData }: Props) {
               {(form.seoTitle || form.title) ? (
                 <div className="border border-slate-200 bg-slate-50 p-5">
                   <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">
-                    Search Preview
+                    搜索预览
                   </p>
                   <p className="truncate text-base font-medium text-blue-700">
                     {form.seoTitle || form.title} | Zhixin Paper
@@ -795,7 +806,7 @@ export default function BlogEditor({ initialData }: Props) {
                     www.zhixinpaper.com / blog / {form.slug || "slug"}
                   </p>
                   <p className="mt-1 line-clamp-2 text-sm text-slate-600">
-                    {form.seoDescription || form.excerpt || "Meta description..."}
+                    {form.seoDescription || form.excerpt || "Meta 描述预览..."}
                   </p>
                 </div>
               ) : null}
@@ -806,30 +817,30 @@ export default function BlogEditor({ initialData }: Props) {
         <div className="space-y-4">
           <div className="border border-slate-200 bg-white p-4">
             <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
-              Status
+              状态
             </label>
             <select
               value={form.status}
               onChange={(event) => handleChange("status", event.target.value)}
               className="w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-              <option value="archived">Archived</option>
+              <option value="draft">草稿</option>
+              <option value="published">已发布</option>
+              <option value="archived">已归档</option>
             </select>
             <p className="mt-2 text-xs text-slate-400">
-              Draft supports scheduling. Published and archived posts ignore schedule settings.
+              只有草稿支持定时发布；已发布和已归档文章不会保留定时设置。
             </p>
           </div>
 
           <div className="border border-slate-200 bg-white p-4">
             <div className="mb-3 flex items-center justify-between gap-3">
               <label className="block text-xs font-bold uppercase tracking-wide text-slate-400">
-                Scheduled Publish
+                定时发布
               </label>
               {form.scheduledAt ? (
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
-                  {form.publishApproved ? "Approved" : "Pending Review"}
+                  {form.publishApproved ? "已批准" : "待审核"}
                 </span>
               ) : null}
             </div>
@@ -849,41 +860,41 @@ export default function BlogEditor({ initialData }: Props) {
                 className="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed"
               />
               <span>
-                Approve automatic publication once this scheduled time is reached.
+                到达预定时间后，允许系统自动发布。
               </span>
             </label>
             <p className="mt-2 text-xs text-slate-400">
-              Campaign imports stay as scheduled drafts until someone reviews the content and enables automatic publication.
+              活动导入的文章默认保留为定时草稿，需人工复核后再开启自动发布。
             </p>
           </div>
 
           {form.campaignId ? (
             <div className="border border-violet-200 bg-violet-50 p-4">
               <p className="mb-2 text-xs font-bold uppercase tracking-wide text-violet-700">
-                Campaign Source
+                活动来源
               </p>
               <p className="rounded bg-white px-3 py-2 font-mono text-xs text-violet-700">
                 {form.campaignId}
               </p>
               <p className="mt-2 text-xs text-violet-600">
-                This post was imported from a campaign batch and should keep its buyer intent and topic scope aligned with that campaign.
+                这篇文章来自活动批量导入，编辑时应尽量保持其买家意图和主题范围不偏离原活动。
               </p>
             </div>
           ) : null}
 
           <div className="border border-slate-200 bg-white p-4">
             <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
-              Category
+              分类
             </label>
             <select
               value={form.category}
               onChange={(event) => handleChange("category", event.target.value)}
               className="w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Choose category...</option>
-              {CATEGORIES.map((category) => (
-                <option key={category} value={category}>
-                  {category}
+              <option value="">请选择分类...</option>
+              {CATEGORY_OPTIONS.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
                 </option>
               ))}
             </select>
@@ -891,13 +902,13 @@ export default function BlogEditor({ initialData }: Props) {
 
           <div className="border border-slate-200 bg-white p-4">
             <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
-              Read Time
+              阅读时长
             </label>
             <input
               type="text"
               value={form.readTime}
               onChange={(event) => handleChange("readTime", event.target.value)}
-              placeholder="Example: 8 min"
+              placeholder="例如：8 min"
               className="w-full border border-slate-200 px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
             />
             {form.content && !form.readTime ? (
@@ -909,19 +920,19 @@ export default function BlogEditor({ initialData }: Props) {
                 }}
                 className="mt-2 text-xs text-blue-600 hover:underline"
               >
-                Auto-calculate
+                自动计算
               </button>
             ) : null}
           </div>
 
           <div className="border border-slate-200 bg-white p-4">
             <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
-              Cover Image
+              封面图
             </label>
             {form.coverImage ? (
               <div className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={form.coverImage} alt="Cover" className="h-36 w-full object-cover" />
+                <img src={form.coverImage} alt="封面图" className="h-36 w-full object-cover" />
                 <button
                   type="button"
                   onClick={() => handleChange("coverImage", "")}
@@ -937,7 +948,7 @@ export default function BlogEditor({ initialData }: Props) {
                 className="flex h-28 w-full flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-200 text-slate-400 transition-colors hover:border-blue-400 hover:text-blue-500"
               >
                 <ImageIcon className="h-6 w-6" />
-                <span className="text-xs font-medium">Choose from media library</span>
+                <span className="text-xs font-medium">从媒体库选择</span>
               </button>
             )}
             {form.coverImage ? (
@@ -946,7 +957,7 @@ export default function BlogEditor({ initialData }: Props) {
                 onClick={() => openMediaPicker("cover")}
                 className="mt-2 w-full text-center text-xs text-blue-600 hover:underline"
               >
-                Replace image
+                更换图片
               </button>
             ) : null}
           </div>
@@ -954,34 +965,34 @@ export default function BlogEditor({ initialData }: Props) {
           <div className="border border-slate-200 bg-slate-50 p-4">
             <div className="mb-3 flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-wide text-slate-400">
-                Publish Checks
+                发布校验
               </p>
               <div className="flex items-center gap-2 text-xs">
                 <span className={`rounded-full px-2 py-0.5 font-semibold ${validation.errors.length > 0 ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"}`}>
-                  {validation.errors.length} blocking
+                  {validation.errors.length} 个阻塞项
                 </span>
                 <span className="rounded-full bg-slate-200 px-2 py-0.5 font-semibold text-slate-600">
-                  {validation.warnings.length} warnings
+                  {validation.warnings.length} 个提醒
                 </span>
               </div>
             </div>
 
             <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-slate-500">
               <div className="rounded bg-white px-3 py-2">
-                <span className="block text-[10px] uppercase tracking-wide text-slate-400">Words</span>
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">字数</span>
                 <span className="font-semibold text-slate-700">{validation.wordCount}</span>
               </div>
               <div className="rounded bg-white px-3 py-2">
-                <span className="block text-[10px] uppercase tracking-wide text-slate-400">H2 Sections</span>
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">H2 小节</span>
                 <span className="font-semibold text-slate-700">{validation.h2Count}</span>
               </div>
               <div className="rounded bg-white px-3 py-2">
                 <span className="block text-[10px] uppercase tracking-wide text-slate-400">FAQ</span>
-                <span className="font-semibold text-slate-700">{validation.hasFaq ? "Yes" : "No"}</span>
+                <span className="font-semibold text-slate-700">{validation.hasFaq ? "有" : "无"}</span>
               </div>
               <div className="rounded bg-white px-3 py-2">
-                <span className="block text-[10px] uppercase tracking-wide text-slate-400">AI Risk</span>
-                <span className="font-semibold capitalize text-slate-700">{validation.qualityAudit.aiStyleRisk}</span>
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">AI 风险</span>
+                <span className="font-semibold text-slate-700">{formatAiRiskLabel(validation.qualityAudit.aiStyleRisk)}</span>
               </div>
             </div>
 
@@ -997,7 +1008,7 @@ export default function BlogEditor({ initialData }: Props) {
             ) : (
               <div className="mb-3 flex items-center gap-2 rounded bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
                 <CheckCircle2 className="h-3.5 w-3.5" />
-                <span>Ready to publish. Remaining items are non-blocking warnings.</span>
+                <span>已满足发布要求，剩余仅为非阻塞提醒。</span>
               </div>
             )}
 
@@ -1010,7 +1021,7 @@ export default function BlogEditor({ initialData }: Props) {
                 ))}
                 {validation.warnings.length > 4 ? (
                   <p className="text-xs text-slate-400">
-                    {validation.warnings.length - 4} more warning{validation.warnings.length - 4 === 1 ? "" : "s"} hidden.
+                    还有 {validation.warnings.length - 4} 条提醒未展开显示。
                   </p>
                 ) : null}
               </div>
@@ -1024,7 +1035,7 @@ export default function BlogEditor({ initialData }: Props) {
           <div className="flex max-h-[80vh] w-full max-w-3xl flex-col bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-200 p-5">
               <h3 className="font-bold text-slate-900">
-                {mediaPickerTarget === "cover" ? "Choose Cover Image" : "Insert Image"}
+                {mediaPickerTarget === "cover" ? "选择封面图" : "插入图片"}
               </h3>
               <button
                 type="button"
@@ -1041,7 +1052,7 @@ export default function BlogEditor({ initialData }: Props) {
                   type="text"
                   value={mediaSearch}
                   onChange={(event) => setMediaSearch(event.target.value)}
-                  placeholder="Search images..."
+                  placeholder="搜索图片..."
                   className="w-full border border-slate-200 py-2 pl-9 pr-4 text-sm outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -1054,7 +1065,7 @@ export default function BlogEditor({ initialData }: Props) {
               ) : filteredMedia.length === 0 ? (
                 <div className="py-12 text-center text-slate-400">
                   <ImageIcon className="mx-auto mb-2 h-10 w-10 opacity-30" />
-                  <p className="text-sm">No images found</p>
+                  <p className="text-sm">未找到图片</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
@@ -1076,7 +1087,7 @@ export default function BlogEditor({ initialData }: Props) {
                       <img src={file.url} alt={file.alt || file.originalName} className="h-full w-full object-cover" />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
                         <span className="bg-blue-600 px-2 py-1 text-xs font-bold text-white opacity-0 transition-opacity group-hover:opacity-100">
-                          Select
+                          选择
                         </span>
                       </div>
                     </button>

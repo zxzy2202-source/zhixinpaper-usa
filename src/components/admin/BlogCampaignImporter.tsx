@@ -41,9 +41,9 @@ export default function BlogCampaignImporter({ campaigns }: { campaigns: Campaig
           campaignId,
           startAt: new Date(startAt).toISOString(),
         });
-        setMessage(`Imported ${result.created.length} draft posts. Skipped ${result.skipped.length} existing slugs.`);
+        setMessage(`已导入 ${result.created.length} 篇草稿，跳过 ${result.skipped.length} 个已存在 slug。`);
       } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "Campaign import failed.");
+        setError(caught instanceof Error ? caught.message : "活动导入失败。");
       }
     });
   }
@@ -54,15 +54,15 @@ export default function BlogCampaignImporter({ campaigns }: { campaigns: Campaig
         <div>
           <div className="flex items-center gap-2">
             <CalendarPlus className="h-5 w-5 text-blue-700" />
-            <h2 className="text-base font-semibold text-slate-900">Blog Campaign Import</h2>
+            <h2 className="text-base font-semibold text-slate-900">博客活动导入</h2>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-            Import draft content batches modeled after the `zxpapers` workflow. These posts enter the backend as editable drafts with planned publish slots, but they are not auto-approved.
+            按照 `zxpapers` 的工作流批量导入博客草稿。导入后会生成可编辑草稿，并带上计划发布时间，但默认不会自动批准发布。
           </p>
           {selectedCampaign ? (
             <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700">
               <CheckCircle2 className="h-4 w-4" />
-              Imported {selectedCampaign.imported}/{selectedCampaign.total} in this batch
+              当前活动已导入 {selectedCampaign.imported}/{selectedCampaign.total} 篇
             </p>
           ) : null}
           {selectedCampaign?.description ? (
@@ -74,7 +74,7 @@ export default function BlogCampaignImporter({ campaigns }: { campaigns: Campaig
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
           <label className="text-sm font-medium text-slate-700">
-            Campaign
+            活动
             <select
               value={campaignId}
               onChange={(event) => setCampaignId(event.target.value)}
@@ -82,14 +82,14 @@ export default function BlogCampaignImporter({ campaigns }: { campaigns: Campaig
             >
               {campaigns.map((campaign) => (
                 <option key={campaign.id} value={campaign.id}>
-                  {campaign.name} ({campaign.total} posts, every {campaign.cadenceDays} days)
+                  {campaign.name}（{campaign.total} 篇，每 {campaign.cadenceDays} 天一篇）
                 </option>
               ))}
             </select>
           </label>
 
           <label className="text-sm font-medium text-slate-700">
-            First publish slot
+            首次发布时间
             <input
               type="datetime-local"
               value={startAt}
@@ -105,7 +105,7 @@ export default function BlogCampaignImporter({ campaigns }: { campaigns: Campaig
             className="inline-flex min-h-10 items-center justify-center gap-2 bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <CalendarPlus className="h-4 w-4" />}
-            Import Draft Queue
+            导入草稿队列
           </button>
         </div>
       </div>

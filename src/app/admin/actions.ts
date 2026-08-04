@@ -32,7 +32,7 @@ function normalizeScheduledAt(value?: string | null) {
 
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
-    throw new Error("Scheduled publish time is invalid.");
+    throw new Error("定时发布时间无效。");
   }
 
   return date.toISOString();
@@ -145,7 +145,7 @@ export async function saveBlogPost(data: {
   if (!data.slug.trim()) {
     return {
       success: false,
-      error: "Slug is required.",
+      error: "Slug 不能为空。",
       validation,
     };
   }
@@ -153,7 +153,7 @@ export async function saveBlogPost(data: {
   if (data.status === "published" && validation.errors.length > 0) {
     return {
       success: false,
-      error: "Fix the blocking blog checks before publishing.",
+      error: "发布前请先修复阻塞项。",
       validation,
     };
   }
@@ -166,7 +166,7 @@ export async function saveBlogPost(data: {
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Scheduled publish time is invalid.",
+      error: error instanceof Error ? error.message : "定时发布时间无效。",
       validation,
     };
   }
@@ -175,7 +175,7 @@ export async function saveBlogPost(data: {
   if (publishApproved && !scheduledAt) {
     return {
       success: false,
-      error: "Choose a scheduled publish time before approving automatic publication.",
+      error: "开启自动发布前，请先设置定时发布时间。",
       validation,
     };
   }
@@ -321,12 +321,12 @@ export async function importBlogCampaign({
 
   const campaign = getBlogCampaign(campaignId);
   if (!campaign) {
-    throw new Error("Campaign not found.");
+    throw new Error("未找到对应活动。");
   }
 
   const startDate = new Date(startAt);
   if (Number.isNaN(startDate.getTime())) {
-    throw new Error("Choose a valid first publish slot.");
+    throw new Error("请选择有效的首次发布时间。");
   }
 
   const existing = await db
