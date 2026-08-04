@@ -964,8 +964,8 @@ export const COMPLIANCE_ITEMS = [
 export const BLOG_POSTS = [
   {
     slug: "bpa-free-thermal-paper-europe",
-    title: "BPA-Free Thermal Paper in Europe: Complete Compliance Guide 2025",
-    excerpt: "Everything distributors need to know about BPA-free thermal paper regulations in the EU, REACH compliance, and sourcing from certified manufacturers.",
+    title: "EU BPA-Free Thermal Paper Compliance Guide",
+    excerpt: "What EU buyers should verify on BPA-free thermal paper: REACH threshold, BPS status, declarations, test reports, and supplier approval records.",
     category: "Compliance",
     readTime: "8 min",
     date: "2025-03-15",
@@ -992,7 +992,7 @@ export const BLOG_POSTS = [
   {
     slug: "casino-receipt-paper-guide",
     title: "Casino TITO Paper Guide: Choosing the Right Thermal Paper",
-    excerpt: "Complete guide to TITO (Ticket-In Ticket-Out) thermal paper for casino slot machines, including specifications and supplier selection.",
+    excerpt: "How casino buyers should qualify TITO thermal paper by printer fit, barcode criteria, retention target, sample testing, and supply control.",
     category: "Products",
     readTime: "7 min",
     date: "2025-01-20",
@@ -1008,8 +1008,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: "reach-compliance-thermal-paper",
-    title: "REACH Compliance for Thermal Paper: EU 2025 Update",
-    excerpt: "Latest REACH SVHC regulations affecting thermal paper in Europe, what distributors must verify, and how to ensure compliant sourcing.",
+    title: "EU REACH Compliance for Thermal Paper",
+    excerpt: "What EU importers and distributors should verify on BPA restrictions, BPS candidate-list status, SVHC records, and release documentation.",
     category: "Compliance",
     readTime: "10 min",
     date: "2024-12-18",
@@ -1019,6 +1019,7 @@ export const BLOG_POSTS = [
     slug: "direct-vs-thermal-transfer",
     title: "Direct Thermal vs Thermal Transfer: Which Label Is Right for You?",
     excerpt: "Side-by-side comparison of direct thermal and thermal transfer labels covering durability, cost, applications, and printer compatibility.",
+    seoTitle: "Direct Thermal vs Thermal Transfer Labels",
     category: "Education",
     readTime: "8 min",
     date: "2024-11-15",
@@ -1026,8 +1027,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: "cannabis-label-requirements-usa",
-    title: "Cannabis Label Requirements by US State: 2025 Guide",
-    excerpt: "State-by-state breakdown of cannabis label requirements in the USA, including thermal label specifications and compliance tips for dispensaries.",
+    title: "U.S. Cannabis Label Requirements: State Review Framework",
+    excerpt: "A compliance workflow for U.S. cannabis label projects covering jurisdiction review, approved artwork, variable data control, and print validation.",
     category: "Compliance",
     readTime: "15 min",
     date: "2024-12-01",
@@ -1037,6 +1038,7 @@ export const BLOG_POSTS = [
     slug: "how-to-print-logo-on-thermal-paper-rolls",
     title: "How to Print Your Logo on Thermal Paper Rolls: Complete Guide",
     excerpt: "Step-by-step guide to custom logo printing on thermal paper rolls, including back print options, coupon printing, QR codes, and MOQ requirements for B2B buyers.",
+    seoTitle: "Custom Logo Printing on Thermal Paper Rolls",
     category: "Education",
     readTime: "10 min",
     date: "2026-04-10",

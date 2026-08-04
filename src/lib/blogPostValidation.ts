@@ -1,6 +1,7 @@
 export type BlogValidationLevel = "error" | "warning";
 export type BlogValidationCategory = "format" | "seo" | "ai-style" | "evidence" | "buyer-value";
 export type BlogAiStyleRisk = "low" | "medium" | "high";
+export type BlogContentQualityLevel = "strong" | "needs-review" | "weak";
 
 export interface BlogValidationIssue {
   code: string;
@@ -21,6 +22,7 @@ export interface BlogValidationResult {
   issues: BlogValidationIssue[];
   errors: BlogValidationIssue[];
   warnings: BlogValidationIssue[];
+  groupedIssues: Record<BlogValidationCategory, BlogValidationIssue[]>;
   wordCount: number;
   h2Count: number;
   hasFaq: boolean;
@@ -35,6 +37,10 @@ export interface BlogValidationResult {
     buyerActionCount: number;
     specificDetailCount: number;
     longSentenceCount: number;
+    hasLeadParagraph: boolean;
+    hasInternalLink: boolean;
+    contentQualityScore: number;
+    contentQualityLevel: BlogContentQualityLevel;
   };
 }
 
@@ -44,8 +50,8 @@ const EXTERNAL_LINK_PATTERN = /\[[^\]]+\]\(https?:\/\/[^)]+\)/gi;
 const AI_CLICHE_PATTERN = /\b(?:in today'?s (?:fast-paced|digital|ever-changing) world|delve into|navigate the complexities|ever-evolving landscape|game[- ]changer|it is important to note|it is worth noting|when it comes to|plays? a crucial role|unlock(?:ing)? the (?:power|potential)|elevate your|whether you are|stands? out from the crowd)\b/gi;
 const VAGUE_BUZZWORD_PATTERN = /\b(?:seamless(?:ly)?|robust|cutting-edge|innovative|best-in-class|revolutionary|transformative|holistic|comprehensive solution|optimi[sz]e your|streamline your)\b/gi;
 const TRANSITION_PATTERN = /(?:^|[.!?]\s+|\n)(?:moreover|furthermore|additionally|in conclusion|ultimately|notably|in summary|consequently),?\s/gi;
-const BUYER_ACTION_PATTERN = /\b(?:test|confirm|verify|request|compare|measure|record|approve|inspect|sample|quote|specify|check|ask|document|reject|store|pack)\w*\b/gi;
-const SPECIFIC_DETAIL_PATTERN = /\b\d+(?:\.\d+)?\s*(?:mm|cm|m|gsm|g\/m2|microns?|°c|%|hours?|days?|months?|years?|rolls?|cartons?|pallets?|dpi|kg|lb|usd|eur|cad)\b|\b(?:core size|roll width|roll length|image density|qr code|printer model|storage temperature|inspection plan|scan distance|scan angle|decode rate|print contrast|sample size|acceptance criteria|test conditions?|heat exposure|humidity|lot number|batch number|carton label)\b/gi;
+const BUYER_ACTION_PATTERN = /\b(?:test|confirm|verify|request|compare|measure|record|approve|inspect|sample|quote|specify|check|ask|document|reject|store|pack|review|match|validate|trial)\w*\b/gi;
+const SPECIFIC_DETAIL_PATTERN = /\b\d+(?:\.\d+)?\s*(?:mm|cm|m|gsm|g\/m2|microns?|deg c|°c|%|hours?|days?|months?|years?|rolls?|cartons?|pallets?|dpi|kg|lb|usd|eur|cad)\b|\b(?:core size|roll width|roll length|image density|qr code|printer model|storage temperature|inspection plan|scan distance|scan angle|decode rate|print contrast|sample size|acceptance criteria|test conditions?|heat exposure|humidity|lot number|batch number|carton label|label stock|adhesive type|fanfold|release liner|winding direction)\b/gi;
 const REGULATORY_CLAIM_PATTERN = /\b(?:reach|rohs|fda|regulation|regulatory|compliance|compliant|mandatory|certif(?:ied|ication)|iso\s?\d*|fsc|bpa[- ]free|bps[- ]free|food contact)\b/gi;
 const ABSOLUTE_CLAIM_PATTERN = /\b(?:guarantee(?:d|s)?|100%|the best|perfect(?:ly)?|eliminate[sd]?|will always|will never)\b/gi;
 
@@ -93,7 +99,9 @@ function sentenceMetrics(content: string): {
       .split(/\s+/)
       .slice(0, 2)
       .join(" ");
-    if (opening) openings.set(opening, (openings.get(opening) || 0) + 1);
+    if (opening) {
+      openings.set(opening, (openings.get(opening) || 0) + 1);
+    }
   }
 
   return {
@@ -106,6 +114,16 @@ function sentenceMetrics(content: string): {
   };
 }
 
+function createGroupedIssues(): Record<BlogValidationCategory, BlogValidationIssue[]> {
+  return {
+    format: [],
+    seo: [],
+    "ai-style": [],
+    evidence: [],
+    "buyer-value": [],
+  };
+}
+
 function push(
   issues: BlogValidationIssue[],
   level: BlogValidationLevel,
@@ -114,6 +132,10 @@ function push(
   category: BlogValidationCategory = "format",
 ) {
   issues.push({ level, code, category, message });
+}
+
+function clampScore(score: number) {
+  return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 export function validateBlogPost(input: BlogValidationInput): BlogValidationResult {
@@ -154,18 +176,28 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       ? "medium"
       : "low";
   const hasFaq = headings.some(
-    (heading) => heading.level === 2 && /frequently asked questions|faq/i.test(heading.text),
+    (heading) => heading.level === 2 && /frequently asked questions|faq|常见问题/i.test(heading.text),
   );
+  const firstMeaningfulLine = content.split("\n").map((line) => line.trim()).find(Boolean) || "";
+  const hasLeadParagraph = Boolean(firstMeaningfulLine) && !/^#{1,6}\s/.test(firstMeaningfulLine);
+  const hasInternalLink = INTERNAL_LINK_PATTERN.test(content);
+  const longSentenceDensity = sentenceAudit.sentenceCount > 0
+    ? sentenceAudit.longSentenceCount / sentenceAudit.sentenceCount
+    : 0;
 
-  if (!title) push(issues, "error", "title-required", "文章标题不能为空。");
-  if (!content) push(issues, "error", "content-required", "文章正文不能为空。");
+  if (!title) {
+    push(issues, "error", "title-required", "文章标题不能为空。");
+  }
+  if (!content) {
+    push(issues, "error", "content-required", "文章正文不能为空。");
+  }
 
   if (headings.some((heading) => heading.level === 1)) {
     push(
       issues,
       "error",
       "duplicate-h1",
-      "请删除 Markdown 中的 H1。页面会自动把文章标题渲染为 H1。",
+      "请删除 Markdown 里的 H1。页面会自动把文章标题渲染为 H1。",
     );
   }
 
@@ -188,10 +220,10 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
     push(issues, "error", "content-depth", `当前文章约 ${wordCount} 词，建议发布级内容至少达到 600 词。`);
   }
   if (h2Count < 3) {
-    push(issues, "error", "section-structure", "请至少设置 3 个 H2 小节，方便读者快速扫描。");
+    push(issues, "error", "section-structure", "请至少设置 3 个 H2 小节，方便读者快速扫读。");
   }
-  if (!INTERNAL_LINK_PATTERN.test(content)) {
-    push(issues, "error", "internal-link", "请至少添加 1 个站内链接，例如产品页、行业页、合规页、联系页或询盘页。");
+  if (!hasInternalLink) {
+    push(issues, "error", "internal-link", "请至少加入 1 个站内链接，例如产品页、合规页、联系页或询盘页。");
   }
 
   if (clicheCount > 0) {
@@ -199,7 +231,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       clicheCount >= 3 ? "error" : "warning",
       "ai-cliche-language",
-      `检测到 ${clicheCount} 处较泛的 AI 套话，建议替换为更具体的买家事实或操作建议。`,
+      `检测到 ${clicheCount} 处较泛的 AI 套话，建议改成更具体的采购场景、规格差异或操作建议。`,
       "ai-style",
     );
   }
@@ -208,7 +240,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-vague-buzzwords",
-      `检测到 ${vagueBuzzwordCount} 处偏空泛的营销词，建议改成可验证的采购结果或指标。`,
+      `检测到 ${vagueBuzzwordCount} 处空泛营销词，建议替换成可验证的规格、测试动作或交付条件。`,
       "ai-style",
     );
   }
@@ -217,7 +249,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-transition-density",
-      "套话式过渡词偏多，建议减少无意义衔接词并调整句式节奏。",
+      "过渡词密度偏高，建议减少模板化衔接词，改成更直接的判断和结论。",
       "ai-style",
     );
   }
@@ -226,7 +258,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-repetitive-openings",
-      "多句使用了重复开头，建议适当变化句式以提升可读性。",
+      "多句使用了重复开头，建议调整句式，避免明显的机器腔。",
       "ai-style",
     );
   }
@@ -235,7 +267,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "error",
       "ai-style-high-risk",
-      "AI 写作痕迹风险较高，批准或发布前请先进行人工润色。",
+      "AI 味风险较高，发布前请先做人工润色，补足真实买家问题和决策信息。",
       "ai-style",
     );
   } else if (aiStyleRisk === "medium") {
@@ -243,7 +275,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "ai-style-manual-review",
-      "AI 写作痕迹风险中等，批准前请先检查高亮问题。",
+      "AI 味风险中等，建议发布前重点检查开头、句式重复和空泛总结。",
       "ai-style",
     );
   }
@@ -253,7 +285,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "evidence-gap",
-      "文中出现合规或认证相关表述，但缺少外部依据。请补充来源或标记为待核实。",
+      "文中出现了合规、法规或认证相关表述，但缺少外部依据。请补充来源或标注为待核实。",
       "evidence",
     );
   }
@@ -262,7 +294,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "absolute-claim-review",
-      `检测到 ${absoluteClaimCount} 处绝对化或夸张表述，请确认是否有证据支撑并补充限定条件。`,
+      `检测到 ${absoluteClaimCount} 处绝对化或夸张表达，请补充限定条件，避免无证据承诺。`,
       "evidence",
     );
   }
@@ -271,7 +303,7 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "low-specificity",
-      "文章中可量化规格或操作细节偏少，建议增加更具体的采购判断标准。",
+      "文章里可量化规格或操作细节偏少，建议补充尺寸、材料、测试条件或验收标准。",
       "buyer-value",
     );
   }
@@ -280,49 +312,108 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       issues,
       "warning",
       "weak-buyer-actions",
-      "建议增加更多买家可执行动作，例如打样、确认规格、记录验收标准等。",
+      "建议增加更多买家可执行动作，例如打样、确认规格、匹配设备、审核文件或记录测试结果。",
       "buyer-value",
     );
   }
   if (
     sentenceAudit.sentenceCount >= 12 &&
     sentenceAudit.longSentenceCount >= 5 &&
-    sentenceAudit.longSentenceCount / sentenceAudit.sentenceCount >= 0.25
+    longSentenceDensity >= 0.25
   ) {
     push(
       issues,
       "warning",
       "long-sentence-density",
-      "长句偏多，建议拆分部分句子，便于采购读者更快抓取要求。",
+      "长句偏多，建议拆分部分句子，让采购、质量和产品读者更快抓到重点。",
       "buyer-value",
     );
   }
 
-  if (title.length > 75) push(issues, "warning", "long-title", "页面标题超过 75 个字符，建议压缩。", "seo");
+  if (title.length > 75) {
+    push(issues, "warning", "long-title", "页面标题超过 75 个字符，建议压缩。", "seo");
+  }
   if (!excerpt) {
-    push(issues, "warning", "missing-excerpt", "请补充简短摘要，用于博客卡片和元信息兜底。", "seo");
+    push(issues, "warning", "missing-excerpt", "请补充摘要，用于博客卡片和元信息兜底。", "seo");
   } else if (excerpt.length < 80 || excerpt.length > 220) {
-    push(issues, "warning", "excerpt-length", "摘要建议控制在 80-220 个字符之间。", "seo");
+    push(issues, "warning", "excerpt-length", "摘要建议控制在 80 到 220 个字符之间。", "seo");
   }
   if (metaTitle && metaTitle.length > 60) {
-    push(issues, "warning", "meta-title-length", "SEO 标题建议不超过 60 个字符。", "seo");
+    push(issues, "warning", "meta-title-length", "SEO 标题建议不要超过 60 个字符。", "seo");
   }
   if (!metaDescription) {
     push(issues, "warning", "missing-meta-description", "请补充独立的 SEO 描述。", "seo");
   } else if (metaDescription.length < 120 || metaDescription.length > 165) {
-    push(issues, "warning", "meta-description-length", "SEO 描述建议控制在 120-165 个字符之间。", "seo");
+    push(issues, "warning", "meta-description-length", "SEO 描述建议控制在 120 到 165 个字符之间。", "seo");
   }
   if (!hasFaq) {
-    push(issues, "warning", "missing-faq", "若主题适合，建议补充 FAQ 常见问题小节。");
+    push(issues, "warning", "missing-faq", "如果主题适合，建议补一个 FAQ 小节，回答采购常见疑问。");
   }
-  if (/^#{2,6}\s/m.test(content.split("\n").find((line) => line.trim()) || "")) {
+  if (firstMeaningfulLine && /^#{2,6}\s/.test(firstMeaningfulLine)) {
     push(issues, "warning", "missing-lead", "建议在第一个标题前先写一段直接回答式导语。");
   }
+
+  let contentQualityScore = 100;
+  if (!title) {
+    contentQualityScore -= 15;
+  }
+  if (!content) {
+    contentQualityScore -= 40;
+  }
+  if (wordCount < 600) {
+    contentQualityScore -= wordCount === 0 ? 35 : 20;
+  }
+  if (h2Count < 3) {
+    contentQualityScore -= 12;
+  }
+  if (!hasInternalLink) {
+    contentQualityScore -= 10;
+  }
+  if (!hasLeadParagraph) {
+    contentQualityScore -= 6;
+  }
+  if (!hasFaq) {
+    contentQualityScore -= 4;
+  }
+  if (buyerActionCount < 5) {
+    contentQualityScore -= 10;
+  }
+  if (specificDetailCount < 4) {
+    contentQualityScore -= 10;
+  }
+  if (sentenceAudit.longSentenceCount >= 5 && longSentenceDensity >= 0.25) {
+    contentQualityScore -= 6;
+  }
+  if (regulatoryClaimCount >= 2 && externalSourceCount === 0) {
+    contentQualityScore -= 8;
+  }
+  if (absoluteClaimCount > 0) {
+    contentQualityScore -= 4;
+  }
+  if (aiStyleRisk === "medium") {
+    contentQualityScore -= 8;
+  }
+  if (aiStyleRisk === "high") {
+    contentQualityScore -= 18;
+  }
+
+  const groupedIssues = createGroupedIssues();
+  for (const issue of issues) {
+    groupedIssues[issue.category].push(issue);
+  }
+
+  const score = clampScore(contentQualityScore);
+  const contentQualityLevel: BlogContentQualityLevel = score >= 80
+    ? "strong"
+    : score >= 55
+      ? "needs-review"
+      : "weak";
 
   return {
     issues,
     errors: issues.filter((issue) => issue.level === "error"),
     warnings: issues.filter((issue) => issue.level === "warning"),
+    groupedIssues,
     wordCount,
     h2Count,
     hasFaq,
@@ -337,6 +428,10 @@ export function validateBlogPost(input: BlogValidationInput): BlogValidationResu
       buyerActionCount,
       specificDetailCount,
       longSentenceCount: sentenceAudit.longSentenceCount,
+      hasLeadParagraph,
+      hasInternalLink,
+      contentQualityScore: score,
+      contentQualityLevel,
     },
   };
 }

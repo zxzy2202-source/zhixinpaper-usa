@@ -1,5 +1,6 @@
 import { BLOG_CONTENT } from "@/lib/blog-content";
 import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
+import { BLOG_REFERENCE_LINKS } from "@/lib/blog-reference-links";
 import { BLOG_POSTS } from "@/lib/data";
 
 export interface BuiltInBlogSeed {
@@ -37,11 +38,25 @@ function buildIndustryLinks(slug: string) {
   ].join("\n");
 }
 
+function buildReferenceSources(slug: string) {
+  const links = BLOG_REFERENCE_LINKS[slug] || [];
+  if (links.length === 0) return "";
+
+  return [
+    "## Reference Sources",
+    "",
+    ...links.map((link) => `- [${link.label}](${link.url})`),
+    "",
+  ].join("\n");
+}
+
 function buildFaqSection(title: string, excerpt: string, category: string) {
+  const normalizedTitle = title.toLowerCase().replace(/[?!.]+$/g, "");
+
   return [
     "## Frequently Asked Questions",
     "",
-    `### What should buyers confirm before ordering ${title.toLowerCase()}?`,
+    `### What should buyers confirm before ordering ${normalizedTitle}?`,
     `Confirm the exact application, printer or terminal fit, destination market, required documents, and approval process before issuing the purchase order for this ${category.toLowerCase()} project.`,
     "",
     `### Is the article summary enough for supplier approval?`,
@@ -93,10 +108,17 @@ function buildMarkdown(slug: string) {
 export function getBuiltInBlogSeeds(): BuiltInBlogSeed[] {
   return BLOG_POSTS.map((post) => {
     const body = buildMarkdown(post.slug);
+    const references = buildReferenceSources(post.slug);
     const faq = buildFaqSection(post.title, post.excerpt, post.category);
     const industryLinks = buildIndustryLinks(post.slug);
-    const content = [body, industryLinks, faq, buildCtaSection()].filter(Boolean).join("\n");
+    const content = [body, references, industryLinks, faq, buildCtaSection()].filter(Boolean).join("\n");
     const tagParts = [post.category, post.tag].filter(Boolean);
+    const seoTitle = "seoTitle" in post && typeof post.seoTitle === "string"
+      ? post.seoTitle
+      : post.title;
+    const seoDescription = "seoDescription" in post && typeof post.seoDescription === "string"
+      ? post.seoDescription
+      : post.excerpt;
 
     return {
       slug: post.slug,
@@ -107,8 +129,8 @@ export function getBuiltInBlogSeeds(): BuiltInBlogSeed[] {
       tags: tagParts.join(", "),
       readTime: normalizeReadTime(post.readTime),
       status: "published" as const,
-      seoTitle: post.title,
-      seoDescription: post.excerpt,
+      seoTitle,
+      seoDescription,
       seoKeywords: [
         "thermal paper",
         post.category.toLowerCase(),

@@ -34,7 +34,7 @@ export const BLOG_CONTENT: BlogContent[] = [
           "REACH Regulation (EU) 2016/2235 restricts BPA in thermal paper to a concentration of 0.02% by weight (200 ppm). This applies to thermal paper placed on the EU market, regardless of where it was manufactured.",
           "France went further with its Grenelle II law, which banned BPA in all food contact materials — including thermal paper used in food service environments. This French restriction predated the EU-wide REACH restriction and applies to all BPA-containing materials, not just thermal paper.",
           "Importantly, the restriction applies to the finished thermal paper product, not just the raw materials. Importers and distributors placing thermal paper on the EU market are responsible for ensuring compliance, even if they did not manufacture the product.",
-          "The European Chemicals Agency (ECHA) continues to evaluate Bisphenol S (BPS) — the most common BPA substitute — for potential SVHC listing. Several EU member states have already raised concerns about BPS, and distributors should monitor developments closely.",
+          "Bisphenol S (BPS), one of the most common BPA substitutes, is already listed on the REACH Candidate List as a substance of very high concern. Buyers using BPA-free grades should confirm whether the quoted paper is BPS-free, phenol-free, or based on another developer system, and keep the current candidate-list review date in the approval file.",
         ],
       },
       {
@@ -50,7 +50,8 @@ export const BLOG_CONTENT: BlogContent[] = [
         body: [
           "To demonstrate compliance with REACH Regulation (EU) 2016/2235, distributors should obtain and maintain the following documentation from their thermal paper suppliers: a BPA-free declaration signed by the manufacturer, third-party test reports from an accredited laboratory confirming BPA content below 0.02%, and a REACH SVHC statement confirming no SVHC substances above the 0.1% threshold.",
           "For products sold in France, additional documentation confirming compliance with the Grenelle II food contact requirements may be required, particularly for products used in food service environments.",
-          "These documents should be reviewed annually and updated whenever the product formulation changes. Distributors who cannot produce compliance documentation on request may face enforcement action from national market surveillance authorities.",
+          "These documents should be reviewed annually and updated whenever the product formulation changes. A usable approval file should tie each declaration and report to the quoted grade name, lot number, batch number, test conditions, sample size, and acceptance criteria used for release.",
+          "Distributors who cannot produce compliance documentation on request may face enforcement action from national market surveillance authorities. If the project also requires BPS-free or phenol-free status, record that scope separately in the inspection plan instead of assuming it from a BPA-free claim.",
         ],
       },
       {
@@ -63,11 +64,11 @@ export const BLOG_CONTENT: BlogContent[] = [
       },
     ],
     conclusion:
-      "BPA-free compliance is now a baseline requirement for thermal paper in the European market, not a premium feature. Distributors who have not yet verified their supply chain compliance should do so immediately. The regulatory landscape continues to evolve, with BPS under increasing scrutiny — proactive compliance management is the only sustainable approach.",
+      "BPA-free compliance is now a baseline requirement for thermal paper in the European market, not a premium feature. Distributors who have not yet verified their supply chain compliance should do so immediately. With BPS already on the REACH Candidate List, proactive document control and change management are the practical way to protect EU market access.",
     keyTakeaways: [
       "REACH Regulation (EU) 2016/2235 restricts BPA in thermal paper to 0.02% — effective since January 2020",
       "France's Grenelle II law bans BPA in all food contact materials, including thermal paper",
-      "BPS (the most common BPA substitute) is under EU regulatory review — monitor developments",
+      "BPS is already on the REACH Candidate List, so buyers should confirm the exact developer system and current declaration scope",
       "Distributors are responsible for compliance of products they place on the EU market",
       "Request third-party test reports, not just supplier declarations, to verify BPA-free status",
     ],
@@ -133,7 +134,7 @@ export const BLOG_CONTENT: BlogContent[] = [
         heading: "How Each Technology Works",
         body: [
           "Direct thermal labels use heat-sensitive paper or film coated with a chemical that darkens when exposed to heat from the print head. No ribbon is required — the print head contacts the label surface directly. The image is formed by the thermal reaction in the label coating itself.",
-          "Thermal transfer labels use a separate ribbon coated with wax, resin, or wax-resin ink. The print head heats the ribbon, melting the ink onto the label surface. The label itself is not heat-sensitive — it is the ribbon that carries the ink. This produces a more durable image because the ink is physically bonded to the label surface.",
+          "With thermal transfer, a separate ribbon carries wax, resin, or wax-resin ink. The print head heats that ribbon and transfers the ink onto the label surface. The label itself is not heat-sensitive, so durability comes from the ribbon-and-facestock combination rather than a reactive coating alone.",
         ],
       },
       {
@@ -146,16 +147,16 @@ export const BLOG_CONTENT: BlogContent[] = [
       {
         heading: "Cost Analysis",
         body: [
-          "Direct thermal labels have a lower per-label cost because no ribbon is required. However, the label material itself is more expensive than thermal transfer label stock, partially offsetting the ribbon saving.",
-          "Thermal transfer labels require both label stock and ribbon, increasing consumable costs. However, the wider range of available label materials (paper, polypropylene, polyester, polyimide) and the superior durability can reduce total cost of ownership for demanding applications.",
+          "Without ribbon consumption, direct thermal usually carries a lower per-label cost. However, the label material itself is often more expensive than thermal transfer label stock, partially offsetting the ribbon saving.",
+          "A thermal transfer setup requires both label stock and ribbon, increasing consumable costs. However, the wider range of available label materials (paper, polypropylene, polyester, polyimide) and the superior durability can reduce total cost of ownership for demanding applications.",
           "For high-volume shipping operations printing millions of labels annually, the cost difference between direct thermal and thermal transfer is significant. For lower-volume applications, the durability advantage of thermal transfer often justifies the higher consumable cost.",
         ],
       },
       {
         heading: "Application Guide",
         body: [
-          "Direct thermal is the preferred choice for: shipping and logistics labels (short-duration, indoor), retail price labels, event wristbands, restaurant order labels, and any application where labels are used and discarded within days or weeks.",
-          "Thermal transfer is the preferred choice for: asset labels, product identification labels, chemical container labels, outdoor applications, laboratory specimen labels, and any application requiring legibility for months or years.",
+          "For shipping and logistics labels used indoors for days or weeks, direct thermal is often the simpler route. The same logic usually applies to retail price labels, event wristbands, and restaurant order labels.",
+          "Longer-retention applications usually lean toward thermal transfer: asset labels, product identification labels, chemical container labels, outdoor use, laboratory specimen labels, and any job that demands legibility for months or years.",
           "Healthcare applications require careful consideration. Patient wristbands are typically direct thermal (short duration, skin contact). Specimen labels may require thermal transfer for chemical resistance in laboratory environments.",
         ],
       },
@@ -191,11 +192,11 @@ export const BLOG_CONTENT: BlogContent[] = [
         ],
       },
       {
-        heading: "BPS Under REACH Evaluation",
+        heading: "BPS Candidate List Status",
         body: [
-          "Bisphenol S (BPS) is the most widely used BPA substitute in thermal paper. While BPS is not currently restricted under REACH, it is under active evaluation by ECHA following concerns raised by several EU member states.",
-          "Germany, France, Denmark, and Sweden have submitted dossiers to ECHA proposing BPS for inclusion on the SVHC (Substances of Very High Concern) candidate list. If BPS is listed as an SVHC, suppliers would be required to notify customers when BPS is present above 0.1% in articles, and additional restrictions could follow.",
-          "Distributors sourcing 'BPA-free' thermal paper should clarify whether the alternative developer is BPS-free. Products using BPS may face regulatory restrictions in the near future, requiring supply chain changes.",
+          "Bisphenol S (BPS) is one of the most widely used BPA substitutes in thermal paper, and it is already listed on the REACH Candidate List as a substance of very high concern.",
+          "Candidate List status does not create a universal ban by itself, but it increases disclosure, document-control, and substitution pressure across EU supply chains. Buyers should not market a paper as lower-risk simply because it is BPA-free.",
+          "Distributors sourcing BPA-free thermal paper should clarify whether the quoted grade is BPS-free, phenol-free, or based on another developer route, and record the exact named substance scope in the approval file.",
         ],
       },
       {
@@ -210,16 +211,17 @@ export const BLOG_CONTENT: BlogContent[] = [
         heading: "Documentation Requirements for EU Market Access",
         body: [
           "To demonstrate REACH compliance for thermal paper products, distributors should maintain: a BPA-free declaration confirming BPA content below 0.02%, an SVHC statement confirming no SVHC substances above 0.1%, third-party test reports from accredited laboratories, and a Safety Data Sheet (SDS) for the thermal paper product.",
-          "These documents should be available on request from market surveillance authorities and should be reviewed and updated annually. Distributors who cannot produce compliance documentation on request may face enforcement action.",
+          "These documents should be available on request from market surveillance authorities and should be reviewed and updated annually. A controlled file should log the grade name, declaration revision, candidate-list review date, lot number, batch number, report date, named substance scope, and acceptance criteria used for release.",
+          "When third-party testing is requested, define the sample size, test conditions, and inspection plan before the order is approved. Distributors who cannot produce compliance documentation on request may face enforcement action.",
           "For products sold in France, additional documentation confirming compliance with the Grenelle II food contact requirements may be required for products used in food service environments.",
         ],
       },
     ],
     conclusion:
-      "REACH compliance for thermal paper is an ongoing obligation, not a one-time exercise. With BPS under active ECHA evaluation and the SVHC candidate list regularly updated, distributors must maintain active compliance management programs. Proactive engagement with suppliers and regular documentation review is the only sustainable approach to EU market access.",
+      "REACH compliance for thermal paper is an ongoing obligation, not a one-time exercise. With BPS already on the Candidate List and the SVHC list updated regularly, distributors need active document control, change review, and supplier follow-up to keep EU sales defensible.",
     keyTakeaways: [
       "BPA restricted to 0.02% in thermal paper under REACH Regulation (EU) 2016/2235 since January 2020",
-      "BPS (most common BPA substitute) is under active ECHA evaluation — monitor developments",
+      "BPS is already on the Candidate List, so confirm the developer route and named substance scope for the quoted grade",
       "REACH Article 33 requires SVHC notification above 0.1% threshold",
       "Request annual SVHC statements from all thermal paper suppliers",
       "Distributors placing products on EU market are responsible for compliance",
@@ -331,6 +333,7 @@ export const BLOG_CONTENT: BlogContent[] = [
           "TITO systems replace coin-based slot machines with a cashless ticket system. Players insert cash or a ticket to credit their machine; when they finish playing, the machine prints a ticket showing their credit balance. This ticket can be inserted into another machine or redeemed at a cash redemption kiosk.",
           "The TITO printer is typically integrated into the slot machine cabinet. Print speed, thermal settings, ticket dimensions, sensing, barcode format, and scanner acceptance criteria must come from the installed equipment and operator specification, then be verified with representative samples.",
           "TITO tickets are handled by players, transported in pockets and wallets, and may be stored for extended periods before redemption. The paper must maintain barcode readability throughout this journey.",
+          "The approval record should also capture the ticket width, roll OD, core size, barcode symbology, scan distance, sample size, test conditions, and acceptance criteria used by the operator or OEM.",
         ],
       },
       {
@@ -348,6 +351,7 @@ export const BLOG_CONTENT: BlogContent[] = [
           "TITO paper must be qualified against the exact printer, firmware, paper path, dimensions, core, sensing method, print settings, barcode format, and installed scanner or kiosk workflow.",
           "Regulatory or operator approval requirements vary by jurisdiction and program. Confirm the current approval route before changing a material, construction, artwork, or supplier.",
           "Width, core, roll diameter, winding direction, sensing, and dimensional tolerances must come from the exact printer specification and be verified with physical samples.",
+          "Where more than one device family is installed, separate acceptance criteria for kiosk redemption, validator scan rate, and jam rate so the purchase specification matches the real fleet.",
         ],
       },
       {
@@ -389,6 +393,7 @@ export const BLOG_CONTENT: BlogContent[] = [
           "Product and Test Data: Populate cannabinoid, ingredient, serving, quantity, batch, licence, laboratory, date, and storage fields only from the buyer's approved data source for the applicable product or batch.",
           "Traceability: Confirm the identifier source, symbology, dimensions, quiet zone, data structure, and verification workflow used by the buyer. A QR code or barcode should not be added based on a generic state assumption.",
           "Packaging Interface: Review label placement, adhesive, removability, tamper evidence, environmental exposure, and whether the label could obstruct required package features or instructions.",
+          "Typical controlled fields include lot number, batch number, UID, licence number, package date, test date, net contents, and warning revision. Record which party owns each field before variable data is printed.",
         ],
       },
       {
@@ -406,6 +411,7 @@ export const BLOG_CONTENT: BlogContent[] = [
           "Facestock and adhesive must be matched to the actual container material, surface energy, curvature, texture, application temperature, service temperature, moisture, handling, and removability requirements. Do not select construction from appearance alone.",
           "Define barcode or QR symbology, dimensions, quiet zone, data, print resolution, and verification acceptance criteria with the buyer. Test codes produced by the intended printer and settings on representative labels.",
           "Confirm label placement and dimensions against the approved package so the label does not obstruct required features, instructions, seals, or opening mechanisms.",
+          "The print-validation file should record printer model, 203 or 300 dpi setting, label stock, adhesive type, sample size, quiet zone, and acceptance criteria before release.",
         ],
       },
     ],

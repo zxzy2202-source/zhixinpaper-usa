@@ -28,7 +28,12 @@ import {
   X,
 } from "lucide-react";
 import { saveBlogPost } from "@/app/admin/actions";
-import { validateBlogPost, type BlogValidationResult } from "@/lib/blogPostValidation";
+import {
+  validateBlogPost,
+  type BlogContentQualityLevel,
+  type BlogValidationCategory,
+  type BlogValidationResult,
+} from "@/lib/blogPostValidation";
 import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
 interface BlogPost {
@@ -132,6 +137,13 @@ const DEFAULT_KEYWORDS = [
 
 const SEO_TITLE_MAX_LENGTH = 60;
 const SEO_DESCRIPTION_MAX_LENGTH = 160;
+const VALIDATION_CATEGORY_LABELS: Record<BlogValidationCategory, string> = {
+  format: "结构与格式",
+  seo: "SEO 基础",
+  "ai-style": "AI 味",
+  evidence: "证据边界",
+  "buyer-value": "买家价值",
+};
 
 function formatDateTimeLocal(value?: string | null) {
   if (!value) return "";
@@ -224,6 +236,7 @@ function buildSeoFields(form: BlogPost) {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 function formatAiRiskLabel(risk: BlogValidationResult["qualityAudit"]["aiStyleRisk"]) {
   switch (risk) {
     case "high":
@@ -232,6 +245,50 @@ function formatAiRiskLabel(risk: BlogValidationResult["qualityAudit"]["aiStyleRi
       return "中";
     default:
       return "低";
+  }
+}
+
+function formatAiRiskLabelZh(risk: BlogValidationResult["qualityAudit"]["aiStyleRisk"]) {
+  switch (risk) {
+    case "high":
+      return "高";
+    case "medium":
+      return "中";
+    default:
+      return "低";
+  }
+}
+
+function formatContentQualityLabel(level: BlogContentQualityLevel) {
+  switch (level) {
+    case "strong":
+      return "可发布";
+    case "needs-review":
+      return "待补强";
+    default:
+      return "需重写";
+  }
+}
+
+function getAiRiskClasses(risk: BlogValidationResult["qualityAudit"]["aiStyleRisk"]) {
+  switch (risk) {
+    case "high":
+      return "bg-rose-100 text-rose-700";
+    case "medium":
+      return "bg-amber-100 text-amber-700";
+    default:
+      return "bg-emerald-100 text-emerald-700";
+  }
+}
+
+function getQualityLevelClasses(level: BlogContentQualityLevel) {
+  switch (level) {
+    case "strong":
+      return "bg-emerald-100 text-emerald-700";
+    case "needs-review":
+      return "bg-amber-100 text-amber-700";
+    default:
+      return "bg-rose-100 text-rose-700";
   }
 }
 
@@ -275,6 +332,22 @@ export default function BlogEditor({ initialData }: Props) {
     metaTitle: form.seoTitle,
     metaDescription: form.seoDescription,
   });
+  const aiIssues = validation.groupedIssues["ai-style"];
+  const qualityIssueCategories = (["buyer-value", "evidence", "format", "seo"] as BlogValidationCategory[])
+    .filter((category) => validation.groupedIssues[category].length > 0)
+    .map((category) => ({
+      category,
+      label: VALIDATION_CATEGORY_LABELS[category],
+      issues: validation.groupedIssues[category],
+    }));
+  const contentChecklist = [
+    { label: "有导语段", passed: validation.qualityAudit.hasLeadParagraph },
+    { label: "有站内链接", passed: validation.qualityAudit.hasInternalLink },
+    { label: "有 FAQ", passed: validation.hasFaq },
+    { label: "买家动作 >= 5", passed: validation.qualityAudit.buyerActionCount >= 5 },
+    { label: "具体细节 >= 4", passed: validation.qualityAudit.specificDetailCount >= 4 },
+    { label: "长句不过密", passed: validation.qualityAudit.longSentenceCount < 5 },
+  ];
 
   const draftActionStatus =
     form.status === "published"
@@ -992,7 +1065,7 @@ export default function BlogEditor({ initialData }: Props) {
               </div>
               <div className="rounded bg-white px-3 py-2">
                 <span className="block text-[10px] uppercase tracking-wide text-slate-400">AI 风险</span>
-                <span className="font-semibold text-slate-700">{formatAiRiskLabel(validation.qualityAudit.aiStyleRisk)}</span>
+                <span className="font-semibold text-slate-700">{formatAiRiskLabelZh(validation.qualityAudit.aiStyleRisk)}</span>
               </div>
             </div>
 
@@ -1026,6 +1099,140 @@ export default function BlogEditor({ initialData }: Props) {
                 ) : null}
               </div>
             ) : null}
+          </div>
+
+          <div className="border border-rose-200 bg-rose-50 p-4">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-rose-700">
+                  AI 味检查
+                </p>
+                <p className="mt-1 text-xs text-rose-600">
+                  单独检查套话、空泛营销词、重复句式和明显机器腔。
+                </p>
+              </div>
+              <span className={`rounded-full px-2 py-1 text-xs font-semibold ${getAiRiskClasses(validation.qualityAudit.aiStyleRisk)}`}>
+                风险 {formatAiRiskLabelZh(validation.qualityAudit.aiStyleRisk)}
+              </span>
+            </div>
+
+            <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-slate-600">
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">AI 分值</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.aiStyleScore}/10</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">套话数</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.clicheCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">空泛词</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.vagueBuzzwordCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">重复开头</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.repetitiveOpeningCount}</span>
+              </div>
+            </div>
+
+            {aiIssues.length > 0 ? (
+              <div className="space-y-2">
+                {aiIssues.map((issue) => (
+                  <div
+                    key={issue.code}
+                    className={`rounded px-3 py-2 text-xs ${
+                      issue.level === "error"
+                        ? "bg-white text-rose-700 ring-1 ring-rose-200"
+                        : "bg-white text-slate-700"
+                    }`}
+                  >
+                    {issue.message}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded bg-white px-3 py-2 text-xs text-emerald-700">
+                暂未发现明显 AI 味风险，可以继续保持这种写法。
+              </div>
+            )}
+          </div>
+
+          <div className="border border-blue-200 bg-blue-50 p-4">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-blue-700">
+                  内容质量检查
+                </p>
+                <p className="mt-1 text-xs text-blue-600">
+                  单独检查买家任务、规格细节、证据边界和可执行性。
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-slate-900">
+                  {validation.qualityAudit.contentQualityScore}
+                </div>
+                <span className={`rounded-full px-2 py-1 text-xs font-semibold ${getQualityLevelClasses(validation.qualityAudit.contentQualityLevel)}`}>
+                  {formatContentQualityLabel(validation.qualityAudit.contentQualityLevel)}
+                </span>
+              </div>
+            </div>
+
+            <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-slate-600">
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">买家动作</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.buyerActionCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">具体细节</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.specificDetailCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">外部来源</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.externalSourceCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">长句数</span>
+                <span className="font-semibold text-slate-800">{validation.qualityAudit.longSentenceCount}</span>
+              </div>
+            </div>
+
+            <div className="mb-4 grid grid-cols-2 gap-2">
+              {contentChecklist.map((item) => (
+                <div
+                  key={item.label}
+                  className={`rounded px-3 py-2 text-xs font-medium ${
+                    item.passed
+                      ? "bg-white text-emerald-700 ring-1 ring-emerald-200"
+                      : "bg-white text-amber-700 ring-1 ring-amber-200"
+                  }`}
+                >
+                  {item.passed ? "已满足" : "待补充"}: {item.label}
+                </div>
+              ))}
+            </div>
+
+            {qualityIssueCategories.length > 0 ? (
+              <div className="space-y-3">
+                {qualityIssueCategories.map((group) => (
+                  <div key={group.category} className="rounded bg-white p-3">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+                      {group.label}
+                    </p>
+                    <div className="space-y-2">
+                      {group.issues.map((issue) => (
+                        <div key={issue.code} className="text-xs text-slate-700">
+                          {issue.message}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded bg-white px-3 py-2 text-xs text-emerald-700">
+                当前没有额外的内容质量告警。
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { db } from "@/lib/db";
 import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { BLOG_POSTS } from "@/lib/data";
+import { validateBlogPost } from "@/lib/blogPostValidation";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,9 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 function getCategoryLabel(category?: string | null) {
-  if (!category) return "";
+  if (!category) {
+    return "";
+  }
   return CATEGORY_LABELS[category] || category;
 }
 
@@ -37,9 +40,11 @@ function getPostStatus(post: {
   if (post.status === "published") {
     return { label: "已发布", className: "bg-emerald-100 text-emerald-700", detail: null };
   }
+
   if (post.status === "archived") {
     return { label: "已归档", className: "bg-amber-100 text-amber-700", detail: null };
   }
+
   if (post.scheduledAt && post.publishApproved) {
     return {
       label: "待自动发布",
@@ -53,6 +58,7 @@ function getPostStatus(post: {
       }),
     };
   }
+
   if (post.scheduledAt) {
     return {
       label: "定时草稿",
@@ -70,6 +76,28 @@ function getPostStatus(post: {
   return { label: "草稿", className: "bg-slate-100 text-slate-600", detail: null };
 }
 
+function getAiRiskBadge(risk: ReturnType<typeof validateBlogPost>["qualityAudit"]["aiStyleRisk"]) {
+  switch (risk) {
+    case "high":
+      return { label: "AI味高", className: "bg-rose-100 text-rose-700" };
+    case "medium":
+      return { label: "AI味待润色", className: "bg-amber-100 text-amber-700" };
+    default:
+      return { label: "AI味低", className: "bg-emerald-100 text-emerald-700" };
+  }
+}
+
+function getQualityBadge(level: ReturnType<typeof validateBlogPost>["qualityAudit"]["contentQualityLevel"]) {
+  switch (level) {
+    case "strong":
+      return { label: "内容可发布", className: "bg-emerald-100 text-emerald-700" };
+    case "needs-review":
+      return { label: "内容待补强", className: "bg-amber-100 text-amber-700" };
+    default:
+      return { label: "内容偏弱", className: "bg-rose-100 text-rose-700" };
+  }
+}
+
 export default async function BlogAdminPage() {
   await ensureBlogPostSchema();
 
@@ -78,12 +106,31 @@ export default async function BlogAdminPage() {
     .from(blogPosts)
     .orderBy(desc(blogPosts.updatedAt), desc(blogPosts.createdAt));
 
+  const postAudits = posts.map((post) => {
+    const validation = validateBlogPost({
+      title: post.title,
+      excerpt: post.excerpt || "",
+      content: post.content,
+      metaTitle: post.seoTitle || "",
+      metaDescription: post.seoDescription || "",
+    });
+
+    return {
+      post,
+      validation,
+      aiBadge: getAiRiskBadge(validation.qualityAudit.aiStyleRisk),
+      qualityBadge: getQualityBadge(validation.qualityAudit.contentQualityLevel),
+    };
+  });
+
   const counts = {
-    total: posts.length,
-    published: posts.filter((post) => post.status === "published").length,
-    draft: posts.filter((post) => post.status === "draft" && !post.scheduledAt).length,
-    scheduled: posts.filter((post) => post.status === "draft" && Boolean(post.scheduledAt)).length,
-    approvedQueue: posts.filter((post) => post.status === "draft" && Boolean(post.scheduledAt) && Boolean(post.publishApproved)).length,
+    total: postAudits.length,
+    published: postAudits.filter(({ post }) => post.status === "published").length,
+    draft: postAudits.filter(({ post }) => post.status === "draft" && !post.scheduledAt).length,
+    scheduled: postAudits.filter(({ post }) => post.status === "draft" && Boolean(post.scheduledAt)).length,
+    approvedQueue: postAudits.filter(({ post }) => post.status === "draft" && Boolean(post.scheduledAt) && Boolean(post.publishApproved)).length,
+    aiHighRisk: postAudits.filter(({ validation }) => validation.qualityAudit.aiStyleRisk === "high").length,
+    qualityNeedsWork: postAudits.filter(({ validation }) => validation.qualityAudit.contentQualityLevel !== "strong").length,
   };
 
   const campaignSummaries = BLOG_CAMPAIGNS.map((campaign) => ({
@@ -126,18 +173,20 @@ export default async function BlogAdminPage() {
             当前前台博客包含 {BLOG_POSTS.length} 篇内置文章，以及您在后台发布的数据库文章。
           </p>
           <p className="mt-1 text-xs text-blue-600">
-            内置文章可导入后继续编辑；活动批量导入会生成定时草稿，但仍需人工复核并批准自动发布。
+            新增的 AI 味和内容质量检查会直接显示在列表和编辑页，方便先筛问题稿，再决定是否发布或排期。
           </p>
         </div>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-7">
         {[
           { label: "数据库文章", value: counts.total, color: "text-slate-900" },
           { label: "已发布", value: counts.published, color: "text-emerald-600" },
           { label: "普通草稿", value: counts.draft, color: "text-slate-500" },
           { label: "定时草稿", value: counts.scheduled, color: "text-amber-700" },
           { label: "待自动发布", value: counts.approvedQueue, color: "text-blue-700" },
+          { label: "AI味高风险", value: counts.aiHighRisk, color: "text-rose-600" },
+          { label: "待补强文章", value: counts.qualityNeedsWork, color: "text-amber-700" },
         ].map((stat) => (
           <div key={stat.label} className="border border-slate-200 bg-white p-4">
             <p className="mb-1 text-xs text-slate-500">{stat.label}</p>
@@ -147,7 +196,7 @@ export default async function BlogAdminPage() {
       </div>
 
       <div className="overflow-hidden border border-slate-200 bg-white">
-        {posts.length === 0 ? (
+        {postAudits.length === 0 ? (
           <div className="py-16 text-center text-slate-400">
             <FileText className="mx-auto mb-3 h-10 w-10 opacity-30" />
             <p className="mb-2 font-medium">还没有数据库文章</p>
@@ -160,8 +209,9 @@ export default async function BlogAdminPage() {
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
-            {posts.map((post) => {
+            {postAudits.map(({ post, validation, aiBadge, qualityBadge }) => {
               const status = getPostStatus(post);
+
               return (
                 <div key={post.id} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-slate-50">
                   <div className="min-w-0 flex-1">
@@ -175,12 +225,21 @@ export default async function BlogAdminPage() {
                           活动
                         </span>
                       ) : null}
+                      <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${aiBadge.className}`}>
+                        {aiBadge.label}
+                      </span>
+                      <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${qualityBadge.className}`}>
+                        {qualityBadge.label}
+                      </span>
                     </div>
                     <h3 className="truncate text-sm font-semibold text-slate-900">{post.title}</h3>
                     {post.excerpt ? <p className="mt-0.5 truncate text-xs text-slate-400">{post.excerpt}</p> : null}
                     <div className="mt-1 flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
                       <code>/blog/{post.slug}</code>
                       {status.detail ? <span>{status.detail}</span> : null}
+                      <span>
+                        {validation.errors.length} 阻断 / {validation.warnings.length} 提醒 / 质量分 {validation.qualityAudit.contentQualityScore}
+                      </span>
                     </div>
                   </div>
                   <div className="whitespace-nowrap text-xs text-slate-400">
