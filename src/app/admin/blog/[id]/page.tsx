@@ -35,6 +35,7 @@ export default async function EditBlogPostPage({ params }: Props) {
         seoTitle: post.seoTitle || "",
         seoDescription: post.seoDescription || "",
         seoKeywords: post.seoKeywords || "",
+        coverImage: post.coverImage || "",
       }}
     />
   );

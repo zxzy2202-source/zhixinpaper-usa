@@ -1,9 +1,11 @@
+import Link from "next/link";
+import { desc } from "drizzle-orm";
+import { FileText, Info, Pencil, Plus } from "lucide-react";
+import DeleteBlogButton from "@/components/admin/DeleteBlogButton";
+import ImportBuiltInPostsButton from "@/components/admin/ImportBuiltInPostsButton";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
-import { desc } from "drizzle-orm";
-import Link from "next/link";
-import { FileText, Plus, Pencil, Info } from "lucide-react";
-import DeleteBlogButton from "@/components/admin/DeleteBlogButton";
+import { BLOG_POSTS } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
@@ -14,9 +16,9 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const STATUS_LABELS: Record<string, string> = {
-  draft: "草稿",
-  published: "已发布",
-  archived: "已归档",
+  draft: "Draft",
+  published: "Published",
+  archived: "Archived",
 };
 
 export default async function BlogAdminPage() {
@@ -27,92 +29,100 @@ export default async function BlogAdminPage() {
 
   const counts = {
     total: posts.length,
-    published: posts.filter((p) => p.status === "published").length,
-    draft: posts.filter((p) => p.status === "draft").length,
+    published: posts.filter((post) => post.status === "published").length,
+    draft: posts.filter((post) => post.status === "draft").length,
   };
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">博客文章</h1>
-          <p className="text-slate-500 text-sm mt-1">
-            数据库中 {counts.total} 篇文章
+          <h1 className="text-2xl font-bold text-slate-900">Blog Articles</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            {counts.total} database article{counts.total === 1 ? "" : "s"}
           </p>
         </div>
-        <Link
-          href="/admin/blog/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          新建文章
-        </Link>
-      </div>
-
-      {/* Built-in articles notice */}
-      <div className="flex items-start gap-3 bg-blue-50 border border-blue-200  p-4 mb-6">
-        <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-        <div>
-          <p className="text-blue-800 text-sm font-medium">前台博客包含 11 篇内置文章</p>
-          <p className="text-blue-600 text-xs mt-1">
-            内置文章为静态内容，无需在此管理。此处管理通过后台创建的动态文章，新建文章发布后将自动显示在前台博客页面。
-          </p>
+        <div className="flex items-start gap-3">
+          <ImportBuiltInPostsButton totalBuiltInPosts={BLOG_POSTS.length} />
+          <Link
+            href="/admin/blog/new"
+            className="inline-flex items-center gap-2 bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-blue-700"
+          >
+            <Plus className="h-4 w-4" />
+            New Article
+          </Link>
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="mb-6 flex items-start gap-3 border border-blue-200 bg-blue-50 p-4">
+        <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
+        <div>
+          <p className="text-sm font-medium text-blue-800">
+            The public blog currently includes {BLOG_POSTS.length} built-in articles.
+          </p>
+          <p className="mt-1 text-xs text-blue-600">
+            Import them into the admin database if you want to keep writing, editing, and publishing from one backend workflow instead of maintaining static and database content separately.
+          </p>
+        </div>
+      </div>
+
+      <div className="mb-6 grid grid-cols-3 gap-4">
         {[
-          { label: "数据库文章", value: counts.total, color: "text-slate-900" },
-          { label: "已发布", value: counts.published, color: "text-emerald-600" },
-          { label: "草稿", value: counts.draft, color: "text-slate-500" },
+          { label: "Database Articles", value: counts.total, color: "text-slate-900" },
+          { label: "Published", value: counts.published, color: "text-emerald-600" },
+          { label: "Drafts", value: counts.draft, color: "text-slate-500" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white border border-slate-200  p-4">
-            <p className="text-slate-500 text-xs mb-1">{stat.label}</p>
+          <div key={stat.label} className="border border-slate-200 bg-white p-4">
+            <p className="mb-1 text-xs text-slate-500">{stat.label}</p>
             <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
           </div>
         ))}
       </div>
 
-      {/* Posts List */}
-      <div className="bg-white border border-slate-200  overflow-hidden">
+      <div className="overflow-hidden border border-slate-200 bg-white">
         {posts.length === 0 ? (
-          <div className="text-center py-16 text-slate-400">
-            <FileText className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="font-medium mb-2">暂无数据库文章</p>
-            <p className="text-xs mb-4">点击“新建文章”创建第一篇动态博客文章</p>
-            <Link href="/admin/blog/new" className="text-blue-600 hover:underline text-sm">
-              创建第一篇文章
+          <div className="py-16 text-center text-slate-400">
+            <FileText className="mx-auto mb-3 h-10 w-10 opacity-30" />
+            <p className="mb-2 font-medium">No database articles yet</p>
+            <p className="mb-4 text-xs">
+              Import the built-in posts or create your first backend-managed blog article.
+            </p>
+            <Link href="/admin/blog/new" className="text-sm text-blue-600 hover:underline">
+              Create the first article
             </Link>
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
             {posts.map((post) => (
-              <div key={post.id} className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${STATUS_COLORS[post.status]}`}>
+              <div key={post.id} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-slate-50">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-1 flex items-center gap-2">
+                    <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${STATUS_COLORS[post.status]}`}>
                       {STATUS_LABELS[post.status] || post.status}
                     </span>
-                    {post.category && (
-                      <span className="text-slate-400 text-xs">{post.category}</span>
-                    )}
+                    {post.category ? (
+                      <span className="text-xs text-slate-400">{post.category}</span>
+                    ) : null}
                   </div>
-                  <h3 className="font-semibold text-slate-900 text-sm truncate">{post.title}</h3>
-                  {post.excerpt && (
-                    <p className="text-slate-400 text-xs mt-0.5 truncate">{post.excerpt}</p>
-                  )}
+                  <h3 className="truncate text-sm font-semibold text-slate-900">{post.title}</h3>
+                  {post.excerpt ? (
+                    <p className="mt-0.5 truncate text-xs text-slate-400">{post.excerpt}</p>
+                  ) : null}
                 </div>
-                <div className="text-slate-400 text-xs whitespace-nowrap">
-                  {new Date(post.createdAt).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" })}
+                <div className="whitespace-nowrap text-xs text-slate-400">
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit",
+                  })}
                 </div>
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/admin/blog/${post.id}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-200"
                   >
-                    <Pencil className="w-3 h-3" />
-                    编辑
+                    <Pencil className="h-3 w-3" />
+                    Edit
                   </Link>
                   <DeleteBlogButton id={post.id} title={post.title} />
                 </div>

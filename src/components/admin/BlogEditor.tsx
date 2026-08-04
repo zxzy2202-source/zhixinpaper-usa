@@ -1,11 +1,34 @@
 "use client";
-import { useRef, useState, useTransition, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { saveBlogPost } from "@/app/admin/actions";
-import { Save, Eye, Loader2, CheckCircle2, ArrowLeft, Image as ImageIcon, X, SplitSquareHorizontal, FileText, Search, Bold, Italic, Heading2, Heading3, List, ListOrdered, Quote, Link2, Minus } from "lucide-react";
+
+import { useCallback, useRef, useState, useTransition } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Bold,
+  CheckCircle2,
+  Eye,
+  FileText,
+  Heading2,
+  Heading3,
+  Image as ImageIcon,
+  Italic,
+  Link2,
+  List,
+  ListOrdered,
+  Loader2,
+  Minus,
+  Quote,
+  Save,
+  Search,
+  SplitSquareHorizontal,
+  X,
+} from "lucide-react";
+import { saveBlogPost } from "@/app/admin/actions";
+import { validateBlogPost } from "@/lib/blogPostValidation";
 import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
 interface BlogPost {
@@ -24,13 +47,78 @@ interface BlogPost {
   coverImage: string;
 }
 
-const CATEGORIES = ["Compliance","Education","Industry News","Product Guide","E-Commerce","Sustainability","Technical Tips","Market Insights"];
+interface MediaFile {
+  id: number;
+  url: string;
+  alt: string;
+  filename: string;
+  originalName: string;
+}
+
+interface Props {
+  initialData?: Partial<BlogPost>;
+}
+
+type MediaPickerTarget = "cover" | "content";
+
+const CATEGORIES = [
+  "Compliance",
+  "Education",
+  "Industry News",
+  "Product Guide",
+  "E-Commerce",
+  "Sustainability",
+  "Technical Tips",
+  "Market Insights",
+];
+
 const KEYWORD_STOP_WORDS = new Set([
-  "about", "after", "also", "and", "are", "article", "before", "between", "blog", "can", "com", "for",
-  "from", "guide", "has", "have", "how", "into", "its", "may", "more", "not", "our", "paper", "post",
-  "product", "products", "should", "that", "the", "their", "these", "this", "through", "use", "used",
-  "using", "what", "when", "where", "which", "while", "with", "your",
+  "about",
+  "after",
+  "also",
+  "and",
+  "are",
+  "article",
+  "before",
+  "between",
+  "blog",
+  "can",
+  "com",
+  "for",
+  "from",
+  "guide",
+  "has",
+  "have",
+  "how",
+  "into",
+  "its",
+  "may",
+  "more",
+  "not",
+  "our",
+  "paper",
+  "post",
+  "product",
+  "products",
+  "should",
+  "that",
+  "the",
+  "their",
+  "these",
+  "this",
+  "through",
+  "use",
+  "used",
+  "using",
+  "what",
+  "when",
+  "where",
+  "which",
+  "while",
+  "with",
+  "your",
 ]);
+
 const DEFAULT_KEYWORDS = [
   "thermal paper",
   "thermal paper manufacturer",
@@ -38,12 +126,9 @@ const DEFAULT_KEYWORDS = [
   "direct thermal labels",
   "receipt paper rolls",
 ];
+
 const SEO_TITLE_MAX_LENGTH = 60;
 const SEO_DESCRIPTION_MAX_LENGTH = 160;
-
-interface MediaFile { id: number; url: string; alt: string; filename: string; originalName: string; }
-interface Props { initialData?: Partial<BlogPost>; }
-type MediaPickerTarget = "cover" | "content";
 
 function stripMarkdown(value: string) {
   return value
@@ -65,7 +150,7 @@ function normalizeSentence(value: string, maxLength: number) {
   const wordEnd = clipped.lastIndexOf(" ");
   const cutAt = Math.min(
     bodyMaxLength,
-    sentenceEnd >= 80 ? sentenceEnd + 1 : wordEnd >= 80 ? wordEnd : bodyMaxLength
+    sentenceEnd >= 80 ? sentenceEnd + 1 : wordEnd >= 80 ? wordEnd : bodyMaxLength,
   );
 
   return `${clipped.slice(0, cutAt).trim().replace(/[,.!?;:]$/, "")}${suffix}`;
@@ -74,7 +159,9 @@ function normalizeSentence(value: string, maxLength: number) {
 function buildSeoTitle(title: string) {
   const cleanTitle = stripMarkdown(title);
   if (!cleanTitle) return "";
-  return cleanTitle.length <= SEO_TITLE_MAX_LENGTH ? cleanTitle : normalizeSentence(cleanTitle, SEO_TITLE_MAX_LENGTH);
+  return cleanTitle.length <= SEO_TITLE_MAX_LENGTH
+    ? cleanTitle
+    : normalizeSentence(cleanTitle, SEO_TITLE_MAX_LENGTH);
 }
 
 function buildSeoDescription(excerpt: string, content: string) {
@@ -88,16 +175,14 @@ function buildSeoDescription(excerpt: string, content: string) {
 }
 
 function buildSeoKeywords(form: BlogPost) {
-  const phraseCandidates = [
-    form.category,
-    ...form.tags.split(","),
-    ...DEFAULT_KEYWORDS,
-  ];
+  const phraseCandidates = [form.category, ...form.tags.split(","), ...DEFAULT_KEYWORDS];
   const keywords = new Map<string, number>();
 
   phraseCandidates.forEach((candidate, index) => {
     const keyword = stripMarkdown(candidate).toLowerCase();
-    if (keyword && keyword.length >= 3) keywords.set(keyword, (keywords.get(keyword) || 0) + 20 - index);
+    if (keyword && keyword.length >= 3) {
+      keywords.set(keyword, (keywords.get(keyword) || 0) + 20 - index);
+    }
   });
 
   const source = `${form.title} ${form.excerpt} ${form.content}`.toLowerCase();
@@ -120,7 +205,7 @@ function buildSeoFields(form: BlogPost) {
     seoTitle: buildSeoTitle(form.seoTitle || form.title),
     seoDescription: normalizeSentence(
       form.seoDescription || buildSeoDescription(form.excerpt, form.content),
-      SEO_DESCRIPTION_MAX_LENGTH
+      SEO_DESCRIPTION_MAX_LENGTH,
     ),
     seoKeywords: form.seoKeywords || buildSeoKeywords(form),
   };
@@ -131,6 +216,8 @@ export default function BlogEditor({ initialData }: Props) {
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [saveMessage, setSaveMessage] = useState("");
   const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
   const [editorMode, setEditorMode] = useState<"edit" | "preview" | "split">("edit");
   const [showMediaPicker, setShowMediaPicker] = useState(false);
@@ -154,13 +241,30 @@ export default function BlogEditor({ initialData }: Props) {
     coverImage: (initialData as BlogPost)?.coverImage || "",
   });
 
+  const validation = validateBlogPost({
+    title: form.title,
+    excerpt: form.excerpt,
+    content: form.content,
+    metaTitle: form.seoTitle,
+    metaDescription: form.seoDescription,
+  });
+
   const handleChange = useCallback((field: keyof BlogPost, value: string) => {
+    setSaveError("");
+    setSaveMessage("");
     setForm((prev) => {
       const updated = { ...prev, [field]: value };
       if (field === "title" && !initialData?.slug) {
-        updated.slug = value.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim();
+        updated.slug = value
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .trim();
       }
-      if (field === "title" && !prev.seoTitle) updated.seoTitle = value;
+      if (field === "title" && !prev.seoTitle) {
+        updated.seoTitle = value;
+      }
       return updated;
     });
   }, [initialData?.slug]);
@@ -177,15 +281,30 @@ export default function BlogEditor({ initialData }: Props) {
   const handleSave = (status: "draft" | "published") => {
     startTransition(async () => {
       const generatedSeo = buildSeoFields(form);
-      await saveBlogPost({
+      const result = await saveBlogPost({
         ...form,
         status,
         seoTitle: form.seoTitle || generatedSeo.seoTitle,
         seoDescription: generatedSeo.seoDescription,
         seoKeywords: form.seoKeywords || generatedSeo.seoKeywords,
       });
+
+      if (!result.success) {
+        setSaveError(result.error || "Save failed.");
+        setSaveMessage("");
+        if (status === "published") {
+          setActiveTab("content");
+        }
+        return;
+      }
+
+      setSaveError("");
+      setSaveMessage(status === "published" ? "Article published." : "Draft saved.");
       setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      setTimeout(() => {
+        setSaved(false);
+        setSaveMessage("");
+      }, 3000);
       router.refresh();
     });
   };
@@ -291,7 +410,7 @@ export default function BlogEditor({ initialData }: Props) {
       if (tagName === "table") {
         const rows = Array.from(element.querySelectorAll("tr"))
           .map((row) => Array.from(row.querySelectorAll("th,td")).map((cell) => clean(cell.textContent || "").trim()));
-        if (!rows.length) return "";
+        if (rows.length === 0) return "";
         const header = rows[0];
         const separator = header.map(() => "---");
         const body = rows.slice(1);
@@ -320,237 +439,529 @@ export default function BlogEditor({ initialData }: Props) {
     setShowMediaPicker(true);
     setMediaLoading(true);
     try {
-      const res = await fetch("/api/admin/media?limit=100");
-      const data = await res.json();
+      const response = await fetch("/api/admin/media?limit=100");
+      const data = await response.json();
       setMediaFiles(data.items || []);
-    } catch { setMediaFiles([]); } finally { setMediaLoading(false); }
+    } catch {
+      setMediaFiles([]);
+    } finally {
+      setMediaLoading(false);
+    }
   }, []);
 
-  const filteredMedia = mediaFiles.filter((f) =>
-    f.originalName.toLowerCase().includes(mediaSearch.toLowerCase()) || (f.alt || "").toLowerCase().includes(mediaSearch.toLowerCase())
+  const filteredMedia = mediaFiles.filter((file) =>
+    file.originalName.toLowerCase().includes(mediaSearch.toLowerCase()) ||
+    (file.alt || "").toLowerCase().includes(mediaSearch.toLowerCase()),
   );
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <Link href="/admin/blog" className="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors">
-            <ArrowLeft className="w-4 h-4" />返回列表
+          <Link href="/admin/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Blog
           </Link>
           <span className="text-slate-300">/</span>
-          <h1 className="text-lg font-bold text-slate-900">{form.id ? "编辑文章" : "新建文章"}</h1>
+          <h1 className="text-lg font-bold text-slate-900">
+            {form.id ? "Edit Article" : "New Article"}
+          </h1>
         </div>
         <div className="flex items-center gap-3">
-          {saved && <span className="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><CheckCircle2 className="w-4 h-4" />已保存</span>}
-          {form.slug && form.status === "published" && (
-            <Link href={`/blog/${form.slug}`} target="_blank" className="inline-flex items-center gap-1.5 px-3 py-2 text-slate-600 hover:text-blue-600 border border-slate-200  text-sm font-medium transition-colors">
-              <Eye className="w-4 h-4" />预览前台
+          {saved ? (
+            <span className="flex items-center gap-1.5 text-sm font-medium text-emerald-600">
+              <CheckCircle2 className="h-4 w-4" />
+              Saved
+            </span>
+          ) : null}
+          {saveMessage ? <span className="text-sm text-slate-500">{saveMessage}</span> : null}
+          {saveError ? <span className="max-w-xs text-right text-sm text-amber-600">{saveError}</span> : null}
+          {form.slug && form.status === "published" ? (
+            <Link
+              href={`/blog/${form.slug}`}
+              target="_blank"
+              className="inline-flex items-center gap-1.5 border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-blue-600"
+            >
+              <Eye className="h-4 w-4" />
+              View Page
             </Link>
-          )}
-          <button onClick={() => handleSave("draft")} disabled={isPending || !form.title || !form.content} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold  text-sm transition-colors disabled:opacity-50">
-            {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}存为草稿
+          ) : null}
+          <button
+            type="button"
+            onClick={() => handleSave("draft")}
+            disabled={isPending || !form.title || !form.content}
+            className="inline-flex items-center gap-1.5 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200 disabled:opacity-50"
+          >
+            {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            Save Draft
           </button>
-          <button onClick={() => handleSave("published")} disabled={isPending || !form.title || !form.content || !form.slug} className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold  text-sm transition-colors disabled:opacity-50 shadow-sm">
-            {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}发布文章
+          <button
+            type="button"
+            onClick={() => handleSave("published")}
+            disabled={isPending || !form.title || !form.content || !form.slug || validation.errors.length > 0}
+            className="inline-flex items-center gap-1.5 bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-blue-700 disabled:opacity-50"
+          >
+            {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+            Publish
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200  p-5">
-            <input type="text" value={form.title} onChange={(e) => handleChange("title", e.target.value)} placeholder="Article title (English, for international customers)..." className="w-full text-2xl font-bold text-slate-900 border-none outline-none bg-transparent placeholder:text-slate-300" />
-            <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2">
-              <span className="text-xs text-slate-400 shrink-0">URL:</span>
+          <div className="border border-slate-200 bg-white p-5">
+            <input
+              type="text"
+              value={form.title}
+              onChange={(event) => handleChange("title", event.target.value)}
+              placeholder="Article title..."
+              className="w-full border-none bg-transparent text-2xl font-bold text-slate-900 outline-none placeholder:text-slate-300"
+            />
+            <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3">
+              <span className="shrink-0 text-xs text-slate-400">URL:</span>
               <span className="text-xs font-mono text-blue-600">/blog/</span>
-              <input type="text" value={form.slug} onChange={(e) => handleChange("slug", e.target.value)} placeholder="url-slug" className="flex-1 text-xs font-mono text-slate-600 border-none outline-none bg-transparent" />
+              <input
+                type="text"
+                value={form.slug}
+                onChange={(event) => handleChange("slug", event.target.value)}
+                placeholder="url-slug"
+                className="flex-1 border-none bg-transparent text-xs font-mono text-slate-600 outline-none"
+              />
             </div>
           </div>
 
-          <div className="flex gap-1 bg-slate-100 p-1  w-fit">
-            <button onClick={() => setActiveTab("content")} className={`px-4 py-1.5  text-sm font-semibold transition-all ${activeTab === "content" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>内容</button>
-            <button onClick={() => setActiveTab("seo")} className={`px-4 py-1.5  text-sm font-semibold transition-all ${activeTab === "seo" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>SEO</button>
+          <div className="flex w-fit gap-1 bg-slate-100 p-1">
+            <button
+              type="button"
+              onClick={() => setActiveTab("content")}
+              className={`px-4 py-1.5 text-sm font-semibold transition-all ${activeTab === "content" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+              Content
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("seo")}
+              className={`px-4 py-1.5 text-sm font-semibold transition-all ${activeTab === "seo" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+              SEO
+            </button>
           </div>
 
           {activeTab === "content" ? (
             <div className="space-y-4">
-              <div className="bg-white border border-slate-200  p-5">
-                <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">摘要</label>
-                <textarea value={form.excerpt} onChange={(e) => handleChange("excerpt", e.target.value)} rows={3} placeholder="Article summary in English (100-200 characters)..." className="w-full text-sm text-slate-700 border-none outline-none resize-none bg-transparent" />
-                <p className="text-xs text-slate-400 mt-1">{form.excerpt.length} 字符</p>
+              <div className="border border-slate-200 bg-white p-5">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+                  Excerpt
+                </label>
+                <textarea
+                  value={form.excerpt}
+                  onChange={(event) => handleChange("excerpt", event.target.value)}
+                  rows={3}
+                  placeholder="Short summary for cards and search previews..."
+                  className="w-full resize-none border-none bg-transparent text-sm text-slate-700 outline-none"
+                />
+                <p className="mt-1 text-xs text-slate-400">{form.excerpt.length} chars</p>
               </div>
-              <div className="bg-white border border-slate-200  overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3 border-b border-slate-100">
-                  <label className="text-xs font-bold uppercase tracking-wide text-slate-400">正文内容（Markdown）</label>
-                  <div className="flex gap-1 bg-slate-100 p-0.5 ">
-                    <button onClick={() => setEditorMode("edit")} title="编辑" className={`p-1.5  transition-all ${editorMode === "edit" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><FileText className="w-3.5 h-3.5" /></button>
-                    <button onClick={() => setEditorMode("split")} title="分屏" className={`p-1.5  transition-all ${editorMode === "split" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><SplitSquareHorizontal className="w-3.5 h-3.5" /></button>
-                    <button onClick={() => setEditorMode("preview")} title="预览" className={`p-1.5  transition-all ${editorMode === "preview" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}><Eye className="w-3.5 h-3.5" /></button>
+
+              <div className="overflow-hidden border border-slate-200 bg-white">
+                <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
+                  <label className="text-xs font-bold uppercase tracking-wide text-slate-400">
+                    Article Content (Markdown)
+                  </label>
+                  <div className="flex gap-1 bg-slate-100 p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode("edit")}
+                      title="Edit"
+                      className={`p-1.5 transition-all ${editorMode === "edit" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
+                    >
+                      <FileText className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode("split")}
+                      title="Split"
+                      className={`p-1.5 transition-all ${editorMode === "split" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
+                    >
+                      <SplitSquareHorizontal className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode("preview")}
+                      title="Preview"
+                      className={`p-1.5 transition-all ${editorMode === "preview" ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"}`}
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 px-5 py-2 border-b border-slate-100 overflow-x-auto">
-                  <div className="flex gap-1 bg-slate-100 p-0.5 ">
-                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading2 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Heading3 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Bold className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Italic className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><List className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ListOrdered className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Quote className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Link2 className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><ImageIcon className="w-3.5 h-3.5" /></button>
-                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5  text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-sm transition-all"><Minus className="w-3.5 h-3.5" /></button>
+
+                <div className="flex items-center gap-2 overflow-x-auto border-b border-slate-100 px-5 py-2">
+                  <div className="flex gap-1 bg-slate-100 p-0.5">
+                    <button type="button" onClick={() => insertMarkdown("## ", "", "Section heading")} title="Heading 2" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading2 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("### ", "", "Subheading")} title="Heading 3" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Heading3 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("**", "**", "bold text")} title="Bold" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Bold className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("*", "*", "italic text")} title="Italic" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Italic className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("- ")} title="Bulleted list" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><List className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("1. ")} title="Numbered list" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ListOrdered className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => prefixSelectedLines("> ")} title="Quote" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Quote className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("[", "](https://)", "link text")} title="Link" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Link2 className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => openMediaPicker("content")} title="Insert image" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><ImageIcon className="h-3.5 w-3.5" /></button>
+                    <button type="button" onClick={() => insertMarkdown("\n\n---\n\n")} title="Divider" className="p-1.5 text-slate-500 transition-all hover:bg-white hover:text-slate-900 hover:shadow-sm"><Minus className="h-3.5 w-3.5" /></button>
                   </div>
                 </div>
+
                 <div className={editorMode === "split" ? "grid grid-cols-2 divide-x divide-slate-100" : ""}>
-                  {(editorMode === "edit" || editorMode === "split") && (
-                    <textarea ref={contentRef} value={form.content} onChange={(e) => handleChange("content", e.target.value)} onPaste={handleContentPaste} rows={24} placeholder="# Article Title&#10;&#10;## Introduction&#10;&#10;Write your article content here..." className="w-full p-5 text-sm text-slate-700 border-none outline-none resize-y bg-transparent font-mono leading-relaxed" />
-                  )}
-                  {(editorMode === "preview" || editorMode === "split") && (
-                    <div className="p-5 overflow-auto max-h-[600px]">
+                  {editorMode === "edit" || editorMode === "split" ? (
+                    <textarea
+                      ref={contentRef}
+                      value={form.content}
+                      onChange={(event) => handleChange("content", event.target.value)}
+                      onPaste={handleContentPaste}
+                      rows={24}
+                      placeholder="Write your article in Markdown..."
+                      className="w-full resize-y border-none bg-transparent p-5 font-mono text-sm leading-relaxed text-slate-700 outline-none"
+                    />
+                  ) : null}
+                  {editorMode === "preview" || editorMode === "split" ? (
+                    <div className="max-h-[600px] overflow-auto p-5">
                       <div className="prose prose-slate prose-sm max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>{form.content || "*Start typing to see preview...*"}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>
+                          {form.content || "*Start typing to see a preview...*"}
+                        </ReactMarkdown>
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
-              <div className="bg-white border border-slate-200  p-4">
-                <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">标签（逗号分隔）</label>
-                <input type="text" value={form.tags} onChange={(e) => handleChange("tags", e.target.value)} placeholder="BPA-free, thermal paper, compliance, EU regulations" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
+
+              <div className="border border-slate-200 bg-white p-4">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+                  Tags
+                </label>
+                <input
+                  type="text"
+                  value={form.tags}
+                  onChange={(event) => handleChange("tags", event.target.value)}
+                  placeholder="bpa-free, thermal paper, compliance"
+                  className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
+                />
               </div>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-100  p-4 flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-4 border border-blue-100 bg-blue-50 p-4">
                 <div>
-                  <p className="text-sm font-bold text-slate-900">SEO 自动生成</p>
-                  <p className="text-xs text-slate-500 mt-1">根据文章标题、摘要、分类、标签和正文生成 SEO 标题、Meta 描述与关键词。</p>
+                  <p className="text-sm font-bold text-slate-900">SEO Autofill</p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Generate title, meta description, and keyword hints from the current article draft.
+                  </p>
                 </div>
-                <button type="button" onClick={handleGenerateSeo} disabled={!form.title && !form.content} className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold  text-sm transition-colors disabled:opacity-50">
-                  <Search className="w-4 h-4" />自动生成
+                <button
+                  type="button"
+                  onClick={handleGenerateSeo}
+                  disabled={!form.title && !form.content}
+                  className="inline-flex shrink-0 items-center gap-1.5 bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
+                >
+                  <Search className="h-4 w-4" />
+                  Generate
                 </button>
               </div>
-              <div className="bg-white border border-slate-200  p-5">
-                <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">SEO 标题</label>
-                <input type="text" value={form.seoTitle} onChange={(e) => handleChange("seoTitle", e.target.value)} placeholder="SEO Title (50-60 characters)" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
-                <div className="flex justify-between mt-1">
-                  <p className="text-xs text-slate-400">{form.seoTitle.length} 字符</p>
-                  <p className={`text-xs ${form.seoTitle.length > 60 ? "text-red-500" : form.seoTitle.length >= 50 ? "text-emerald-600" : "text-slate-400"}`}>{form.seoTitle.length > 60 ? "过长" : form.seoTitle.length >= 50 ? "✓ 合适" : "建议 50-60"}</p>
+
+              <div className="border border-slate-200 bg-white p-5">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+                  SEO Title
+                </label>
+                <input
+                  type="text"
+                  value={form.seoTitle}
+                  onChange={(event) => handleChange("seoTitle", event.target.value)}
+                  placeholder="SEO title (up to 60 characters)"
+                  className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
+                />
+                <div className="mt-1 flex justify-between">
+                  <p className="text-xs text-slate-400">{form.seoTitle.length} chars</p>
+                  <p className={`text-xs ${form.seoTitle.length > 60 ? "text-red-500" : form.seoTitle.length >= 50 ? "text-emerald-600" : "text-slate-400"}`}>
+                    {form.seoTitle.length > 60 ? "Too long" : form.seoTitle.length >= 50 ? "Good" : "Target 50-60"}
+                  </p>
                 </div>
               </div>
-              <div className="bg-white border border-slate-200  p-5">
-                <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">Meta 描述</label>
-                <textarea value={form.seoDescription} onChange={(e) => handleChange("seoDescription", e.target.value)} rows={3} placeholder="Meta description (150-160 characters)" className="w-full text-sm text-slate-700 border-none outline-none resize-none bg-transparent" />
-                <div className="flex justify-between mt-1">
-                  <p className="text-xs text-slate-400">{form.seoDescription.length} 字符</p>
-                  <p className={`text-xs ${form.seoDescription.length > 160 ? "text-red-500" : form.seoDescription.length >= 150 ? "text-emerald-600" : "text-slate-400"}`}>{form.seoDescription.length > 160 ? "过长" : form.seoDescription.length >= 150 ? "✓ 合适" : "建议 150-160"}</p>
+
+              <div className="border border-slate-200 bg-white p-5">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+                  Meta Description
+                </label>
+                <textarea
+                  value={form.seoDescription}
+                  onChange={(event) => handleChange("seoDescription", event.target.value)}
+                  rows={3}
+                  placeholder="Meta description (120-165 characters)"
+                  className="w-full resize-none border-none bg-transparent text-sm text-slate-700 outline-none"
+                />
+                <div className="mt-1 flex justify-between">
+                  <p className="text-xs text-slate-400">{form.seoDescription.length} chars</p>
+                  <p className={`text-xs ${form.seoDescription.length > 165 ? "text-red-500" : form.seoDescription.length >= 120 ? "text-emerald-600" : "text-slate-400"}`}>
+                    {form.seoDescription.length > 165 ? "Too long" : form.seoDescription.length >= 120 ? "Good" : "Target 120-165"}
+                  </p>
                 </div>
               </div>
-              <div className="bg-white border border-slate-200  p-5">
-                <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">关键词</label>
-                <input type="text" value={form.seoKeywords} onChange={(e) => handleChange("seoKeywords", e.target.value)} placeholder="thermal paper manufacturer, BPA-free receipt paper" className="w-full text-sm text-slate-700 border-none outline-none bg-transparent" />
+
+              <div className="border border-slate-200 bg-white p-5">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+                  Keywords
+                </label>
+                <input
+                  type="text"
+                  value={form.seoKeywords}
+                  onChange={(event) => handleChange("seoKeywords", event.target.value)}
+                  placeholder="thermal paper manufacturer, receipt paper rolls"
+                  className="w-full border-none bg-transparent text-sm text-slate-700 outline-none"
+                />
               </div>
-              {(form.seoTitle || form.title) && (
-                <div className="bg-slate-50 border border-slate-200  p-5">
-                  <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Google 搜索预览</p>
-                  <p className="text-blue-700 text-base font-medium truncate">{form.seoTitle || form.title} | Zhixin Paper</p>
-                  <p className="text-green-700 text-xs mt-0.5">www.zhixinpaper.com › blog › {form.slug || "slug"}</p>
-                  <p className="text-slate-600 text-sm mt-1 line-clamp-2">{form.seoDescription || form.excerpt || "Meta description..."}</p>
+
+              {(form.seoTitle || form.title) ? (
+                <div className="border border-slate-200 bg-slate-50 p-5">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">
+                    Search Preview
+                  </p>
+                  <p className="truncate text-base font-medium text-blue-700">
+                    {form.seoTitle || form.title} | Zhixin Paper
+                  </p>
+                  <p className="mt-0.5 text-xs text-green-700">
+                    www.zhixinpaper.com / blog / {form.slug || "slug"}
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-sm text-slate-600">
+                    {form.seoDescription || form.excerpt || "Meta description..."}
+                  </p>
                 </div>
-              )}
+              ) : null}
             </div>
           )}
         </div>
 
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200  p-4">
-            <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">发布状态</label>
-            <select value={form.status} onChange={(e) => handleChange("status", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="draft">草稿</option>
-              <option value="published">已发布</option>
-              <option value="archived">已归档</option>
+          <div className="border border-slate-200 bg-white p-4">
+            <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
+              Status
+            </label>
+            <select
+              value={form.status}
+              onChange={(event) => handleChange("status", event.target.value)}
+              className="w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
             </select>
           </div>
-          <div className="bg-white border border-slate-200  p-4">
-            <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">分类</label>
-            <select value={form.category} onChange={(e) => handleChange("category", e.target.value)} className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">选择分类...</option>
-              {CATEGORIES.map((cat) => (<option key={cat} value={cat}>{cat}</option>))}
+
+          <div className="border border-slate-200 bg-white p-4">
+            <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
+              Category
+            </label>
+            <select
+              value={form.category}
+              onChange={(event) => handleChange("category", event.target.value)}
+              className="w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Choose category...</option>
+              {CATEGORIES.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
-          <div className="bg-white border border-slate-200  p-4">
-            <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">阅读时长</label>
-            <input type="text" value={form.readTime} onChange={(e) => handleChange("readTime", e.target.value)} placeholder="例：5 min read" className="w-full text-sm text-slate-700 border border-slate-200  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {form.content && !form.readTime && (
-              <button type="button" onClick={() => { const mins = Math.max(1, Math.round(form.content.split(/\s+/).length / 200)); handleChange("readTime", `${mins} min read`); }} className="mt-2 text-xs text-blue-600 hover:underline">自动计算</button>
-            )}
+
+          <div className="border border-slate-200 bg-white p-4">
+            <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-400">
+              Read Time
+            </label>
+            <input
+              type="text"
+              value={form.readTime}
+              onChange={(event) => handleChange("readTime", event.target.value)}
+              placeholder="Example: 8 min"
+              className="w-full border border-slate-200 px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {form.content && !form.readTime ? (
+              <button
+                type="button"
+                onClick={() => {
+                  const mins = Math.max(1, Math.round(form.content.split(/\s+/).length / 200));
+                  handleChange("readTime", `${mins} min`);
+                }}
+                className="mt-2 text-xs text-blue-600 hover:underline"
+              >
+                Auto-calculate
+              </button>
+            ) : null}
           </div>
-          <div className="bg-white border border-slate-200  p-4">
-            <label className="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">封面图</label>
+
+          <div className="border border-slate-200 bg-white p-4">
+            <label className="mb-3 block text-xs font-bold uppercase tracking-wide text-slate-400">
+              Cover Image
+            </label>
             {form.coverImage ? (
               <div className="relative">
-                {/* Admin media URLs may not be in the public image allowlist. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={form.coverImage} alt="封面图" className="w-full h-36 object-cover " />
-                <button onClick={() => handleChange("coverImage", "")} className="absolute top-2 right-2 w-6 h-6 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors"><X className="w-3 h-3" /></button>
+                <img src={form.coverImage} alt="Cover" className="h-36 w-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => handleChange("coverImage", "")}
+                  className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-black/80"
+                >
+                  <X className="h-3 w-3" />
+                </button>
               </div>
             ) : (
-              <button onClick={() => openMediaPicker("cover")} className="w-full h-28 border-2 border-dashed border-slate-200  flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-colors">
-                <ImageIcon className="w-6 h-6" /><span className="text-xs font-medium">从图片库选择</span>
+              <button
+                type="button"
+                onClick={() => openMediaPicker("cover")}
+                className="flex h-28 w-full flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-200 text-slate-400 transition-colors hover:border-blue-400 hover:text-blue-500"
+              >
+                <ImageIcon className="h-6 w-6" />
+                <span className="text-xs font-medium">Choose from media library</span>
               </button>
             )}
-            {form.coverImage && <button onClick={() => openMediaPicker("cover")} className="mt-2 w-full text-xs text-blue-600 hover:underline text-center">更换图片</button>}
+            {form.coverImage ? (
+              <button
+                type="button"
+                onClick={() => openMediaPicker("cover")}
+                className="mt-2 w-full text-center text-xs text-blue-600 hover:underline"
+              >
+                Replace image
+              </button>
+            ) : null}
           </div>
-          <div className="bg-slate-50 border border-slate-200  p-4">
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">发布检查</p>
-            <div className="space-y-2">
-              {[
-                { label: "标题已填写", ok: !!form.title },
-                { label: "URL Slug 已设置", ok: !!form.slug },
-                { label: "摘要已填写", ok: !!form.excerpt },
-                { label: "正文内容 > 100字符", ok: form.content.length > 100 },
-                { label: "分类已选择", ok: !!form.category },
-                { label: "SEO 标题已填写", ok: !!form.seoTitle },
-                { label: "封面图已设置", ok: !!form.coverImage },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-white text-[9px] font-bold shrink-0 ${item.ok ? "bg-emerald-500" : "bg-slate-200"}`}>{item.ok ? "✓" : ""}</div>
-                  <span className={`text-xs ${item.ok ? "text-slate-600" : "text-slate-400"}`}>{item.label}</span>
-                </div>
-              ))}
+
+          <div className="border border-slate-200 bg-slate-50 p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-wide text-slate-400">
+                Publish Checks
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className={`rounded-full px-2 py-0.5 font-semibold ${validation.errors.length > 0 ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"}`}>
+                  {validation.errors.length} blocking
+                </span>
+                <span className="rounded-full bg-slate-200 px-2 py-0.5 font-semibold text-slate-600">
+                  {validation.warnings.length} warnings
+                </span>
+              </div>
             </div>
+
+            <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-slate-500">
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">Words</span>
+                <span className="font-semibold text-slate-700">{validation.wordCount}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">H2 Sections</span>
+                <span className="font-semibold text-slate-700">{validation.h2Count}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">FAQ</span>
+                <span className="font-semibold text-slate-700">{validation.hasFaq ? "Yes" : "No"}</span>
+              </div>
+              <div className="rounded bg-white px-3 py-2">
+                <span className="block text-[10px] uppercase tracking-wide text-slate-400">AI Risk</span>
+                <span className="font-semibold capitalize text-slate-700">{validation.qualityAudit.aiStyleRisk}</span>
+              </div>
+            </div>
+
+            {validation.errors.length > 0 ? (
+              <div className="mb-3 space-y-2">
+                {validation.errors.map((issue) => (
+                  <div key={issue.code} className="flex gap-2 rounded bg-amber-50 px-3 py-2 text-xs text-amber-700">
+                    <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                    <span>{issue.message}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mb-3 flex items-center gap-2 rounded bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                <span>Ready to publish. Remaining items are non-blocking warnings.</span>
+              </div>
+            )}
+
+            {validation.warnings.length > 0 ? (
+              <div className="space-y-2">
+                {validation.warnings.slice(0, 4).map((issue) => (
+                  <div key={issue.code} className="rounded bg-white px-3 py-2 text-xs text-slate-600">
+                    {issue.message}
+                  </div>
+                ))}
+                {validation.warnings.length > 4 ? (
+                  <p className="text-xs text-slate-400">
+                    {validation.warnings.length - 4} more warning{validation.warnings.length - 4 === 1 ? "" : "s"} hidden.
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
 
-      {showMediaPicker && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white  shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col">
-            <div className="flex items-center justify-between p-5 border-b border-slate-200">
-              <h3 className="font-bold text-slate-900">选择封面图</h3>
-              <button onClick={() => setShowMediaPicker(false)} className="w-8 h-8 flex items-center justify-center  hover:bg-slate-100 transition-colors"><X className="w-4 h-4" /></button>
+      {showMediaPicker ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="flex max-h-[80vh] w-full max-w-3xl flex-col bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 p-5">
+              <h3 className="font-bold text-slate-900">
+                {mediaPickerTarget === "cover" ? "Choose Cover Image" : "Insert Image"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowMediaPicker(false)}
+                className="flex h-8 w-8 items-center justify-center transition-colors hover:bg-slate-100"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
-            <div className="p-4 border-b border-slate-100">
+            <div className="border-b border-slate-100 p-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input type="text" value={mediaSearch} onChange={(e) => setMediaSearch(e.target.value)} placeholder="搜索图片..." className="w-full pl-9 pr-4 py-2 border border-slate-200  text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  value={mediaSearch}
+                  onChange={(event) => setMediaSearch(event.target.value)}
+                  placeholder="Search images..."
+                  className="w-full border border-slate-200 py-2 pl-9 pr-4 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
               {mediaLoading ? (
-                <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>
+                <div className="flex justify-center py-12">
+                  <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+                </div>
               ) : filteredMedia.length === 0 ? (
-                <div className="text-center py-12 text-slate-400"><ImageIcon className="w-10 h-10 mx-auto mb-2 opacity-30" /><p className="text-sm">暂无图片</p></div>
+                <div className="py-12 text-center text-slate-400">
+                  <ImageIcon className="mx-auto mb-2 h-10 w-10 opacity-30" />
+                  <p className="text-sm">No images found</p>
+                </div>
               ) : (
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                   {filteredMedia.map((file) => (
-                    <button key={file.id} onClick={() => { if (mediaPickerTarget === "content") insertImageMarkdown(file); else handleChange("coverImage", file.url); setShowMediaPicker(false); }} className="group relative aspect-square  overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all">
-                      {/* Admin media URLs may not be in the public image allowlist. */}
+                    <button
+                      key={file.id}
+                      type="button"
+                      onClick={() => {
+                        if (mediaPickerTarget === "content") {
+                          insertImageMarkdown(file);
+                        } else {
+                          handleChange("coverImage", file.url);
+                        }
+                        setShowMediaPicker(false);
+                      }}
+                      className="group relative aspect-square overflow-hidden border-2 border-transparent transition-all hover:border-blue-500"
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={file.url} alt={file.alt || file.originalName} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold bg-blue-600 px-2 py-1  transition-opacity">选择</span>
+                      <img src={file.url} alt={file.alt || file.originalName} className="h-full w-full object-cover" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
+                        <span className="bg-blue-600 px-2 py-1 text-xs font-bold text-white opacity-0 transition-opacity group-hover:opacity-100">
+                          Select
+                        </span>
                       </div>
                     </button>
                   ))}
@@ -559,7 +970,7 @@ export default function BlogEditor({ initialData }: Props) {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

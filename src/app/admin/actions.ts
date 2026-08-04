@@ -1,13 +1,29 @@
 "use server";
 
-import { getSession } from "@/lib/session";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
-import { contactInquiries, quoteRequests, sampleRequests, blogPosts, productOverrides } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { eq, inArray } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { getBuiltInBlogSeeds } from "@/lib/blogBuiltInSeeds";
+import { validateBlogPost } from "@/lib/blogPostValidation";
+import {
+  blogPosts,
+  contactInquiries,
+  productOverrides,
+  quoteRequests,
+  sampleRequests,
+} from "@/lib/db/schema";
+import { getSession } from "@/lib/session";
 
-// ── Update Lead Status ────────────────────────────────────────────────────────
+async function requireAdminSession() {
+  const session = await getSession();
+  if (!session?.email) {
+    throw new Error("Not authenticated.");
+  }
+
+  return session;
+}
+
 export async function updateLeadStatus({
   id,
   type,
@@ -42,7 +58,6 @@ export async function updateLeadStatus({
   }
 }
 
-// ── Update Sample Tracking ────────────────────────────────────────────────────
 export async function updateSampleTracking({
   id,
   trackingNumber,
@@ -64,7 +79,6 @@ export async function updateSampleTracking({
   revalidatePath(`/admin/samples/${id}`);
 }
 
-// ── Blog Post Actions ─────────────────────────────────────────────────────────
 export async function saveBlogPost(data: {
   id?: number;
   slug: string;
@@ -79,11 +93,43 @@ export async function saveBlogPost(data: {
   seoDescription: string;
   seoKeywords: string;
   coverImage?: string;
+  publishedAt?: string;
 }) {
+  const session = await requireAdminSession();
   const now = new Date().toISOString();
-  const previousSlug = data.id
-    ? await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, data.id)).then((rows) => rows[0]?.slug)
+  const validation = validateBlogPost({
+    title: data.title,
+    excerpt: data.excerpt,
+    content: data.content,
+    metaTitle: data.seoTitle,
+    metaDescription: data.seoDescription,
+  });
+  const existing = data.id
+    ? await db.select().from(blogPosts).where(eq(blogPosts.id, data.id)).then((rows) => rows[0] || null)
     : null;
+  const previousSlug = existing?.slug || null;
+
+  if (!data.slug.trim()) {
+    return {
+      success: false,
+      error: "Slug is required.",
+      validation,
+    };
+  }
+
+  if (data.status === "published" && validation.errors.length > 0) {
+    return {
+      success: false,
+      error: "Fix the blocking blog checks before publishing.",
+      validation,
+    };
+  }
+
+  const publishedAt = data.status === "published"
+    ? existing?.publishedAt || data.publishedAt || now
+    : data.status === "draft"
+      ? null
+      : existing?.publishedAt || data.publishedAt || null;
 
   if (data.id) {
     await db.update(blogPosts)
@@ -100,7 +146,7 @@ export async function saveBlogPost(data: {
         seoDescription: data.seoDescription,
         seoKeywords: data.seoKeywords,
         coverImage: data.coverImage || null,
-        publishedAt: data.status === "published" ? now : undefined,
+        publishedAt,
         updatedAt: now,
       })
       .where(eq(blogPosts.id, data.id));
@@ -114,31 +160,119 @@ export async function saveBlogPost(data: {
       tags: data.tags,
       readTime: data.readTime,
       status: data.status,
+      authorId: session.id,
       seoTitle: data.seoTitle,
       seoDescription: data.seoDescription,
       seoKeywords: data.seoKeywords,
       coverImage: data.coverImage || null,
-      publishedAt: data.status === "published" ? now : undefined,
+      publishedAt,
     });
   }
 
+  revalidatePath("/admin");
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
   revalidatePath(`/blog/${data.slug}`);
-  if (previousSlug && previousSlug !== data.slug) revalidatePath(`/blog/${previousSlug}`);
-  revalidatePath("/sitemap.xml"); // sitemap 含 DB 文章且默认缓存，发布后需刷新
+  if (previousSlug && previousSlug !== data.slug) {
+    revalidatePath(`/blog/${previousSlug}`);
+  }
+  revalidatePath("/sitemap.xml");
+
+  return {
+    success: true,
+    validation,
+  };
 }
 
 export async function deleteBlogPost(id: number) {
-  const existing = await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, id)).then((rows) => rows[0]);
+  await requireAdminSession();
+  const existing = await db
+    .select({ slug: blogPosts.slug })
+    .from(blogPosts)
+    .where(eq(blogPosts.id, id))
+    .then((rows) => rows[0]);
+
   await db.delete(blogPosts).where(eq(blogPosts.id, id));
+
+  revalidatePath("/admin");
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
-  if (existing?.slug) revalidatePath(`/blog/${existing.slug}`);
+  if (existing?.slug) {
+    revalidatePath(`/blog/${existing.slug}`);
+  }
   revalidatePath("/sitemap.xml");
 }
 
-// ── Product Override Actions ──────────────────────────────────────────────────
+export async function importBuiltInBlogPosts() {
+  await requireAdminSession();
+
+  const seeds = getBuiltInBlogSeeds();
+  const slugs = seeds.map((seed) => seed.slug);
+  const existing = slugs.length > 0
+    ? await db
+        .select({ slug: blogPosts.slug })
+        .from(blogPosts)
+        .where(inArray(blogPosts.slug, slugs))
+    : [];
+  const existingSlugs = new Set(existing.map((row) => row.slug));
+  const created: string[] = [];
+  const skipped: string[] = [];
+  const invalid: Array<{ slug: string; errors: string[] }> = [];
+
+  for (const seed of seeds) {
+    if (existingSlugs.has(seed.slug)) {
+      skipped.push(seed.slug);
+      continue;
+    }
+
+    const validation = validateBlogPost({
+      title: seed.title,
+      excerpt: seed.excerpt,
+      content: seed.content,
+      metaTitle: seed.seoTitle,
+      metaDescription: seed.seoDescription,
+    });
+
+    if (validation.errors.length > 0) {
+      invalid.push({
+        slug: seed.slug,
+        errors: validation.errors.map((issue) => issue.message),
+      });
+      continue;
+    }
+
+    await db.insert(blogPosts).values({
+      slug: seed.slug,
+      title: seed.title,
+      excerpt: seed.excerpt,
+      content: seed.content,
+      category: seed.category,
+      tags: seed.tags,
+      readTime: seed.readTime,
+      status: seed.status,
+      seoTitle: seed.seoTitle,
+      seoDescription: seed.seoDescription,
+      seoKeywords: seed.seoKeywords,
+      publishedAt: seed.publishedAt,
+      createdAt: seed.publishedAt,
+      updatedAt: seed.publishedAt,
+    });
+    created.push(seed.slug);
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/blog");
+  revalidatePath("/blog");
+  revalidatePath("/sitemap.xml");
+
+  return {
+    success: invalid.length === 0,
+    created,
+    skipped,
+    invalid,
+  };
+}
+
 export async function saveProductOverride(data: {
   slug: string;
   productType: "roll" | "label";
@@ -168,7 +302,6 @@ export async function saveProductOverride(data: {
   revalidatePath(`/products/thermal-labels/${data.slug}`);
 }
 
-// ── Change Admin Password ─────────────────────────────────────────────────────
 export async function changeAdminPassword({
   currentPassword,
   newPassword,
@@ -176,10 +309,11 @@ export async function changeAdminPassword({
   currentPassword: string;
   newPassword: string;
 }): Promise<{ success?: boolean; error?: string }> {
-    const session = await getSession();
+  const session = await getSession();
   if (!session?.email) {
     return { error: "Not authenticated." };
   }
+
   const { adminUsers } = await import("@/lib/db/schema");
   const userRows = await db
     .select()
