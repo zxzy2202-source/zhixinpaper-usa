@@ -33,22 +33,6 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Compare thermal paper rolls, labels, and ticket materials for POS, banking, healthcare, cold chain, logistics, transport, lottery, and specialty applications.",
   path: "/industries",
-  keywords: [
-    "thermal paper industry solutions",
-    "thermal paper rolls by industry",
-    "thermal labels supplier by application",
-    "POS receipt paper rolls",
-    "lottery ticket thermal paper",
-    "casino TITO paper supplier",
-    "ATM receipt paper rolls",
-    "freezer cold chain labels",
-    "shipping labels bulk supplier",
-    "BPA free thermal paper",
-    "REACH compliant thermal paper supplier",
-    "FDA compliant thermal paper",
-    "thermal paper manufacturer for distributors",
-    "private label thermal paper rolls",
-  ],
 });
 
 type SlotName =

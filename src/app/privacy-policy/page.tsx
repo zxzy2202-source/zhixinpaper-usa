@@ -3,10 +3,18 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { canonicalUrl } from "@/lib/seo";
 
+const PAGE_URL = canonicalUrl("/privacy-policy");
+
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Zhixin Paper collects, uses, shares, and protects personal data submitted through this website.",
-  alternates: { canonical: canonicalUrl("/privacy-policy") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function PrivacyPolicyPage() {

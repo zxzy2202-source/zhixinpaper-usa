@@ -7,11 +7,19 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, ShieldCheck, Play } from "lucide-react";
 
+const PAGE_URL = canonicalUrl("/oem-custom");
+
 export const metadata: Metadata = {
   title: "OEM Thermal Paper & Private Label",
   description:
     "OEM thermal paper rolls and labels with custom printing, branded packaging, core options, specification checks, samples, document routes, and export packing.",
-  alternates: { canonical: canonicalUrl("/oem-custom") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function OEMPage() {

@@ -200,7 +200,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.metaTitle,
     description: page.metaDesc,
-    alternates: { canonical: canonicalUrl(`/oem-custom/${slug}`) },
+    alternates: {
+      canonical: canonicalUrl(`/oem-custom/${slug}`),
+      languages: {
+        en: canonicalUrl(`/oem-custom/${slug}`),
+        "x-default": canonicalUrl(`/oem-custom/${slug}`),
+      },
+    },
   };
 }
 

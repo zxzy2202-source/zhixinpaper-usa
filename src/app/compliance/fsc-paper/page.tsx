@@ -5,13 +5,18 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/compliance/fsc-paper");
 
 export const metadata: Metadata = {
   title: "FSC Paper Sourcing Review",
   description: "Review FSC paper sourcing options for thermal rolls and labels. Confirm the quoted grade, certificate holder, chain-of-custody scope, product claim, trademark approval, and destination before use.",
-  keywords: "FSC thermal paper sourcing, responsible paper sourcing, FSC claim review",
-  alternates: { canonical: canonicalUrl("/compliance/fsc-paper") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function FSCPaperPage() {

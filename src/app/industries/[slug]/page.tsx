@@ -28,7 +28,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${industry.name} Thermal Paper`,
     description: `Thermal paper rolls and labels for ${industry.name.toLowerCase()} buyers. Compare materials, printer fit, compliance files, OEM packing, and wholesale supply.`,
     path: `/industries/${slug}`,
-    keywords: typeof industry.keywords === "string" ? industry.keywords.split(",").map((k: string) => k.trim()) : industry.keywords,
   });
 }
 

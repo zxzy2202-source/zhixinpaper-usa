@@ -11,7 +11,6 @@ export const metadata: Metadata = buildMetadata({
   title: "Project Case Studies | Thermal Paper & Label Qualification",
   description: "Anonymized thermal paper and label project overviews showing how device, material, documentation, and application requirements are reviewed.",
   path: "/case-studies",
-  keywords: ["thermal paper project examples", "thermal label qualification", "thermal paper application review"],
 });
 
 const listJsonLd = {

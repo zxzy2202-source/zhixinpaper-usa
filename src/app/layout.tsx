@@ -34,9 +34,6 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL("https://www.zhixinpaper.com"),
     title: { default: title, template: "%s | Zhixin Paper" },
     description,
-    keywords: seo.keywords?.trim()
-      ? seo.keywords.split(",").map((k) => k.trim()).filter(Boolean)
-      : undefined,
     openGraph: {
       type: "website",
       locale: "en_US",

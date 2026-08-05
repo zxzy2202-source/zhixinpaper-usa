@@ -7,6 +7,11 @@ export const SALES_PHONE_E164 = "+8615339247872";
 export const WHATSAPP_PHONE_E164 = "+8618792771927";
 const DEFAULT_IMAGE = "/images/og-default.jpg";
 
+const DEFAULT_HREFLANGS = {
+  en: SITE_URL,
+  "x-default": SITE_URL,
+} as const;
+
 export function canonicalUrl(path = "/") {
   const normalizedPath = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${normalizedPath}`;
@@ -18,9 +23,10 @@ export function buildMetadata({
   description,
   path = "/",
   image = DEFAULT_IMAGE,
-  keywords = [],
+  keywords: _keywords = [],
   noIndex = false,
   locale,
+  languages,
 }: {
   title: string;
   description: string;
@@ -29,20 +35,25 @@ export function buildMetadata({
   keywords?: string[];
   noIndex?: boolean;
   locale?: string;
+  languages?: Record<string, string>;
 }): Metadata {
   const url = canonicalUrl(path);
+  const normalizedLanguages =
+    languages && Object.keys(languages).length > 0 ? languages : DEFAULT_HREFLANGS;
   // Don't append SITE_NAME here - layout.tsx template already adds "| Zhixin Paper"
   const fullTitle = title;
 
   return {
     title: fullTitle,
     description,
-    keywords: keywords,
     authors: [{ name: SITE_NAME, url: SITE_URL }],
     creator: SITE_NAME,
     publisher: SITE_NAME,
     metadataBase: new URL(SITE_URL),
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: normalizedLanguages,
+    },
     robots: noIndex
       ? { index: false, follow: false }
       : { index: true, follow: true, googleBot: { index: true, follow: true } },

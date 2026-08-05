@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/oem-custom/sample-process");
 
 export const metadata: Metadata = {
   title: "Thermal Paper and Label Sample Process",
   description: "Plan thermal paper and label sample evaluation. Availability, preparation time, charges, documents, courier terms, and delivery estimates are confirmed after project review.",
-  keywords: "thermal paper sample process, label sample request, thermal paper samples distributor",
-  alternates: { canonical: canonicalUrl("/oem-custom/sample-process") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const steps = [

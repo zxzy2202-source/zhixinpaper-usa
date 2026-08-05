@@ -10,14 +10,6 @@ export const metadata = buildMetadata({
   description:
     "Compare BPA-free, BPS-free and phenol-free thermal paper terms, grade-level documents, receipt roll options, and fields required for a compliant quote.",
   path: "/compliance/bpa-free",
-  keywords: [
-    "BPA free thermal paper",
-    "BPS free thermal paper",
-    "phenol free thermal paper",
-    "bisphenol free receipt paper",
-    "BPA free thermal printer paper",
-    "phenol free receipt rolls",
-  ],
 });
 
 const TERMS = [

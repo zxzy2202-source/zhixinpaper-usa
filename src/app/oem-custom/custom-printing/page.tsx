@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/oem-custom/custom-printing");
 
 export const metadata: Metadata = {
   title: "Custom Printed Thermal Paper | Logo Printed Receipt Rolls",
   description: "Custom printed thermal paper rolls and labels developed through artwork, print-method, color, sample, quantity, packing, and production review.",
-  keywords: "custom printed thermal paper, logo printed receipt rolls, custom thermal paper printing",
-  alternates: { canonical: canonicalUrl("/oem-custom/custom-printing") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const printOptions = [

@@ -13,12 +13,6 @@ export const metadata: Metadata = buildMetadata({
   description: "Label materials for Canadian cannabis producers and retailers. Confirm bilingual copy, facestock, adhesive, print method, testing, and regulatory review.",
   path: "/ca/cannabis-labels",
   locale: "en_CA",
-  keywords: [
-    "cannabis labels Canada",
-    "Health Canada cannabis labeling",
-    "bilingual cannabis labels",
-    "Canadian dispensary labels",
-  ],
 });
 
 export default function CACannabisLabelsPage() {
@@ -42,13 +36,14 @@ export default function CACannabisLabelsPage() {
               <span className="text-3xl">🇨🇦</span>
               <span className="bg-red-500/30 text-red-200 text-sm font-medium px-3 py-1 rounded-full">Canadian Cannabis Market</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Cannabis Labels for Canadian Licensed Producers</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Canada Cannabis Labels for Licensed Producers</h1>
             <p className="text-xl text-red-100 leading-relaxed mb-8">
-              Thermal label materials for Canadian cannabis projects, reviewed against the buyer&apos;s current bilingual copy, packaging, variable-data workflow, and applicable requirements. Final regulatory approval remains the buyer&apos;s responsibility.
+              Thermal cannabis labels for Canadian licensed producers, processors, and retailers, reviewed against the buyer&apos;s current bilingual copy, packaging, variable-data workflow, and applicable federal or provincial requirements. Final regulatory approval remains the buyer&apos;s responsibility.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/quote" className="bg-white text-red-700 font-bold px-8 py-3  hover:bg-red-50 transition-colors">Get a Quote</Link>
               <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/ca" className="border-2 border-red-200 text-white font-semibold px-8 py-3 hover:bg-white/10 transition-colors">Back to Canada Supplier Page</Link>
             </div>
           </div>
         </div>
@@ -57,7 +52,7 @@ export default function CACannabisLabelsPage() {
       {/* Federal Requirements */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">Canadian Cannabis Label Review</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">Canada Cannabis Label Review</h2>
           <p className="text-slate-500 text-center mb-10">Canadian cannabis labelling requirements and official guidance change over time. The licence holder should confirm the current federal, provincial, product-class, packaging, bilingual, symbol, warning, and variable-data requirements before approving artwork.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[

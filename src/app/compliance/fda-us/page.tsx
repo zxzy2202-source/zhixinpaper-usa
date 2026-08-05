@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/compliance/fda-us");
 
 export const metadata: Metadata = {
   title: "US Food-Contact Thermal Paper Document Review",
   description: "Review thermal paper and label constructions for US food-contact projects by intended use, applicable 21 CFR scope, supporting documents, and sample validation.",
-  keywords: "FDA compliant thermal paper, US food contact labels, FDA 21 CFR thermal paper",
-  alternates: { canonical: canonicalUrl("/compliance/fda-us") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function FDAUSPage() {

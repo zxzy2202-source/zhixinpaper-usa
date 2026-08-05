@@ -54,6 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/ca`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/ca/cannabis-labels`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/mx`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/mx/export-and-customs`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/factory`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/factory/overview`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/factory/equipment`, changeFrequency: "monthly", priority: 0.6 },

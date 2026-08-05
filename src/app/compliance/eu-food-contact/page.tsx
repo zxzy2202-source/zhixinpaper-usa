@@ -5,13 +5,18 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/compliance/eu-food-contact");
 
 export const metadata: Metadata = {
   title: "EU Food-Contact Thermal Paper",
   description: "Thermal paper and label materials for EU food-contact sourcing. Confirm the quoted construction, contact type, migration-test scope, declaration, and end use.",
-  keywords: "EU food contact thermal paper, food safe labels Europe, food contact labels EU",
-  alternates: { canonical: canonicalUrl("/compliance/eu-food-contact") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function EUFoodContactPage() {

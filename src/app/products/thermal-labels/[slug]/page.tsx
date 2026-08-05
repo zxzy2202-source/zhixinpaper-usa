@@ -30,8 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${label.name} Wholesale`,
     description: `Wholesale ${label.name.toLowerCase()} for distributors and OEM buyers. Custom sizes, printer-fit checks, export packing, compliance files, and samples.`,
-    keywords: `${label.keywords}, thermal labels wholesale, phenol options by material grade, compliance document review, factory quote, ${label.name} manufacturer`,
-    alternates: { canonical: canonicalUrl(`/products/thermal-labels/${slug}`) },
+    alternates: {
+      canonical: canonicalUrl(`/products/thermal-labels/${slug}`),
+      languages: {
+        en: canonicalUrl(`/products/thermal-labels/${slug}`),
+        "x-default": canonicalUrl(`/products/thermal-labels/${slug}`),
+      },
+    },
   };
 }
 

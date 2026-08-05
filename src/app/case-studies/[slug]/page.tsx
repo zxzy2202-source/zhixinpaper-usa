@@ -26,7 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${caseStudy.title} | Project Case Studies`,
     description: caseStudy.challenge.slice(0, 160),
     path: `/case-studies/${slug}`,
-    keywords: caseStudy.tags,
   });
 }
 

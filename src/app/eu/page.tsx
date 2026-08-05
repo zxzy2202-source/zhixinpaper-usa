@@ -16,19 +16,15 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Europe Thermal Paper Rolls & Labels Supplier | Zhixin Paper",
+  title: "Thermal Paper and Labels for European Distribution",
   description:
     "Thermal paper rolls and labels for European distributors. Review phenol options, REACH or RoHS document scope, printer fit, packing, and destination-specific shipping terms by project.",
   path: "/eu",
   locale: "en_GB",
-  keywords: [
-    "thermal paper supplier Europe",
-    "BPA free thermal rolls EU",
-    "REACH compliant thermal paper",
-    "thermal labels Europe wholesale",
-    "receipt paper rolls European distributor",
-    "POS paper rolls EU import",
-  ],
+  languages: {
+    en: "https://www.zhixinpaper.com/eu",
+    "x-default": "https://www.zhixinpaper.com/eu",
+  },
 });
 
 const euRegion = GEO_REGIONS.find((r) => r.slug === "eu")!;

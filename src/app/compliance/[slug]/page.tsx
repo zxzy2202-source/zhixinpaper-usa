@@ -23,7 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${item.name} Documentation`,
     description: `Review ${item.name} requirements and available document routes for thermal paper rolls and labels. Confirm the exact grade, test scope, market, and use.`,
-    alternates: { canonical: canonicalUrl(`/compliance/${slug}`) },
+    alternates: {
+      canonical: canonicalUrl(`/compliance/${slug}`),
+      languages: {
+        en: canonicalUrl(`/compliance/${slug}`),
+        "x-default": canonicalUrl(`/compliance/${slug}`),
+      },
+    },
   };
 }
 

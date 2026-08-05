@@ -60,22 +60,25 @@ export async function generateMetadata({
   } catch {}
 
   if (dbPost) {
-    return {
-      title: `${dbPost.seoTitle || dbPost.title} | Blog`,
-      description: dbPost.seoDescription || dbPost.excerpt || "",
-      keywords: dbPost.seoKeywords
-        ? dbPost.seoKeywords.split(",").map((k: string) => k.trim())
-        : ["thermal paper", dbPost.category || "", "BPA-free thermal paper"],
-      openGraph: {
-        title: dbPost.title,
-        description: dbPost.excerpt || "",
-        type: "article",
-        publishedTime: dbPost.publishedAt || dbPost.createdAt,
-        authors: ["Zhixin Paper"],
-        images: dbPost.coverImage ? [{ url: dbPost.coverImage }] : [],
-      },
-      alternates: { canonical: canonicalUrl(`/blog/${slug}`) },
-    };
+      return {
+        title: `${dbPost.seoTitle || dbPost.title} | Blog`,
+        description: dbPost.seoDescription || dbPost.excerpt || "",
+        openGraph: {
+          title: dbPost.title,
+          description: dbPost.excerpt || "",
+          type: "article",
+          publishedTime: dbPost.publishedAt || dbPost.createdAt,
+          authors: ["Zhixin Paper"],
+          images: dbPost.coverImage ? [{ url: dbPost.coverImage }] : [],
+        },
+        alternates: {
+          canonical: canonicalUrl(`/blog/${slug}`),
+          languages: {
+            en: canonicalUrl(`/blog/${slug}`),
+            "x-default": canonicalUrl(`/blog/${slug}`),
+          },
+        },
+      };
   }
 
   const post = BLOG_POSTS.find((p) => p.slug === slug);
@@ -84,7 +87,6 @@ export async function generateMetadata({
   return {
     title: staticSeo?.title || `${post.title} | Blog`,
     description: post.excerpt,
-    keywords: staticSeo?.keywords || ["thermal paper", post.category.toLowerCase(), "BPA free thermal paper", "thermal paper manufacturer"],
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -92,7 +94,13 @@ export async function generateMetadata({
       publishedTime: post.date,
       authors: ["Zhixin Paper"],
     },
-    alternates: { canonical: `https://www.zhixinpaper.com/blog/${slug}` },
+    alternates: {
+      canonical: canonicalUrl(`/blog/${slug}`),
+      languages: {
+        en: canonicalUrl(`/blog/${slug}`),
+        "x-default": canonicalUrl(`/blog/${slug}`),
+      },
+    },
   };
 }
 

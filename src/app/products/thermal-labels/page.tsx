@@ -10,23 +10,10 @@ import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/
 import { ArrowRight, CheckCircle2, Factory, Layers, Printer, ScanLine, Scissors, Truck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Labels Wholesale | Direct, Transfer & 4x6",
+  title: "Wholesale Thermal Labels for Shipping, Barcode & OEM",
   description:
-    "Wholesale thermal labels for distributors and OEM buyers. Compare direct thermal, thermal transfer, 4x6 shipping, barcode, freezer, and custom label routes by printer, material, adhesive, and application.",
+    "Source wholesale thermal labels for shipping, barcode, freezer, retail, and OEM projects. Compare direct thermal and thermal transfer constructions by printer, adhesive, facestock, and application.",
   path: "/products/thermal-labels",
-  keywords: [
-    "thermal labels wholesale",
-    "direct thermal labels",
-    "thermal transfer labels",
-    "4x6 shipping labels wholesale",
-    "barcode labels supplier",
-    "shipping labels manufacturer",
-    "freezer cold chain labels",
-    "custom die-cut thermal labels",
-    "permanent adhesive labels",
-    "removable thermal labels",
-    "OEM thermal labels",
-  ],
 });
 
 const THERMAL_LABEL_FAQS = [

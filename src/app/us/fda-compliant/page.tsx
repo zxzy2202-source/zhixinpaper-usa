@@ -8,27 +8,19 @@ import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/us/fda-compliant");
 
 export const metadata: Metadata = {
   title: "FDA Thermal Paper & Labels",
   description:
     "Thermal paper rolls and labels for US food-contact sourcing. Confirm the quoted material grade, applicable 21 CFR scope, Prop 65 files, SDS, and samples.",
-  keywords: [
-    "FDA compliant thermal paper",
-    "BPA free thermal paper USA",
-    "food contact labels USA",
-    "21 CFR thermal paper",
-    "21 CFR 176.170 thermal paper",
-    "Prop 65 compliant thermal paper",
-    "California Proposition 65 receipt paper",
-    "BPA free receipt paper United States",
-    "food safe thermal labels USA",
-    "FDA approved thermal paper manufacturer",
-    "food contact thermal paper wholesale",
-    "BPA BPS free thermal paper",
-  ],
-  alternates: { canonical: canonicalUrl("/us/fda-compliant") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const FDA_FEATURES = [
@@ -70,11 +62,11 @@ export default function FDACompliantPage() {
       <HeroBanner
         variant="media"
         eyebrow="US compliance review"
-        title="FDA Documentation for US Thermal Paper and Labels"
-        description="Confirm the quoted material grade, intended use, applicable 21 CFR scope, current declarations, and sample performance before approving a US program."
+        title="FDA Thermal Paper and Label Documentation for the USA"
+        description="Confirm the quoted material grade, intended use, applicable 21 CFR scope, current declarations, and sample performance before approving a US food-contact or regulated-label program."
         breadcrumbs={[
           { label: "United States", href: "/us" },
-          { label: "FDA Documentation" },
+          { label: "FDA Thermal Paper Documentation" },
         ]}
         actions={[
           { label: "Request Documentation", href: "/quote", kind: "primary" },
@@ -85,6 +77,14 @@ export default function FDACompliantPage() {
       {/* Compliance Features */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-8 flex flex-wrap items-center gap-3 text-sm font-semibold text-blue-700">
+            <Link href="/us" className="inline-flex items-center gap-1 hover:text-blue-900">
+              <ArrowRight className="h-4 w-4 rotate-180" />
+              Back to US thermal paper supplier page
+            </Link>
+            <span className="text-slate-300">/</span>
+            <Link href="/compliance/fda-us" className="hover:text-blue-900">Compare compliance route</Link>
+          </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-10 text-center">US Food-Contact Review Framework</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {FDA_FEATURES.map((f) => (

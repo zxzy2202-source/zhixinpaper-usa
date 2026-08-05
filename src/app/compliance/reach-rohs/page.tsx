@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/compliance/reach-rohs");
 
 export const metadata: Metadata = {
   title: "REACH & RoHS Documentation Review",
   description: "Review REACH and RoHS documentation for the selected thermal paper or label construction, restricted-substance scope, application, and destination.",
-  keywords: "REACH thermal paper, RoHS labels EU, SVHC thermal paper documentation",
-  alternates: { canonical: canonicalUrl("/compliance/reach-rohs") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function ReachRohsPage() {

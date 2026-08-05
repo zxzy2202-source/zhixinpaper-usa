@@ -5,13 +5,42 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/factory/virtual-tour");
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Factory Tour",
-  description: "Review the production areas shown in our factory video, including material handling, converting, label production, inspection, packing, and warehousing.",
-  keywords: "thermal paper factory tour, manufacturing facility video, thermal paper factory China",
-  alternates: { canonical: canonicalUrl("/factory/virtual-tour") },
+  title: "Virtual Factory Tour | Zhixin Paper",
+  description:
+    "Review the production areas shown in Zhixin Paper's factory video, including material handling, converting, label production, inspection, packing, and warehousing.",
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: PAGE_URL,
+    title: "Virtual Factory Tour | Zhixin Paper",
+    description:
+      "Review the production areas shown in Zhixin Paper's factory video, including material handling, converting, label production, inspection, packing, and warehousing.",
+    siteName: "Zhixin Paper",
+    images: [
+      {
+        url: "/images/factory-overview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Zhixin Paper factory production environment",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Virtual Factory Tour | Zhixin Paper",
+    description:
+      "Review the production areas shown in Zhixin Paper's factory video, including material handling, converting, label production, inspection, packing, and warehousing.",
+    images: ["/images/factory-overview.jpg"],
+  },
 };
 
 const tourStops = [
@@ -23,11 +52,33 @@ const tourStops = [
   { id: "06", name: "Finished Goods Warehouse", desc: "Review the packing, labeling, storage, and dispatch areas shown in the tour. Stock availability, storage conditions, packing method, and shipment timing are confirmed for each order." },
 ];
 
+const factoryTourVideoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "Zhixin Paper Virtual Factory Tour",
+  description:
+    "Factory walkthrough covering material handling, thermal coating, converting, label production, inspection, packing, and warehousing.",
+  thumbnailUrl: [canonicalUrl("/images/factory-overview.jpg")],
+  contentUrl: canonicalUrl("/videos/factory-tour.mp4"),
+  embedUrl: canonicalUrl("/factory/virtual-tour"),
+  uploadDate: "2026-08-05",
+  publisher: {
+    "@type": "Organization",
+    name: "Zhixin Paper",
+    url: canonicalUrl("/"),
+  },
+  inLanguage: "en",
+};
+
 export default function VirtualTourPage() {
   return (
 
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryTourVideoSchema).replace(/</g, "\\u003c") }}
+      />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

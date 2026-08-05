@@ -16,21 +16,15 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "USA Thermal Paper Rolls & Labels Supplier | Zhixin Paper",
+  title: "Thermal Paper and Labels for US Distributors",
   description:
     "Thermal paper rolls and labels for US distributors and importers. Review material chemistry, food-contact scope, California disclosures, printer fit, packing, and shipping terms by project.",
   path: "/us",
   locale: "en_US",
-  keywords: [
-    "thermal paper supplier USA",
-    "thermal paper rolls and labels for US importers",
-    "US thermal paper procurement",
-    "California thermal paper requirements",
-    "thermal labels wholesale USA",
-    "receipt paper rolls US distributor",
-    "BPA free thermal paper United States",
-    "cannabis labels USA",
-  ],
+  languages: {
+    en: "https://www.zhixinpaper.com/us",
+    "x-default": "https://www.zhixinpaper.com/us",
+  },
 });
 
 const usRegion = GEO_REGIONS.find((r) => r.slug === "us")!;
@@ -145,16 +139,28 @@ export default function USPage() {
           }}
         />
 
+        <section className="border-b border-slate-200 bg-slate-50 py-6">
+          <div className="container-site flex flex-wrap items-center gap-3 text-sm">
+            <span className="font-semibold text-slate-900">North America market comparison:</span>
+            <Link href="/ca" className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900">
+              Compare Canada thermal paper requirements <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/mx" className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900">
+              Compare Mexico thermal paper requirements <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+
         {/* ── SUBPAGE CARDS ── */}
         {subpages.length > 0 && (
           <section className="py-16 bg-white border-b border-slate-200">
             <div className="container-site">
               <div className="max-w-3xl mb-8">
                 <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
-                  US market solutions.
+                  US thermal paper compliance and cannabis label guides.
                 </h2>
                 <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
-                  Dedicated pages for key US compliance and application requirements. Each covers specifications, regulations, and what to ask for before ordering.
+                  Dedicated United States pages for FDA thermal paper documentation, food-contact review, and cannabis label compliance. Each guide covers the project data buyers usually need before ordering.
                 </p>
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
@@ -171,7 +177,7 @@ export default function USPage() {
                         : "Regulated-label projects require buyer-approved state, product-class, warning, symbol, variable-data, and packaging requirements."}
                     </p>
                     <div className="flex items-center gap-2 text-sm font-bold text-blue-600 group-hover:gap-3 transition-all">
-                      View {page.name} details
+                      {page.slug === "fda-compliant" ? "View FDA thermal paper guide" : "View US cannabis label guide"}
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </Link>

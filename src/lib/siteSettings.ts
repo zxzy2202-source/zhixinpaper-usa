@@ -117,10 +117,11 @@ export async function buildSectionMetadata(
     fallbackTitle,
     fallbackDescription,
     path,
-    fallbackKeywords = [],
+    fallbackKeywords: _fallbackKeywords = [],
     fallbackImage,
     noIndex = false,
     locale,
+    languages,
   }: {
     fallbackTitle: string;
     fallbackDescription: string;
@@ -129,6 +130,7 @@ export async function buildSectionMetadata(
     fallbackImage?: string;
     noIndex?: boolean;
     locale?: string;
+    languages?: Record<string, string>;
   },
 ): Promise<Metadata> {
   const [sectionSeo, globalSeo] = await Promise.all([
@@ -146,9 +148,9 @@ export async function buildSectionMetadata(
       sectionSeo.ogImage.trim() ||
       globalSeo.ogImage.trim() ||
       fallbackImage,
-    keywords: sectionKeywords.length > 0 ? sectionKeywords : fallbackKeywords,
     noIndex,
     locale,
+    languages,
   });
 }
 

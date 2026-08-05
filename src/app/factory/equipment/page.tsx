@@ -6,13 +6,18 @@ import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/factory/equipment");
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Equipment",
   description: "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
-  keywords: "thermal paper slitting machines, label die cutting equipment, thermal paper manufacturing equipment",
-  alternates: { canonical: canonicalUrl("/factory/equipment") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const equipment = [

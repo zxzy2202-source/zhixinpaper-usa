@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/oem-custom/private-label");
 
 export const metadata: Metadata = {
   title: "Private Label Thermal Paper",
   description: "Private-label thermal paper rolls and labels with branded packaging, core options, artwork review, specification checks, samples, and export order planning.",
-  keywords: "private label thermal paper, white label receipt rolls, OEM thermal paper manufacturer",
-  alternates: { canonical: canonicalUrl("/oem-custom/private-label") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const benefits = [

@@ -37,11 +37,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = euRegion.countries?.find((c) => c.slug === country);
   if (!c) return {};
   return {
-    title: `${country === "uk" ? "UK" : c.name} Thermal Paper Supplier`,
+    title: `${country === "uk" ? "UK" : c.name} Thermal Paper and Labels Supply`,
     description: `Thermal paper rolls and labels for distributors in ${c.name}. Review material chemistry, document scope, printer fit, samples, packing, and shipping terms by project.`,
-    keywords: c.keywords,
     alternates: {
       canonical: canonicalUrl(`/eu/${country}`),
+      languages: {
+        en: canonicalUrl(`/eu/${country}`),
+        "x-default": canonicalUrl(`/eu/${country}`),
+      },
     },
     openGraph: {
       title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,

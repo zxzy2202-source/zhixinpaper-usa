@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import { canonicalUrl } from "@/lib/seo";
 import { SlotImage } from "@/components/ui/SlotImage";
 
-
+const PAGE_URL = canonicalUrl("/us/cannabis-labels");
 
 export const metadata: Metadata = {
   title: "Cannabis Labels for US Dispensaries",
   description: "Thermal label materials for US cannabis brands and dispensaries. Confirm state-specific copy, facestock, adhesive, print method, testing, and approval scope.",
-  keywords: "cannabis label supplier USA, dispensary thermal labels, cannabis compliance labels, state cannabis label requirements",
-  alternates: { canonical: canonicalUrl("/us/cannabis-labels") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const states = [
@@ -47,13 +52,14 @@ export default function USCannabisLabelsPage() {
               <span className="text-3xl">🇺🇸</span>
               <span className="bg-green-500/30 text-green-200 text-sm font-medium px-3 py-1 rounded-full">US Cannabis Market</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Cannabis Labels for US Dispensaries</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">US Cannabis Warning and Dispensary Labels</h1>
             <p className="text-xl text-green-100 leading-relaxed mb-8">
-              Thermal label materials for US cannabis projects, reviewed against the buyer&apos;s current state rules, approved artwork, packaging surface, print process, and track-and-trace workflow. Final regulatory approval remains the buyer&apos;s responsibility.
+              Thermal cannabis labels for US dispensaries, processors, and brand owners, reviewed against the buyer&apos;s current state rules, approved warning copy, packaging surface, print process, and track-and-trace workflow. Final regulatory approval remains the buyer&apos;s responsibility.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/quote" className="bg-white text-green-700 font-bold px-8 py-3  hover:bg-green-50 transition-colors">Get a Quote</Link>
               <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/us" className="border-2 border-green-200 text-white font-semibold px-8 py-3 hover:bg-white/10 transition-colors">Back to USA Supplier Page</Link>
             </div>
           </div>
         </div>
@@ -62,7 +68,7 @@ export default function USCannabisLabelsPage() {
       {/* Key Requirements */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">Cannabis Label Artwork Review Areas</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-3 text-center">US Cannabis Warning Label Review Areas</h2>
           <p className="text-slate-500 text-center mb-10">The applicable elements depend on the current state and local rules, product class, licence, packaging format, and buyer-approved artwork.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[

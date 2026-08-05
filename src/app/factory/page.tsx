@@ -25,20 +25,16 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Factory & Quality Control",
+  title: "Thermal Paper Factory and Quality Control",
   description:
     "Review thermal paper and label production, slitting, die-cutting, custom printing, batch quality control, document routes, export packing, and audits.",
-  keywords: [
-    "thermal paper factory",
-    "thermal paper manufacturer China",
-    "ISO 9001 thermal paper factory",
-    "thermal paper rolls manufacturing",
-    "thermal labels factory",
-    "thermal paper quality control",
-    "OEM thermal paper manufacturer",
-    "factory audit thermal paper supplier",
-  ],
-  alternates: { canonical: canonicalUrl("/factory") },
+  alternates: {
+    canonical: canonicalUrl("/factory"),
+    languages: {
+      en: "https://www.zhixinpaper.com/factory",
+      "x-default": "https://www.zhixinpaper.com/factory",
+    },
+  },
 };
 
 type SlotName =

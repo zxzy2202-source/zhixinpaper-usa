@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/factory/quality-control");
 
 export const metadata: Metadata = {
   title: "Quality Control | Thermal Paper Manufacturing",
   description: "Review Zhixin Paper's material checks, in-process controls, finished-goods testing, traceability approach, and project-specific document review for thermal paper and labels.",
-  keywords: "thermal paper quality testing, label manufacturing quality control, thermal paper batch traceability",
-  alternates: { canonical: canonicalUrl("/factory/quality-control") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const qcSteps = [

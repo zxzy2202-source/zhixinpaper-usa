@@ -16,21 +16,15 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Canada Thermal Paper Rolls & Labels Supplier | Zhixin Paper",
+  title: "Thermal Paper and Labels for Canadian Distribution",
   description:
     "Thermal paper rolls and labels for Canadian distributors. Review material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping terms by project.",
   path: "/ca",
   locale: "en_CA",
-  keywords: [
-    "thermal paper supplier Canada",
-    "thermal paper rolls and labels for Canadian importers",
-    "Canadian thermal paper procurement",
-    "Canadian material review for thermal paper",
-    "thermal labels wholesale Canada",
-    "cannabis labels Canada",
-    "receipt paper rolls Canada",
-    "POS paper rolls Canadian distributor",
-  ],
+  languages: {
+    en: "https://www.zhixinpaper.com/ca",
+    "x-default": "https://www.zhixinpaper.com/ca",
+  },
 });
 
 const caRegion = GEO_REGIONS.find((r) => r.slug === "ca")!;
@@ -145,16 +139,28 @@ export default function CanadaPage() {
           }}
         />
 
+        <section className="border-b border-slate-200 bg-slate-50 py-6">
+          <div className="container-site flex flex-wrap items-center gap-3 text-sm">
+            <span className="font-semibold text-slate-900">North America market comparison:</span>
+            <Link href="/us" className="inline-flex items-center gap-2 text-red-700 hover:text-red-900">
+              Compare USA thermal paper requirements <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/mx" className="inline-flex items-center gap-2 text-red-700 hover:text-red-900">
+              Compare Mexico thermal paper requirements <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+
         {/* ── SUBPAGE CARDS ── */}
         {subpages.length > 0 && (
           <section className="py-16 bg-white border-b border-slate-200">
             <div className="container-site">
               <div className="max-w-3xl mb-8">
                 <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
-                  Canadian market solutions.
+                  Canada cannabis label and regulatory guides.
                 </h2>
                 <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
-                  Dedicated pages for key Canadian compliance and application requirements. Each covers specifications, regulations, and what to ask for before ordering.
+                  Dedicated Canada pages for cannabis label requirements, bilingual artwork review, and province-specific packaging checks before thermal label orders move forward.
                 </p>
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
@@ -169,7 +175,7 @@ export default function CanadaPage() {
                       Regulated-label projects require buyer-approved federal, provincial, product-class, bilingual, warning, symbol, variable-data, and packaging requirements.
                     </p>
                     <div className="flex items-center gap-2 text-sm font-bold text-red-600 group-hover:gap-3 transition-all">
-                      View {page.name} details
+                      View Canada cannabis label guide
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </Link>

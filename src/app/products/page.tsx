@@ -32,6 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackDescription: productSeoDefaults.siteDescription,
     path: "/products",
     fallbackKeywords: productSeoDefaults.keywords.split(",").map((item) => item.trim()),
+    languages: {
+      en: "https://www.zhixinpaper.com/products",
+      "x-default": "https://www.zhixinpaper.com/products",
+    },
   });
 }
 

@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/factory/capacity");
 
 export const metadata: Metadata = {
   title: "Thermal Paper Capacity, MOQ & Lead Times",
   description: "Review capacity planning, indicative MOQ and lead-time ranges for thermal paper rolls, labels, specialty materials, custom printing, packing, and export orders.",
-  keywords: "thermal paper production capacity, lead time thermal paper, MOQ thermal labels",
-  alternates: { canonical: canonicalUrl("/factory/capacity") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const capacityData = [

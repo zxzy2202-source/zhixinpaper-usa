@@ -949,6 +949,26 @@ export const GEO_REGIONS = [
       { slug: "cannabis-labels", name: "Cannabis Labels", keywords: "cannabis label review Canada, Health Canada label requirements, Cannabis Act labels" },
     ],
   },
+  {
+    slug: "mx",
+    name: "Mexico",
+    flag: "🇲🇽",
+    description: "Thermal paper rolls and labels for distributors in Mexico. Dimensions, printer fit, material grade, packing, compliance documents, and delivery responsibilities are confirmed by quoted project.",
+    keywords: "thermal paper supplier Mexico, thermal labels wholesale Mexico, POS rolls Mexico distributor, thermal label manufacturer Mexico, private label thermal paper Mexico",
+    compliance: ["Material-grade document review", "BPA and phenol options by grade", "REACH and RoHS scope review", "Quality-system documents", "Export packing review"],
+    shipping: "FOB, CIF, or destination-specific delivery terms quoted after route, customs, and responsibility review",
+    highlights: [
+      "Common 80 mm, 57/58 mm, and custom formats confirmed by printer model and sample",
+      "Paper grade, dimensions, winding, and carton packing aligned before quotation release",
+      "Compliance documents are matched to the selected grade and intended use rather than assumed universally",
+      "Mixed-SKU, pallet, and private-label packing plans reviewed by channel and delivery route",
+      "Destination, postal code, customs scope, and Incoterm responsibilities are stated in the quotation",
+      "OEM printing and branded packing are reviewed against artwork, approval steps, and annual volume",
+    ],
+    subpages: [
+      { slug: "export-and-customs", name: "Export and Customs", keywords: "Mexico thermal paper export, thermal paper customs Mexico, Incoterm thermal paper shipment, Mexico distributor import documents" },
+    ],
+  },
 ];
 
 export const COMPLIANCE_ITEMS = [
@@ -1159,6 +1179,7 @@ export const NAV_ITEMS = [
       { label: "🇵🇱 Poland",             href: "/eu/poland" },
       { label: "🇺🇸 United States (US)", href: "/us",            tag: "GEO" },
       { label: "🇨🇦 Canada (CA)",        href: "/ca",            tag: "GEO" },
+      { label: "🇲🇽 Mexico (MX)",        href: "/mx",            tag: "GEO" },
     ],
   },
 ];

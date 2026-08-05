@@ -5,13 +5,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/factory/overview");
 
 export const metadata: Metadata = {
   title: "Thermal Paper Plant Overview",
   description: "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
-  keywords: "thermal paper manufacturing plant, ISO certified factory, thermal paper factory China",
-  alternates: { canonical: canonicalUrl("/factory/overview") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function FactoryOverviewPage() {

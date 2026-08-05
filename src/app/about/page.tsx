@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Zhixin Paper | Manufacturing History Since 2006",
+  title: "About Zhixin Paper Manufacturing and Supply",
   description:
     "Follow Zhixin Paper's development from a one-person trading business in 2006 to a thermal paper converting and international supply partner.",
   path: "/about",

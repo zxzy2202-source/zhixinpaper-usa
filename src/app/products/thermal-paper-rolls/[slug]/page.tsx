@@ -204,9 +204,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "Wholesale POS Receipt Paper Rolls",
       description:
         "BPA-free POS receipt paper rolls in 80 mm and 57 mm formats. Confirm printer fit, core, length, compliance files, OEM packing, samples, and delivery terms.",
-      keywords:
-        "POS receipt paper rolls Europe, POS receipt paper rolls USA, thermal paper rolls Canada, BPA-free POS rolls wholesale, 80mm thermal receipt rolls, 57mm POS paper rolls, Epson compatible receipt paper, Star printer thermal rolls, receipt paper distributor supplier",
-      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      alternates: {
+        canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        languages: {
+          en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+          "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        },
+      },
       openGraph: {
         title: "POS Receipt Paper Rolls for Europe, USA & Canada",
         description:
@@ -229,9 +233,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: { absolute: "ATM Receipt Paper Rolls | Zhixin Paper" },
       description:
         "ATM receipt paper rolls selected by terminal model, retention target, anti-static requirement, optional back print, and grade-level documentation.",
-      keywords:
-        "ATM receipt paper rolls, archival thermal paper, bank receipt rolls, Diebold Nixdorf paper, NCR ATM paper, anti-static thermal paper, ATM back print paper",
-      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      alternates: {
+        canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        languages: {
+          en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+          "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        },
+      },
       openGraph: {
         title: "ATM Receipt Paper Rolls for Banking Terminals",
         description:
@@ -247,9 +255,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "Credit Card Terminal Paper Rolls & Sizes",
       description:
         "Source credit card terminal paper rolls by model, 57mm or 2 1/4-inch size, OD, core, winding, grade, packing, and fit-check sample.",
-      keywords:
-        "credit card terminal paper rolls, payment terminal rolls, credit card machine paper, EDC rolls, EFTPOS rolls, 57mm thermal paper rolls, 2 1/4 inch receipt paper",
-      alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+      alternates: {
+        canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        languages: {
+          en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+          "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        },
+      },
       openGraph: {
         title: "Credit Card Terminal Paper Rolls",
         description: "Model-qualified payment terminal rolls with specification and sample checks before bulk supply.",
@@ -262,8 +274,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${roll.name} Wholesale`,
     description: `Wholesale ${roll.name.toLowerCase()} for distributors and OEM buyers. Confirm size, printer fit, paper grade, compliance files, export packing, and samples.`,
-    keywords: `${roll.keywords}, thermal paper rolls wholesale, phenol options by paper grade, compliance document review, factory quote, ${roll.name} manufacturer`,
-    alternates: { canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`) },
+    alternates: {
+      canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+      languages: {
+        en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+      },
+    },
   };
 }
 

@@ -5,13 +5,18 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/compliance/certificates");
 
 export const metadata: Metadata = {
   title: "Thermal Paper Documentation Requests",
   description: "Request current, product-specific thermal paper declarations, test reports, and management-system documents for project review.",
-  keywords: "thermal paper documentation request, thermal paper test reports, product declaration thermal paper",
-  alternates: { canonical: canonicalUrl("/compliance/certificates") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const certificates = [

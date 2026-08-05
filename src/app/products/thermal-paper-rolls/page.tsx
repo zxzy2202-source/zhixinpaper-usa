@@ -11,24 +11,14 @@ import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/
 import { ArrowRight, CheckCircle2, Factory, Layers, Printer, ScanLine, Scissors, Truck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Rolls: Sizes & Specifications",
+  title: "Thermal Paper Rolls: Sizes and Wholesale Specs",
   description:
     "Compare thermal paper roll sizes, metric and inch names, POS and terminal uses, core IDs, coatings, packing, and wholesale quote requirements.",
   path: "/products/thermal-paper-rolls",
-  keywords: [
-    "thermal paper rolls",
-    "thermal receipt paper rolls",
-    "thermal paper rolls wholesale",
-    "POS receipt paper rolls",
-    "receipt paper rolls",
-    "till rolls",
-    "cash register paper rolls",
-    "credit card terminal paper rolls",
-    "80x80 thermal paper rolls",
-    "3 1/8 x 230 thermal paper rolls",
-    "57mm thermal paper rolls",
-    "2 1/4 inch receipt paper",
-  ],
+  languages: {
+    en: "https://www.zhixinpaper.com/products/thermal-paper-rolls",
+    "x-default": "https://www.zhixinpaper.com/products/thermal-paper-rolls",
+  },
 });
 
 const THERMAL_ROLL_FAQS = [

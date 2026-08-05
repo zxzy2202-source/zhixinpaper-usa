@@ -3,10 +3,18 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { canonicalUrl } from "@/lib/seo";
 
+const PAGE_URL = canonicalUrl("/cookie-policy");
+
 export const metadata: Metadata = {
   title: "Cookie Policy",
   description: "How Zhixin Paper uses essential browser storage and optional analytics technologies.",
-  alternates: { canonical: canonicalUrl("/cookie-policy") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 export default function CookiePolicyPage() {

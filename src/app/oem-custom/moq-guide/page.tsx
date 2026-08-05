@@ -6,13 +6,18 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { canonicalUrl } from "@/lib/seo";
 
-
+const PAGE_URL = canonicalUrl("/oem-custom/moq-guide");
 
 export const metadata: Metadata = {
   title: "MOQ Guide | Thermal Paper Minimum Order Quantity",
   description: "Plan thermal paper and label order quantities by product construction, dimensions, material, printing, tooling, packing, SKU mix, and current production review.",
-  keywords: "thermal paper minimum order, MOQ labels wholesale, thermal paper MOQ guide",
-  alternates: { canonical: canonicalUrl("/oem-custom/moq-guide") },
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      "x-default": PAGE_URL,
+    },
+  },
 };
 
 const moqTable = [
