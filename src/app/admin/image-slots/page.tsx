@@ -35,7 +35,9 @@ interface MediaFile {
   originalName: string;
   width: number | null;
   height: number | null;
+  folder?: string | null;
 }
+
 
 interface UploadDialogState {
   slot: SlotData;
@@ -602,13 +604,14 @@ function MediaPicker({
                   className="group relative aspect-square bg-slate-100  overflow-hidden border-2 border-transparent hover:border-blue-600 transition-colors"
                   title={f.originalName}
                 >
-                  <Image
-                    src={f.url}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={f.folder || f.url}
                     alt={f.originalName}
-                    fill
-                    sizes="200px"
-                    className="object-cover"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
                   />
+
                   <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/20 transition-colors flex items-center justify-center">
                     <span className="px-3 py-1.5 text-xs font-medium bg-white  opacity-0 group-hover:opacity-100 transition-opacity">
                       选择
