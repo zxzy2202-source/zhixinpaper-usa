@@ -43,6 +43,7 @@ interface UploadItem {
   error?: string;
   /** 服务端 sharp 压缩结果 */
   compression?: { originalSize: number; compressedSize: number; savedPercent: number };
+  seo?: { alt: string; filenameBase: string; source: "manual" | "slot" | "filename" };
   /** 浏览器端预压缩结果（上传前） */
   clientCompression?: { originalSize: number; compressedSize: number; savedPercent: number; skipped: boolean; skipReason?: string };
 }
@@ -467,6 +468,11 @@ function UploadPreviewModal({
                       </span>
                     )}
                   </p>
+                  {item.seo && (
+                    <p className="text-[10px] text-emerald-700 mt-0.5 line-clamp-2" title={item.seo.alt}>
+                      SEO/GEO：{item.seo.alt}
+                    </p>
+                  )}
                   {item.error && <p className="text-[10px] text-red-500 mt-0.5">{item.error}</p>}
                 </div>
               </div>
@@ -642,6 +648,7 @@ export default function MediaManager() {
           status: "success",
           progress: 100,
           compression: data.compression,
+          seo: data.seo,
         };
       } catch (err) {
         items[i] = {

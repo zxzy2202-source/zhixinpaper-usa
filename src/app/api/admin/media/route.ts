@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { mediaFiles } from "@/lib/db/schema";
 import { desc } from "drizzle-orm";
 import { uploadToR2 } from "@/lib/r2";
+import { extensionForMime, generateImageMetadata } from "@/lib/imageMetadata";
+import { getSlot } from "@/lib/imageSlots";
 import sharp from "sharp";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -129,7 +131,8 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File;
-    const alt = (formData.get("alt") as string) || "";
+    const requestedAlt = (formData.get("alt") as string) || "";
+    const slotKey = (formData.get("slotKey") as string) || "";
     const categoryIdStr = formData.get("categoryId") as string | null;
     const categoryId = categoryIdStr ? parseInt(categoryIdStr) : null;
 
@@ -158,13 +161,22 @@ export async function POST(request: NextRequest) {
     // 压缩图片 + 生成缩略图
     const { optimized, thumbnail, width, height } = await processImage(buffer, file.type);
 
-    // 生成安全文件名
+    const slot = slotKey ? getSlot(slotKey) : undefined;
+    if (slotKey && !slot) {
+      return NextResponse.json({ error: "未知的图片槽位" }, { status: 400 });
+    }
+
+    const metadata = generateImageMetadata({
+      originalName: file.name,
+      requestedAlt,
+      slotAlt: slot?.defaultAlt,
+      slotKey: slot?.key,
+    });
+
+    // 生成可读、稳定的 SEO 文件名
     const timestamp = Date.now();
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const safeName = file.name
-      .replace(/\.[^/.]+$/, "")
-      .replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, "_")
-      .substring(0, 50);
+    const ext = extensionForMime(file.type);
+    const safeName = metadata.filenameBase.substring(0, 80);
 
     // 上传压缩后的图片到 R2
     const mainKey = `media/${timestamp}_${safeName}.${ext}`;
@@ -189,7 +201,7 @@ export async function POST(request: NextRequest) {
         width,
         height,
         url: mainUpload.url,
-        alt,
+        alt: metadata.alt,
         folder: thumbnailUrl || "",  // 复用 folder 字段存储缩略图 URL
         categoryId: categoryId && !isNaN(categoryId) ? categoryId : null,
         uploadedBy: session.id || 1,
@@ -204,6 +216,7 @@ export async function POST(request: NextRequest) {
         compressedSize: optimized.length,
         savedPercent: Math.round((1 - optimized.length / file.size) * 100),
       },
+      seo: metadata,
     });
   } catch (error) {
     console.error("上传图片失败:", error);

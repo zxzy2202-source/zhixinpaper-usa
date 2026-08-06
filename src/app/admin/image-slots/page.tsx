@@ -153,6 +153,7 @@ export default function ImageSlotsPage() {
       const fd = new FormData();
       fd.append("file", dialog.rawFile);
       fd.append("alt", dialog.alt);
+      fd.append("slotKey", slot.key);
       const upRes = await fetch("/api/admin/media", { method: "POST", body: fd });
       const upJson = await upRes.json();
       if (!upRes.ok) throw new Error(upJson.error || "上传失败");
@@ -606,7 +607,7 @@ function MediaPicker({
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={f.folder || f.url}
+                    src={f.folder?.startsWith("http") ? f.folder : f.url}
                     alt={f.originalName}
                     className="h-full w-full object-cover"
                     loading="lazy"
