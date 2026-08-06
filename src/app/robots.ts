@@ -7,9 +7,34 @@ import type { MetadataRoute } from "next";
  *   1. 主流搜索引擎（Google/Bing/Yandex/Baidu/DuckDuckGo）全开放
  *   2. 屏蔽无 SEO 价值路径：/api/ /admin/ /login 等（/_next/ 保持开放供渲染）
  *   3. 明确允许图片爬虫抓 R2 上的产品图（图片 SEO 关键）
- *   4. 开放 AI 搜索与用户请求抓取，继续屏蔽纯训练爬虫
- *   5. 屏蔽垃圾爬虫（SemrushBot/AhrefsBot 等），节省服务器资源
+ *   4. 为 B2B 询盘获客开放主流 AI 搜索、用户请求、训练和语料抓取
+ *   5. AI 抓取器继续禁止访问后台、API、登录和本地数据路径
+ *   6. 屏蔽低价值 SEO 分析爬虫，节省服务器资源
  */
+const PRIVATE_PATHS = ["/api/", "/admin/", "/login", "/data/"];
+
+const AI_USER_AGENTS = [
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "GPTBot",
+  "PerplexityBot",
+  "Perplexity-User",
+  "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "anthropic-ai",
+  "Claude-Web",
+  "Google-Extended",
+  "CCBot",
+  "Applebot-Extended",
+  "Amazonbot",
+  "FacebookBot",
+  "Meta-ExternalAgent",
+  "Meta-ExternalFetcher",
+  "Bytespider",
+  "cohere-ai",
+];
+
 export default function robots(): MetadataRoute.Robots {
   const siteUrl = "https://www.zhixinpaper.com";
 
@@ -37,35 +62,28 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/"],
-        disallow: ["/api/", "/admin/", "/login"],
+        disallow: PRIVATE_PATHS,
       },
       {
         userAgent: "Googlebot-Image",
         allow: ["/"],
-        disallow: ["/admin/"],
+        disallow: PRIVATE_PATHS,
       },
 
       // ─── Bing 同等开放 ───
       {
         userAgent: "Bingbot",
         allow: ["/"],
-        disallow: ["/api/", "/admin/", "/login"],
+        disallow: PRIVATE_PATHS,
       },
 
-      // ─── AI 搜索与用户请求开放，纯训练抓取继续屏蔽 ───
-      { userAgent: "OAI-SearchBot", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
-      { userAgent: "ChatGPT-User", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
-      { userAgent: "GPTBot", disallow: ["/"] },
-      { userAgent: "CCBot", disallow: ["/"] },                  // Common Crawl
-      { userAgent: "anthropic-ai", disallow: ["/"] },           // Claude
-      { userAgent: "Claude-Web", disallow: ["/"] },
-      { userAgent: "Google-Extended", disallow: ["/"] },        // Google Bard/Gemini 训练
-      { userAgent: "PerplexityBot", allow: ["/"], disallow: ["/api/", "/admin/", "/login"] },
-      { userAgent: "Bytespider", disallow: ["/"] },             // 字节跳动 AI
-      { userAgent: "Amazonbot", disallow: ["/"] },              // Alexa 训练
-      { userAgent: "Applebot-Extended", disallow: ["/"] },      // Apple AI
-      { userAgent: "FacebookBot", disallow: ["/"] },            // Meta AI
-      { userAgent: "Meta-ExternalAgent", disallow: ["/"] },
+      // ─── AI 搜索、用户请求、训练和公共语料抓取全部开放 ───
+      // 目标是让 B2B 产品、行业、市场与合规页面获得更多 AI 引用和询盘入口。
+      ...AI_USER_AGENTS.map((userAgent) => ({
+        userAgent,
+        allow: ["/"],
+        disallow: PRIVATE_PATHS,
+      })),
 
       // ─── 屏蔽 SEO 分析爬虫（消耗带宽） ───
       // 注：SemrushBot 已放行，老板自己要用 Semrush 跑分析

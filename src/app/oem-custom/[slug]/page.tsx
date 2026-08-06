@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 
 
 const OEM_PAGES: Record<string, {
@@ -197,17 +197,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = OEM_PAGES[slug];
   if (!page) return { title: "Not Found" };
-  return {
+  return buildMetadata({
     title: page.metaTitle,
     description: page.metaDesc,
-    alternates: {
-      canonical: canonicalUrl(`/oem-custom/${slug}`),
-      languages: {
-        en: canonicalUrl(`/oem-custom/${slug}`),
-        "x-default": canonicalUrl(`/oem-custom/${slug}`),
-      },
-    },
-  };
+    path: `/oem-custom/${slug}`,
+  });
 }
 
 export default async function OEMSlugPage({ params }: { params: Promise<{ slug: string }> }) {

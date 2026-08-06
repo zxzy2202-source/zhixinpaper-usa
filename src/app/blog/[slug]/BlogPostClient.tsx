@@ -57,7 +57,9 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
       day: "numeric",
     });
     const tagList = dbPost.tags ? dbPost.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
-    const related = BLOG_POSTS.filter((p) => p.category === dbPost.category).slice(0, 3);
+    const related = BLOG_POSTS.filter(
+      (post) => post.slug !== slug && post.category === dbPost.category,
+    ).slice(0, 3);
 
     return (
       <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>

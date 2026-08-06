@@ -8,7 +8,7 @@ import { BLOG_POSTS } from "@/lib/data";
 import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { canonicalUrl } from "@/lib/seo";
+import { buildMetadata, canonicalUrl } from "@/lib/seo";
 
 const STATIC_POST_SEO: Record<string, { title: string; keywords: string[] }> = {
   "thermal-paper-roll-sizes-guide": {
@@ -60,46 +60,46 @@ export async function generateMetadata({
   } catch {}
 
   if (dbPost) {
-      return {
-        title: `${dbPost.seoTitle || dbPost.title} | Blog`,
-        description: dbPost.seoDescription || dbPost.excerpt || "",
-        openGraph: {
-          title: dbPost.title,
-          description: dbPost.excerpt || "",
-          type: "article",
-          publishedTime: dbPost.publishedAt || dbPost.createdAt,
-          authors: ["Zhixin Paper"],
-          images: dbPost.coverImage ? [{ url: dbPost.coverImage }] : [],
-        },
-        alternates: {
-          canonical: canonicalUrl(`/blog/${slug}`),
-          languages: {
-            en: canonicalUrl(`/blog/${slug}`),
-            "x-default": canonicalUrl(`/blog/${slug}`),
-          },
-        },
-      };
+    const title = dbPost.seoTitle || dbPost.title;
+    const description = dbPost.seoDescription || dbPost.excerpt || "";
+    const metadata = buildMetadata({
+      title,
+      description,
+      path: `/blog/${slug}`,
+      image: dbPost.coverImage || undefined,
+    });
+    return {
+      ...metadata,
+      openGraph: {
+        ...metadata.openGraph,
+        title: dbPost.title,
+        description: dbPost.excerpt || description,
+        type: "article",
+        publishedTime: dbPost.publishedAt || dbPost.createdAt,
+        modifiedTime: dbPost.updatedAt,
+        authors: ["Zhixin Paper"],
+      },
+    };
   }
 
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) return { title: "Article Not Found" };
   const staticSeo = STATIC_POST_SEO[slug];
-  return {
-    title: staticSeo?.title || `${post.title} | Blog`,
+  const metadata = buildMetadata({
+    title: staticSeo?.title || post.title,
     description: post.excerpt,
+    path: `/blog/${slug}`,
+  });
+  return {
+    ...metadata,
     openGraph: {
+      ...metadata.openGraph,
       title: post.title,
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.date,
       authors: ["Zhixin Paper"],
-    },
-    alternates: {
-      canonical: canonicalUrl(`/blog/${slug}`),
-      languages: {
-        en: canonicalUrl(`/blog/${slug}`),
-        "x-default": canonicalUrl(`/blog/${slug}`),
-      },
     },
   };
 }

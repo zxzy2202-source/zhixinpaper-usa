@@ -6,7 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
-import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl } from "@/lib/seo";
 import { CASE_STUDIES } from "@/lib/case-studies";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -20,8 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const caseStudy = CASE_STUDIES.find((item) => item.slug === slug);
   if (!caseStudy) return { title: "Case Study Not Found" };
 
-  const pageUrl = `https://www.zhixinpaper.com/case-studies/${slug}`;
-
   return buildMetadata({
     title: `${caseStudy.title} | Project Case Studies`,
     description: caseStudy.challenge.slice(0, 160),
@@ -34,23 +32,32 @@ export default async function CaseStudyDetailPage({ params }: Props) {
   const caseStudy = CASE_STUDIES.find((item) => item.slug === slug);
   if (!caseStudy) notFound();
 
-  const pageUrl = `https://www.zhixinpaper.com/case-studies/${slug}`;
+  const pageUrl = canonicalUrl(`/case-studies/${slug}`);
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: caseStudy.title,
-    description: caseStudy.challenge,
-    url: pageUrl,
-    author: { "@type": "Organization", name: "Zhixin Paper", url: "https://www.zhixinpaper.com" },
-    publisher: {
-      "@type": "Organization",
-      name: "Zhixin Paper",
-      url: "https://www.zhixinpaper.com",
-      logo: { "@type": "ImageObject", url: "https://www.zhixinpaper.com/images/logo.png" },
-    },
-    mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
-    about: { "@type": "Thing", name: caseStudy.industry },
-    keywords: caseStudy.tags.join(", "),
+    "@graph": [
+      breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Case Studies", url: "/case-studies" },
+        { name: caseStudy.title, url: `/case-studies/${slug}` },
+      ]),
+      {
+        "@type": "Article",
+        headline: caseStudy.title,
+        description: caseStudy.challenge,
+        url: pageUrl,
+        author: { "@type": "Organization", name: "Zhixin Paper", url: "https://www.zhixinpaper.com" },
+        publisher: {
+          "@type": "Organization",
+          name: "Zhixin Paper",
+          url: "https://www.zhixinpaper.com",
+          logo: { "@type": "ImageObject", url: "https://www.zhixinpaper.com/images/logo.png" },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+        about: { "@type": "Thing", name: caseStudy.industry },
+        keywords: caseStudy.tags.join(", "),
+      },
+    ],
   };
 
   return (

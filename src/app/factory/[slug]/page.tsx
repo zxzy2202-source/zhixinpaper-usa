@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 
 
 const FACTORY_PAGES: Record<string, {
@@ -294,25 +294,21 @@ const FACTORY_PAGES: Record<string, {
   },
 };
 
+// These five slugs have dedicated route files under /factory/*.
+// Keep this compatibility route for future slugs without pre-rendering duplicate URLs.
 export async function generateStaticParams() {
-  return Object.keys(FACTORY_PAGES).map((slug) => ({ slug }));
+  return [];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const page = FACTORY_PAGES[slug];
   if (!page) return { title: "Not Found" };
-  return {
+  return buildMetadata({
     title: page.metaTitle,
     description: page.metaDesc,
-    alternates: {
-      canonical: canonicalUrl(`/factory/${slug}`),
-      languages: {
-        en: canonicalUrl(`/factory/${slug}`),
-        "x-default": canonicalUrl(`/factory/${slug}`),
-      },
-    },
-  };
+    path: `/factory/${slug}`,
+  });
 }
 
 export default async function FactorySlugPage({ params }: { params: Promise<{ slug: string }> }) {

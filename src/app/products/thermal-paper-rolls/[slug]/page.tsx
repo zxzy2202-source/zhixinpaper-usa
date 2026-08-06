@@ -349,7 +349,11 @@ export default async function RollDetailPage({ params }: Props) {
   const roll = THERMAL_PAPER_ROLLS.find((r) => r.slug === slug);
   if (!roll) notFound();
 
-  const related = THERMAL_PAPER_ROLLS.filter((r) => r.slug !== slug).slice(0, 4);
+  const currentIndex = THERMAL_PAPER_ROLLS.findIndex((item) => item.slug === slug);
+  const related = [
+    ...THERMAL_PAPER_ROLLS.slice(currentIndex + 1),
+    ...THERMAL_PAPER_ROLLS.slice(0, currentIndex),
+  ].slice(0, 4);
   const heroText = (roll as { heroDesc?: string }).heroDesc || `${roll.name} for distributor and OEM projects. Paper grade, dimensions, printer compatibility, documents, printing, packing, and private-label scope are confirmed for the quotation.`;
   const descText = (roll as { description?: string }).description || `${roll.name} for wholesale distributors and importers. Paper-grade documents, order quantity, OEM printing, and private-label options are confirmed for the quoted specification and project.`;
 
@@ -430,6 +434,7 @@ export default async function RollDetailPage({ params }: Props) {
 
   const jsonLd = [
     breadcrumbSchema([
+      { name: "Home", url: "/" },
       { name: "Products", url: "/products" },
       { name: "Thermal Paper Rolls", url: "/products/thermal-paper-rolls" },
       { name: roll.name, url: `/products/thermal-paper-rolls/${slug}` },

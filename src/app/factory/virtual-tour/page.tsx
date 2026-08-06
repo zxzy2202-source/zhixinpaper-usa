@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
+import FactorySubnav from "@/components/factory/FactorySubnav";
 import { canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/virtual-tour");
@@ -75,6 +76,7 @@ export default function VirtualTourPage() {
 
     <>
       <Header />
+      <FactorySubnav current="/factory/virtual-tour" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryTourVideoSchema).replace(/</g, "\\u003c") }}

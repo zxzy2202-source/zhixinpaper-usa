@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import FaqSection from "@/components/ui/FaqSection";
 import { GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { canonicalUrl, faqSchema } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
 import { normalizeFaqItem } from "@/lib/faq";
 import {
   ArrowRight, CheckCircle2, Truck, ShieldCheck, Package, MapPin,
@@ -36,26 +36,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { country } = await params;
   const c = euRegion.countries?.find((c) => c.slug === country);
   if (!c) return {};
-  return {
+  const path = `/eu/${country}`;
+  const metadata = buildMetadata({
     title: `${country === "uk" ? "UK" : c.name} Thermal Paper and Labels Supply`,
     description: `Thermal paper rolls and labels for distributors in ${c.name}. Review material chemistry, document scope, printer fit, samples, packing, and shipping terms by project.`,
-    alternates: {
-      canonical: canonicalUrl(`/eu/${country}`),
-      languages: {
-        en: canonicalUrl(`/eu/${country}`),
-        "x-default": canonicalUrl(`/eu/${country}`),
-      },
-    },
+    path,
+    locale: OPEN_GRAPH_LOCALES[country] ?? "en_GB",
+    languages: { en: canonicalUrl(path), "x-default": canonicalUrl(path) },
+  });
+
+  return {
+    ...metadata,
     openGraph: {
+      ...metadata.openGraph,
       title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,
       description: `Thermal paper rolls and labels for ${c.name} distributors, with grade-level document, packing, sample, and delivery review.`,
-      url: canonicalUrl(`/eu/${country}`),
-      siteName: "Zhixin Paper",
-      locale: OPEN_GRAPH_LOCALES[country] ?? "en_GB",
       type: "website",
     },
     twitter: {
-      card: "summary_large_image",
+      ...metadata.twitter,
       title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,
       description: `Thermal paper rolls and labels configured for ${c.name} distribution projects.`,
     },
@@ -181,12 +180,41 @@ export default async function EUCountryPage({ params }: Props) {
   const faq = COUNTRY_FAQ[country] || COUNTRY_FAQ["default"];
   const faqs = faq.map(normalizeFaqItem);
   const faqJsonLd = faqSchema(faqs);
+  const pageUrl = canonicalUrl(`/eu/${country}`);
+  const marketJsonLd = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Export Markets", url: "/markets" },
+      { name: "Europe", url: "/eu" },
+      { name: c.name, url: `/eu/${country}` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: `Thermal Paper Supplier ${c.name}`,
+      description: c.description || `Thermal paper rolls and labels for ${c.name} distributors.`,
+      isPartOf: { "@type": "WebPage", url: canonicalUrl("/markets"), name: "Export Markets" },
+      about: { "@type": "Country", name: c.name },
+      mainEntity: {
+        "@type": "Service",
+        name: `Thermal paper and label supply for ${c.name}`,
+        provider: { "@id": `${canonicalUrl("/")}#organization` },
+        areaServed: { "@type": "Country", name: c.name },
+        serviceType: ["Thermal paper rolls", "Thermal labels", "Export document review"],
+      },
+    },
+  ];
   const isPilot = country === "uk";
 
   return (
     <>
       <Header />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([...marketJsonLd, faqJsonLd]) }}
+      />
       <main id="main-content" className={isPilot ? "pilot-brand-page" : undefined}>
 
         {/* ── HERO ── */}

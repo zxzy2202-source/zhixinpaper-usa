@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
+import FactorySubnav from "@/components/factory/FactorySubnav";
 import { canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/quality-control");
@@ -34,6 +35,7 @@ export default function QualityControlPage() {
 
     <>
       <Header />
+      <FactorySubnav current="/factory/quality-control" />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

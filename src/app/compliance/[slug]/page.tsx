@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import { COMPLIANCE_ITEMS } from "@/lib/data";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, Download } from "lucide-react";
 
 interface Props {
@@ -20,17 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = COMPLIANCE_ITEMS.find((c) => c.slug === slug);
   if (!item) return {};
-  return {
+  return buildMetadata({
     title: `${item.name} Documentation`,
     description: `Review ${item.name} requirements and available document routes for thermal paper rolls and labels. Confirm the exact grade, test scope, market, and use.`,
-    alternates: {
-      canonical: canonicalUrl(`/compliance/${slug}`),
-      languages: {
-        en: canonicalUrl(`/compliance/${slug}`),
-        "x-default": canonicalUrl(`/compliance/${slug}`),
-      },
-    },
-  };
+    path: `/compliance/${slug}`,
+  });
 }
 
 const COMPLIANCE_DETAILS: Record<string, { title: string; details: string[]; markets: string[]; products: string[] }> = {
@@ -137,10 +131,33 @@ export default async function ComplianceDetailPage({ params }: Props) {
   };
 
   const related = COMPLIANCE_ITEMS.filter((c) => c.slug !== slug);
+  const pageUrl = canonicalUrl(`/compliance/${slug}`);
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Compliance", url: "/compliance" },
+      { name: item.name, url: `/compliance/${slug}` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: details.title,
+      description: item.description,
+      about: details.markets.map((market) => ({ "@type": "Thing", name: market })),
+      mainEntity: {
+        "@type": "DefinedTerm",
+        name: item.name,
+        description: details.details.join(" "),
+      },
+    },
+  ];
 
   return (
     <>
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main>
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
           <div className="container-site">

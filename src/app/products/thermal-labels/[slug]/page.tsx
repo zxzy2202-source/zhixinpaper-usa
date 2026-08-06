@@ -127,7 +127,11 @@ export default async function LabelDetailPage({ params }: Props) {
   const label = THERMAL_LABELS.find((l) => l.slug === slug);
   if (!label) notFound();
 
-  const related = THERMAL_LABELS.filter((l) => l.slug !== slug).slice(0, 4);
+  const currentIndex = THERMAL_LABELS.findIndex((item) => item.slug === slug);
+  const related = [
+    ...THERMAL_LABELS.slice(currentIndex + 1),
+    ...THERMAL_LABELS.slice(0, currentIndex),
+  ].slice(0, 4);
   const heroText = (label as { heroDesc?: string }).heroDesc || `${label.name} for distributor and OEM projects. Facestock, adhesive, liner, printer compatibility, documents, printing, packing, and private-label scope are confirmed for the quotation.`;
   const descText = (label as { description?: string }).description || `${label.name} for wholesale distributors and importers. Material documents, order quantity, OEM printing, and private-label options are confirmed for the quoted construction and project.`;
 

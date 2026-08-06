@@ -42,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/products/thermal-paper-rolls`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/products/thermal-labels`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/industries`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/markets`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/eu`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/eu/germany`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/eu/uk`, changeFrequency: "monthly", priority: 0.7 },

@@ -13,8 +13,13 @@ const DEFAULT_HREFLANGS = {
 } as const;
 
 export function canonicalUrl(path = "/") {
+  if (/^https?:\/\//i.test(path)) return path;
   const normalizedPath = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${normalizedPath}`;
+}
+
+export function absoluteUrl(value: string) {
+  return canonicalUrl(value);
 }
 
 // ─── Core metadata factory ────────────────────────────────────────────────────
@@ -81,6 +86,7 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "ManufacturingBusiness"],
+    "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     alternateName: ["Zhixin Paper Co., Ltd.", "ZX Papers", "zxpapers"],
     url: SITE_URL,
@@ -170,8 +176,8 @@ export function productSchema({
     "@type": "Product",
     name,
     description,
-    image: `${SITE_URL}${image}`,
-    url: `${SITE_URL}${url}`,
+    image: absoluteUrl(image),
+    url: absoluteUrl(url),
     sku,
     brand: { "@type": "Brand", name: brand },
     category,
@@ -203,7 +209,7 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.url}`,
+      item: absoluteUrl(item.url),
     })),
   };
 }
@@ -245,8 +251,8 @@ export function articleSchema({
     "@type": "Article",
     headline: title,
     description,
-    image: `${SITE_URL}${image}`,
-    url: `${SITE_URL}${url}`,
+    image: absoluteUrl(image),
+    url: absoluteUrl(url),
     datePublished,
     dateModified: dateModified || datePublished,
     author: {
@@ -262,7 +268,7 @@ export function articleSchema({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${SITE_URL}${url}`,
+      "@id": absoluteUrl(url),
     },
   };
 }

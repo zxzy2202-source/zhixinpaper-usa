@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
+import FactorySubnav from "@/components/factory/FactorySubnav";
 import { canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/overview");
@@ -52,6 +53,7 @@ export default function FactoryOverviewPage() {
 
     <>
       <Header />
+      <FactorySubnav current="/factory/overview" />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       {/* Hero */}
       <HeroBanner

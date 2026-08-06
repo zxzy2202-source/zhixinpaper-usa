@@ -522,6 +522,17 @@ function MarketsDropdown() {
     <div className="w-[340px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
       <div className="p-4 space-y-0.5">
           <Link
+            href="/markets"
+            className={`flex items-center gap-2.5 px-2.5 py-2 text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
+              pathname === "/markets"
+                ? "bg-[#e7eee9] text-[#0f5f5c] font-semibold"
+                : "text-[#33413e] hover:bg-white hover:text-[#14211f]"
+            }`}
+          >
+            <Globe className="w-4 h-4 text-[#87918c]" />
+            All Export Markets
+          </Link>
+          <Link
             href="/eu"
             className={`flex items-center gap-2.5 px-2.5 py-2  text-sm font-medium transition-[background-color,border-color,color,box-shadow,transform] ${
               pathname.startsWith("/eu")
@@ -631,6 +642,7 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "Contact",  href: "/contact", tag: "P1" },
   ],
   Export: [
+    { label: "All Export Markets",          href: "/markets" },
     { label: "REACH / RoHS Route",        href: "/eu" },
     { label: "FDA / Prop 65 Route",       href: "/us" },
     { label: "Bilingual Document Route",  href: "/ca" },
@@ -676,7 +688,7 @@ export default function Header() {
     "Factory & Quality": "/factory",
     Resources:  "/blog",
     About:      "/about",
-    Export:     "/eu",
+    Export:     "/markets",
   };
 
   const renderDropdown = (label: NavLabel) => {

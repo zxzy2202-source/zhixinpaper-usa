@@ -72,9 +72,9 @@ test("llms publishes unique cluster-to-page ownership", () => {
 });
 
 test("thermal label cluster keeps category and print-method owners distinct", () => {
-  assert.match(thermalLabelsHub, /Thermal Labels Wholesale \| Direct, Transfer & 4x6/);
-  assert.match(thermalLabelsHub, /direct thermal labels/);
-  assert.match(thermalLabelsHub, /4x6 shipping labels wholesale/);
+  assert.match(thermalLabelsHub, /Wholesale Thermal Labels for Shipping, Barcode & OEM/);
+  assert.match(thermalLabelsHub, /Direct thermal and 4x6 shipping labels/);
+  assert.match(thermalLabelsHub, /Thermal transfer and durable labels/);
   assert.match(thermalLabelsHub, /direct-thermal-labels/);
   assert.match(thermalLabelsHub, /thermal-transfer-labels/);
   assert.match(data, /direct thermal shipping labels/);
@@ -82,10 +82,10 @@ test("thermal label cluster keeps category and print-method owners distinct", ()
 });
 
 test("regional pages own procurement context rather than product-specific keyword clusters", () => {
-  assert.match(usPage, /US thermal paper procurement/);
-  assert.match(usPage, /California thermal paper requirements/);
-  assert.match(caPage, /Canadian thermal paper procurement/);
-  assert.match(caPage, /Canadian material review for thermal paper/);
+  assert.match(usPage, /US procurement commonly requires material/);
+  assert.match(usPage, /California chemical and warning requirements/);
+  assert.match(caPage, /Canada projects can involve bilingual artwork/);
+  assert.match(caPage, /Canadian Material Review/);
   assert.doesNotMatch(usPage, /FDA compliant thermal paper/);
   assert.doesNotMatch(caPage, /Health Canada compliant thermal paper/);
 });

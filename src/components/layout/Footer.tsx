@@ -41,6 +41,19 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Contact", href: "/contact" },
     ],
   },
+  {
+    title: "Markets & Resources",
+    links: [
+      { label: "All Export Markets", href: "/markets" },
+      { label: "Europe", href: "/eu" },
+      { label: "United States", href: "/us" },
+      { label: "Canada", href: "/ca" },
+      { label: "Mexico", href: "/mx" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Request Samples", href: "/samples" },
+    ],
+  },
 ];
 
 const FooterLinks = ({ links }: { links: FooterLink[] }) => (
@@ -118,7 +131,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4">
             {FOOTER_SECTIONS.map((section) => (
               <FooterSection key={section.title} {...section} />
             ))}
