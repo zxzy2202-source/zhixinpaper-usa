@@ -1,10 +1,11 @@
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/session";
 import { db } from "@/lib/db";
 import { imageSlots, mediaFiles } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { SLOT_REGISTRY, SLOT_GROUP_LABELS } from "@/lib/imageSlots";
-import { invalidateSlotCache } from "@/lib/imageSlotResolver";
+import { IMAGE_SLOT_CACHE_TAG } from "@/lib/imageSlotResolver";
 
 /**
  * GET /api/admin/image-slots
@@ -94,7 +95,8 @@ export async function PUT(req: Request) {
         updatedBy: session.id,
       });
     }
-    invalidateSlotCache();
+    revalidateTag(IMAGE_SLOT_CACHE_TAG, "max");
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("[image-slots] PUT failed:", e);

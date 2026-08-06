@@ -39,8 +39,24 @@ async function main() {
   }
 
   await loadEnvFile(getArgument("--env-file"));
+  await loadEnvFile(".env.production.local");
   await loadEnvFile(".env.local");
+  await loadEnvFile(".env.production");
   await loadEnvFile(".env");
+
+  const databaseUrl = process.env.TURSO_DATABASE_URL?.trim();
+  if (!databaseUrl) {
+    throw new Error(
+      "TURSO_DATABASE_URL is required for optimization log publishing. Provide --env-file <production-env-file> or configure the process environment; local SQLite fallback is disabled.",
+    );
+  }
+
+  const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
+  if (!authToken && !databaseUrl.startsWith("file:")) {
+    throw new Error(
+      "TURSO_AUTH_TOKEN is required for remote optimization log publishing.",
+    );
+  }
 
   const input = JSON.parse(await readFile(resolve(inputPath), "utf8"));
   const validation = validateOptimizationLogInput({ ...input, source: "cli" });

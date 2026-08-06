@@ -91,16 +91,6 @@ const nextConfig = {
           },
         ],
       },
-      // CDN cache for public HTML pages (exclude admin routes)
-      {
-        source: "/((?!api|admin|_next/static|_next/image|favicon.ico).*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=3600, stale-while-revalidate=86400",
-          },
-        ],
-      },
     ];
   },
   // Trailing slash consistency

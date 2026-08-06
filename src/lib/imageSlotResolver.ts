@@ -8,11 +8,10 @@
  *   - components/ui/SlotImage.tsx (Server Component)
  *   - 任何 Server Component 想拿"槽位真实 URL"
  *
- * 性能：
- *   - 一次性 SELECT 拉所有 image_slots 进 process 内存缓存
- *   - 缓存 TTL 60 秒（开发可改），后台改图后下次请求自动失效
+ *   - 使用 Next.js Data Cache，后台改图后通过标签跨实例失效
  */
 
+import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { imageSlots, mediaFiles } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -27,18 +26,18 @@ interface ResolvedSlot {
   isFallback: boolean;
 }
 
-interface CacheEntry {
-  data: Map<string, { url: string; alt: string; width?: number; height?: number }>;
-  expiresAt: number;
+interface CachedSlot {
+  slotKey: string;
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
 }
 
-const CACHE_TTL_MS = 60_000;
-let cache: CacheEntry | null = null;
+export const IMAGE_SLOT_CACHE_TAG = "image-slots";
 
-async function loadAll(): Promise<CacheEntry["data"]> {
-  if (cache && cache.expiresAt > Date.now()) return cache.data;
-
-  const map = new Map<string, { url: string; alt: string; width?: number; height?: number }>();
+async function queryAll(): Promise<CachedSlot[]> {
+  const slots: CachedSlot[] = [];
   try {
     const rows = await db
       .select({
@@ -53,21 +52,25 @@ async function loadAll(): Promise<CacheEntry["data"]> {
 
     for (const r of rows) {
       if (!r.url) continue; // 槽位记录存在但媒体被删
-      map.set(r.slotKey, {
+      slots.push({
+        slotKey: r.slotKey,
         url: r.url,
         alt: r.alt ?? "",
         width: r.width ?? undefined,
         height: r.height ?? undefined,
       });
     }
-    cache = { data: map, expiresAt: Date.now() + CACHE_TTL_MS };
   } catch (e) {
     // 表未建 / DB 不通 → 静默退化用 fallback，保证页面不挂
     console.warn("[imageSlotResolver] DB read failed, using fallbacks:", (e as Error).message);
-    cache = { data: map, expiresAt: Date.now() + 5_000 };
   }
-  return map;
+  return slots;
 }
+
+const loadAll = unstable_cache(queryAll, [IMAGE_SLOT_CACHE_TAG], {
+  revalidate: 60,
+  tags: [IMAGE_SLOT_CACHE_TAG],
+});
 
 /**
  * 解析一个槽位。绑定了→返回真实 URL；未绑定/出错→返回 fallback。
@@ -85,8 +88,8 @@ export async function resolveSlot(slotKey: SlotKey | string): Promise<ResolvedSl
     };
   }
 
-  const map = await loadAll();
-  const bound = map.get(slotKey);
+  const cachedSlots = await loadAll();
+  const bound = cachedSlots.find((item) => item.slotKey === slotKey);
   if (bound) {
     return {
       url: bound.url,
@@ -97,9 +100,4 @@ export async function resolveSlot(slotKey: SlotKey | string): Promise<ResolvedSl
     };
   }
   return { url: def.fallback, alt: def.defaultAlt, isFallback: true };
-}
-
-/** 手动失效缓存（管理后台改完图后调用） */
-export function invalidateSlotCache() {
-  cache = null;
 }
