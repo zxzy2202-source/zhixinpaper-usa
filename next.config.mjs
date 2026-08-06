@@ -10,7 +10,7 @@ const nextConfig = {
   },
   images: {
     // Enable Next.js image optimization for CDN caching
-    unoptimized: false,
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     qualities: [60, 65, 68, 72, 74, 75, 76, 78, 88],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
