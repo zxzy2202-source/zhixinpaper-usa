@@ -22,7 +22,7 @@ const geistDisplay = localFont({
 // 静态默认元数据（运行时会被 generateMetadata 中的 SEO 设置覆盖）
 const DEFAULT_TITLE = "Zhixin Paper | Thermal Paper Rolls & Labels Manufacturer";
 const DEFAULT_DESC =
-  "Manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Materials, documents, printer compatibility, packing, and destination requirements are reviewed by specification.";
+  "Thermal rolls & labels for distributors & factories in Europe, US & Canada. OEM, BPA-free, compliance docs. Share size, material, samples, destination for a quote.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSeoGlobal();
