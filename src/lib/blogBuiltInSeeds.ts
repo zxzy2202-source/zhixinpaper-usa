@@ -1,5 +1,6 @@
 import { BLOG_CONTENT } from "@/lib/blog-content";
 import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
+import { BLOG_PRODUCT_LINKS } from "@/lib/blog-product-links";
 import { BLOG_REFERENCE_LINKS } from "@/lib/blog-reference-links";
 import { BLOG_POSTS } from "@/lib/data";
 
@@ -34,6 +35,18 @@ function buildIndustryLinks(slug: string) {
     "## Related Industry Pages",
     "",
     ...links.map((link) => `- [${link.label}](/industries/${link.slug}): ${link.description}`),
+    "",
+  ].join("\n");
+}
+
+function buildProductLinks(slug: string) {
+  const links = BLOG_PRODUCT_LINKS[slug] || [];
+  if (links.length === 0) return "";
+
+  return [
+    "## Related Products",
+    "",
+    ...links.map((link) => `- [${link.label}](${link.href}): ${link.description}`),
     "",
   ].join("\n");
 }
@@ -111,7 +124,8 @@ export function getBuiltInBlogSeeds(): BuiltInBlogSeed[] {
     const references = buildReferenceSources(post.slug);
     const faq = buildFaqSection(post.title, post.excerpt, post.category);
     const industryLinks = buildIndustryLinks(post.slug);
-    const content = [body, references, industryLinks, faq, buildCtaSection()].filter(Boolean).join("\n");
+    const productLinks = buildProductLinks(post.slug);
+    const content = [body, references, productLinks, industryLinks, faq, buildCtaSection()].filter(Boolean).join("\n");
     const tagParts = [post.category, post.tag].filter(Boolean);
     const seoTitle = "seoTitle" in post && typeof post.seoTitle === "string"
       ? post.seoTitle

@@ -112,6 +112,13 @@ export default async function BlogPostPage({
   const { slug } = await params;
 
   let dbPost = null;
+  let publishedDbPosts: {
+    slug: string;
+    title: string;
+    category: string;
+    readTime: string;
+    date: string;
+  }[] = [];
   try {
     await ensureBlogPostSchema();
     dbPost = await db
@@ -119,6 +126,24 @@ export default async function BlogPostPage({
       .from(blogPosts)
       .where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")))
       .then((rows) => rows[0]);
+    const publishedRows = await db
+      .select({
+        slug: blogPosts.slug,
+        title: blogPosts.title,
+        category: blogPosts.category,
+        readTime: blogPosts.readTime,
+        publishedAt: blogPosts.publishedAt,
+        createdAt: blogPosts.createdAt,
+      })
+      .from(blogPosts)
+      .where(eq(blogPosts.status, "published"));
+    publishedDbPosts = publishedRows.map((post) => ({
+      slug: post.slug,
+      title: post.title,
+      category: post.category || "General",
+      readTime: post.readTime || "5 min",
+      date: post.publishedAt || post.createdAt,
+    }));
   } catch {}
 
   if (dbPost) {
@@ -158,9 +183,10 @@ export default async function BlogPostPage({
             coverImage: dbPost.coverImage || null,
             publishedAt: dbPost.publishedAt,
             createdAt: dbPost.createdAt,
-            status: dbPost.status,
-          }}
-        />
+             status: dbPost.status,
+           }}
+           publishedDbPosts={publishedDbPosts}
+         />
         <Footer />
       </>
     );
@@ -190,7 +216,7 @@ export default async function BlogPostPage({
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <BlogPostClient slug={slug} dbPost={null} />
+      <BlogPostClient slug={slug} dbPost={null} publishedDbPosts={publishedDbPosts} />
       <Footer />
     </>
   );

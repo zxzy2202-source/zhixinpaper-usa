@@ -6,6 +6,7 @@ import CTABanner from "@/components/ui/CTABanner";
 import { BLOG_POSTS } from "@/lib/data";
 import { BLOG_CONTENT } from "@/lib/blog-content";
 import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
+import { BLOG_PRODUCT_LINKS } from "@/lib/blog-product-links";
 import { ArrowRight, Clock, Calendar, CheckCircle, BookOpen, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -26,9 +27,18 @@ interface DBPost {
   status: string;
 }
 
+interface RelatedPost {
+  slug: string;
+  title: string;
+  category: string;
+  readTime: string;
+  date: string;
+}
+
 interface Props {
   slug: string;
   dbPost: DBPost | null;
+  publishedDbPosts?: RelatedPost[];
 }
 
 function removeLeadingMarkdownTitle(content: string, title: string) {
@@ -46,8 +56,9 @@ function removeLeadingMarkdownTitle(content: string, title: string) {
   return lines.join("\n").trimStart();
 }
 
-export default function BlogPostClient({ slug, dbPost }: Props) {
+export default function BlogPostClient({ slug, dbPost, publishedDbPosts = [] }: Props) {
   const isPilot = slug === "what-is-thermal-paper";
+  const productLinks = BLOG_PRODUCT_LINKS[slug] || [];
 
   if (dbPost) {
     const publishDate = dbPost.publishedAt || dbPost.createdAt;
@@ -57,9 +68,20 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
       day: "numeric",
     });
     const tagList = dbPost.tags ? dbPost.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
-    const related = BLOG_POSTS.filter(
-      (post) => post.slug !== slug && post.category === dbPost.category,
-    ).slice(0, 3);
+    const missingProductLinks = productLinks.filter((product) => !dbPost.content.includes(`](${product.href})`));
+    const staticRelated: RelatedPost[] = BLOG_POSTS
+      .filter((post) => post.slug !== slug && post.category === dbPost.category)
+      .map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        category: post.category,
+        readTime: post.readTime,
+        date: post.date,
+      }));
+    const related = [...publishedDbPosts, ...staticRelated]
+      .filter((post, index, posts) => posts.findIndex((candidate) => candidate.slug === post.slug) === index)
+      .filter((post) => post.slug !== slug && post.category === dbPost.category)
+      .slice(0, 3);
 
     return (
       <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
@@ -114,6 +136,27 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
                     {removeLeadingMarkdownTitle(dbPost.content, dbPost.title)}
                   </ReactMarkdown>
                 </div>
+                {missingProductLinks.length > 0 && (
+                  <section className="mt-10 border-y border-blue-200 bg-blue-50 p-6" aria-labelledby="related-products-heading">
+                    <p className="text-xs font-bold uppercase text-blue-700">Product fit</p>
+                    <h2 id="related-products-heading" className="mt-2 text-xl font-bold text-slate-900">
+                      Continue with the matching product specification.
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      Use these product pages to compare construction, application fit, and the information needed for a representative sample or quotation.
+                    </p>
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      {missingProductLinks.map((product) => (
+                        <Link key={product.href} href={product.href} className="group border border-blue-200 bg-white p-4 transition-colors hover:border-blue-400">
+                          <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
+                            {product.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                          </span>
+                          <span className="mt-2 block text-sm leading-6 text-slate-600">{product.description}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
                 <div className="mt-12 p-6 bg-gradient-to-r from-blue-600 to-blue-700  text-white">
                   <h3 className="font-bold text-xl mb-2">Need Expert Guidance?</h3>
                   <p className="text-blue-100 text-sm mb-4">Contact our technical team for detailed compliance documentation, product specifications, or a custom quote for your market.</p>
@@ -169,8 +212,29 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
   if (!post) notFound();
   const content = BLOG_CONTENT.find((c) => c.slug === slug);
   const industryLinks = BLOG_INDUSTRY_LINKS[slug] || [];
-  const related = BLOG_POSTS.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 3);
-  const otherPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
+  const staticRelated: RelatedPost[] = BLOG_POSTS
+    .filter((candidate) => candidate.slug !== slug && candidate.category === post.category)
+    .map((candidate) => ({
+      slug: candidate.slug,
+      title: candidate.title,
+      category: candidate.category,
+      readTime: candidate.readTime,
+      date: candidate.date,
+    }));
+  const related = [...publishedDbPosts, ...staticRelated]
+    .filter((candidate, index, posts) => posts.findIndex((item) => item.slug === candidate.slug) === index)
+    .filter((candidate) => candidate.slug !== slug && candidate.category === post.category)
+    .slice(0, 3);
+  const otherPosts: RelatedPost[] = BLOG_POSTS
+    .filter((candidate) => candidate.slug !== slug)
+    .slice(0, 3)
+    .map((candidate) => ({
+      slug: candidate.slug,
+      title: candidate.title,
+      category: candidate.category,
+      readTime: candidate.readTime,
+      date: candidate.date,
+    }));
 
   return (
     <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
@@ -238,6 +302,31 @@ export default function BlogPostClient({ slug, dbPost }: Props) {
                   </div>
                   <p className="text-slate-600 leading-relaxed">This comprehensive guide covers everything you need to know about {post.title.toLowerCase()}.</p>
                 </div>
+              )}
+              {productLinks.length > 0 && (
+                <section className="mt-10 border-y border-blue-200 bg-blue-50 p-6" aria-labelledby="related-products-heading">
+                  <p className="text-xs font-bold uppercase text-blue-700">Product fit</p>
+                  <h2 id="related-products-heading" className="mt-2 text-xl font-bold text-slate-900">
+                    Continue with the matching product specification.
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    Use these product pages to compare construction, application fit, and the information needed for a representative sample or quotation.
+                  </p>
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {productLinks.map((product) => (
+                      <Link
+                        key={product.href}
+                        href={product.href}
+                        className="group border border-blue-200 bg-white p-4 transition-colors hover:border-blue-400"
+                      >
+                        <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
+                          {product.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <span className="mt-2 block text-sm leading-6 text-slate-600">{product.description}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
               )}
               {industryLinks.length > 0 && (
                 <section className="mt-10 border-y border-slate-200 bg-slate-50 p-6" aria-labelledby="related-industries-heading">
