@@ -43,9 +43,9 @@ export default function PrivacyPolicyPage() {
               <h2 className="font-bold text-slate-900 text-xl mt-8">Retention and Security</h2>
               <p>We retain enquiry records only for as long as reasonably needed to handle the request, maintain business records, resolve disputes, meet legal obligations, and prevent abuse. Retention periods may vary by project and applicable law. We use reasonable technical and organizational safeguards, but no internet transmission or storage system is completely secure.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Your Rights</h2>
-              <p>Depending on your location, you may have rights to request access, correction, deletion, restriction, objection, portability, or withdrawal of consent. These rights may be subject to legal exceptions. To make a request, contact Sales@zxpapers.com and identify the enquiry or email address concerned.</p>
+              <p>Depending on your location, you may have rights to request access, correction, deletion, restriction, objection, portability, or withdrawal of consent. These rights may be subject to legal exceptions. To make a request, contact sales@zhixinpaper.com and identify the enquiry or email address concerned.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Contact</h2>
-              <p>For privacy questions or requests, contact Sales@zxpapers.com.</p>
+              <p>For privacy questions or requests, contact sales@zhixinpaper.com.</p>
             </div>
           </div>
         </section>

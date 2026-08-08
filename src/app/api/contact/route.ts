@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
     try {
       const resend = getResend();
       const { error } = await resend.emails.send({
-        from: `${COMPANY.name} <Sales@zxpapers.com>`,
+        from: `${COMPANY.name} <${COMPANY.email}>`,
         to: [email],
         subject: `We received your message — ${COMPANY.name}`,
         html: `

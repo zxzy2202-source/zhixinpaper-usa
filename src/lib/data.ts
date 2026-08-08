@@ -6,7 +6,7 @@ export const COMPANY = {
   tagline: "One-Stop Thermal Consumables Platform",
   description:
     "Leading manufacturer of thermal paper rolls and thermal labels, supplying distributors, importers, and factories across Europe, USA, and Canada.",
-  email: "Sales@zxpapers.com",
+  email: "sales@zhixinpaper.com",
   phone: "+86 153 3924 7872",
   whatsapp: "+86 187 9277 1927",
   address: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park, Gaoling District, Xi'an, Shaanxi, China",

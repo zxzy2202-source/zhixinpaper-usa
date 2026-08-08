@@ -42,7 +42,7 @@ const FAQ_ITEMS = [
       },
       {
         q: "How do I request a quote?",
-        a: "Use our online quote form, email us at Sales@zxpapers.com, or contact via WhatsApp (+86 187 9277 1927). Include product type, size, quantity, destination, and target market so the team can qualify the request and confirm the next step.",
+        a: "Use our online quote form, email us at sales@zhixinpaper.com, or contact via WhatsApp (+86 187 9277 1927). Include product type, size, quantity, destination, and target market so the team can qualify the request and confirm the next step.",
         link: { href: "/quote", text: "Get a Quote Now" },
       },
       {

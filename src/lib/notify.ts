@@ -205,7 +205,7 @@ async function sendEmail(p: InquiryPayload): Promise<{
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return { ok: false, error: "RESEND_API_KEY not set" };
 
-  const to = process.env.NOTIFY_EMAIL_TO || "Sales@zxpapers.com";
+  const to = process.env.NOTIFY_EMAIL_TO || "sales@zhixinpaper.com";
   const from =
     process.env.NOTIFY_EMAIL_FROM ||
     `${COMPANY.name} Website <noreply@zhixinpaper.com>`;

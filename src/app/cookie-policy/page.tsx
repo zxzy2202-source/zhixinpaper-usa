@@ -41,7 +41,7 @@ export default function CookiePolicyPage() {
               <h2 className="font-bold text-slate-900 text-xl mt-8">Retention</h2>
               <p>Your browser keeps the saved preference until you clear it. Analytics retention is governed by our service configuration and applicable provider terms; we review retained data according to business need and legal requirements.</p>
               <h2 className="font-bold text-slate-900 text-xl mt-8">Contact</h2>
-              <p>For cookie or privacy questions, contact Sales@zxpapers.com.</p>
+              <p>For cookie or privacy questions, contact sales@zhixinpaper.com.</p>
             </div>
           </div>
         </section>
