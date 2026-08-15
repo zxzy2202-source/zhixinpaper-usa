@@ -36,6 +36,12 @@ test("AI crawlers share the public-content access policy", async () => {
   }
 });
 
+test("robots metadata omits the nonstandard Host directive", async () => {
+  const robotsSource = await readFile(robotsPath, "utf8");
+  assert.doesNotMatch(robotsSource, /host:\s*siteUrl/);
+  assert.match(robotsSource, /sitemap:\s*`\$\{siteUrl\}\/sitemap\.xml`/);
+});
+
 test("private paths remain protected", async () => {
   const robotsSource = await readFile(robotsPath, "utf8");
   for (const path of ["/api/", "/admin/", "/login", "/data/"]) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { publishDueScheduledBlogPosts } from "@/lib/blogPublishing";
+import { submitIndexNow } from "@/lib/indexnow";
 import { getSessionFromRequest } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
@@ -31,6 +32,16 @@ export async function POST(request: NextRequest) {
     revalidatePath("/sitemap.xml");
     for (const post of result.published) {
       revalidatePath(`/blog/${post.slug}`);
+    }
+
+    try {
+      await submitIndexNow([
+        "/blog",
+        "/sitemap.xml",
+        ...result.published.map((post) => `/blog/${post.slug}`),
+      ]);
+    } catch (error) {
+      console.error("[indexnow] failed after scheduled publication:", error);
     }
   }
 

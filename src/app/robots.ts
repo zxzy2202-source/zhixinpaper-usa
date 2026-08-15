@@ -94,6 +94,5 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "DataForSeoBot", disallow: ["/"] },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
   };
 }

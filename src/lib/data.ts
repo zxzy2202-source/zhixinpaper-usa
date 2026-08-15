@@ -1002,7 +1002,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "lottery-ticket-paper-specifications",
-    title: "Lottery Ticket Paper Specifications: What You Need to Know",
+    title: "Lottery Ticket Paper Specifications and Sizes",
     excerpt: "Technical specifications for lottery terminal thermal paper including sensitivity, density, and compliance requirements for gaming operators.",
     category: "Products",
     readTime: "6 min",
