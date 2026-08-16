@@ -78,6 +78,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/blog`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/case-studies`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/about`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/company-facts`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/comparisons/zhixinpaper-vs-sailingpaper`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/quote`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/samples`, changeFrequency: "monthly", priority: 0.7 },

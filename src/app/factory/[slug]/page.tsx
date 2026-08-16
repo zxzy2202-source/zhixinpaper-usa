@@ -28,7 +28,7 @@ const FACTORY_PAGES: Record<string, {
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-4">About Our Manufacturing Facility</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Established in 2008, our manufacturing facility in Xi&apos;an, Shaanxi, China includes thermal paper converting and production equipment. Current floor area, line configuration, and output capacity should be confirmed during supplier qualification.
+              Xi&apos;an Zhi Xin Paper Co., Ltd. was registered in August 2009. Its manufacturing facility in Xi&apos;an, Shaanxi, China includes thermal paper converting and production equipment. Current floor area, line configuration, and output capacity should be confirmed during supplier qualification.
             </p>
             <p className="text-slate-600 leading-relaxed">
               The applicable manufacturing site, quality controls, traceability records, inspection plan, and release documents are confirmed for the quoted product and current project scope.
@@ -39,7 +39,7 @@ const FACTORY_PAGES: Record<string, {
             <div className="space-y-3">
               {[
                 ["Floor Area", "Confirmed by site review"],
-                ["Established", "2008"],
+                ["Company Registered", "August 2009"],
                 ["Coating Route", "Confirmed by quoted grade"],
                 ["Converting Lines", "Confirmed by site and SKU"],
                 ["Annual Capacity", "Confirmed by RFQ and schedule"],

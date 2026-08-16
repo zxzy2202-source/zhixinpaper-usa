@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
-import { THERMAL_LABELS } from "@/lib/data";
+import { COMPANY, THERMAL_LABELS } from "@/lib/data";
 import { breadcrumbSchema, canonicalUrl, productSchema } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award,
@@ -543,7 +543,7 @@ export default async function LabelDetailPage({ params }: Props) {
                   <p className="font-bold text-slate-900 text-sm mb-1">Talk to a Specialist</p>
                   <p className="text-slate-500 text-xs mb-3">Share the application, dimensions, material, printer, quantity, and destination so the team can confirm the response plan.</p>
                   <a
-                    href="https://wa.me/8618792771927"
+                    href={`https://wa.me/${COMPANY.whatsapp.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-700 hover:text-slate-900 font-semibold text-xs flex items-center gap-1"

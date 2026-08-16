@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import FaqSection from "@/components/ui/FaqSection";
-import { GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
+import { COMPANY, GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
 import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
 import { normalizeFaqItem } from "@/lib/faq";
 import {
@@ -338,7 +338,7 @@ export default async function EUCountryPage({ params }: Props) {
                     { icon: <Factory className="w-4 h-4 text-blue-600" />, label: "By RFQ", sub: "Capacity and production plan" },
                     { icon: <Users className="w-4 h-4 text-blue-600" />, label: "By SKU", sub: "MOQ and packing review" },
                     { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "By Route", sub: "Incoterm and delivery plan" },
-                    { icon: <Star className="w-4 h-4 text-blue-600" />, label: "Since 2008", sub: "Manufacturing experience" },
+                    { icon: <Star className="w-4 h-4 text-blue-600" />, label: "Est. 2009", sub: "Company registration" },
                   ].map((item) => (
                     <div key={item.label} className="bg-slate-50 border border-slate-200  p-4 text-center">
                       <div className="flex justify-center mb-2">{item.icon}</div>
@@ -413,7 +413,7 @@ export default async function EUCountryPage({ params }: Props) {
                     Message our {c.name} sales team with your SKU, quantity, destination, and requested documents. The team will respond during business hours.
                   </p>
                   <a
-                    href="https://wa.me/8618792771927"
+                    href={`https://wa.me/${COMPANY.whatsapp.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold  text-xs transition-colors w-full justify-center"

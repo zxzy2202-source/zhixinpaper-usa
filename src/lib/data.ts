@@ -10,12 +10,13 @@ export const COMPANY = {
   phone: "+86 153 3924 7872",
   whatsapp: "+86 187 9277 1927",
   address: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park, Gaoling District, Xi'an, Shaanxi, China",
-  founded: "2008",
+  founded: "2009-08",
+  historyNote: "Processing practice began in 2008; Xi'an Zhi Xin Paper Co., Ltd. was registered in August 2009.",
   certifications: ["Quality system documents", "Phenol test reports", "Material declarations", "Chain-of-custody options", "Application-specific document review"],
   stats: [
     { value: "By RFQ", label: "Capacity & Production Plan" },
     { value: "By Route", label: "Markets & Delivery Coverage" },
-    { value: "Since 2008", label: "Operating History" },
+    { value: "Since 2008", label: "Processing Practice" },
     { value: "By Scope", label: "Available Documents" },
   ],
 };

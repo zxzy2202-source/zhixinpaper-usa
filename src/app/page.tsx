@@ -3,7 +3,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SlotImage from "@/components/ui/SlotImage";
-import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
 import { THERMAL_LABELS } from "@/lib/data";
 import {
@@ -122,7 +122,24 @@ const RFQ_FIELDS = [
 ] as const;
 
 export default function HomePage() {
-  const jsonLd = [breadcrumbSchema([{ name: "Home", url: "/" }])];
+  const jsonLd = [
+    breadcrumbSchema([{ name: "Home", url: "/" }]),
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: `${SITE_URL}/`,
+      name: "Thermal Paper Rolls & Labels Manufacturer | Zhixin Paper",
+      description: homeSeoDefaults.siteDescription,
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/images/og-default.jpg`,
+      },
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en",
+    },
+  ];
   const featuredLabels = THERMAL_LABELS.slice(0, 3);
 
   return (
@@ -154,7 +171,7 @@ export default function HomePage() {
             <div className="grid gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-end">
               <div className="max-w-[760px]">
                 <h1 className="text-[2.35rem] font-bold leading-[1.05] text-white sm:text-5xl lg:text-[4rem]">
-                  Verified thermal rolls and labels for import buyers.
+                  Thermal Paper Rolls & Labels Manufacturer for Wholesale Buyers.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-[#dce4df] md:text-lg">
                   Match rolls, labels, documents, packing, and freight terms before bulk production.
@@ -375,6 +392,34 @@ export default function HomePage() {
                     </span>
                   </div>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#ded6c8] bg-[#f4f0e8] py-16 md:py-20" aria-labelledby="buyer-questions-heading">
+          <div className="container-site grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f5f5c]">Before you request a quote</p>
+              <h2 id="buyer-questions-heading" className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Confirm the details behind the specification.</h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-[#4f5f5a]">
+                Product fit, compliance evidence, samples, packing, and project timing depend on the selected grade and application. Review the buyer FAQ before sending your request.
+              </p>
+              <Link href="/faq" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
+                Read the thermal paper buyer FAQ <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                ["Product fit", "Roll size, core, OD, winding, label format, printer, and application."],
+                ["Documents", "Grade-specific declarations and test files for the intended market and use."],
+                ["Samples", "Representative samples and artwork or file review before bulk release."],
+                ["Order planning", "Packing, destination, Incoterm, mixed SKUs, and repeat-order details."],
+              ].map(([title, copy]) => (
+                <div key={title} className="border border-[#ded6c8] bg-white p-5">
+                  <h3 className="font-bold text-[#14211f]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{copy}</p>
+                </div>
               ))}
             </div>
           </div>

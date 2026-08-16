@@ -97,7 +97,7 @@ const TRUST_SIGNALS = [
   { icon: <Factory className="w-4 h-4 text-blue-600" />, label: "By RFQ", sub: "Capacity and production plan" },
   { icon: <Users className="w-4 h-4 text-blue-600" />, label: "By SKU", sub: "MOQ and packing review" },
   { icon: <Globe className="w-4 h-4 text-blue-600" />, label: "By Route", sub: "Incoterm and delivery plan" },
-  { icon: <Star className="w-4 h-4 text-blue-600" />, label: "Since 2008", sub: "Manufacturing experience" },
+  { icon: <Star className="w-4 h-4 text-blue-600" />, label: "Est. 2009", sub: "Company registration" },
 ];
 
 export default function USPage() {

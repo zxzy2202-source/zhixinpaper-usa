@@ -759,7 +759,7 @@ export default function Header() {
             />
             <div className="flex flex-col leading-tight">
               <span className="whitespace-nowrap text-base font-bold text-white">ZhixinPaper</span>
-              <span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Thermal Solutions Since 2008</span>
+              <span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Company Established 2009</span>
             </div>
           </Link>
 

@@ -26,7 +26,7 @@ export default function FactoryOverviewPage() {
     { value: "By Line", label: "Equipment Inventory" },
     { value: "By RFQ", label: "Capacity Planning" },
     { value: "By Scope", label: "Quality Documents" },
-    { value: "Since 2008", label: "Operating History" },
+    { value: "Est. 2009", label: "Company History" },
     { value: "By Function", label: "Production Team" },
   ];
 

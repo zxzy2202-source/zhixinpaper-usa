@@ -25,7 +25,7 @@ import {
 export const metadata: Metadata = buildMetadata({
   title: "About Zhixin Paper Manufacturing and Supply",
   description:
-    "Follow Zhixin Paper's development from a one-person trading business in 2006 to a thermal paper converting and international supply partner.",
+    "Follow Zhixin Paper's development from its predecessor business in 2006 through the August 2009 registration of Xi'an Zhi Xin Paper Co., Ltd. and its growth as an international supply partner.",
   path: "/about",
 });
 
@@ -33,22 +33,32 @@ const timeline = [
   {
     id: "2006",
     period: "2006",
-    title: "The business begins",
+    title: "Predecessor business begins",
     icon: Handshake,
     change:
-      "Zhixin Paper began on June 1, 2006 as a one-person trading business, learning the market through direct customer contact and order coordination.",
+      "Zhixin Electronics Business Department began on June 1, 2006 as a one-person trading business. It preceded the later registration of Xi'an Zhi Xin Paper Co., Ltd.",
     buyerValue:
       "That commercial foundation still shapes how we review specifications: the product must fit the buyer's printer, application, packing plan, and destination.",
   },
   {
     id: "2008",
     period: "2008",
-    title: "First converting capability",
+    title: "Predecessor adds converting capability",
     icon: Scissors,
     change:
-      "In November 2008, the company installed its first 600 mm thermal paper slitter in a 200 m² workshop and moved from trading into hands-on converting.",
+      "In November 2008, the predecessor business installed its first 600 mm thermal paper slitter in a 200 m² workshop and moved from trading into hands-on converting.",
     buyerValue:
       "The change created direct control over roll width, winding, core selection, and finished-roll inspection instead of relying only on third-party processing.",
+  },
+  {
+    id: "2009",
+    period: "August 2009",
+    title: "Xi'an Zhi Xin Paper Co., Ltd. is registered",
+    icon: Building2,
+    change:
+      "Xi'an Zhi Xin Paper Co., Ltd. was formally registered in August 2009, establishing the current legal entity behind the Zhixin Paper brand.",
+    buyerValue:
+      "Quotations, contracts, compliance documents, and supplier verification should identify the current legal entity rather than treating the predecessor's 2006 start date as the company's registration date.",
   },
   {
     id: "2009-2010",
@@ -195,13 +205,13 @@ export default function AboutPage() {
             <div className="max-w-4xl py-8 lg:py-10">
               <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#e1c18a]">
                 <span className="h-px w-10 bg-[#e1c18a]" />
-                Manufacturing history since 2006
+                Company registered in August 2009
               </div>
               <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.04] tracking-normal text-white md:text-6xl lg:text-7xl">
                 A manufacturing record, built year by year.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/82 md:text-lg">
-                Zhixin Paper grew from a one-person trading business into a thermal paper converting and international supply partner through practical investment in equipment, people, processes, and buyer service.
+                Xi&apos;an Zhi Xin Paper Co., Ltd. was registered in August 2009 after predecessor operations began in 2006. The business grew into a thermal paper converting and international supply partner through practical investment in equipment, people, processes, and buyer service.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -222,8 +232,8 @@ export default function AboutPage() {
 
             <div className="grid border-t border-white/20 sm:grid-cols-3">
               {[
-                ["2006", "Business established"],
-                ["2008", "First thermal slitter"],
+                ["2006", "Predecessor business"],
+                ["Aug 2009", "Company registered"],
                 ["2026", "Global cooperation stage"],
               ].map(([value, label]) => (
                 <div key={value} className="border-white/20 py-3 sm:border-l sm:px-6 first:sm:border-l-0 first:sm:pl-0">

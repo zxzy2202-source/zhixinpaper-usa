@@ -88,7 +88,8 @@ export function organizationSchema() {
     "@type": ["Organization", "ManufacturingBusiness"],
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    alternateName: ["Zhixin Paper Co., Ltd.", "ZX Papers", "zxpapers"],
+    legalName: "Xi'an Zhi Xin Paper Co., Ltd.",
+    alternateName: ["Zhixin Paper", "ZhixinPaper", "ZX Papers", "zxpapers"],
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
@@ -98,7 +99,7 @@ export function organizationSchema() {
     },
     description:
       "Manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Product suitability, documentation, printer compatibility, and market requirements are reviewed against the selected specification.",
-    foundingDate: "2008",
+    foundingDate: "2009-08",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Building 15, Phase 1 Zone 2, Ronghao Industrial Park",
@@ -150,22 +151,27 @@ export function organizationSchema() {
   };
 }
 
+/**
+ * Structured data for an inquiry-led B2B product page.
+ *
+ * Do not emit Product rich-result markup unless the page has a real offer,
+ * review, or aggregate rating. These products are quote-led, so a Product
+ * object without one of those fields creates Search Console markup errors.
+ * The page still exposes its product facts in visible HTML, breadcrumbs, and
+ * any applicable FAQ schema.
+ */
 export function productSchema({
   name,
   description,
-  image,
   url,
-  sku,
-  brand = SITE_NAME,
   category,
   keywords,
-  additionalProperties = [],
 }: {
   name: string;
   description: string;
-  image: string;
+  image?: string;
   url: string;
-  sku: string;
+  sku?: string;
   brand?: string;
   category: string;
   keywords: string;
@@ -173,31 +179,22 @@ export function productSchema({
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "WebPage",
     name,
     description,
-    image: absoluteUrl(image),
     url: absoluteUrl(url),
-    sku,
-    brand: { "@type": "Brand", name: brand },
-    category,
-    keywords,
-    manufacturer: {
-      "@type": "Organization",
+    about: {
+      "@type": "Thing",
+      name,
+      description,
+      category,
+      keywords,
+    },
+    isPartOf: {
+      "@type": "WebSite",
       name: SITE_NAME,
       url: SITE_URL,
     },
-    // 不输出 offers：B2B 询价制没有公开价格，缺 price 的 Offer
-    // 会让 Search Console 商家信息校验持续报错
-
-    ...(additionalProperties.length
-      ? {
-          additionalProperty: additionalProperties.map((property) => ({
-            "@type": "PropertyValue",
-            ...property,
-          })),
-        }
-      : {}),
   };
 }
 
@@ -300,7 +297,6 @@ export function localBusinessSchema(region: "eu" | "us" | "ca") {
     description: data.description,
     url: `${SITE_URL}/${region}`,
     areaServed: data.areaServed,
-    priceRange: "$$",
     image: `${SITE_URL}/images/factory-overview.jpg`,
     telephone: SALES_PHONE_E164,
     email: CONTACT_EMAIL,
@@ -312,6 +308,7 @@ export function websiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
     url: SITE_URL,
     description: "Thermal paper rolls and thermal labels for distributor and OEM projects. Product specifications, material declarations, quality evidence, printer compatibility, packing, and destination requirements are reviewed for each quotation.",
@@ -328,7 +325,7 @@ export function manufacturerSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.png`,
-    foundingDate: "2008",
+    foundingDate: "2009-08",
     description: "Chinese manufacturer of thermal paper rolls and thermal labels for distributor and OEM projects. Product construction, quality-system evidence, material documents, packing, and destination requirements are confirmed for the selected order scope.",
     address: {
       "@type": "PostalAddress",

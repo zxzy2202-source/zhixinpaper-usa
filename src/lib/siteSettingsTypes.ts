@@ -20,7 +20,7 @@ export type HeroConfig = {
 };
 
 export const DEFAULT_HERO_HOME: HeroConfig = {
-  badge: "Thermal Paper Supply · Est. 2008",
+  badge: "Thermal Paper Supply · Registered August 2009",
   headlineLine1: "Regional",
   headlineHighlight: "Thermal",
   headlineLine2: "Paper",

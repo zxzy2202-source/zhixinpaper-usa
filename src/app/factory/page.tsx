@@ -47,7 +47,7 @@ type SlotName =
 const capabilityStats = [
   { value: "By RFQ", label: "Production planning", detail: "Capacity confirmed by product mix, specification, quantity, and current loading" },
   { value: "By Route", label: "Export coverage", detail: "Packing and delivery scope confirmed by destination and written terms" },
-  { value: "Since 2008", label: "Operating history", detail: "Thermal paper rolls, labels, and OEM packaging" },
+  { value: "Est. 2009", label: "Company history", detail: "Xi'an Zhi Xin Paper Co., Ltd. registered in August 2009" },
   { value: "By Scope", label: "Quality documents", detail: "Site, certificate scope, batch records, and inspection documents reviewed per project" },
 ];
 

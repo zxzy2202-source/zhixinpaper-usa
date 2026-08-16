@@ -9,7 +9,7 @@ import { SlotImage } from "@/components/ui/SlotImage";
 import StandardPosRollPage from "@/components/products/StandardPosRollPage";
 import AtmBankingRollPage from "@/components/products/AtmBankingRollPage";
 import PaymentTerminalRollPage from "@/components/products/PaymentTerminalRollPage";
-import { THERMAL_PAPER_ROLLS } from "@/lib/data";
+import { COMPANY, THERMAL_PAPER_ROLLS } from "@/lib/data";
 import { PRODUCT_BUYER_CHECKS } from "@/lib/marketInsights";
 import { breadcrumbSchema, canonicalUrl, faqSchema, productSchema } from "@/lib/seo";
 import {
@@ -1312,7 +1312,7 @@ export default async function RollDetailPage({ params }: Props) {
                   <p className="font-bold text-slate-900 text-sm mb-1">Talk to a Specialist</p>
                   <p className="text-slate-500 text-xs mb-3">WhatsApp or email the team with product, quantity, destination, and timing details for a project-specific response.</p>
                   <a
-                    href="https://wa.me/8618792771927"
+                    href={`https://wa.me/${COMPANY.whatsapp.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-700 hover:text-slate-900 font-semibold text-xs flex items-center gap-1"

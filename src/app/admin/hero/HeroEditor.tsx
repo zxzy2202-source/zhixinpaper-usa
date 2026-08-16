@@ -25,7 +25,7 @@ const FIELDS: Array<{
   type?: "text" | "textarea";
   placeholder?: string;
 }> = [
-  { key: "badge", label: "顶部小徽章", help: "Hero 最上方那行小字（如经营历史、供应范围）", placeholder: "Thermal Paper Supply · Est. 2008" },
+  { key: "badge", label: "顶部小徽章", help: "Hero 最上方那行小字（如经营历史、供应范围）", placeholder: "Thermal Paper Supply · Registered August 2009" },
   { key: "headlineLine1", label: "主标题 - 第 1 行", help: "通常 1-2 个词", placeholder: "One-Stop" },
   { key: "headlineHighlight", label: "主标题 - 高亮词", help: "蓝色渐变高亮（紧跟第 1 行）", placeholder: "Thermal" },
   { key: "headlineLine2", label: "主标题 - 第 2 行", help: "", placeholder: "Consumables" },
