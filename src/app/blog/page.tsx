@@ -72,11 +72,13 @@ export default async function BlogPage() {
           year: "numeric",
           month: "long",
           day: "numeric",
+          timeZone: "UTC",
         })
       : new Date(post.createdAt).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
+          timeZone: "UTC",
         }),
     tag: null as string | null,
     fromDB: true,

@@ -98,7 +98,7 @@ export default function Footer() {
               <div>
                 <div className="text-base font-bold leading-none text-white">ZhixinPaper</div>
                 <div className="mt-1 text-[10px] font-semibold text-[#d6b273] opacity-90">
-                  Company Established 2009
+              Since 2006
                 </div>
               </div>
             </Link>
