@@ -1,404 +1,159 @@
 "use client";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import CTABanner from "@/components/ui/CTABanner";
 import { BLOG_POSTS } from "@/lib/data";
 import { BLOG_CONTENT } from "@/lib/blog-content";
 import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
 import { BLOG_PRODUCT_LINKS } from "@/lib/blog-product-links";
-import { ArrowRight, Clock, Calendar, CheckCircle, BookOpen, Tag } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Check, Clock, Link2, Mail, Search, Send, Share2, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
 
-interface DBPost {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  tags: string;
-  readTime: string;
-  coverImage: string | null;
-  publishedAt: string | null;
-  createdAt: string;
-  status: string;
-}
+interface DBPost { id: number; slug: string; title: string; excerpt: string; content: string; category: string; tags: string; readTime: string; coverImage: string | null; publishedAt: string | null; createdAt: string; status: string; }
+interface RelatedPost { slug: string; title: string; category: string; readTime: string; date: string; }
+interface Props { slug: string; dbPost: DBPost | null; publishedDbPosts?: RelatedPost[]; }
+type ProductLink = { href: string; label: string; description: string };
+type IndustryLink = { slug: string; label: string; description: string };
+type ArticleHeaderProps = { slug: string; title: string; excerpt: string; category: string; readTime: string; date: string; tags?: string[]; coverImage?: string | null; };
 
-interface RelatedPost {
-  slug: string;
-  title: string;
-  category: string;
-  readTime: string;
-  date: string;
-}
-
-interface Props {
-  slug: string;
-  dbPost: DBPost | null;
-  publishedDbPosts?: RelatedPost[];
-}
+const CATEGORY_IMAGES: Record<string, string> = {
+  Compliance: "/images/compliance-certifications.jpg",
+  Education: "/images/thermal-rolls-product.jpg",
+  Products: "/images/thermal-rolls-product.jpg",
+  "E-Commerce": "/images/thermal-labels-product.jpg",
+};
 
 function removeLeadingMarkdownTitle(content: string, title: string) {
   const lines = content.split(/\r?\n/);
   const firstContentLine = lines.findIndex((line) => line.trim().length > 0);
-
   if (firstContentLine === -1) return content;
-
   const heading = lines[firstContentLine].match(/^#\s+(.+)$/);
-  if (heading?.[1].trim().toLocaleLowerCase() !== title.trim().toLocaleLowerCase()) {
-    return content;
-  }
-
+  if (heading?.[1].trim().toLocaleLowerCase() !== title.trim().toLocaleLowerCase()) return content;
   lines.splice(firstContentLine, 1);
   return lines.join("\n").trimStart();
 }
 
+function formatDate(date: string) {
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return parsed.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+function extractHeadings(content: string) {
+  return content.split(/\r?\n/).map((line) => line.match(/^##\s+(.+)$/)?.[1]?.trim()).filter((heading): heading is string => Boolean(heading)).slice(0, 8);
+}
+
+function headingId(heading: string) {
+  return `article-section-${heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
+}
+
+function ShareLinks({ slug, title }: { slug: string; title: string }) {
+  const url = `https://www.zhixinpaper.com/blog/${slug}`;
+  const encodedUrl = encodeURIComponent(url);
+  const encodedTitle = encodeURIComponent(title);
+  const items = [
+    { label: "Share on LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, icon: Share2 },
+    { label: "Share on Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, icon: Send },
+    { label: "Email this article", href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`, icon: Mail },
+    { label: "Open canonical article URL", href: url, icon: Link2 },
+  ];
+  return <div className="flex items-center gap-2" aria-label="Share this article">
+    <span className="mr-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#87918c]">Share</span>
+    {items.map(({ label, href, icon: Icon }) => <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} aria-label={label} title={label} className="grid h-9 w-9 place-items-center rounded-full border border-[#ded6c8] bg-white text-[#0f5f5c] transition hover:border-[#0f5f5c] hover:bg-[#eef5ef]"><Icon className="h-4 w-4" aria-hidden="true" /></a>)}
+  </div>;
+}
+
+function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = [], coverImage }: ArticleHeaderProps) {
+  return <>
+    <div className="border-b border-[#e4e8e7] bg-white">
+      <div className="mx-auto max-w-[1380px] px-5 py-5 sm:px-8 lg:px-10">
+        <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-2 text-sm text-[#687772]"><Link href="/" className="font-medium text-[#0f5f5c] hover:underline">Home</Link><span aria-hidden="true">»</span><Link href="/blog" className="font-medium text-[#0f5f5c] hover:underline">Blog</Link><span aria-hidden="true">»</span><span className="truncate text-[#14211f]">{title}</span></nav>
+      </div>
+    </div>
+    <header className="bg-white">
+      <div className="mx-auto max-w-[1380px] px-5 pb-8 pt-12 sm:px-8 md:pb-10 md:pt-16 lg:px-10">
+        <div className="max-w-4xl">
+          <h1 className="text-[2.1rem] font-bold leading-[1.08] text-[#14211f] md:text-5xl">{title}</h1>
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#687772]"><span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4" aria-hidden="true" />{formatDate(date)}</span><span aria-hidden="true">/</span><span>By Zhixin Paper</span><span aria-hidden="true">/</span><span className="font-medium text-[#0f5f5c]">{category}</span><span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4" aria-hidden="true" />{readTime} read</span></div>
+          <p className="mt-6 max-w-3xl text-base leading-7 text-[#4f5f5a] md:text-lg md:leading-8">{excerpt}</p>
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4"><ShareLinks slug={slug} title={title} />{tags.length > 0 && <div className="flex flex-wrap items-center gap-2 text-xs text-[#87918c]"><Tag className="h-4 w-4" aria-hidden="true" />{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}</div>
+        </div>
+        {coverImage && <div className="relative mt-10 aspect-[16/7] max-w-4xl overflow-hidden bg-[#eef2f0]"><Image src={coverImage} alt="" fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" /></div>}
+      </div>
+    </header>
+  </>;
+}
+
+function InquirySidebar() {
+  return <section className="border border-[#e1e6e4] bg-white p-5 shadow-[0_10px_28px_rgba(20,33,31,0.05)]"><h2 className="text-lg font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 text-sm leading-6 text-[#687772]">Share your roll or label specification and our team will route it to the right product path.</p><Link href="/quote" className="mt-5 flex min-h-11 items-center justify-center gap-2 bg-[#0f5f5c] px-4 text-sm font-bold text-white transition hover:bg-[#0a4745]">Start a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></section>;
+}
+
+function ArticleSidebar({ related, outline, category }: { related: RelatedPost[]; outline: string[]; category: string }) {
+  const popular = related.length > 0 ? related : BLOG_POSTS.slice(0, 3).map((post) => ({ slug: post.slug, title: post.title, category: post.category, readTime: post.readTime, date: post.date }));
+  return <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+    <InquirySidebar />
+    <section className="border border-[#e1e6e4] bg-white"><h2 className="flex items-center justify-between bg-[#0f6af2] px-4 py-3 text-lg font-bold text-white"><span className="inline-flex items-center gap-2"><Search className="h-4 w-4" aria-hidden="true" />Search</span><span aria-hidden="true">⌄</span></h2><form action="/blog" method="get" role="search" className="p-3"><label className="sr-only" htmlFor="blog-detail-search">Search blog articles</label><div className="flex border border-[#e1e6e4]"><input id="blog-detail-search" name="q" type="search" placeholder="Search..." className="min-w-0 flex-1 px-3 py-2 text-sm text-[#14211f] outline-none placeholder:text-[#9aa5a0]" /><button type="submit" aria-label="Search" title="Search" className="px-3 text-[#14211f]"><Search className="h-4 w-4" aria-hidden="true" /></button></div></form></section>
+    {outline.length > 0 && <section className="border border-[#e1e6e4] bg-white"><h2 className="bg-[#0f6af2] px-4 py-3 text-lg font-bold text-white">On this page</h2><ol className="space-y-2 p-4 text-sm leading-5 text-[#687772]">{outline.map((heading) => <li key={heading}><a href={`#${headingId(heading)}`} className="hover:text-[#0f5f5c]">{heading}</a></li>)}</ol></section>}
+    <section className="border border-[#e1e6e4] bg-white"><h2 className="bg-[#0f6af2] px-4 py-3 text-lg font-bold text-white">Most Popular</h2><nav aria-label="Most popular articles" className="divide-y divide-[#eef1ef] p-2">{popular.slice(0, 3).map((post) => <Link key={post.slug} href={`/blog/${post.slug}`} className="block px-2 py-3 text-sm font-medium leading-5 text-[#14211f] transition hover:text-[#0f5f5c]">{post.title}</Link>)}</nav></section>
+    <section className="border border-[#e1e6e4] bg-white"><h2 className="bg-[#0f6af2] px-4 py-3 text-lg font-bold text-white">Categories</h2><nav aria-label="Blog categories" className="space-y-2 p-4 text-sm"><Link href="/blog" className="block text-[#0f5f5c] hover:underline">All articles</Link><Link href={`/blog?category=${encodeURIComponent(category)}`} className="block text-[#14211f] hover:text-[#0f5f5c]">{category}</Link></nav></section>
+  </aside>;
+}
+
+function ProductFit({ links }: { links: ProductLink[] }) {
+  if (links.length === 0) return null;
+  return <section className="mt-12 border-y border-[#c8bcaa] bg-[#f4f0e8] px-5 py-7 md:px-8" aria-labelledby="related-products-heading"><p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0f5f5c]">Product fit</p><h2 id="related-products-heading" className="mt-2 text-2xl font-bold text-[#14211f]">Continue with the matching specification.</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-[#4f5f5a]">Compare construction, application fit, and the information needed for a representative sample or quotation.</p><div className="mt-5 grid gap-3 sm:grid-cols-2">{links.map((product) => <Link key={product.href} href={product.href} className="group border border-[#c8bcaa] bg-white p-4 transition hover:border-[#0f5f5c]"><span className="inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">{product.label}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" /></span><span className="mt-2 block text-sm leading-6 text-[#4f5f5a]">{product.description}</span></Link>)}</div></section>;
+}
+
+function IndustryFit({ links }: { links: IndustryLink[] }) {
+  if (links.length === 0) return null;
+  return <section className="mt-12 border-t border-[#ded6c8] pt-8" aria-labelledby="related-industries-heading"><p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0f5f5c]">Related applications</p><h2 id="related-industries-heading" className="mt-2 text-2xl font-bold text-[#14211f]">Apply this guide to an industry specification.</h2><ul className="mt-5 space-y-3 text-sm leading-6 text-[#4f5f5a]">{links.map((industry) => <li key={industry.slug} className="flex gap-2"><ArrowRight className="mt-1 h-4 w-4 shrink-0 text-[#b9822f]" aria-hidden="true" /><span><Link className="font-bold text-[#0f5f5c] hover:underline" href={`/industries/${industry.slug}`}>{industry.label}</Link>: {industry.description}</span></li>)}</ul><p className="mt-5 text-xs leading-5 text-[#687772]">They do not replace device qualification, document-scope review, or representative sample testing.</p></section>;
+}
+
+function ArticleActions() {
+  return <div className="mt-12 border-t border-[#e1e6e4] pt-7"><div className="flex flex-wrap gap-3"><Link href="/contact" className="btn-primary">Contact technical team <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link><Link href="/quote" className="btn-outline">Get a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div></div>;
+}
+
+function RelatedPosts({ related }: { related: RelatedPost[] }) {
+  const cards = related.slice(0, 2);
+  if (cards.length === 0) return null;
+  return <section className="mt-16 border-t border-[#e1e6e4] pt-10" aria-labelledby="related-posts-heading"><h2 id="related-posts-heading" className="text-2xl font-bold text-[#14211f] md:text-3xl">Related Posts</h2><div className="mt-7 grid gap-6 md:grid-cols-2">{cards.map((post) => <article key={post.slug} className="group border border-[#e1e6e4] bg-white"><Link href={`/blog/${post.slug}`} className="block"><div className="relative aspect-[16/8] overflow-hidden bg-[#eef2f0]"><Image src={CATEGORY_IMAGES[post.category] || "/images/factory-overview.jpg"} alt="" fill sizes="(min-width: 768px) 430px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.02]" /></div><div className="p-5"><h3 className="text-lg font-semibold leading-6 text-[#14211f] group-hover:text-[#0f5f5c]">{post.title}</h3><p className="mt-3 text-sm text-[#0f5f5c]">{post.category} / By Zhixin Paper</p></div></Link></article>)}</div></section>;
+}
+
+function PreviousPost({ related }: { related: RelatedPost[] }) {
+  const previous = related[0];
+  if (!previous) return null;
+  return <nav aria-label="Post navigation" className="mt-14 border-t border-[#e1e6e4] pt-8"><Link href={`/blog/${previous.slug}`} className="inline-flex items-center gap-2 text-sm font-medium text-[#0f6af2] hover:underline"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> Previous Post</Link></nav>;
+}
+
+function InquiryBand() {
+  return <section className="mt-16 bg-[#f4f6f8] px-5 py-8 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#687772]">Tell us the product, dimensions, material, quantity, and destination. We will review the right specification before quoting.</p><Link href="/quote" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 bg-[#0f6af2] px-6 text-sm font-bold text-white transition hover:bg-[#0956c9]">Submit your requirement <Send className="h-4 w-4" aria-hidden="true" /></Link></section>;
+}
+
+function ArticleFrame({ header, outline, related, children, productLinks, industryLinks }: { header: ArticleHeaderProps; outline: string[]; related: RelatedPost[]; children: React.ReactNode; productLinks: ProductLink[]; industryLinks: IndustryLink[] }) {
+  return <main id="main-content"><ArticleHeader {...header} /><section className="bg-white py-8 md:py-12"><div className="mx-auto grid max-w-[1380px] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16 lg:px-10"><article className="min-w-0 max-w-4xl">{children}<ProductFit links={productLinks} /><IndustryFit links={industryLinks} /><ArticleActions /><PreviousPost related={related} /><RelatedPosts related={related} /><InquiryBand /></article><ArticleSidebar related={related} outline={outline} category={header.category} /></div></section></main>;
+}
+
+const markdownClasses = "prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-[-0.01em] prose-headings:text-[#14211f] prose-h2:scroll-mt-28 prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-3xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-xl prose-p:my-0 prose-p:leading-8 prose-p:text-[#3f504c] prose-p:mb-6 prose-a:font-semibold prose-a:text-[#0f5f5c] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#14211f] prose-li:text-[#3f504c] prose-li:leading-7 prose-blockquote:border-[#b9822f] prose-blockquote:bg-[#f4f0e8] prose-blockquote:py-1 prose-code:rounded prose-code:bg-[#e7eee9] prose-code:px-1 prose-code:text-[#0f5f5c] prose-pre:bg-[#14211f] prose-img:shadow-md prose-hr:border-[#ded6c8] prose-table:text-sm prose-th:bg-[#e7eee9] prose-th:text-[#14211f]";
+
 export default function BlogPostClient({ slug, dbPost, publishedDbPosts = [] }: Props) {
-  const isPilot = slug === "what-is-thermal-paper";
   const productLinks = BLOG_PRODUCT_LINKS[slug] || [];
-
   if (dbPost) {
-    const publishDate = dbPost.publishedAt || dbPost.createdAt;
-    const formattedDate = new Date(publishDate).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    const tagList = dbPost.tags ? dbPost.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
-    const missingProductLinks = productLinks.filter((product) => !dbPost.content.includes(`](${product.href})`));
-    const staticRelated: RelatedPost[] = BLOG_POSTS
-      .filter((post) => post.slug !== slug && post.category === dbPost.category)
-      .map((post) => ({
-        slug: post.slug,
-        title: post.title,
-        category: post.category,
-        readTime: post.readTime,
-        date: post.date,
-      }));
-    const related = [...publishedDbPosts, ...staticRelated]
-      .filter((post, index, posts) => posts.findIndex((candidate) => candidate.slug === post.slug) === index)
-      .filter((post) => post.slug !== slug && post.category === dbPost.category)
-      .slice(0, 3);
-
-    return (
-      <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
-        <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50 border-b border-slate-200">
-          <div className="max-w-6xl mx-auto px-6">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">
-              <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-              <span>/</span>
-              <Link href="/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
-              <span>/</span>
-              <span className="text-slate-500 truncate max-w-xs">{dbPost.title}</span>
-            </nav>
-            <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full uppercase tracking-wide">{dbPost.category}</span>
-              <span className="flex items-center gap-1 text-slate-400 text-xs"><Clock className="w-3 h-3" />{dbPost.readTime} read</span>
-              <span className="flex items-center gap-1 text-slate-400 text-xs"><Calendar className="w-3 h-3" />{formattedDate}</span>
-            </div>
-            <h1 className="font-bold text-slate-900 text-3xl md:text-5xl leading-tight max-w-4xl mb-6">{dbPost.title}</h1>
-            <p className="text-slate-600 text-lg max-w-3xl leading-relaxed">{dbPost.excerpt}</p>
-            {tagList.length > 0 && (
-              <div className="flex items-center gap-2 mt-4 flex-wrap">
-                <Tag className="w-3.5 h-3.5 text-slate-400" />
-                {tagList.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded-full">{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {dbPost.coverImage && (
-          <div className="max-w-6xl mx-auto px-6 mt-8 mb-0">
-            <div className="relative w-full aspect-[16/7] max-h-96 overflow-hidden shadow-lg">
-              <Image
-                src={dbPost.coverImage}
-                alt={dbPost.title}
-                fill
-                priority
-                sizes="(min-width: 1152px) 1152px, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        )}
-
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <article className="lg:col-span-2">
-                <div className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-slate-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-800 prose-ul:text-slate-600 prose-ol:text-slate-600 prose-li:my-1 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50  prose-blockquote:py-1 prose-code:text-blue-700 prose-code:bg-blue-50 prose-code:px-1  prose-pre:bg-slate-900  prose-img:shadow-md prose-hr:border-slate-200 prose-table:text-sm prose-th:bg-slate-100 prose-th:text-slate-700">
-                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]}>
-                    {removeLeadingMarkdownTitle(dbPost.content, dbPost.title)}
-                  </ReactMarkdown>
-                </div>
-                {missingProductLinks.length > 0 && (
-                  <section className="mt-10 border-y border-blue-200 bg-blue-50 p-6" aria-labelledby="related-products-heading">
-                    <p className="text-xs font-bold uppercase text-blue-700">Product fit</p>
-                    <h2 id="related-products-heading" className="mt-2 text-xl font-bold text-slate-900">
-                      Continue with the matching product specification.
-                    </h2>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                      Use these product pages to compare construction, application fit, and the information needed for a representative sample or quotation.
-                    </p>
-                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                      {missingProductLinks.map((product) => (
-                        <Link key={product.href} href={product.href} className="group border border-blue-200 bg-white p-4 transition-colors hover:border-blue-400">
-                          <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
-                            {product.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                          </span>
-                          <span className="mt-2 block text-sm leading-6 text-slate-600">{product.description}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </section>
-                )}
-                <div className="mt-12 p-6 bg-gradient-to-r from-blue-600 to-blue-700  text-white">
-                  <h3 className="font-bold text-xl mb-2">Need Expert Guidance?</h3>
-                  <p className="text-blue-100 text-sm mb-4">Contact our technical team for detailed compliance documentation, product specifications, or a custom quote for your market.</p>
-                  <div className="flex flex-wrap gap-3">
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold  hover:bg-blue-50 transition-colors text-sm">Contact Us <ArrowRight className="w-4 h-4" /></Link>
-                    <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-white/50 text-white font-semibold  hover:bg-white/10 transition-all text-sm">Get Quote</Link>
-                  </div>
-                </div>
-              </article>
-              <aside>
-                <div className="bg-white border border-slate-200  p-6 mb-6 sticky top-24 shadow-sm">
-                  <h3 className="font-bold text-slate-900 text-lg mb-4">Related Articles</h3>
-                  <div className="space-y-4">
-                    {related.length > 0 ? related.map((p) => (
-                      <Link key={p.slug} href={`/blog/${p.slug}`} className="block group">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[9px] font-semibold tracking-widest uppercase ">{p.category}</span>
-                        </div>
-                        <h4 className="font-semibold text-slate-700 text-sm leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{p.title}</h4>
-                        <p className="text-slate-400 text-xs mt-1">{p.readTime} · {p.date}</p>
-                      </Link>
-                    )) : <p className="text-slate-400 text-sm">More articles coming soon.</p>}
-                  </div>
-                  <div className="mt-5 pt-5 border-t border-slate-200">
-                    <Link href="/blog" className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wide hover:gap-3 transition-all">All Articles <ArrowRight className="w-3.5 h-3.5" /></Link>
-                  </div>
-                </div>
-                <div className="bg-blue-50 border border-blue-100  p-6">
-                  <h3 className="font-bold text-slate-900 text-sm mb-3">Quick Links</h3>
-                  <div className="space-y-2 text-sm">
-                    {[
-                      { label: "Request a Sample", href: "/samples" },
-                      { label: "Get a Quote", href: "/quote" },
-                      { label: "Compliance Certificates", href: "/compliance/certificates" },
-                      { label: "FAQ", href: "/faq" },
-                      { label: "Contact Us", href: "/contact" },
-                    ].map((link) => (
-                      <Link key={link.href} href={link.href} className="flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"><ArrowRight className="w-3 h-3" />{link.label}</Link>
-                    ))}
-                  </div>
-                </div>
-              </aside>
-            </div>
-          </div>
-        </section>
-        <CTABanner />
-      </main>
-    );
+    const date = dbPost.publishedAt || dbPost.createdAt;
+    const related = [...publishedDbPosts, ...BLOG_POSTS.filter((post) => post.slug !== slug && post.category === dbPost.category).map((post) => ({ slug: post.slug, title: post.title, category: post.category, readTime: post.readTime, date: post.date }))].filter((post, index, posts) => posts.findIndex((candidate) => candidate.slug === post.slug) === index).filter((post) => post.slug !== slug && post.category === dbPost.category).slice(0, 3);
+    const tags = dbPost.tags ? dbPost.tags.split(",").map((tag) => tag.trim()).filter(Boolean) : [];
+    const content = removeLeadingMarkdownTitle(dbPost.content, dbPost.title);
+    return <ArticleFrame header={{ slug, title: dbPost.title, excerpt: dbPost.excerpt, category: dbPost.category, readTime: dbPost.readTime, date, tags, coverImage: dbPost.coverImage }} outline={extractHeadings(content)} related={related} productLinks={productLinks} industryLinks={[]}><div className={markdownClasses}><ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]} components={{ h2: ({ children, ...props }) => <h2 id={headingId(String(children))} {...props}>{children}</h2> }}>{content}</ReactMarkdown></div></ArticleFrame>;
   }
-
   // Static data fallback
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = BLOG_POSTS.find((candidate) => candidate.slug === slug);
   if (!post) notFound();
-  const content = BLOG_CONTENT.find((c) => c.slug === slug);
   const industryLinks = BLOG_INDUSTRY_LINKS[slug] || [];
-  const staticRelated: RelatedPost[] = BLOG_POSTS
-    .filter((candidate) => candidate.slug !== slug && candidate.category === post.category)
-    .map((candidate) => ({
-      slug: candidate.slug,
-      title: candidate.title,
-      category: candidate.category,
-      readTime: candidate.readTime,
-      date: candidate.date,
-    }));
-  const related = [...publishedDbPosts, ...staticRelated]
-    .filter((candidate, index, posts) => posts.findIndex((item) => item.slug === candidate.slug) === index)
-    .filter((candidate) => candidate.slug !== slug && candidate.category === post.category)
-    .slice(0, 3);
-  const otherPosts: RelatedPost[] = BLOG_POSTS
-    .filter((candidate) => candidate.slug !== slug)
-    .slice(0, 3)
-    .map((candidate) => ({
-      slug: candidate.slug,
-      title: candidate.title,
-      category: candidate.category,
-      readTime: candidate.readTime,
-      date: candidate.date,
-    }));
-
-  return (
-    <main id="main-content" className={isPilot ? "pilot-brand-page pilot-article-page" : undefined}>
-      <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50 border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400 mb-6 uppercase tracking-wide">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
-            <span>/</span>
-            <span className="text-slate-500 truncate max-w-xs">{post.title}</span>
-          </nav>
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full uppercase tracking-wide">{post.category}</span>
-            {post.tag === "New" && <span className="px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wide bg-emerald-100 text-emerald-700">New</span>}
-            <span className="flex items-center gap-1 text-slate-400 text-xs"><Clock className="w-3 h-3" />{post.readTime} read</span>
-            <span className="flex items-center gap-1 text-slate-400 text-xs"><Calendar className="w-3 h-3" />{post.date}</span>
-          </div>
-          <h1 className="font-bold text-slate-900 text-3xl md:text-5xl leading-tight max-w-4xl mb-6">{post.title}</h1>
-          <p className="text-slate-600 text-lg max-w-3xl leading-relaxed">{post.excerpt}</p>
-        </div>
-      </section>
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <article className="lg:col-span-2">
-              {content ? (
-                <div className="space-y-8">
-                  <div className="bg-blue-50 border-l-4 border-blue-500  p-6">
-                    <p className="text-slate-700 text-base leading-relaxed font-medium">{content.intro}</p>
-                  </div>
-                  {content.sections.map((section, i) => (
-                    <div key={i}>
-                      <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center flex-shrink-0">{i + 1}</span>
-                        {section.heading}
-                      </h2>
-                      <div className="space-y-3 pl-9">
-                        {section.body.map((para, j) => <p key={j} className="text-slate-600 leading-relaxed">{para}</p>)}
-                      </div>
-                    </div>
-                  ))}
-                  <div className="bg-slate-50  p-6 border border-slate-200">
-                    <h2 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2"><BookOpen className="w-5 h-5 text-blue-600" />Conclusion</h2>
-                    <p className="text-slate-600 leading-relaxed">{content.conclusion}</p>
-                  </div>
-                  <div className="bg-green-50  p-6 border border-green-200">
-                    <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" />Key Takeaways</h2>
-                    <ul className="space-y-2">
-                      {content.keyTakeaways.map((point, i) => (
-                        <li key={i} className="flex items-start gap-3 text-slate-700 text-sm">
-                          <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/></svg>
-                          </span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div className="bg-blue-50 border-l-4 border-blue-500  p-6">
-                    <p className="text-slate-700 text-base leading-relaxed font-medium">{post.excerpt}</p>
-                  </div>
-                  <p className="text-slate-600 leading-relaxed">This comprehensive guide covers everything you need to know about {post.title.toLowerCase()}.</p>
-                </div>
-              )}
-              {productLinks.length > 0 && (
-                <section className="mt-10 border-y border-blue-200 bg-blue-50 p-6" aria-labelledby="related-products-heading">
-                  <p className="text-xs font-bold uppercase text-blue-700">Product fit</p>
-                  <h2 id="related-products-heading" className="mt-2 text-xl font-bold text-slate-900">
-                    Continue with the matching product specification.
-                  </h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    Use these product pages to compare construction, application fit, and the information needed for a representative sample or quotation.
-                  </p>
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {productLinks.map((product) => (
-                      <Link
-                        key={product.href}
-                        href={product.href}
-                        className="group border border-blue-200 bg-white p-4 transition-colors hover:border-blue-400"
-                      >
-                        <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
-                          {product.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                        </span>
-                        <span className="mt-2 block text-sm leading-6 text-slate-600">{product.description}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
-              {industryLinks.length > 0 && (
-                <section className="mt-10 border-y border-slate-200 bg-slate-50 p-6" aria-labelledby="related-industries-heading">
-                  <p className="text-xs font-bold uppercase text-blue-700">Related applications</p>
-                  <h2 id="related-industries-heading" className="mt-2 text-xl font-bold text-slate-900">
-                    Apply this guide to an industry specification.
-                  </h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    These links provide application context. They do not replace device qualification, document-scope review, or representative sample testing.
-                  </p>
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {industryLinks.map((industry) => (
-                      <Link
-                        key={industry.slug}
-                        href={`/industries/${industry.slug}`}
-                        className="group border border-slate-200 bg-white p-4 transition-colors hover:border-blue-300"
-                      >
-                        <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 group-hover:text-blue-800">
-                          {industry.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                        </span>
-                        <span className="mt-2 block text-sm leading-6 text-slate-600">{industry.description}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
-              <div className="mt-10 p-6 bg-gradient-to-r from-blue-600 to-blue-700  text-white">
-                <h3 className="font-bold text-xl mb-2">Need Expert Guidance?</h3>
-                <p className="text-blue-100 text-sm mb-4">Contact our technical team for detailed compliance documentation, product specifications, or a custom quote for your market.</p>
-                <div className="flex flex-wrap gap-3">
-                  <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold  hover:bg-blue-50 transition-colors text-sm">Contact Us <ArrowRight className="w-4 h-4" /></Link>
-                  <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-white/50 text-white font-semibold  hover:bg-white/10 transition-all text-sm">Get Quote</Link>
-                </div>
-              </div>
-            </article>
-            <aside>
-              <div className="bg-white border border-slate-200  p-6 mb-6 sticky top-24 shadow-sm">
-                <h3 className="font-bold text-slate-900 text-lg mb-4">Related Articles</h3>
-                <div className="space-y-4">
-                  {(related.length > 0 ? related : otherPosts).map((p) => (
-                    <Link key={p.slug} href={`/blog/${p.slug}`} className="block group">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[9px] font-semibold tracking-widest uppercase ">{p.category}</span>
-                      </div>
-                      <h4 className="font-semibold text-slate-700 text-sm leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{p.title}</h4>
-                      <p className="text-slate-400 text-xs mt-1">{p.readTime} · {p.date}</p>
-                    </Link>
-                  ))}
-                </div>
-                <div className="mt-5 pt-5 border-t border-slate-200">
-                  <Link href="/blog" className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wide hover:gap-3 transition-all">All Articles <ArrowRight className="w-3.5 h-3.5" /></Link>
-                </div>
-              </div>
-              <div className="bg-blue-50 border border-blue-100  p-6">
-                <h3 className="font-bold text-slate-900 text-sm mb-3">Quick Links</h3>
-                <div className="space-y-2 text-sm">
-                  {[
-                    { label: "Request a Sample", href: "/samples" },
-                    { label: "Get a Quote", href: "/quote" },
-                    { label: "Compliance Certificates", href: "/compliance/certificates" },
-                    { label: "FAQ", href: "/faq" },
-                    { label: "Contact Us", href: "/contact" },
-                  ].map((link) => (
-                    <Link key={link.href} href={link.href} className="flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"><ArrowRight className="w-3 h-3" />{link.label}</Link>
-                  ))}
-                </div>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-      <CTABanner />
-    </main>
-  );
+  const content = BLOG_CONTENT.find((candidate) => candidate.slug === slug);
+  const related = [...publishedDbPosts, ...BLOG_POSTS.filter((candidate) => candidate.slug !== slug && candidate.category === post.category).map((candidate) => ({ slug: candidate.slug, title: candidate.title, category: candidate.category, readTime: candidate.readTime, date: candidate.date }))].filter((item, index, items) => items.findIndex((candidate) => candidate.slug === item.slug) === index).filter((item) => item.slug !== slug && item.category === post.category).slice(0, 3);
+  const fallbackRelated = related.length > 0 ? related : BLOG_POSTS.filter((candidate) => candidate.slug !== slug).slice(0, 3).map((candidate) => ({ slug: candidate.slug, title: candidate.title, category: candidate.category, readTime: candidate.readTime, date: candidate.date }));
+  const outline = content?.sections.map((section) => section.heading) || [];
+  return <ArticleFrame header={{ slug, title: post.title, excerpt: post.excerpt, category: post.category, readTime: post.readTime, date: post.date, tags: post.tag ? [post.tag] : [] }} outline={outline} related={fallbackRelated} productLinks={productLinks} industryLinks={industryLinks}>{content ? <div className="space-y-10"><p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f] md:text-2xl">{content.intro}</p>{content.sections.map((section) => <section key={section.heading} id={headingId(section.heading)} className="scroll-mt-28"><h2 className="mb-5 text-3xl font-bold text-[#14211f]">{section.heading}</h2><div className="space-y-6 text-lg leading-8 text-[#3f504c]">{section.body.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}</div></section>)}<section className="border-t border-[#ded6c8] pt-8"><h2 className="flex items-center gap-2 text-2xl font-bold text-[#14211f]"><BookOpen className="h-5 w-5 text-[#0f5f5c]" aria-hidden="true" /> Conclusion</h2><p className="mt-4 text-lg leading-8 text-[#3f504c]">{content.conclusion}</p></section><section className="bg-[#e7eee9] px-5 py-7 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Key takeaways</h2><ul className="mt-5 space-y-3">{content.keyTakeaways.map((point) => <li key={point} className="flex gap-3 text-lg leading-7 text-[#3f504c]"><Check className="mt-1 h-5 w-5 shrink-0 text-[#0f5f5c]" aria-hidden="true" />{point}</li>)}</ul></section></div> : <p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f]">{post.excerpt}</p>}</ArticleFrame>;
 }

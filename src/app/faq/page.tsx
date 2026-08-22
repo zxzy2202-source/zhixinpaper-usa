@@ -1,9 +1,8 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/ui/CTABanner";
-import FaqSection from "@/components/ui/FaqSection";
 import { normalizeFaqItem } from "@/lib/faq";
 import { faqSchema } from "@/lib/seo";
+import FaqPageClient from "./FaqPageClient";
 
 
 const FAQ_ITEMS = [
@@ -115,44 +114,18 @@ const FAQ_ITEMS = [
 ];
 
 export default function FAQPage() {
-  const allFaqs = FAQ_ITEMS.flatMap((section) => section.questions.map(normalizeFaqItem));
+  const groups = FAQ_ITEMS.map((section) => ({
+    category: section.category,
+    questions: section.questions.map(normalizeFaqItem),
+  }));
+  const allFaqs = groups.flatMap((section) => section.questions);
   const faqJsonLd = faqSchema(allFaqs);
 
   return (
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <main>
-        <section className="border-b border-slate-200 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 pb-16 pt-32">
-          <div className="container-site">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-0.5 w-8 bg-blue-600" />
-              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">FAQ</span>
-            </div>
-            <h1 className="mb-4 text-5xl font-bold text-slate-900 md:text-6xl">Frequently Asked Questions</h1>
-            <p className="max-w-2xl text-lg text-slate-500">
-              Answers to common questions from distributors, importers, and buyers about our thermal paper products, compliance, OEM services, and ordering process.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {FAQ_ITEMS.map((section) => (
-                <span key={section.category} className="border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
-                  {section.category}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-        <div className="bg-white py-20">
-          <FaqSection
-            faqs={allFaqs}
-            title="Buyer questions, answered clearly"
-            intro="Review product, compliance, ordering, and logistics details before requesting samples or a project-specific quote."
-            eyebrow="Buyer FAQ"
-            tone="light"
-          />
-        </div>
-        <CTABanner />
-      </main>
+      <FaqPageClient groups={groups} />
       <Footer />
     </>
   );

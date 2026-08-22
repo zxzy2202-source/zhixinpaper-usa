@@ -184,10 +184,11 @@ test("every static blog links back to verified industry applications", () => {
   const [databaseBranch, staticBranch] = componentBody.split("// Static data fallback", 2);
   assert.ok(databaseBranch && staticBranch, "blog client must retain separate database and static branches");
   assert.doesNotMatch(databaseBranch, /BLOG_INDUSTRY_LINKS\[slug\]/);
-  assert.doesNotMatch(databaseBranch, /related-industries-heading/);
+  assert.match(databaseBranch, /industryLinks=\{\[\]\}/);
   assert.match(staticBranch, /const industryLinks = BLOG_INDUSTRY_LINKS\[slug\] \|\| \[\]/);
-  assert.match(staticBranch, /industryLinks\.length > 0/);
-  assert.match(staticBranch, /href=\{`\/industries\/\$\{industry\.slug\}`\}/);
-  assert.match(staticBranch, /aria-labelledby="related-industries-heading"/);
-  assert.match(staticBranch, /They do not replace device qualification, document-scope review, or representative sample testing\./);
+  assert.match(staticBranch, /industryLinks=\{industryLinks\}/);
+  assert.match(client, /if \(links\.length === 0\) return null/);
+  assert.match(client, /href=\{`\/industries\/\$\{industry\.slug\}`\}/);
+  assert.match(client, /aria-labelledby="related-industries-heading"/);
+  assert.match(client, /They do not replace device qualification, document-scope review, or representative sample testing\./);
 });

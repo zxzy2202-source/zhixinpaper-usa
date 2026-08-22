@@ -5,7 +5,6 @@ import test from "node:test";
 const read = (path) => readFileSync(path, "utf8");
 
 const sharedFaqPages = [
-  "src/app/faq/page.tsx",
   "src/app/us/page.tsx",
   "src/app/ca/page.tsx",
   "src/app/eu/page.tsx",
@@ -32,6 +31,13 @@ test("public FAQ surfaces use the shared accessible template", () => {
     const source = read(path);
     assert.match(source, /FaqSection/, `${path} must use FaqSection`);
   }
+
+  const faqPage = read("src/app/faq/page.tsx");
+  const faqClient = read("src/app/faq/FaqPageClient.tsx");
+  assert.match(faqPage, /<FaqPageClient groups=\{groups\}/);
+  assert.match(faqClient, /type="search"/);
+  assert.match(faqClient, /aria-expanded=\{isOpen\}/);
+  assert.match(faqClient, /onClick=\{\(\) => setOpenKey/);
 });
 
 test("FAQ schema is sourced from the visible FAQ data on migrated pages", () => {
@@ -51,7 +57,11 @@ test("FAQ schema is sourced from the visible FAQ data on migrated pages", () => 
   for (const [path, schemaCall] of schemaPages) {
     const source = read(path);
     assert.match(source, new RegExp(schemaCall.replace(/[()[\]]/g, "\\$&")), `${path} must keep FAQ schema`);
-    assert.match(source, /<FaqSection[\s\S]*faqs=\{/ , `${path} must render the FAQ data visibly`);
+    if (path === "src/app/faq/page.tsx") {
+      assert.match(source, /<FaqPageClient groups=\{groups\}/, `${path} must render the grouped FAQ data visibly`);
+    } else {
+      assert.match(source, /<FaqSection[\s\S]*faqs=\{/ , `${path} must render the FAQ data visibly`);
+    }
   }
 
   const industry = read("src/app/industries/[slug]/page.tsx");
