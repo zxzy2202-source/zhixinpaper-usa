@@ -4,7 +4,6 @@ import { readFile } from "node:fs/promises";
 
 const source = await readFile(new URL("../src/app/about/page.tsx", import.meta.url), "utf8");
 const headerSource = await readFile(new URL("../src/components/layout/Header.tsx", import.meta.url), "utf8");
-const aboutHeaderSource = await readFile(new URL("../src/components/layout/AboutReferenceHeader.tsx", import.meta.url), "utf8");
 const footerSource = await readFile(new URL("../src/components/layout/Footer.tsx", import.meta.url), "utf8");
 
 test("About page follows the reference company-profile section contract", () => {
@@ -69,7 +68,11 @@ test("shared brand labels do not contradict the 2006 company story", () => {
 
 test("About page uses a fluid full-width shell", () => {
   assert.match(source, /about-shell/);
-  assert.match(aboutHeaderSource, /about-shell/);
   assert.doesNotMatch(source, /container-site/);
-  assert.doesNotMatch(aboutHeaderSource, /container-site/);
+});
+
+test("About page uses the shared site navigation", () => {
+  assert.match(source, /import Header from ["']@\/components\/layout\/Header["']/);
+  assert.match(source, /<Header \/>/);
+  assert.doesNotMatch(source, /AboutReferenceHeader/);
 });

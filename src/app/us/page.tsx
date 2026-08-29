@@ -6,7 +6,7 @@ import CTABanner from "@/components/ui/CTABanner";
 import SlotImage from "@/components/ui/SlotImage";
 import RegionHero from "@/components/ui/RegionHero";
 import FaqSection from "@/components/ui/FaqSection";
-import { buildMetadata, organizationSchema, breadcrumbSchema, faqSchema } from "@/lib/seo";
+import { buildMetadata, organizationSchema, breadcrumbSchema, faqSchema, localBusinessSchema } from "@/lib/seo";
 import { normalizeFaqItem } from "@/lib/faq";
 import { GEO_REGIONS } from "@/lib/data";
 import {
@@ -104,6 +104,7 @@ export default function USPage() {
   const faqs = US_FAQ.map(normalizeFaqItem);
   const jsonLd = [
     organizationSchema(),
+    localBusinessSchema("us"),
     breadcrumbSchema([{ name: "Home", url: "/" }, { name: "USA", url: "/us" }]),
     faqSchema(faqs),
   ];

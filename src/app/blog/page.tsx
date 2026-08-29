@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { buildSectionMetadata, DEFAULT_SEO_SECTIONS } from "@/lib/siteSettings";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 import BlogListClient from "./BlogListClient";
 
 const blogSeoDefaults = DEFAULT_SEO_SECTIONS.blog;
@@ -99,5 +100,37 @@ export default async function BlogPage() {
     fromDB: false,
   }));
 
-  return <BlogListClient posts={[...dynamicPosts, ...staticPosts]} />;
+  const posts = [...dynamicPosts, ...staticPosts];
+
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Blog", url: "/blog" },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: blogSeoDefaults.siteTitle,
+      url: canonicalUrl("/blog"),
+      description: blogSeoDefaults.siteDescription,
+      hasPart: posts.slice(0, 50).map((post) => ({
+        "@type": "Article",
+        headline: post.title,
+        url: canonicalUrl(`/blog/${post.slug}`),
+      })),
+    },
+  ];
+
+  return (
+    <>
+      {jsonLd.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+        />
+      ))}
+      <BlogListClient posts={posts} />
+    </>
+  );
 }

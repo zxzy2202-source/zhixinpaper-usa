@@ -4,9 +4,29 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/compliance/reach-rohs");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "REACH and RoHS Documentation",
+  url: PAGE_URL,
+  description:
+    "Review REACH and RoHS documentation for the selected thermal paper or label construction, restricted-substance scope, application, and destination.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Compliance", url: "/compliance" },
+    { name: "REACH & RoHS", url: "/compliance/reach-rohs" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "REACH & RoHS Documentation Review",
@@ -25,6 +45,9 @@ export default function ReachRohsPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       <HeroBanner
         variant="media"

@@ -3,9 +3,29 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/compliance/certificates");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Product Documentation for Buyer Review",
+  url: PAGE_URL,
+  description:
+    "Request current, product-specific thermal paper declarations, test reports, and management-system documents for project review.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Compliance", url: "/compliance" },
+    { name: "Certificates", url: "/compliance/certificates" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "Thermal Paper Documentation Requests",
@@ -35,6 +55,9 @@ export default function CertificatesPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">

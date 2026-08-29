@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { BLOG_POSTS } from "@/lib/data";
+import { BLOG_POSTS, BLOG_CATEGORY_IMAGES } from "@/lib/data";
 import { BLOG_CONTENT } from "@/lib/blog-content";
 import { BLOG_INDUSTRY_LINKS } from "@/lib/blog-industry-links";
 import { BLOG_PRODUCT_LINKS } from "@/lib/blog-product-links";
@@ -18,13 +18,6 @@ interface Props { slug: string; dbPost: DBPost | null; publishedDbPosts?: Relate
 type ProductLink = { href: string; label: string; description: string };
 type IndustryLink = { slug: string; label: string; description: string };
 type ArticleHeaderProps = { slug: string; title: string; excerpt: string; category: string; readTime: string; date: string; tags?: string[]; coverImage?: string | null; };
-
-const CATEGORY_IMAGES: Record<string, string> = {
-  Compliance: "/images/compliance-certifications.jpg",
-  Education: "/images/thermal-rolls-product.jpg",
-  Products: "/images/thermal-rolls-product.jpg",
-  "E-Commerce": "/images/thermal-labels-product.jpg",
-};
 
 function removeLeadingMarkdownTitle(content: string, title: string) {
   const lines = content.split(/\r?\n/);
@@ -81,7 +74,7 @@ function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = 
           <p className="mt-6 max-w-3xl text-base leading-7 text-[#4f5f5a] md:text-lg md:leading-8">{excerpt}</p>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4"><ShareLinks slug={slug} title={title} />{tags.length > 0 && <div className="flex flex-wrap items-center gap-2 text-xs text-[#87918c]"><Tag className="h-4 w-4" aria-hidden="true" />{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}</div>
         </div>
-        {coverImage && <div className="relative mt-10 aspect-[16/7] max-w-4xl overflow-hidden bg-[#eef2f0]"><Image src={coverImage} alt="" fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" /></div>}
+        {coverImage && <div className="relative mt-10 aspect-[16/7] max-w-4xl overflow-hidden bg-[#eef2f0]"><Image src={coverImage} alt={title} fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" /></div>}
       </div>
     </header>
   </>;
@@ -119,7 +112,7 @@ function ArticleActions() {
 function RelatedPosts({ related }: { related: RelatedPost[] }) {
   const cards = related.slice(0, 2);
   if (cards.length === 0) return null;
-  return <section className="mt-16 border-t border-[#e1e6e4] pt-10" aria-labelledby="related-posts-heading"><h2 id="related-posts-heading" className="text-2xl font-bold text-[#14211f] md:text-3xl">Related Posts</h2><div className="mt-7 grid gap-6 md:grid-cols-2">{cards.map((post) => <article key={post.slug} className="group border border-[#e1e6e4] bg-white"><Link href={`/blog/${post.slug}`} className="block"><div className="relative aspect-[16/8] overflow-hidden bg-[#eef2f0]"><Image src={CATEGORY_IMAGES[post.category] || "/images/factory-overview.jpg"} alt="" fill sizes="(min-width: 768px) 430px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.02]" /></div><div className="p-5"><h3 className="text-lg font-semibold leading-6 text-[#14211f] group-hover:text-[#0f5f5c]">{post.title}</h3><p className="mt-3 text-sm text-[#0f5f5c]">{post.category} / By Zhixin Paper</p></div></Link></article>)}</div></section>;
+  return <section className="mt-16 border-t border-[#e1e6e4] pt-10" aria-labelledby="related-posts-heading"><h2 id="related-posts-heading" className="text-2xl font-bold text-[#14211f] md:text-3xl">Related Posts</h2><div className="mt-7 grid gap-6 md:grid-cols-2">{cards.map((post) => <article key={post.slug} className="group border border-[#e1e6e4] bg-white"><Link href={`/blog/${post.slug}`} className="block"><div className="relative aspect-[16/8] overflow-hidden bg-[#eef2f0]"><Image src={BLOG_CATEGORY_IMAGES[post.category] || BLOG_CATEGORY_IMAGES.default} alt={post.title} fill sizes="(min-width: 768px) 430px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.02]" /></div><div className="p-5"><h3 className="text-lg font-semibold leading-6 text-[#14211f] group-hover:text-[#0f5f5c]">{post.title}</h3><p className="mt-3 text-sm text-[#0f5f5c]">{post.category} / By Zhixin Paper</p></div></Link></article>)}</div></section>;
 }
 
 function PreviousPost({ related }: { related: RelatedPost[] }) {

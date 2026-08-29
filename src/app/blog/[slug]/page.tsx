@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { ensureBlogPostSchema } from "@/lib/db/ensureBlogPostSchema";
 import { blogPosts } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
-import { BLOG_POSTS } from "@/lib/data";
+import { BLOG_POSTS, BLOG_CATEGORY_IMAGES } from "@/lib/data";
 import BlogPostClient from "./BlogPostClient";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -162,7 +162,7 @@ export default async function BlogPostPage({
         logo: { "@type": "ImageObject", url: "https://www.zhixinpaper.com/images/logo.png" },
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.zhixinpaper.com/blog/${slug}` },
-      ...(dbPost.coverImage ? { image: dbPost.coverImage } : {}),
+      image: dbPost.coverImage || canonicalUrl(BLOG_CATEGORY_IMAGES[dbPost.category || ""] ?? BLOG_CATEGORY_IMAGES.default),
     };
 
     return (
@@ -195,11 +195,14 @@ export default async function BlogPostPage({
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const postImage = canonicalUrl(BLOG_CATEGORY_IMAGES[post.category] ?? BLOG_CATEGORY_IMAGES.default);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
+    image: postImage,
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: "Zhixin Paper", url: "https://www.zhixinpaper.com" },

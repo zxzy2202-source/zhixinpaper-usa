@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import FactorySubnav from "@/components/factory/FactorySubnav";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/virtual-tour");
 
@@ -80,6 +80,18 @@ export default function VirtualTourPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryTourVideoSchema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Factory", url: "/factory" },
+              { name: "Virtual Tour", url: "/factory/virtual-tour" },
+            ])
+          ).replace(/</g, "\\u003c"),
+        }}
       />
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner

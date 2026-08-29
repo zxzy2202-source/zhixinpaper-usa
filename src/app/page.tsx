@@ -121,6 +121,24 @@ const RFQ_FIELDS = [
   "Required certificates and packing",
 ] as const;
 
+const PROJECT_BUYER_POINTS = [
+  {
+    title: "Bid specification",
+    copy: "Share the tender line item, drawing, printer model, or label construction so the quote follows the project requirement.",
+    icon: <FileCheck2 className="h-5 w-5" />,
+  },
+  {
+    title: "Document scope",
+    copy: "Request only the grade-specific declarations, test files, and packing details your submission actually needs.",
+    icon: <ShieldCheck className="h-5 w-5" />,
+  },
+  {
+    title: "Sample gate",
+    copy: "Use representative samples to confirm fit, print, adhesive, and approval timing before a project order is released.",
+    icon: <PackageCheck className="h-5 w-5" />,
+  },
+] as const;
+
 export default function HomePage() {
   const jsonLd = [
     breadcrumbSchema([{ name: "Home", url: "/" }]),
@@ -171,10 +189,10 @@ export default function HomePage() {
             <div className="grid gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-end">
               <div className="max-w-[760px]">
                 <h1 className="text-[2.35rem] font-bold leading-[1.05] text-white sm:text-5xl lg:text-[4rem]">
-                  Thermal Paper Rolls & Labels Manufacturer for Wholesale Buyers.
+                  Thermal Paper Rolls & Labels for International Tender Projects.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-[#dce4df] md:text-lg">
-                  Match rolls, labels, documents, packing, and freight terms before bulk production.
+                  For international contractors, tendering companies, and project procurement teams: match the bid specification, documents, samples, packing, and freight terms before bulk production.
                 </p>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <Link
@@ -228,6 +246,34 @@ export default function HomePage() {
                 {item}
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="border-b border-[#ded6c8] bg-[#eef3ef] py-16 md:py-20" aria-labelledby="project-procurement-heading">
+          <div className="container-site grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f5f5c]">Project procurement</p>
+              <h2 id="project-procurement-heading" className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">
+                Build a quote your tender team can use.
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-[#4f5f5a]">
+                When an international contractor or tendering company has a fixed submission date, the right first step is a complete specification review, not a generic product list.
+              </p>
+              <Link href="/quote" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
+                Start a project RFQ <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-3 md:grid-cols-3">
+              {PROJECT_BUYER_POINTS.map((point) => (
+                <article key={point.title} className="border border-[#c8d8ce] bg-white p-5">
+                  <span className="flex h-10 w-10 items-center justify-center bg-[#e7eee9] text-[#0f5f5c]" aria-hidden="true">
+                    {point.icon}
+                  </span>
+                  <h3 className="mt-5 text-lg font-bold text-[#14211f]">{point.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4f5f5a]">{point.copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

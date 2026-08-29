@@ -4,12 +4,32 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/oem-custom/private-label");
 
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Private Label Thermal Paper",
+  url: PAGE_URL,
+  description:
+    "Private-label thermal paper rolls and labels with branded packaging, core options, artwork review, specification checks, samples, and export order planning.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "OEM & Custom", url: "/oem-custom" },
+    { name: "Private Label", url: "/oem-custom/private-label" },
+  ]),
+  webPageSchema,
+];
+
 export const metadata: Metadata = {
-  title: "Private Label Thermal Paper",
+  title: "Private Label Thermal Paper Rolls & Labels (OEM)",
   description: "Private-label thermal paper rolls and labels with branded packaging, core options, artwork review, specification checks, samples, and export order planning.",
   alternates: {
     canonical: PAGE_URL,
@@ -34,6 +54,9 @@ export default function PrivateLabelPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

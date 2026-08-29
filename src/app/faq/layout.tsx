@@ -5,7 +5,7 @@ import { canonicalUrl } from "@/lib/seo";
 const PAGE_URL = canonicalUrl("/faq");
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Buyer FAQ",
+  title: "Thermal Paper Rolls & Labels FAQ for B2B Buyers",
   description:
     "Answers for thermal paper roll and label buyers: MOQ, samples, lead time, compliance documents, shipping, OEM printing, and wholesale ordering.",
   alternates: {

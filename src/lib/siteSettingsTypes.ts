@@ -149,7 +149,7 @@ export const DEFAULT_SEO_SECTIONS: SeoSectionSettings = {
     ogImage: "",
   },
   products: {
-    siteTitle: "Wholesale Thermal Paper Products",
+    siteTitle: "Wholesale Thermal Paper Rolls & Labels Products",
     siteDescription:
       "Browse wholesale thermal paper rolls and labels by use case, size, compliance files, packing, and RFQ details for repeat import orders.",
     keywords:
@@ -173,11 +173,11 @@ export const DEFAULT_SEO_SECTIONS: SeoSectionSettings = {
     ogImage: "",
   },
   samples: {
-    siteTitle: "Request Free Thermal Paper Samples",
+    siteTitle: "Request Thermal Paper Samples for Product Evaluation",
     siteDescription:
       "Request thermal paper roll and label samples for specification, printer-fit, material, print-quality, adhesive, and document checks before a wholesale order.",
     keywords:
-      "free thermal paper samples, thermal paper sample request, thermal label samples wholesale, BPA-free thermal paper sample, thermal paper distributor samples",
+      "thermal paper samples, thermal paper sample request, thermal label samples wholesale, BPA-free thermal paper sample, thermal paper distributor samples",
     ogImage: "",
   },
   contact: {

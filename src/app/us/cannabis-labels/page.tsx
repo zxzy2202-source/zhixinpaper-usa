@@ -3,10 +3,30 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 import { SlotImage } from "@/components/ui/SlotImage";
 
 const PAGE_URL = canonicalUrl("/us/cannabis-labels");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "US Cannabis Warning and Dispensary Labels",
+  url: PAGE_URL,
+  description:
+    "Thermal label materials for US cannabis brands and dispensaries. Confirm state-specific copy, facestock, adhesive, print method, testing, and approval scope.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "USA", url: "/us" },
+    { name: "Cannabis Labels", url: "/us/cannabis-labels" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "Cannabis Labels for US Dispensaries",
@@ -36,6 +56,9 @@ export default function USCannabisLabelsPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       {/* Hero */}
       <section className="bg-gradient-to-br from-green-900 to-green-700 text-white pt-32 pb-20">

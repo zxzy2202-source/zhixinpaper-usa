@@ -5,9 +5,29 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import FactorySubnav from "@/components/factory/FactorySubnav";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/capacity");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Production Capacity and Lead-Time Review",
+  url: PAGE_URL,
+  description:
+    "Review capacity planning, indicative MOQ and lead-time ranges for thermal paper rolls, labels, specialty materials, custom printing, packing, and export orders.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Factory", url: "/factory" },
+    { name: "Capacity", url: "/factory/capacity" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "Thermal Paper Capacity, MOQ & Lead Times",
@@ -37,6 +57,9 @@ export default function FactoryCapacityPage() {
     <>
       <Header />
       <FactorySubnav current="/factory/capacity" />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

@@ -30,6 +30,7 @@ export default function SamplesClient() {
   const [submitted, setSubmitted] = useState(false);
   const [autoReplySent, setAutoReplySent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [productError, setProductError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -49,6 +50,7 @@ export default function SamplesClient() {
   };
 
   const toggleProduct = (item: string) => {
+    setProductError(null);
     setSelectedProducts((prev) =>
       prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
     );
@@ -56,8 +58,15 @@ export default function SamplesClient() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     setSubmitError(null);
+    setProductError(null);
+
+    if (selectedProducts.length === 0) {
+      setProductError("Select at least one product construction to evaluate.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch("/api/samples", {
@@ -132,18 +141,30 @@ export default function SamplesClient() {
       <Header />
       <main>
         <PageHeader
-          eyebrow="Sample Evaluation"
-          title="Request production samples before bulk order"
-          description="Test the selected thermal paper or label construction before a bulk order. Availability, sample charges, preparation, documents, and courier terms are confirmed after reviewing the project and destination."
+          eyebrow="Product evaluation request"
+          title="Qualify a sample before bulk approval"
+          description="Use this page only for printer-fit, material, adhesive, print, or packing evaluation. Sample availability, charges, and courier terms are confirmed after reviewing the requested construction and destination."
         />
 
-        <section className="py-20 bg-[#fbfaf6]">
+        <div className="border-b border-[#ded6c8] bg-[#101b19]">
+          <div className="container-site flex flex-col gap-4 py-5 text-sm sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-2xl leading-6 text-[#c7d0cb]">
+              Need bulk pricing, compliance documents, freight, or tender support instead?
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/quote" className="font-bold text-[#d6b273] hover:text-white">Start a commercial RFQ</Link>
+              <Link href="/contact" className="font-semibold text-white hover:text-[#d6b273]">Contact sales</Link>
+            </div>
+          </div>
+        </div>
+
+        <section className="bg-[#f4f0e8] py-20">
           <div className="container-site">
             <div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
                 <div className="bg-[#fbfaf6] border border-[#ded6c8] p-5 sm:p-8">
                   <h2 className="font-bold text-[#14211f] text-2xl mb-6">
-                    Sample Request Form
+                    Evaluation and shipping details
                   </h2>
 
                   {submitError && (
@@ -273,7 +294,7 @@ export default function SamplesClient() {
                     </div>
                     <div>
                       <div className="block text-xs font-semibold text-[#87918c] mb-2">
-                        Sample Products Requested
+                        Product construction to evaluate *
                       </div>
                       <div className="space-y-2">
                         {SAMPLE_PRODUCTS.map((item) => (
@@ -291,10 +312,16 @@ export default function SamplesClient() {
                           </label>
                         ))}
                       </div>
+                      {productError && (
+                        <p className="mt-3 flex items-center gap-2 text-sm font-medium text-red-700" role="alert">
+                          <AlertCircle className="h-4 w-4 shrink-0" />
+                          {productError}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="sample-notes" className="block text-xs font-semibold text-[#87918c] mb-2">
-                        Additional Notes
+                        Evaluation Context
                       </label>
                       <textarea id="sample-notes"
                         name="notes"
@@ -302,7 +329,7 @@ export default function SamplesClient() {
                         value={form.notes}
                         onChange={handleChange}
                         className="w-full bg-[#f4f0e8] border border-[#ded6c8] px-4 py-3 text-[#14211f] text-sm focus:border-[#0f5f5c] focus:outline-none transition-colors resize-none"
-                        placeholder="Specific sizes, certifications needed, or other requirements..."
+                        placeholder="Printer model, current material, issue to solve, target size, adhesive or coating, and what the sample must prove..."
                       />
                     </div>
                     <button
@@ -326,7 +353,7 @@ export default function SamplesClient() {
               <div>
                 <div className="bg-[#fbfaf6] border border-[#ded6c8] p-6 mb-5">
                   <h3 className="font-bold text-[#14211f] text-lg mb-4">
-                    Sample Policy
+                    Sample availability, charges, and courier terms
                   </h3>
                   <div className="space-y-4">
                     {[
@@ -361,6 +388,16 @@ export default function SamplesClient() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+                <div className="border border-[#ded6c8] bg-[#fbfaf6] p-6">
+                  <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-[#0f5f5c]">Use the correct route</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">
+                    A sample request does not replace a commercial quotation. Use the RFQ when price, volume, Incoterms, compliance scope, or supply timing is the decision.
+                  </p>
+                  <div className="mt-5 flex flex-col gap-3 text-sm font-bold">
+                    <Link href="/quote" className="text-[#9c661d] hover:text-[#7d4f16]">Go to commercial RFQ →</Link>
+                    <Link href="/contact" className="text-[#0f5f5c] hover:text-[#14211f]">Ask a general question →</Link>
                   </div>
                 </div>
               </div>

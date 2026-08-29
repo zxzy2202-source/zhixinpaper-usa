@@ -4,9 +4,29 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/oem-custom/moq-guide");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Minimum Order Quantity Guide",
+  url: PAGE_URL,
+  description:
+    "Plan thermal paper and label order quantities by product construction, dimensions, material, printing, tooling, packing, SKU mix, and current production review.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "OEM & Custom", url: "/oem-custom" },
+    { name: "MOQ Guide", url: "/oem-custom/moq-guide" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "MOQ Guide | Thermal Paper Minimum Order Quantity",
@@ -38,6 +58,9 @@ export default function MOQGuidePage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

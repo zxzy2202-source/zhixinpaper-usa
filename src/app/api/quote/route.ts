@@ -36,6 +36,8 @@ export async function POST(request: NextRequest) {
       incoterms,
       specifications,
       customPrinting,
+      projectStage,
+      requiredBy,
       notes,
       source,
     } = body;
@@ -88,6 +90,8 @@ export async function POST(request: NextRequest) {
         Incoterms: incoterms,
         Specifications: specifications,
         "Custom Printing": customPrinting,
+        "Project stage": projectStage,
+        "Required by": requiredBy,
       },
       message: notes,
       source: source || "quote_form",
@@ -141,6 +145,14 @@ export async function POST(request: NextRequest) {
                 <tr>
                   <td style="padding: 4px 0; color: #64748b;">Specifications:</td>
                   <td style="padding: 4px 0; color: #1e293b;">${specifications || "—"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 4px 0; color: #64748b;">Project stage:</td>
+                  <td style="padding: 4px 0; color: #1e293b;">${projectStage || "—"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 4px 0; color: #64748b;">Required by:</td>
+                  <td style="padding: 4px 0; color: #1e293b;">${requiredBy || "—"}</td>
                 </tr>
               </table>
             </div>

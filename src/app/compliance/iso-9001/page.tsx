@@ -4,9 +4,29 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/compliance/iso-9001");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "ISO 9001:2015 Quality Management",
+  url: PAGE_URL,
+  description:
+    "Review the current ISO 9001 certificate holder, issuer, validity, scope, and quality-management evidence for thermal paper and label supplier qualification.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Compliance", url: "/compliance" },
+    { name: "ISO 9001", url: "/compliance/iso-9001" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "ISO 9001 Quality Management Review",
@@ -25,6 +45,9 @@ export default function ISO9001Page() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       <HeroBanner
         variant="media"

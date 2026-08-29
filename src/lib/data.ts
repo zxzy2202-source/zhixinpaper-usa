@@ -1094,6 +1094,17 @@ export const BLOG_POSTS = [
   },
 ];
 
+// Fallback hero/cover image per blog category, used for the Article JSON-LD
+// "image" property (required for Google Article rich results / Discover)
+// and reused as the visual cover image for posts without a dedicated photo.
+export const BLOG_CATEGORY_IMAGES: Record<string, string> = {
+  Compliance: "/images/compliance-certifications.jpg",
+  Education: "/images/thermal-rolls-product.jpg",
+  Products: "/images/thermal-rolls-product.jpg",
+  "E-Commerce": "/images/thermal-labels-product.jpg",
+  default: "/images/factory-overview.jpg",
+};
+
 export const NAV_ITEMS = [
   { label: "Home", href: "/" },
   {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import AboutReferenceHeader from "@/components/layout/AboutReferenceHeader";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { breadcrumbSchema, buildMetadata, organizationSchema } from "@/lib/seo";
 import {
@@ -216,7 +216,7 @@ export default function AboutPage() {
   ];
   return (
     <>
-      <AboutReferenceHeader />
+      <Header />
       <ContactRail />
       {jsonLd.map((schema, index) => (
         <script
@@ -225,7 +225,7 @@ export default function AboutPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <main id="main-content" className="bg-white pt-[76px] text-[#0d1b35]">
+      <main id="main-content" className="bg-white pt-[64px] text-[#0d1b35] md:pt-[92px]">
         <section className="relative overflow-hidden bg-[#0d1b35] text-white">
           <Image
             src="/images/hero-bg.jpg"

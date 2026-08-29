@@ -67,14 +67,14 @@ export default function QuotePage() {
                 {/* Left: headline + trust badges */}
                 <div className="max-w-2xl">
                   <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#d6b273]">
-                    Factory-direct wholesale · RFQ intake
+                    Commercial RFQ · factory-direct wholesale
                   </p>
                   <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl xl:text-6xl">
-                    Get a landed-cost quote<br className="hidden sm:block" /> in one form.
+                    Get a project-ready quote<br className="hidden sm:block" /> in one form.
                   </h1>
                   <p className="mt-5 max-w-xl text-base leading-8 text-[#c7d0cb] md:text-lg">
-                    Share your roll spec, destination, volume, and compliance needs.
-                    Sales matches the grade, documents, sample plan, and freight term.
+                    Share your bid specification, destination, volume, required-by date, and compliance needs.
+                    Sales matches the grade, documents, sample plan, and freight term for review.
                   </p>
 
                   {/* Trust badges */}
@@ -103,6 +103,12 @@ export default function QuotePage() {
                       className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/15"
                     >
                       Request samples first
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="text-sm font-semibold text-[#d6b273] underline decoration-white/20 underline-offset-4 transition-colors hover:text-white"
+                    >
+                      General question? Contact sales
                     </Link>
                   </div>
                 </div>
@@ -142,7 +148,7 @@ export default function QuotePage() {
                 { label: "Product", text: "Rolls, labels, OEM, or mixed program" },
                 { label: "Fit", text: "Width, OD, core, printer model, coating" },
                 { label: "Files", text: "REACH, FDA, Prop 65, FSC, ISO, BPA-free" },
-                { label: "Route", text: "FOB, CIF, DDP, pallet, or container terms" },
+                { label: "Pricing and supply plan", text: "FOB, CIF, DDP, pallet, or container terms" },
               ].map((item) => (
                 <div key={item.label} className="px-5 py-4">
                   <div className="text-xs font-bold uppercase tracking-widest text-[#0f5f5c]">{item.label}</div>

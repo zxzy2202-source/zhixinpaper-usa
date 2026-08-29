@@ -5,9 +5,29 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import FactorySubnav from "@/components/factory/FactorySubnav";
 import { SlotImage } from "@/components/ui/SlotImage";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/factory/equipment");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Manufacturing Equipment",
+  url: PAGE_URL,
+  description:
+    "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Factory", url: "/factory" },
+    { name: "Equipment", url: "/factory/equipment" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Equipment",
@@ -84,6 +104,9 @@ export default function FactoryEquipmentPage() {
     <>
       <Header />
       <FactorySubnav current="/factory/equipment" />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main id="main-content" className="legacy-brand-page min-h-screen bg-white">
       <HeroBanner
         variant="media"

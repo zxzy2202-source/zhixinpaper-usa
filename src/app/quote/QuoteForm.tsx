@@ -49,6 +49,14 @@ const PRODUCTS = [
   { id: "oem", label: "OEM / Private Label" },
 ];
 
+const TENDER_STAGES = [
+  { value: "early-budget", label: "Early budget / feasibility" },
+  { value: "active-tender", label: "Active tender / bid submission" },
+  { value: "shortlisted", label: "Shortlisted / technical approval" },
+  { value: "awarded", label: "Awarded project / purchase planning" },
+  { value: "repeat-program", label: "Repeat project program" },
+];
+
 const RFQ_ASSURANCE = [
   {
     icon: <LockKeyhole className="h-4 w-4" />,
@@ -73,7 +81,7 @@ export default function QuoteForm() {
   const [formData, setFormData] = useState({
     firstName: "", lastName: "", company: "", email: "", phone: "",
     country: "", quantity: "", incoterms: "", specifications: "",
-    customPrinting: "", notes: "",
+    customPrinting: "", projectStage: "", requiredBy: "", notes: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -274,6 +282,19 @@ export default function QuoteForm() {
                       <option value="1x40-container">1 x 40&apos; container / year</option>
                       <option value="multi-container">Multiple containers / year</option>
                     </select>
+                  </div>
+                  <div>
+                    <label htmlFor="quote-project-stage" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Tender stage</label>
+                    <select id="quote-project-stage" name="projectStage" value={formData.projectStage} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]">
+                      <option value="">Select project stage...</option>
+                      {TENDER_STAGES.map((stage) => (
+                        <option key={stage.value} value={stage.value}>{stage.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="quote-required-by" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Required by</label>
+                    <input id="quote-required-by" type="date" name="requiredBy" value={formData.requiredBy} onChange={handleChange} className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[#0f5f5c] focus:outline-none focus:ring-2 focus:ring-[#d8e6de]" />
                   </div>
                   <div>
                     <label htmlFor="quote-incoterms" className="mb-1.5 block text-xs font-semibold uppercase text-slate-600">Preferred Incoterm</label>

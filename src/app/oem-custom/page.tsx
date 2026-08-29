@@ -4,10 +4,29 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, ShieldCheck, Play } from "lucide-react";
 
 const PAGE_URL = canonicalUrl("/oem-custom");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "OEM & Custom Printing",
+  url: PAGE_URL,
+  description:
+    "OEM thermal paper rolls and labels with custom printing, branded packaging, core options, specification checks, samples, document routes, and export packing.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "OEM & Custom", url: "/oem-custom" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "OEM Thermal Paper & Private Label",
@@ -26,6 +45,9 @@ export default function OEMPage() {
   return (
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main>
         <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200">
           <div className="container-site">

@@ -3,9 +3,29 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/compliance/eu-food-contact");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "EU Food-Contact Material Review",
+  url: PAGE_URL,
+  description:
+    "Thermal paper and label materials for EU food-contact sourcing. Confirm the quoted construction, contact type, migration-test scope, declaration, and end use.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Compliance", url: "/compliance" },
+    { name: "EU Food Contact", url: "/compliance/eu-food-contact" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "EU Food-Contact Thermal Paper",
@@ -24,6 +44,9 @@ export default function EUFoodContactPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       <section className="bg-gradient-to-br from-blue-900 to-teal-800 text-white pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">

@@ -6,12 +6,32 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/us/fda-compliant");
 
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "FDA Thermal Paper and Label Documentation for the USA",
+  url: PAGE_URL,
+  description:
+    "Confirm the quoted material grade, intended use, applicable 21 CFR scope, current declarations, and sample performance before approving a US food-contact or regulated-label program.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "USA", url: "/us" },
+    { name: "FDA Compliant", url: "/us/fda-compliant" },
+  ]),
+  webPageSchema,
+];
+
 export const metadata: Metadata = {
-  title: "FDA Thermal Paper & Labels",
+  title: "FDA-Compliant Thermal Paper & Labels for the USA",
   description:
     "Thermal paper rolls and labels for US food-contact sourcing. Confirm the quoted material grade, applicable 21 CFR scope, Prop 65 files, SDS, and samples.",
   alternates: {
@@ -58,6 +78,9 @@ export default function FDACompliantPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main>
       <HeroBanner
         variant="media"

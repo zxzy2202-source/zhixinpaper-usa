@@ -379,129 +379,64 @@ function FactoryQualityMegaMenu() {
   );
 }
 
-// ─── Resources Dropdown ────────────────────────────────────────────────────────
-function ResourcesDropdown() {
-  const pathname = usePathname();
-  const items = [
-    {
-      label: "Roll Size Guide",
-      href: "/blog/thermal-paper-roll-sizes-guide",
-      icon: Ruler,
-      desc: "Measure width, OD, core, length & winding",
-      tag: "SEO" as Tag,
-    },
-    {
-      label: "Printer Compatibility",
-      href: "/blog/thermal-paper-printer-compatibility-guide",
-      icon: Printer,
-      desc: "Qualify POS, terminal, ATM & kiosk models",
-      tag: "New" as Tag,
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-      icon: Newspaper,
-      desc: "Industry insights, guides & compliance updates",
-      tag: undefined as Tag | undefined,
-    },
-    {
-      label: "Case Studies",
-      href: "/case-studies",
-      icon: Briefcase,
-      desc: "Real-world distributor success stories",
-      tag: "New" as Tag,
-    },
-    {
-      label: "FAQ",
-      href: "/faq",
-      icon: HelpCircle,
-      desc: "Common questions about thermal paper & labels",
-      tag: "SEO" as Tag,
-    },
-  ];
-  return (
-    <div className="w-[300px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
-      <div className="p-2">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
-                pathname === item.href || pathname.startsWith(item.href + "/")
-                  ? "bg-[#e7eee9] text-[#0f5f5c]"
-                  : "text-[#33413e] hover:bg-white"
-              }`}
-            >
-              <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
-                pathname === item.href || pathname.startsWith(item.href + "/") ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
-              }`}>
-                <Icon className={`w-4.5 h-4.5 ${
-                  pathname === item.href || pathname.startsWith(item.href + "/") ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"
-                }`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold">{item.label}</span>
-                </div>
-                <div className="mt-0.5 text-xs leading-snug text-[#87918c]">{item.desc}</div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// ─── About Dropdown ────────────────────────────────────────────────────────────
+// ─── About & Resources Dropdown ────────────────────────────────────────────────
 function AboutDropdown() {
   const pathname = usePathname();
-  return (
-    <div className="w-[280px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
-      <div className="p-2">
-        <Link
-          href="/about"
-          className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
-            pathname === "/about" ? "bg-[#e7eee9] text-[#0f5f5c]" : "text-[#33413e] hover:bg-white"
-          }`}
-        >
-          <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
-            pathname === "/about" ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
-          }`}>
-            <Info className={`w-4 h-4 ${pathname === "/about" ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
-          </div>
-          <div>
-            <div className="font-semibold">About Us</div>
-            <div className="mt-0.5 text-xs text-[#87918c]">Our story, team & mission</div>
-          </div>
-        </Link>
+  const sections = [
+    {
+      title: "Company",
+      items: [
+        { label: "About Us", href: "/about", icon: Info, desc: "Our story, team & mission" },
+        { label: "Contact", href: "/contact", icon: MessageSquare, desc: "Get in touch with our team" },
+        { label: "Case Studies", href: "/case-studies", icon: Briefcase, desc: "Buyer projects and supply outcomes" },
+      ],
+    },
+    {
+      title: "Resources",
+      items: [
+        { label: "Blog", href: "/blog", icon: Newspaper, desc: "Guides, insights & compliance updates" },
+        { label: "FAQ", href: "/faq", icon: HelpCircle, desc: "Common buyer questions answered" },
+        { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", icon: Ruler, desc: "Width, OD, core, length & winding" },
+        { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", icon: Printer, desc: "Qualify POS, terminal, ATM & kiosk models" },
+      ],
+    },
+  ];
 
-        <Link
-          href="/contact"
-          className={`flex items-center gap-3 px-3 py-3  text-sm transition-[background-color,border-color,color,box-shadow,transform] group ${
-            pathname === "/contact" ? "bg-[#e7eee9] text-[#0f5f5c]" : "text-[#33413e] hover:bg-white"
-          }`}
-        >
-          <div className={`w-9 h-9  flex items-center justify-center shrink-0 ${
-            pathname === "/contact" ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"
-          }`}>
-            <MessageSquare className={`w-4 h-4 ${pathname === "/contact" ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-semibold">Contact</span>
-            </div>
-            <div className="mt-0.5 text-xs text-[#87918c]">Get in touch with our team</div>
-          </div>
-        </Link>
+  return (
+    <div className="w-[600px] overflow-hidden border border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
+      <div className="grid grid-cols-2 divide-x divide-[#ded6c8]">
+        {sections.map((section) => (
+          <section key={section.title} className="p-3">
+            <h2 className="px-3 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#87918c]">{section.title}</h2>
+            {section.items.map((item) => {
+              const Icon = item.icon;
+              const active = item.href === "/blog"
+                ? pathname === "/blog"
+                : pathname === item.href || pathname.startsWith(item.href + "/");
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`group flex items-center gap-3 px-3 py-3 text-sm transition-colors ${active ? "bg-[#e7eee9] text-[#0f5f5c]" : "text-[#33413e] hover:bg-white"}`}
+                >
+                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center ${active ? "bg-[#d8e6de]" : "bg-[#f4f0e8] group-hover:bg-[#e7eee9]"}`}>
+                    <Icon className={`h-4 w-4 ${active ? "text-[#0f5f5c]" : "text-[#87918c] group-hover:text-[#0f5f5c]"}`} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-semibold">{item.label}</span>
+                    <span className="mt-0.5 block text-xs leading-snug text-[#87918c]">{item.desc}</span>
+                  </span>
+                </Link>
+              );
+            })}
+          </section>
+        ))}
       </div>
 
       {/* Contact info card */}
-      <div className="mx-3 mb-3 border border-[#ded6c8] bg-[#f4f0e8] p-3">
-        <div className="mb-2 text-[10px] font-bold text-[#87918c]">Quick Contact</div>
-        <a href={`mailto:${COMPANY.email}`} className="mb-1.5 flex items-center gap-2 text-xs text-[#4f5f5a] transition-colors hover:text-[#0f5f5c]">
+      <div className="flex items-center gap-5 border-t border-[#ded6c8] bg-[#f4f0e8] px-6 py-3">
+        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#87918c]">Quick Contact</span>
+        <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-2 text-xs text-[#4f5f5a] transition-colors hover:text-[#0f5f5c]">
           <Mail className="w-3.5 h-3.5 text-[#87918c]" />
           {COMPANY.email}
         </a>
@@ -583,7 +518,7 @@ function MarketsDropdown() {
 
 // ─── Nav config ───────────────────────────────────────────────────────────────
 // Top-level nav labels
-const NAV_LABELS = ["Home", "Products", "Industries", "Factory & Quality", "Resources", "About", "Export"] as const;
+const NAV_LABELS = ["Home", "Products", "Industries", "Factory & Quality", "About", "Export"] as const;
 type NavLabel = typeof NAV_LABELS[number];
 
 // Dropdown alignment: "center" | "left" | "right"
@@ -592,7 +527,6 @@ const NAV_ALIGN: Record<NavLabel, "center" | "left" | "right"> = {
   Products:   "left",
   Industries: "left",
   "Factory & Quality": "center",
-  Resources:  "center",
   About:      "right",
   Export:     "right",
 };
@@ -630,16 +564,14 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     { label: "Material & Market Requirements", href: "/compliance/reach-rohs", sub: "Chemical, food-contact, and market routes" },
     { label: "Virtual Factory Tour", href: "/factory/virtual-tour" },
   ],
-  Resources: [
-    { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", tag: "SEO" },
-    { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", tag: "New" },
-    { label: "Blog",         href: "/blog" },
-    { label: "Case Studies", href: "/case-studies", tag: "New" },
-    { label: "FAQ",          href: "/faq",           tag: "SEO" },
-  ],
   About: [
     { label: "About Us", href: "/about" },
-    { label: "Contact",  href: "/contact", tag: "P1" },
+    { label: "Contact", href: "/contact", tag: "P1" },
+    { label: "Case Studies", href: "/case-studies", tag: "New" },
+    { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq", tag: "SEO" },
+    { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", tag: "SEO" },
+    { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", tag: "New" },
   ],
   Export: [
     { label: "All Export Markets",          href: "/markets" },
@@ -686,7 +618,6 @@ export default function Header() {
     Products:   "/products",
     Industries: "/industries",
     "Factory & Quality": "/factory",
-    Resources:  "/blog",
     About:      "/about",
     Export:     "/markets",
   };
@@ -696,7 +627,6 @@ export default function Header() {
       case "Products":    return <ProductsMegaMenu />;
       case "Industries":  return <IndustriesMegaMenu />;
       case "Factory & Quality": return <FactoryQualityMegaMenu />;
-      case "Resources":   return <ResourcesDropdown />;
       case "About":       return <AboutDropdown />;
       case "Export":      return <MarketsDropdown />;
       default:            return null;
@@ -759,7 +689,7 @@ export default function Header() {
             />
             <div className="flex flex-col leading-tight">
               <span className="whitespace-nowrap text-base font-bold text-white">ZhixinPaper</span>
-              <span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Company Established 2009</span>
+<span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Since 2006</span>
             </div>
           </Link>
 
@@ -772,6 +702,7 @@ export default function Header() {
                  ? pathname === "/"
                  : isActive(href)
                    || (label === "Factory & Quality" && pathname.startsWith("/compliance"))
+                   || (label === "About" && (pathname.startsWith("/contact") || pathname.startsWith("/blog") || pathname.startsWith("/case-studies") || pathname.startsWith("/faq")))
                    || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca") || pathname.startsWith("/mx")));
 
               return (
@@ -947,7 +878,7 @@ export default function Header() {
                                 onClick={() => setMobileOpen(false)}
                                 className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#0f5f5c] hover:underline"
                               >
-                                View all {label} <ArrowRight className="w-3 h-3" />
+                                {label === "About" ? "About overview" : `View all ${label}`} <ArrowRight className="w-3 h-3" />
                               </Link>
                             )}
                           </div>

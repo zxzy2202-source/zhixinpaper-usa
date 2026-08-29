@@ -3,23 +3,48 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
-import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl } from "@/lib/seo";
 import { SlotImage } from "@/components/ui/SlotImage";
 
 
 
 export const metadata: Metadata = buildMetadata({
-  title: "Cannabis Labels for Canada",
+  title: "Cannabis Labels for Canada: Licensed Producer Guide",
   description: "Label materials for Canadian cannabis producers and retailers. Confirm bilingual copy, facestock, adhesive, print method, testing, and regulatory review.",
   path: "/ca/cannabis-labels",
   locale: "en_CA",
 });
+
+const PAGE_URL = canonicalUrl("/ca/cannabis-labels");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Canada Cannabis Labels for Licensed Producers",
+  url: PAGE_URL,
+  description:
+    "Label materials for Canadian cannabis producers and retailers. Confirm bilingual copy, facestock, adhesive, print method, testing, and regulatory review.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Canada", url: "/ca" },
+    { name: "Cannabis Labels", url: "/ca/cannabis-labels" },
+  ]),
+  webPageSchema,
+];
 
 export default function CACannabisLabelsPage() {
   return (
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       {/* Hero */}
       <section className="bg-gradient-to-br from-red-900 to-red-700 text-white pt-32 pb-20">

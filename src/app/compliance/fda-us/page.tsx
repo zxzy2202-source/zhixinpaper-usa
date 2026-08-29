@@ -4,9 +4,29 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
-import { canonicalUrl } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
 const PAGE_URL = canonicalUrl("/compliance/fda-us");
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "FDA Documentation for Thermal Paper and Labels",
+  url: PAGE_URL,
+  description:
+    "Review thermal paper and label constructions for US food-contact projects by intended use, applicable 21 CFR scope, supporting documents, and sample validation.",
+};
+
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Compliance", url: "/compliance" },
+    { name: "FDA US", url: "/compliance/fda-us" },
+  ]),
+  webPageSchema,
+];
 
 export const metadata: Metadata = {
   title: "US Food-Contact Thermal Paper Document Review",
@@ -25,6 +45,9 @@ export default function FDAUSPage() {
 
     <>
       <Header />
+      {jsonLd.map((schema, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      ))}
       <main className="min-h-screen bg-white">
       <HeroBanner
         variant="media"

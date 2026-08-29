@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper by Industry",
+  title: "Thermal Paper by Industry: POS, Lottery, Banking & More",
   description:
     "Compare thermal paper rolls, labels, and ticket materials for POS, banking, healthcare, cold chain, logistics, transport, lottery, and specialty applications.",
   path: "/industries",
