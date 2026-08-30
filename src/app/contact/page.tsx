@@ -13,6 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function ContactPage() {
-  return <ContactClient />;
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const mode = typeof params.mode === "string" ? params.mode : undefined;
+
+  return <ContactClient mode={mode} />;
 }

@@ -28,14 +28,16 @@ test("About page follows the reference company-profile section contract", () => 
 });
 
 test("About page keeps evidence-led history and buyer language", () => {
-  assert.match(source, /Xi['’]an Zhi Xin Paper Co/);
+  assert.match(source, /Zhixin Paper began on June 1, 2006/);
   assert.match(source, /2006/);
   assert.match(source, /June 1, 2006/);
-  assert.match(source, /November 2008/);
+  assert.match(source, /November 2009/);
   assert.match(source, /Why it matters to buyers/);
   assert.match(source, /Specification-led review/);
   assert.match(source, /about-company-video/);
-  assert.match(source, /Years of supply development/);
+  assert.match(source, /manufacturing path was built in stages/);
+  assert.match(source, /long-term cooperation/);
+  assert.match(source, /NCR forms/);
   assert.match(source, /Contact us/);
   assert.match(source, /Quick Quote/);
 });
@@ -43,7 +45,7 @@ test("About page keeps evidence-led history and buyer language", () => {
 test("About page reflects the verified brand-story timeline", () => {
   for (const fact of [
     "June 1, 2006",
-    "November 2008",
+    "November 2009",
     "600 mm",
     "2009–2010",
     "1,800㎡",
@@ -57,6 +59,20 @@ test("About page reflects the verified brand-story timeline", () => {
   assert.doesNotMatch(source, /30\+ tons?\s*\/\s*day/i);
   assert.doesNotMatch(source, /65\s+(?:skilled )?employees?/i);
   assert.doesNotMatch(source, /RMB\s*17\s*million/i);
+});
+
+test("About page presents the supplied company culture asset with accessible values", () => {
+  assert.match(source, /Company Culture/);
+  assert.match(source, /\/images\/about\/company-culture\.png/);
+  assert.match(source, /Build confidence in every order/);
+  for (const value of [
+    "Clear communication",
+    "Consistent quality",
+    "Reliable delivery",
+    "Long-term partnership",
+  ]) {
+    assert.match(source, new RegExp(value));
+  }
 });
 
 test("shared brand labels do not contradict the 2006 company story", () => {
@@ -73,7 +89,8 @@ test("About page uses a fluid full-width shell", () => {
 
 test("About page keeps the reference visual rhythm and media modules", () => {
   assert.match(source, /about-reference\/about-banner\.jpg/);
-  assert.match(source, /about-reference\/brand-strip\.jpg/);
+  assert.match(source, /src="\/images\/logo\.png"/);
+  assert.doesNotMatch(source, /about-reference\/brand-strip\.jpg/);
   assert.match(source, /min-h-\[380px\]/);
   assert.match(source, /Vision and Mission/);
   assert.match(source, /Process stories/);

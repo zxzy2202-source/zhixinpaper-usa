@@ -11,6 +11,8 @@ const posPage = read("src/components/products/StandardPosRollPage.tsx");
 const compliancePage = read("src/app/compliance/bpa-free/page.tsx");
 const nextConfig = read("next.config.mjs");
 const blogPage = read("src/app/blog/[slug]/page.tsx");
+const blogClient = read("src/app/blog/[slug]/BlogPostClient.tsx");
+const rollSizeTools = read("src/app/blog/[slug]/RollSizeGuideTools.tsx");
 const blogContent = read("src/lib/blog-content.ts");
 const header = read("src/components/layout/Header.tsx");
 const footer = read("src/components/layout/Footer.tsx");
@@ -56,12 +58,30 @@ test("size and compatibility guides keep distinct keyword owners", () => {
     assert.match(data, new RegExp(`slug: "${slug}"`));
     assert.match(blogContent, new RegExp(`slug: "${slug}"`));
     assert.match(blogPage, new RegExp(`"${slug}"`));
-    assert.match(header, new RegExp(slug));
-    assert.match(footer, new RegExp(slug));
     assert.match(llms, new RegExp(slug));
+  }
+  for (const navigationSource of [header, footer]) {
+    assert.doesNotMatch(navigationSource, /thermal-paper-roll-sizes-guide/);
+    assert.doesNotMatch(navigationSource, /thermal-paper-printer-compatibility-guide/);
   }
   assert.match(blogContent, /exact printer or terminal model/i);
   assert.match(blogContent, /width, length or OD, core ID, winding/i);
+});
+
+test("roll size guide renders a procurement tool instead of the generic article chrome", () => {
+  assert.match(blogClient, /const isRollSizeGuide = slug === "thermal-paper-roll-sizes-guide"/);
+  assert.match(blogClient, /<RollSizeGuideTools \/>/);
+  assert.match(blogClient, /guideMode=\{isRollSizeGuide\}/);
+  for (const label of [
+    "Start with six fields",
+    "Common catalog sizes",
+    "Metric size names",
+    "Printer model",
+    "Maximum OD or roll length",
+    "Project qualification",
+  ]) {
+    assert.match(rollSizeTools, new RegExp(label));
+  }
 });
 
 test("llms publishes unique cluster-to-page ownership", () => {

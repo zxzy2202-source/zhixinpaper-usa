@@ -24,7 +24,7 @@ import {
 export const metadata: Metadata = buildMetadata({
   title: "About Zhixin Paper Manufacturing and Supply",
   description:
-    "Learn how Xi'an Zhi Xin Paper Co., Ltd. developed from a 2006 predecessor business into a thermal paper converting and international supply partner.",
+    "Learn how Zhixin Paper grew from a one-person trading business founded on June 1, 2006 into a thermal paper, label, NCR form, and international supply partner.",
   path: "/about",
 });
 
@@ -36,7 +36,7 @@ const history = [
     "/images/factory-overview.jpg",
   ],
   [
-    "November 2008",
+    "November 2009",
     "First 600 mm slitter",
     "In a 200㎡ workshop, the first 600 mm thermal paper slitting machine marked the practical transition from trade to production.",
     "/images/hero-bg.jpg",
@@ -270,10 +270,10 @@ export default function AboutPage() {
                 About Us
               </h1>
               <p className="mt-5 max-w-lg text-base leading-7 text-white/90 md:text-lg">
-                Xi&apos;an Zhi Xin Paper Co., Ltd. began with one person and a
-                trading business, then built manufacturing capability from the
-                first 600 mm slitter in November 2008 to a mature paper, label,
-                NCR, and international supply operation.
+                Zhixin Paper began on June 1, 2006 with one person and a trading
+                business. A first 600 mm slitter in a 200㎡ workshop in November
+                2009 marked the move into manufacturing; today we connect
+                thermal rolls, labels, NCR forms, and export support for repeat supply.
               </p>
               <Link
                 href="/quote"
@@ -291,14 +291,21 @@ export default function AboutPage() {
         >
           <div className="flex min-w-max items-center justify-around gap-10 px-4 md:gap-16 md:px-8">
             {Array.from({ length: 8 }, (_, item) => (
-              <Image
+              <div
                 key={item}
-                src="/images/about-reference/brand-strip.jpg"
-                alt="Zhixin Paper"
-                width={150}
-                height={75}
-                className="h-auto w-[120px] object-contain"
-              />
+                className="flex items-center gap-3 text-xl font-extrabold tracking-[0.14em] text-white"
+              >
+                <span className="flex h-11 w-11 items-center justify-center bg-white p-1">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Zhixin Paper"
+                    width={40}
+                    height={40}
+                    className="h-9 w-9 object-contain"
+                  />
+                </span>
+                <span>ZHIXIN PAPER</span>
+              </div>
             ))}
           </div>
         </div>
@@ -322,19 +329,22 @@ export default function AboutPage() {
           </div>
           <div className="mt-10 border-t border-[#dbe5f3] pt-8 text-base leading-8 text-[#44536b]">
             <p className="max-w-6xl text-lg font-bold leading-7 text-[#0d1b35] md:text-xl">
-              Zhixin Paper combines market understanding with direct converting experience.
-              Every quotation connects the paper grade with the printer, application, packing
-              plan, destination, and repeat-order expectations.
+              Zhixin Paper grew by listening to buyers first, then building the
+              equipment, processes, and team needed to deliver consistently.
+              Every quotation connects the paper grade with the printer, application,
+              packing plan, destination, and repeat-order expectations.
             </p>
             <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:gap-14">
               <p>
-                The company started with customer-facing trade, then added slitting, winding,
-                printing, labels, packing, and factory investment in stages. That history keeps
-                requirements visible before a project enters production.
+                The story starts on June 1, 2006 with one person and no factory.
+                After the first 600 mm slitter arrived in November 2009, Zhixin
+                added slitting, winding, NCR printing, labels, packing, and factory
+                investment in stages.
               </p>
               <p>
-                Buyers can review thermal rolls, labels, NCR paper, and export documentation
-                through one inquiry route, with the specification captured for repeat orders.
+                Today, buyers can review thermal rolls, labels, NCR forms, and
+                export documentation through one inquiry route. We keep the
+                specification visible so long-term cooperation gets easier with every order.
               </p>
             </div>
             <Link
@@ -359,7 +369,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">Mission</p>
                 <p className="mt-3 max-w-xl text-base leading-7 text-[#44536b]">
-                  Turn requirements into checked product and supply decisions.
+                  Turn requirements into checked product and supply decisions that support long-term cooperation.
                 </p>
               </div>
             </div>
@@ -384,6 +394,66 @@ export default function AboutPage() {
         </section>
 
         <section className="bg-white py-16 md:py-20">
+          <div className="about-shell">
+            <div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">
+                  Company Culture
+                </p>
+                <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
+                  Build confidence in every order
+                </h2>
+              </div>
+              <p className="max-w-2xl text-base leading-8 text-[#44536b] md:justify-self-end">
+                For global customers, our working culture centers on clear
+                communication, consistent quality, reliable delivery, and
+                long-term partnership.
+              </p>
+            </div>
+
+            <figure className="mt-10">
+              <a
+                href="/images/about/company-culture.png"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open the Zhixin Paper company culture display at full size"
+                className="block overflow-hidden border border-[#dbe5f3] bg-[#f3f7fd] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1677ff]"
+              >
+                <Image
+                  src="/images/about/company-culture.png"
+                  alt="Zhixin Paper company culture display at the workshop entrance"
+                  width={2048}
+                  height={1152}
+                  sizes="100vw"
+                  className="h-auto w-full"
+                />
+              </a>
+              <figcaption className="sr-only">
+                Zhixin Paper company culture and brand values displayed at the workshop entrance.
+              </figcaption>
+            </figure>
+
+            <div className="mt-8 grid border-y border-[#dbe5f3] sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                ["01", "Clear communication", "Responsible pricing and transparent project communication."],
+                ["02", "Consistent quality", "Shared standards and attention to the details that affect use."],
+                ["03", "Reliable delivery", "Clear milestones and dependable follow-through for each order."],
+                ["04", "Long-term partnership", "Continuous improvement built around repeat cooperation."],
+              ].map(([number, title, text], index) => (
+                <div
+                  key={title}
+                  className={`py-6 sm:px-6 lg:py-7 ${index > 0 ? "lg:border-l lg:border-[#dbe5f3]" : ""}`}
+                >
+                  <div className="text-xs font-bold text-[#1677ff]">{number}</div>
+                  <h3 className="mt-3 text-lg font-bold text-[#0d1b35]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#5d6b82]">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f3f7fd] py-16 md:py-20">
           <div className="about-shell grid gap-12 lg:grid-cols-2 lg:gap-20">
             <ImagePanel
               src="/images/about-reference/section-profile.jpg"
@@ -398,10 +468,10 @@ export default function AboutPage() {
                 From requirement to repeat supply
               </h2>
               <p className="mt-6 text-base leading-8 text-[#44536b]">
-                Years of supply development have made specification-led review
-                part of the work. We connect material, size, core, winding,
-                printing, packing, destination, and documents before the order
-                enters production.
+                Our manufacturing path was built in stages, from the first
+                slitter to thermal rolls, NCR printing, labels, and export service.
+                We connect material, size, core, winding, printing, packing,
+                destination, and documents before the order enters production.
               </p>
               <Link
                 href="/quote"
@@ -416,7 +486,7 @@ export default function AboutPage() {
         <section className="about-shell border-y border-[#dbe5f3] py-12 md:py-14">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["200㎡", "First workshop in 2008"],
+              ["200㎡", "First manufacturing workshop in 2009"],
               ["600 mm", "First thermal slitter"],
               ["1,800㎡", "2011 manufacturing facility"],
               ["6", "Thermal lines by 2017"],

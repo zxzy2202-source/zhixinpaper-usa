@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -102,7 +104,7 @@ const SALES_ROUTES = [
     description:
       "Submit size, material, volume, destination, packing, Incoterms, and project timing.",
     action: "Start an RFQ",
-    href: "/quote",
+    href: "/contact?mode=quote#contact-form",
   },
   {
     icon: PackageCheck,
@@ -111,7 +113,7 @@ const SALES_ROUTES = [
     description:
       "Request an evaluation sample for printer fit, coating, adhesive, print result, or packing.",
     action: "Request samples",
-    href: "/samples",
+    href: "/contact?mode=samples#contact-form",
   },
 ];
 
@@ -154,7 +156,9 @@ const SUPPORT_NETWORK = [
   },
 ];
 
-export default function ContactClient() {
+export default function ContactClient({ mode }: { mode?: string }) {
+  const selectedRoute = mode === "quote" ? "Commercial RFQ" : mode === "samples" ? "Sample evaluation" : "General question";
+
   return (
     <>
       <Header />
@@ -181,13 +185,13 @@ export default function ContactClient() {
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link
-                    href="/quote"
+                    href="/contact?mode=quote#contact-form"
                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#006af6] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#0057cc]"
                   >
                     Commercial RFQ <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
-                    href="/samples"
+                    href="/contact?mode=samples#contact-form"
                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#006af6] bg-white/90 px-6 py-3 text-sm font-bold text-[#006af6] transition-colors hover:bg-white"
                   >
                     Request samples <PackageCheck className="h-4 w-4" />
@@ -222,12 +226,36 @@ export default function ContactClient() {
                 Get support from Zhixin Paper
               </h2>
               <p className="mt-4 text-base leading-7 text-[#52647a] sm:text-lg">
-                Use this form for a general question. Detailed pricing projects belong in the commercial RFQ, while sample evaluations remain on the sample request page.
+                One Contact Us page for every request. Choose a route below and keep the right product, destination, and project context together.
               </p>
             </div>
 
-            <div className="mt-10 grid overflow-hidden rounded-lg border border-[#e5e9f0] bg-white lg:grid-cols-[minmax(0,1fr)_420px]">
+            <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Contact request routes">
+              {[
+                ["General question", "Product, document, or project support", "/contact#contact-form"],
+                ["Commercial RFQ", "Pricing, volume, freight, and timing", "/contact?mode=quote#contact-form"],
+                ["Sample evaluation", "Printer fit, material, or packing test", "/contact?mode=samples#contact-form"],
+              ].map(([label, description, href]) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className={`border px-4 py-4 transition-colors ${selectedRoute === label ? "border-[#006af6] bg-[#eef5ff]" : "border-[#dfe5ed] bg-white hover:border-[#006af6]/50"}`}
+                >
+                  <span className="block text-sm font-bold text-[#001429]">{label}</span>
+                  <span className="mt-1 block text-xs leading-5 text-[#52647a]">{description}</span>
+                </Link>
+              ))}
+            </div>
+
+            <div id="contact-form" className="mt-10 grid scroll-mt-28 overflow-hidden rounded-lg border border-[#e5e9f0] bg-white lg:grid-cols-[minmax(0,1fr)_420px]">
               <div className="p-5 sm:p-8 lg:p-10">
+                {mode && (
+                  <div className="mb-6 border-l-4 border-[#006af6] bg-[#eef5ff] px-4 py-3">
+                    <p className="text-xs font-bold uppercase text-[#006af6]">Selected route</p>
+                    <p className="mt-1 text-sm font-bold text-[#001429]">{selectedRoute}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#52647a]">Start here, then sales will move qualified requests into the detailed workflow when needed.</p>
+                  </div>
+                )}
                 <QuickContactForm />
               </div>
               <aside className="bg-[#006af6] p-6 text-white sm:p-8 lg:p-10" aria-labelledby="contact-information-title">
@@ -277,10 +305,10 @@ export default function ContactClient() {
         <section className="bg-[#f4f6fa] px-5 py-16 sm:px-8 lg:px-12 lg:py-20 xl:px-16">
           <div className="mx-auto max-w-[1320px]">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold uppercase text-[#006af6]">Choose a route</p>
+              <p className="text-sm font-bold uppercase text-[#006af6]">Choose the right request route</p>
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Contact us now</h2>
               <p className="mt-4 text-base leading-7 text-[#52647a]">
-                Keep each request focused so specifications, samples, and general questions do not compete in the same submission.
+                Use the same Contact Us entry point for general support, a commercial RFQ, or a sample evaluation request.
               </p>
             </div>
 
@@ -421,7 +449,7 @@ export default function ContactClient() {
               <p className="text-sm font-bold uppercase text-[#62a6ff]">Commercial routes</p>
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">Speak to sales directly</h2>
               <p className="mt-4 text-base leading-7 text-white/70">
-                Select the route that matches the decision you need to make. Each one has a different information contract.
+                Select the route that matches the decision you need to make. The detailed form remains available after this first contact.
               </p>
             </div>
 
@@ -502,7 +530,7 @@ export default function ContactClient() {
               </div>
             </div>
             <Link
-              href="/quote"
+              href="/contact?mode=quote#contact-form"
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#006af6] transition-colors hover:bg-[#eef5ff]"
             >
               Build your RFQ <FileCheck2 className="h-4 w-4" />

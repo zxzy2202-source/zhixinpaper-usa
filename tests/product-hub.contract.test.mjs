@@ -1,14 +1,12 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import blogIndustryLinksModule from "../src/lib/blog-industry-links.ts";
 import dataModule from "../src/lib/data.ts";
-import caseStudiesModule from "../src/lib/case-studies.ts";
 import marketInsightsModule from "../src/lib/marketInsights.ts";
 
 const { BLOG_INDUSTRY_LINKS } = blogIndustryLinksModule;
 const { BLOG_POSTS, COMPLIANCE_ITEMS, INDUSTRIES } = dataModule;
-const { CASE_STUDIES } = caseStudiesModule;
 const {
   buildIndustryEvidenceAnswers,
   INDUSTRY_RESOURCES,
@@ -83,17 +81,14 @@ test("industry resource links cover every industry and resolve to published cont
   const configuredSlugs = Object.keys(INDUSTRY_RESOURCES).sort();
   const blogHrefs = new Set(BLOG_POSTS.map((post) => `/blog/${post.slug}`));
   const complianceHrefs = new Set(COMPLIANCE_ITEMS.map((item) => `/compliance/${item.slug}`));
-  const caseStudyHrefs = new Set(CASE_STUDIES.map((item) => `/case-studies/${item.slug}`));
+  const projectRouteHrefs = new Set(["/samples", "/factory", "/factory/quality-control", "/quote"]);
 
   assert.deepEqual(configuredSlugs, industrySlugs, "resource configurations must match the industry directory");
   for (const slug of industrySlugs) {
     const resources = INDUSTRY_RESOURCES[slug];
     assert.ok(blogHrefs.has(resources.technicalGuide.href), `${slug} technical guide must reference a published blog post`);
     assert.ok(complianceHrefs.has(resources.compliance.href), `${slug} compliance link must reference a configured page`);
-    assert.ok(
-      resources.caseStudy.href === "/case-studies" || caseStudyHrefs.has(resources.caseStudy.href),
-      `${slug} case-study link must reference the directory or an existing anonymized case study`
-    );
+    assert.ok(projectRouteHrefs.has(resources.projectRoute.href), `${slug} project route must reference a live qualification path`);
     for (const resource of Object.values(resources)) {
       assert.ok(resource.label.trim(), `${slug} resource label must not be empty`);
       assert.ok(resource.description.trim(), `${slug} resource description must not be empty`);
@@ -107,10 +102,27 @@ test("industry resource links cover every industry and resolve to published cont
   assert.match(page, /resources &&/);
   assert.match(page, /aria-labelledby="industry-resources-heading"/);
   assert.match(page, /md:grid-cols-3/);
-  assert.match(page, /Project pages describe anonymized review workflows, not universal outcomes\./);
-  assert.match(page, /<IndustryResourceCard eyebrow="Project evidence"/);
+  assert.match(page, /Qualification routes support project planning, not universal outcomes\./);
+  assert.match(page, /<IndustryResourceCard eyebrow="Project qualification"/);
   assert.match(page, /<IndustryResourceCard eyebrow="Technical guide"/);
   assert.match(page, /<IndustryResourceCard eyebrow="Compliance review"/);
+});
+
+test("case studies routes and navigation entries are removed", () => {
+  assert.equal(existsSync("src/app/case-studies"), false);
+  assert.equal(existsSync("src/lib/case-studies.ts"), false);
+
+  for (const path of [
+    "src/components/layout/Header.tsx",
+    "src/components/layout/Footer.tsx",
+    "src/lib/data.ts",
+    "src/lib/marketInsights.ts",
+    "src/app/sitemap.ts",
+  ]) {
+    const source = read(path);
+    assert.doesNotMatch(source, /\/case-studies/);
+    assert.doesNotMatch(source, /Case Studies/);
+  }
 });
 
 test("industry pages render three conditional evidence answers with verified routes", () => {

@@ -1167,7 +1167,6 @@ export const NAV_ITEMS = [
     href: "/blog",
     children: [
       { label: "Blog",         href: "/blog" },
-      { label: "Case Studies", href: "/case-studies", tag: "New" },
       { label: "FAQ",          href: "/faq",          tag: "SEO" },
     ],
   },

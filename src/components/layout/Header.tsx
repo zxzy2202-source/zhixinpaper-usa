@@ -10,7 +10,7 @@ import {
   Globe, ShieldCheck, BookOpen, Users,
   Package, Tag, Settings, FileText, MapPin,
   Factory as FactoryIcon, Award, Cpu, BarChart2,
-  Newspaper, Briefcase, HelpCircle, Info, MessageSquare, Printer, Ruler,
+  Newspaper, HelpCircle, Info, MessageSquare,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -55,7 +55,7 @@ function ProductsMegaMenu() {
           </p>
         </div>
         <Link
-          href="/quote"
+          href="/contact?mode=quote#contact-form"
           className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-5 py-3 text-sm font-bold text-white shadow-[0_16px_34px_rgba(185,130,47,0.26)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
         >
           Request a Quote <ArrowRight className="h-4 w-4" />
@@ -174,13 +174,13 @@ function ProductsMegaMenu() {
 
           <div className="mt-5 grid gap-2">
             <Link
-              href="/quote"
+              href="/contact?mode=quote#contact-form"
               className="inline-flex min-h-10 items-center justify-center gap-2 bg-[#9c661d] px-4 py-2.5 text-xs font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.20)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
             >
               Request a Quote <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
-              href="/samples"
+              href="/contact?mode=samples#contact-form"
               className="inline-flex min-h-10 items-center justify-center gap-2 border border-white/20 bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-[#d6b273]/50 hover:bg-white/[0.08]"
             >
               Request Samples
@@ -293,7 +293,7 @@ function IndustriesMegaMenu() {
       <div className="flex items-center justify-between border-t border-[#ded6c8] bg-[#f4f0e8] px-5 py-3">
         <div className="flex items-center gap-3">
           <span className="text-xs text-[#87918c]">Explore industry-specific material reviews</span>
-          <Link href="/quote" className="flex items-center gap-1 bg-[#0f5f5c] px-2.5 py-1 text-xs font-semibold text-white transition-[background-color,border-color,color,box-shadow,transform] hover:bg-[#0a4745]">
+          <Link href="/contact?mode=quote#contact-form" className="flex items-center gap-1 bg-[#0f5f5c] px-2.5 py-1 text-xs font-semibold text-white transition-[background-color,border-color,color,box-shadow,transform] hover:bg-[#0a4745]">
             Request a Quote
           </Link>
         </div>
@@ -371,7 +371,7 @@ function FactoryQualityMegaMenu() {
         <Link href="/factory/virtual-tour" className="inline-flex items-center gap-1 font-semibold text-[#0f5f5c] hover:underline">
           Take the virtual factory tour <ArrowRight className="h-3 w-3" />
         </Link>
-        <Link href="/quote" className="inline-flex shrink-0 items-center gap-1 font-bold text-[#9c661d] hover:underline">
+        <Link href="/contact?mode=quote#contact-form" className="inline-flex shrink-0 items-center gap-1 font-bold text-[#9c661d] hover:underline">
           Discuss requirements <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
@@ -388,7 +388,6 @@ function AboutDropdown() {
       items: [
         { label: "About Us", href: "/about", icon: Info, desc: "Our story, team & mission" },
         { label: "Contact", href: "/contact", icon: MessageSquare, desc: "Get in touch with our team" },
-        { label: "Case Studies", href: "/case-studies", icon: Briefcase, desc: "Buyer projects and supply outcomes" },
       ],
     },
     {
@@ -396,8 +395,6 @@ function AboutDropdown() {
       items: [
         { label: "Blog", href: "/blog", icon: Newspaper, desc: "Guides, insights & compliance updates" },
         { label: "FAQ", href: "/faq", icon: HelpCircle, desc: "Common buyer questions answered" },
-        { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", icon: Ruler, desc: "Width, OD, core, length & winding" },
-        { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", icon: Printer, desc: "Qualify POS, terminal, ATM & kiosk models" },
       ],
     },
   ];
@@ -567,11 +564,8 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
   About: [
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact", tag: "P1" },
-    { label: "Case Studies", href: "/case-studies", tag: "New" },
     { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq", tag: "SEO" },
-    { label: "Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide", tag: "SEO" },
-    { label: "Printer Compatibility", href: "/blog/thermal-paper-printer-compatibility-guide", tag: "New" },
   ],
   Export: [
     { label: "All Export Markets",          href: "/markets" },
@@ -702,7 +696,7 @@ export default function Header() {
                  ? pathname === "/"
                  : isActive(href)
                    || (label === "Factory & Quality" && pathname.startsWith("/compliance"))
-                   || (label === "About" && (pathname.startsWith("/contact") || pathname.startsWith("/blog") || pathname.startsWith("/case-studies") || pathname.startsWith("/faq")))
+                   || (label === "About" && (pathname.startsWith("/contact") || pathname.startsWith("/blog") || pathname.startsWith("/faq")))
                    || (label === "Export" && (pathname.startsWith("/eu") || pathname.startsWith("/us") || pathname.startsWith("/ca") || pathname.startsWith("/mx")));
 
               return (
@@ -751,16 +745,10 @@ export default function Header() {
           {/* Desktop CTAs */}
             <div className="hidden xl:flex items-center gap-2 shrink-0">
             <Link
-              href="/samples"
-              className="border border-white/20 px-3 py-2 text-sm font-semibold text-white/82 transition-[background-color,border-color,color,box-shadow,transform] hover:-translate-y-0.5 hover:border-white/40 hover:text-white active:translate-y-px 2xl:px-4"
-            >
-              Request Samples
-            </Link>
-            <Link
-              href="/quote"
+              href="/contact"
               className="flex items-center gap-1.5 bg-[#9c661d] px-4 py-2 text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px 2xl:px-5"
             >
-              Request a Quote <ArrowRight className="w-3.5 h-3.5" />
+              Contact Us <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -843,7 +831,7 @@ export default function Header() {
                                   </Link>
                                 </div>
                                 <Link
-                                  href="/quote"
+                                  href="/contact?mode=quote#contact-form"
                                   onClick={() => setMobileOpen(false)}
                                   className="flex items-center justify-between bg-[#f4f0e8] px-4 py-3 text-xs font-bold text-[#0f5f5c]"
                                 >
@@ -897,24 +885,14 @@ export default function Header() {
                 );
               })}
 
-              {/* Mobile secondary CTA — primary "Request a Quote" lives in the sticky bar below */}
+              {/* Unified inquiry entry */}
               <div className="border-t border-[#ded6c8] pt-4">
                 <Link
-                  href="/samples"
-                  onClick={() => setMobileOpen(false)}
-                  className="block w-full border border-[#c8bcaa] py-3 text-center text-sm font-semibold text-[#0f5f5c] transition-colors hover:bg-white"
-                >
-                  Request Samples
-                </Link>
-              </div>
-              {/* Sticky bottom CTA — stays visible while the menu scrolls */}
-              <div className="sticky bottom-0 mt-2 border-t border-[#ded6c8] bg-[#fbfaf6] pb-3 pt-2">
-                <Link
-                  href="/quote"
+                  href="/contact"
                   onClick={() => setMobileOpen(false)}
                   className="block w-full bg-[#9c661d] py-3 text-center text-sm font-bold text-white shadow-[0_12px_28px_rgba(185,130,47,0.22)] transition-colors hover:bg-[#7d4f16]"
                 >
-                  Request a Quote
+                  Contact Us
                 </Link>
               </div>
             </div>

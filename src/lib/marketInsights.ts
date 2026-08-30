@@ -47,7 +47,7 @@ export type IndustryResourceLink = {
 };
 
 export type IndustryResourceSet = {
-  caseStudy: IndustryResourceLink;
+  projectRoute: IndustryResourceLink;
   technicalGuide: IndustryResourceLink;
   compliance: IndustryResourceLink;
 };
@@ -443,75 +443,75 @@ export const INDUSTRY_SOLUTION_COMPARISONS: Record<string, IndustrySolutionCompa
   ],
 };
 
-const caseStudyDirectory: IndustryResourceLink = {
-  label: "Browse relevant project reviews",
-  href: "/case-studies",
-  description: "See the available anonymized qualification projects without implying an industry-specific customer result.",
+const projectQualificationRoute: IndustryResourceLink = {
+  label: "Plan a qualification sample",
+  href: "/samples",
+  description: "Confirm the printer, material, documents, and acceptance checks before bulk approval.",
 };
 
 export const INDUSTRY_RESOURCES: Record<string, IndustryResourceSet> = {
   "lottery-gaming": {
-    caseStudy: { label: "European lottery terminal qualification", href: "/case-studies/european-lottery-operator", description: "An anonymized review of terminal fit, sensing, barcode readability, retention, and sample approval." },
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Lottery ticket paper specifications", href: "/blog/lottery-ticket-paper-specifications", description: "Prepare terminal, ticket geometry, sensing, barcode, retention, and security-print requirements." },
     compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Check certificate scope, production-site coverage, inspection records, and project-specific acceptance criteria." },
   },
   casino: {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Casino TITO paper qualification guide", href: "/blog/casino-receipt-paper-guide", description: "Review platform fit, barcode rules, ticket validity, environment, packing, and trial requirements." },
     compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Separate quality-system evidence from ticket performance and platform-specific approval." },
   },
   "retail-pos": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Thermal printer compatibility guide", href: "/blog/thermal-paper-printer-compatibility-guide", description: "Match width, OD, core, winding, sensitivity, sensing, and compartment geometry to the named printer." },
     compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Confirm the quoted grade, named chemical scope, destination needs, and current supporting file." },
   },
   "banking-finance": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Thermal roll size guide", href: "/blog/thermal-paper-roll-sizes-guide", description: "Build an ATM, teller, or kiosk roll specification from measured dimensions and device constraints." },
     compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Review handling policy and chemical documentation for the exact transaction-paper grade." },
   },
   transportation: {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Thermal printer compatibility guide", href: "/blog/thermal-paper-printer-compatibility-guide", description: "Qualify printer path, dimensions, sensing, cutting, environment, and sample acceptance." },
     compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Review production scope and batch controls separately from system-integrator approval." },
   },
   "events-hospitality": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Custom printed roll artwork guide", href: "/blog/how-to-print-logo-on-thermal-paper-rolls", description: "Plan print side, artwork, colors, QR area, proof approval, packing, and campaign timing." },
     compliance: { label: "BPA-free grade review", href: "/compliance/bpa-free", description: "Confirm the selected grade and document scope for staff and guest handling requirements." },
   },
   "food-cold-chain": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Freezer label adhesive guide", href: "/blog/freezer-label-adhesive-guide", description: "Compare application temperature, service temperature, surface, moisture, and freeze-thaw exposure." },
     compliance: { label: "Food-contact construction review", href: "/compliance/eu-food-contact", description: "Review the complete construction, intended food, contact type, time, temperature, and destination." },
   },
   "healthcare-pharma": {
-    caseStudy: { label: "US pharmacy documentation review", href: "/case-studies/us-pharmacy-chain", description: "An anonymized workflow covering printer qualification, grade-specific documents, samples, and rollout planning." },
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Choose a print route by retention, handling, abrasion, chemicals, printer, and ribbon requirements." },
     compliance: { label: "Medical label applicability review", href: "/compliance/iso-15223", description: "Review material, symbols, substrate, exposure, retention, print system, and buyer-approved artwork." },
   },
   "logistics-warehouse": {
-    caseStudy: { label: "German fanfold label qualification", href: "/case-studies/german-logistics-provider", description: "An anonymized review of printer path, fold pitch, sensing, barcode workflow, adhesive, and pilot stacks." },
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Compare short-cycle shipping labels with more durable warehouse identification routes." },
     compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Check relevance against the exact facestock, adhesive, intended use, destination, and current documents." },
   },
   ecommerce: {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "FBA thermal label sourcing guide", href: "/blog/amazon-fba-thermal-labels-guide", description: "Prepare size, printer, barcode, facestock, adhesive, packing, sample, and volume requirements." },
     compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Review destination and material-document needs for the selected shipping-label construction." },
   },
   "automotive-industrial": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Direct thermal vs thermal transfer", href: "/blog/direct-vs-thermal-transfer", description: "Select the print method by retention, heat, abrasion, chemicals, ribbon, and service environment." },
     compliance: { label: "REACH and RoHS scope review", href: "/compliance/reach-rohs", description: "Confirm substance scope and any electrical-product relevance for the exact construction and use." },
   },
   "government-legal": {
-    caseStudy: caseStudyDirectory,
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "Thermal paper technical guide", href: "/blog/what-is-thermal-paper", description: "Review material types, image formation, storage, handling, and specification fundamentals." },
     compliance: { label: "Quality-system document review", href: "/compliance/iso-9001", description: "Check certificate holder, site, activities, validity, inspection records, and tender-specific controls." },
   },
   "cannabis-specialty": {
-    caseStudy: { label: "Canadian variable-data label review", href: "/case-studies/canadian-cannabis-dispensary", description: "An anonymized workflow separating material testing, artwork responsibility, and jurisdictional review." },
+    projectRoute: projectQualificationRoute,
     technicalGuide: { label: "US cannabis label qualification guide", href: "/blog/cannabis-label-requirements-usa", description: "Use a state-specific qualification framework without treating it as legal or artwork approval." },
     compliance: { label: "Material substance-scope review", href: "/compliance/reach-rohs", description: "Review the exact facestock, adhesive, ink, intended use, destination, and current substance documentation separately from cannabis artwork approval." },
   },

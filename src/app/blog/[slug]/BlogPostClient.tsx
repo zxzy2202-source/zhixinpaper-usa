@@ -11,13 +11,14 @@ import { ArrowLeft, ArrowRight, BookOpen, Calendar, Check, Clock, Link2, Mail, S
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { remarkLineBreaks } from "@/lib/remarkLineBreaks";
+import RollSizeGuideTools from "./RollSizeGuideTools";
 
 interface DBPost { id: number; slug: string; title: string; excerpt: string; content: string; category: string; tags: string; readTime: string; coverImage: string | null; publishedAt: string | null; createdAt: string; status: string; }
 interface RelatedPost { slug: string; title: string; category: string; readTime: string; date: string; }
 interface Props { slug: string; dbPost: DBPost | null; publishedDbPosts?: RelatedPost[]; }
 type ProductLink = { href: string; label: string; description: string };
 type IndustryLink = { slug: string; label: string; description: string };
-type ArticleHeaderProps = { slug: string; title: string; excerpt: string; category: string; readTime: string; date: string; tags?: string[]; coverImage?: string | null; };
+type ArticleHeaderProps = { slug: string; title: string; excerpt: string; category: string; readTime: string; date: string; tags?: string[]; coverImage?: string | null; guideMode?: boolean; };
 
 function removeLeadingMarkdownTitle(content: string, title: string) {
   const lines = content.split(/\r?\n/);
@@ -59,19 +60,40 @@ function ShareLinks({ slug, title }: { slug: string; title: string }) {
   </div>;
 }
 
-function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = [], coverImage }: ArticleHeaderProps) {
+function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = [], coverImage, guideMode = false }: ArticleHeaderProps) {
+  const metadata = (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#687772]">
+      <span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4" aria-hidden="true" />{formatDate(date)}</span>
+      <span aria-hidden="true">/</span>
+      <span>By Zhixin Paper</span>
+      <span aria-hidden="true">/</span>
+      <span className="font-medium text-[#0f5f5c]">{category}</span>
+      <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4" aria-hidden="true" />{readTime} read</span>
+    </div>
+  );
+
   return <>
     <div className="border-b border-[#e4e8e7] bg-white">
       <div className="mx-auto max-w-[1380px] px-5 py-5 sm:px-8 lg:px-10">
         <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-2 text-sm text-[#687772]"><Link href="/" className="font-medium text-[#0f5f5c] hover:underline">Home</Link><span aria-hidden="true">»</span><Link href="/blog" className="font-medium text-[#0f5f5c] hover:underline">Blog</Link><span aria-hidden="true">»</span><span className="truncate text-[#14211f]">{title}</span></nav>
       </div>
     </div>
-    <header className="bg-white">
-      <div className="mx-auto max-w-[1380px] px-5 pb-8 pt-12 sm:px-8 md:pb-10 md:pt-16 lg:px-10">
-        <div className="max-w-4xl">
-          <h1 className="text-[2.1rem] font-bold leading-[1.08] text-[#14211f] md:text-5xl">{title}</h1>
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#687772]"><span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4" aria-hidden="true" />{formatDate(date)}</span><span aria-hidden="true">/</span><span>By Zhixin Paper</span><span aria-hidden="true">/</span><span className="font-medium text-[#0f5f5c]">{category}</span><span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4" aria-hidden="true" />{readTime} read</span></div>
-          <p className="mt-6 max-w-3xl text-base leading-7 text-[#4f5f5a] md:text-lg md:leading-8">{excerpt}</p>
+    <header className={guideMode ? "border-b border-[#c8bcaa] bg-[#f4f0e8]" : "bg-white"}>
+      <div className="mx-auto max-w-[1380px] px-5 pb-10 pt-12 sm:px-8 md:pb-12 md:pt-16 lg:px-10">
+        <div className="max-w-5xl">
+          {guideMode && <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#9c661d]">Buyer&apos;s specification guide</p>}
+          <h1 className="max-w-4xl text-[2.1rem] font-bold leading-[1.08] text-[#14211f] md:text-5xl">{title}</h1>
+          {guideMode ? <>
+            <p className="mt-6 max-w-[68ch] text-lg leading-8 text-[#3f504c]">{excerpt}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a href="#roll-size-quick-start" className="inline-flex min-h-11 items-center gap-2 bg-[#0f5f5c] px-5 text-sm font-bold text-white transition hover:bg-[#0a4745]">Build your size spec <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>
+              <Link href="/quote?context=roll-size-guide&sourcePage=%2Fblog%2Fthermal-paper-roll-sizes-guide" className="inline-flex min-h-11 items-center gap-2 border border-[#9c661d] bg-white px-5 text-sm font-bold text-[#7d4f16] transition hover:bg-[#fffaf0]">Send printer model <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            </div>
+            <div className="mt-8 border-t border-[#c8bcaa] pt-5">{metadata}</div>
+          </> : <>
+            <div className="mt-5">{metadata}</div>
+            <p className="mt-6 max-w-3xl text-base leading-7 text-[#4f5f5a] md:text-lg md:leading-8">{excerpt}</p>
+          </>}
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4"><ShareLinks slug={slug} title={title} />{tags.length > 0 && <div className="flex flex-wrap items-center gap-2 text-xs text-[#87918c]"><Tag className="h-4 w-4" aria-hidden="true" />{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}</div>
         </div>
         {coverImage && <div className="relative mt-10 aspect-[16/7] max-w-4xl overflow-hidden bg-[#eef2f0]"><Image src={coverImage} alt={title} fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" /></div>}
@@ -84,8 +106,25 @@ function InquirySidebar() {
   return <section className="border border-[#e1e6e4] bg-white p-5 shadow-[0_10px_28px_rgba(20,33,31,0.05)]"><h2 className="text-lg font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 text-sm leading-6 text-[#687772]">Share your roll or label specification and our team will route it to the right product path.</p><Link href="/quote" className="mt-5 flex min-h-11 items-center justify-center gap-2 bg-[#0f5f5c] px-4 text-sm font-bold text-white transition hover:bg-[#0a4745]">Start a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></section>;
 }
 
-function ArticleSidebar({ related, outline, category }: { related: RelatedPost[]; outline: string[]; category: string }) {
+function ArticleSidebar({ related, outline, category, guideMode = false }: { related: RelatedPost[]; outline: string[]; category: string; guideMode?: boolean }) {
   const popular = related.length > 0 ? related : BLOG_POSTS.slice(0, 3).map((post) => ({ slug: post.slug, title: post.title, category: post.category, readTime: post.readTime, date: post.date }));
+  if (guideMode) {
+    return <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+      <InquirySidebar />
+      <section className="border border-[#c8bcaa] bg-[#fbfaf6]">
+        <h2 className="border-b border-[#c8bcaa] px-5 py-4 text-lg font-bold text-[#14211f]">Size check</h2>
+        <ol className="divide-y divide-[#ded6c8] px-5 text-sm text-[#4f5f5a]">
+          {["Printer model", "Roll width", "Maximum OD or length", "Core ID", "Winding", "Paper grade and GSM"].map((item, index) => <li key={item} className="flex gap-3 py-3"><span className="font-bold text-[#9c661d]">0{index + 1}</span><span>{item}</span></li>)}
+        </ol>
+      </section>
+      {outline.length > 0 && <section className="border border-[#e1e6e4] bg-white"><h2 className="bg-[#0f5f5c] px-5 py-4 text-lg font-bold text-white">On this guide</h2><ol className="space-y-3 p-5 text-sm leading-5 text-[#4f5f5a]">{outline.map((heading) => <li key={heading}><a href={`#${headingId(heading)}`} className="hover:text-[#0f5f5c] hover:underline">{heading}</a></li>)}</ol></section>}
+      <section className="bg-[#14211f] p-5 text-white">
+        <h2 className="text-lg font-bold">Project qualification</h2>
+        <p className="mt-2 text-sm leading-6 text-[#c7d0cb]">Send the printer model and measured roll details for a representative sample check.</p>
+        <Link href="/samples?context=roll-size-guide" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#d6b273] hover:underline">Request samples <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+      </section>
+    </aside>;
+  }
   return <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
     <InquirySidebar />
     <section className="border border-[#e1e6e4] bg-white"><h2 className="flex items-center justify-between bg-[#0f6af2] px-4 py-3 text-lg font-bold text-white"><span className="inline-flex items-center gap-2"><Search className="h-4 w-4" aria-hidden="true" />Search</span><span aria-hidden="true">⌄</span></h2><form action="/blog" method="get" role="search" className="p-3"><label className="sr-only" htmlFor="blog-detail-search">Search blog articles</label><div className="flex border border-[#e1e6e4]"><input id="blog-detail-search" name="q" type="search" placeholder="Search..." className="min-w-0 flex-1 px-3 py-2 text-sm text-[#14211f] outline-none placeholder:text-[#9aa5a0]" /><button type="submit" aria-label="Search" title="Search" className="px-3 text-[#14211f]"><Search className="h-4 w-4" aria-hidden="true" /></button></div></form></section>
@@ -125,20 +164,26 @@ function InquiryBand() {
   return <section className="mt-16 bg-[#f4f6f8] px-5 py-8 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#687772]">Tell us the product, dimensions, material, quantity, and destination. We will review the right specification before quoting.</p><Link href="/quote" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 bg-[#0f6af2] px-6 text-sm font-bold text-white transition hover:bg-[#0956c9]">Submit your requirement <Send className="h-4 w-4" aria-hidden="true" /></Link></section>;
 }
 
-function ArticleFrame({ header, outline, related, children, productLinks, industryLinks }: { header: ArticleHeaderProps; outline: string[]; related: RelatedPost[]; children: React.ReactNode; productLinks: ProductLink[]; industryLinks: IndustryLink[] }) {
-  return <main id="main-content"><ArticleHeader {...header} /><section className="bg-white py-8 md:py-12"><div className="mx-auto grid max-w-[1380px] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16 lg:px-10"><article className="min-w-0 max-w-4xl">{children}<ProductFit links={productLinks} /><IndustryFit links={industryLinks} /><ArticleActions /><PreviousPost related={related} /><RelatedPosts related={related} /><InquiryBand /></article><ArticleSidebar related={related} outline={outline} category={header.category} /></div></section></main>;
+function ArticleFrame({ header, outline, related, children, productLinks, industryLinks, guideMode = false }: { header: ArticleHeaderProps; outline: string[]; related: RelatedPost[]; children: React.ReactNode; productLinks: ProductLink[]; industryLinks: IndustryLink[]; guideMode?: boolean }) {
+  return <main id="main-content"><ArticleHeader {...header} guideMode={guideMode} /><section className="bg-white py-8 md:py-12"><div className="mx-auto grid max-w-[1380px] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16 lg:px-10"><article className="min-w-0 max-w-4xl">{children}<ProductFit links={productLinks} /><IndustryFit links={industryLinks} /><ArticleActions /><PreviousPost related={related} /><RelatedPosts related={related} /><InquiryBand /></article><ArticleSidebar related={related} outline={outline} category={header.category} guideMode={guideMode} /></div></section></main>;
 }
 
 const markdownClasses = "prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-[-0.01em] prose-headings:text-[#14211f] prose-h2:scroll-mt-28 prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-3xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-xl prose-p:my-0 prose-p:leading-8 prose-p:text-[#3f504c] prose-p:mb-6 prose-a:font-semibold prose-a:text-[#0f5f5c] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#14211f] prose-li:text-[#3f504c] prose-li:leading-7 prose-blockquote:border-[#b9822f] prose-blockquote:bg-[#f4f0e8] prose-blockquote:py-1 prose-code:rounded prose-code:bg-[#e7eee9] prose-code:px-1 prose-code:text-[#0f5f5c] prose-pre:bg-[#14211f] prose-img:shadow-md prose-hr:border-[#ded6c8] prose-table:text-sm prose-th:bg-[#e7eee9] prose-th:text-[#14211f]";
 
 export default function BlogPostClient({ slug, dbPost, publishedDbPosts = [] }: Props) {
   const productLinks = BLOG_PRODUCT_LINKS[slug] || [];
+  const isRollSizeGuide = slug === "thermal-paper-roll-sizes-guide";
   if (dbPost) {
     const date = dbPost.publishedAt || dbPost.createdAt;
     const related = [...publishedDbPosts, ...BLOG_POSTS.filter((post) => post.slug !== slug && post.category === dbPost.category).map((post) => ({ slug: post.slug, title: post.title, category: post.category, readTime: post.readTime, date: post.date }))].filter((post, index, posts) => posts.findIndex((candidate) => candidate.slug === post.slug) === index).filter((post) => post.slug !== slug && post.category === dbPost.category).slice(0, 3);
     const tags = dbPost.tags ? dbPost.tags.split(",").map((tag) => tag.trim()).filter(Boolean) : [];
     const content = removeLeadingMarkdownTitle(dbPost.content, dbPost.title);
-    return <ArticleFrame header={{ slug, title: dbPost.title, excerpt: dbPost.excerpt, category: dbPost.category, readTime: dbPost.readTime, date, tags, coverImage: dbPost.coverImage }} outline={extractHeadings(content)} related={related} productLinks={productLinks} industryLinks={[]}><div className={markdownClasses}><ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]} components={{ h2: ({ children, ...props }) => <h2 id={headingId(String(children))} {...props}>{children}</h2> }}>{content}</ReactMarkdown></div></ArticleFrame>;
+    return <ArticleFrame header={{ slug, title: dbPost.title, excerpt: dbPost.excerpt, category: dbPost.category, readTime: dbPost.readTime, date, tags, coverImage: dbPost.coverImage }} outline={extractHeadings(content)} related={related} productLinks={productLinks} industryLinks={[]} guideMode={isRollSizeGuide}>
+      {isRollSizeGuide && <RollSizeGuideTools />}
+      <div className={isRollSizeGuide ? "max-w-[72ch]" : undefined}>
+        <div className={markdownClasses}><ReactMarkdown remarkPlugins={[remarkGfm, remarkLineBreaks]} components={{ h2: ({ children, ...props }) => <h2 id={headingId(String(children))} {...props}>{children}</h2> }}>{content}</ReactMarkdown></div>
+      </div>
+    </ArticleFrame>;
   }
   // Static data fallback
   const post = BLOG_POSTS.find((candidate) => candidate.slug === slug);
@@ -148,5 +193,13 @@ export default function BlogPostClient({ slug, dbPost, publishedDbPosts = [] }: 
   const related = [...publishedDbPosts, ...BLOG_POSTS.filter((candidate) => candidate.slug !== slug && candidate.category === post.category).map((candidate) => ({ slug: candidate.slug, title: candidate.title, category: candidate.category, readTime: candidate.readTime, date: candidate.date }))].filter((item, index, items) => items.findIndex((candidate) => candidate.slug === item.slug) === index).filter((item) => item.slug !== slug && item.category === post.category).slice(0, 3);
   const fallbackRelated = related.length > 0 ? related : BLOG_POSTS.filter((candidate) => candidate.slug !== slug).slice(0, 3).map((candidate) => ({ slug: candidate.slug, title: candidate.title, category: candidate.category, readTime: candidate.readTime, date: candidate.date }));
   const outline = content?.sections.map((section) => section.heading) || [];
-  return <ArticleFrame header={{ slug, title: post.title, excerpt: post.excerpt, category: post.category, readTime: post.readTime, date: post.date, tags: post.tag ? [post.tag] : [] }} outline={outline} related={fallbackRelated} productLinks={productLinks} industryLinks={industryLinks}>{content ? <div className="space-y-10"><p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f] md:text-2xl">{content.intro}</p>{content.sections.map((section) => <section key={section.heading} id={headingId(section.heading)} className="scroll-mt-28"><h2 className="mb-5 text-3xl font-bold text-[#14211f]">{section.heading}</h2><div className="space-y-6 text-lg leading-8 text-[#3f504c]">{section.body.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}</div></section>)}<section className="border-t border-[#ded6c8] pt-8"><h2 className="flex items-center gap-2 text-2xl font-bold text-[#14211f]"><BookOpen className="h-5 w-5 text-[#0f5f5c]" aria-hidden="true" /> Conclusion</h2><p className="mt-4 text-lg leading-8 text-[#3f504c]">{content.conclusion}</p></section><section className="bg-[#e7eee9] px-5 py-7 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Key takeaways</h2><ul className="mt-5 space-y-3">{content.keyTakeaways.map((point) => <li key={point} className="flex gap-3 text-lg leading-7 text-[#3f504c]"><Check className="mt-1 h-5 w-5 shrink-0 text-[#0f5f5c]" aria-hidden="true" />{point}</li>)}</ul></section></div> : <p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f]">{post.excerpt}</p>}</ArticleFrame>;
+  return <ArticleFrame header={{ slug, title: post.title, excerpt: post.excerpt, category: post.category, readTime: post.readTime, date: post.date, tags: post.tag ? [post.tag] : [] }} outline={outline} related={fallbackRelated} productLinks={productLinks} industryLinks={industryLinks} guideMode={isRollSizeGuide}>
+    {isRollSizeGuide && <RollSizeGuideTools />}
+    {content ? <div className={isRollSizeGuide ? "max-w-[72ch] space-y-10" : "space-y-10"}>
+      <p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f] md:text-2xl">{content.intro}</p>
+      {content.sections.map((section) => <section key={section.heading} id={headingId(section.heading)} className="scroll-mt-28"><h2 className="mb-5 text-3xl font-bold text-[#14211f]">{section.heading}</h2><div className="space-y-6 text-lg leading-8 text-[#3f504c]">{section.body.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}</div></section>)}
+      <section className="border-t border-[#ded6c8] pt-8"><h2 className="flex items-center gap-2 text-2xl font-bold text-[#14211f]"><BookOpen className="h-5 w-5 text-[#0f5f5c]" aria-hidden="true" /> Conclusion</h2><p className="mt-4 text-lg leading-8 text-[#3f504c]">{content.conclusion}</p></section>
+      <section className="bg-[#e7eee9] px-5 py-7 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Key takeaways</h2><ul className="mt-5 space-y-3">{content.keyTakeaways.map((point) => <li key={point} className="flex gap-3 text-lg leading-7 text-[#3f504c]"><Check className="mt-1 h-5 w-5 shrink-0 text-[#0f5f5c]" aria-hidden="true" />{point}</li>)}</ul></section>
+    </div> : <p className="border-l-2 border-[#b9822f] pl-5 text-xl leading-8 text-[#14211f]">{post.excerpt}</p>}
+  </ArticleFrame>;
 }

@@ -8,8 +8,10 @@ const quotePage = await readFile(new URL("../src/app/quote/page.tsx", import.met
 const quoteForm = await readFile(new URL("../src/app/quote/QuoteForm.tsx", import.meta.url), "utf8");
 const samples = await readFile(new URL("../src/app/samples/SamplesClient.tsx", import.meta.url), "utf8");
 const samplesPage = await readFile(new URL("../src/app/samples/page.tsx", import.meta.url), "utf8");
+const header = await readFile(new URL("../src/components/layout/Header.tsx", import.meta.url), "utf8");
+const footer = await readFile(new URL("../src/components/layout/Footer.tsx", import.meta.url), "utf8");
 
-test("Contact adapts the supplied support-page structure without duplicating the RFQ", () => {
+test("Contact is the single public inquiry entry point", () => {
   assert.match(contact, /Contact Zhixin Paper/);
   assert.match(contact, /Get support from Zhixin Paper/);
   assert.match(contact, /Contact information/);
@@ -18,8 +20,10 @@ test("Contact adapts the supplied support-page structure without duplicating the
   assert.match(contact, /Zhixin Paper support network/);
   assert.match(contact, /#006af6/);
   assert.match(contact, /\/images\/contact\/contact-hero\.jpg/);
-  assert.match(contact, /href="\/quote"/);
-  assert.match(contact, /href="\/samples"/);
+  assert.match(contact, /href="\/contact\?mode=quote/);
+  assert.match(contact, /href="\/contact\?mode=samples/);
+  assert.match(contact, /Choose the right request route/);
+  assert.match(contact, /mode === "quote"/);
   assert.match(contact, /https:\/\/wa\.me\//);
   assert.match(contact, /mailto:/);
   assert.doesNotMatch(contact, /<form/);
@@ -30,6 +34,15 @@ test("Contact adapts the supplied support-page structure without duplicating the
   assert.match(quickContact, /name="lastName"/);
   assert.match(quickContact, /name="email"/);
   assert.match(quickContact, /name="message"/);
+});
+
+test("Shared navigation routes inquiry CTAs through Contact Us", () => {
+  assert.match(header, /href="\/contact"/);
+  assert.doesNotMatch(header, /href="\/quote"/);
+  assert.doesNotMatch(header, /href="\/samples"/);
+  assert.match(footer, /href="\/contact"/);
+  assert.doesNotMatch(footer, /href="\/quote"/);
+  assert.doesNotMatch(footer, /href="\/samples"/);
 });
 
 test("Quote owns the detailed commercial RFQ", () => {

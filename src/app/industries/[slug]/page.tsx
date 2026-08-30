@@ -359,14 +359,14 @@ export default async function IndustryDetailPage({ params }: Props) {
                   Continue the qualification with evidence already on this site.
                 </h2>
                 <p className="mt-4 text-sm leading-7 text-slate-600">
-                  Project pages describe anonymized review workflows, not universal outcomes. Guides and compliance
-                  pages support specification planning; final suitability still depends on the selected construction,
+                  Qualification routes support project planning, not universal outcomes. Guides and compliance pages
+                  support specification planning; final suitability still depends on the selected construction,
                   destination, application, current documents, and approved sample.
                 </p>
               </div>
 
               <div className="mt-10 grid gap-px bg-slate-200 md:grid-cols-3">
-                <IndustryResourceCard eyebrow="Project evidence" resource={resources.caseStudy} />
+                <IndustryResourceCard eyebrow="Project qualification" resource={resources.projectRoute} />
                 <IndustryResourceCard eyebrow="Technical guide" resource={resources.technicalGuide} />
                 <IndustryResourceCard eyebrow="Compliance review" resource={resources.compliance} />
               </div>
@@ -473,7 +473,7 @@ function IndustryResourceCard({
   resource,
 }: {
   eyebrow: string;
-  resource: (typeof INDUSTRY_RESOURCES)[string]["caseStudy"];
+  resource: (typeof INDUSTRY_RESOURCES)[string]["projectRoute"];
 }) {
   return (
     <article className="flex min-h-full flex-col bg-slate-50 p-6 md:p-7">

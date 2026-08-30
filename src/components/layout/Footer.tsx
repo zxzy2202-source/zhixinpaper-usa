@@ -20,7 +20,6 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Thermal Paper Rolls", href: "/products/thermal-paper-rolls" },
       { label: "Thermal Labels", href: "/products/thermal-labels" },
       { label: "OEM & Custom", href: "/oem-custom" },
-      { label: "Paper Roll Size Guide", href: "/blog/thermal-paper-roll-sizes-guide" },
     ],
   },
   {
@@ -36,8 +35,6 @@ const FOOTER_SECTIONS: FooterSection[] = [
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Printer Compatibility Guide", href: "/blog/thermal-paper-printer-compatibility-guide" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -51,7 +48,6 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Mexico", href: "/mx" },
       { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/faq" },
-      { label: "Request Samples", href: "/samples" },
     ],
   },
 ];
@@ -123,11 +119,11 @@ export default function Footer() {
             </div>
 
             <Link
-              href="/quote"
+              href="/contact"
               className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
             >
               <Send className="h-4 w-4" />
-              Request a Quote
+              Contact Us
             </Link>
           </div>
 
