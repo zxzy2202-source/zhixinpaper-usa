@@ -110,25 +110,25 @@ const equipment = [
   [
     "Thermal paper converting",
     "Roll slitting, winding, core selection, and finished-roll packing for printer and POS applications.",
-    "/images/thermal-rolls-product.jpg",
+    "/images/about-reference/equipment-1.jpg",
     Factory,
   ],
   [
     "Thermal label production",
     "Label formats can be reviewed alongside material, adhesive, liner, artwork, and barcode requirements.",
-    "/images/thermal-labels-product.jpg",
+    "/images/about-reference/equipment-2.jpg",
     Boxes,
   ],
   [
     "NCR paper and printing",
     "The company's development includes NCR lines and four-color full-rotary NCR printing capability.",
-    "/images/hero-bg.jpg",
+    "/images/about-reference/equipment-3.jpg",
     Printer,
   ],
   [
     "Quality and export review",
     "Carton marks, pallet plans, destination, and shipping terms are clarified before the quote is finalized.",
-    "/images/compliance-certifications.jpg",
+    "/images/about-reference/equipment-4.jpg",
     FileCheck2,
   ],
 ] as const;
@@ -148,6 +148,21 @@ const team = [
     "Export service",
     "Product, sample, freight, and document questions stay connected through the inquiry route.",
     "/images/thermal-labels-product.jpg",
+  ],
+  [
+    "Artwork and labels",
+    "Artwork, barcode, adhesive, liner, and label format checks stay visible before approval.",
+    "/images/about-reference/equipment-2.jpg",
+  ],
+  [
+    "Packing and documents",
+    "Carton marks, pallet plans, destination, and requested files are checked with the order.",
+    "/images/about-reference/equipment-4.jpg",
+  ],
+  [
+    "Customer support",
+    "One contact route keeps product fit, samples, freight, and follow-up questions together.",
+    "/images/about-reference/process-2.jpg",
   ],
 ] as const;
 
@@ -228,17 +243,17 @@ export default function AboutPage() {
       <main id="main-content" className="bg-white pt-[64px] text-[#0d1b35] md:pt-[92px]">
         <section className="relative overflow-hidden bg-[#0d1b35] text-white">
           <Image
-            src="/images/hero-bg.jpg"
-            alt="Thermal paper converting equipment in a production facility"
+            src="/images/about-reference/about-banner.jpg"
+            alt="Zhixin Paper production campus and factory capability"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-65"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,27,53,0.92),rgba(13,27,53,0.58),rgba(13,27,53,0.2))]" />
-          <div className="about-shell relative flex min-h-[520px] flex-col justify-center py-20 md:min-h-[610px] md:py-24">
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,27,53,0.82),rgba(13,27,53,0.45),rgba(13,27,53,0.08))]" />
+          <div className="about-shell relative flex min-h-[380px] flex-col justify-center py-16 md:min-h-[380px] md:py-16">
             <nav
-              className="absolute left-4 top-7 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 sm:left-6 lg:left-8"
+              className="sr-only"
               aria-label="Breadcrumb"
             >
               <Link href="/" className="hover:text-white">
@@ -247,14 +262,14 @@ export default function AboutPage() {
               <span>/</span>
               <span className="text-white">About Us</span>
             </nav>
-            <div className="max-w-2xl">
-              <p className="mb-5 text-sm font-bold uppercase tracking-[0.2em] text-[#8bb9ff]">
+            <div className="max-w-xl">
+              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#b8d3ff]">
                 Established June 1, 2006
               </p>
-              <h1 className="!text-white text-5xl font-extrabold leading-[1.04] tracking-normal md:text-7xl">
+              <h1 className="!text-white text-5xl font-extrabold leading-[1.04] tracking-normal md:text-6xl">
                 About Us
               </h1>
-              <p className="mt-6 max-w-xl text-base leading-8 text-white/85 md:text-lg">
+              <p className="mt-5 max-w-lg text-base leading-7 text-white/90 md:text-lg">
                 Xi&apos;an Zhi Xin Paper Co., Ltd. began with one person and a
                 trading business, then built manufacturing capability from the
                 first 600 mm slitter in November 2008 to a mature paper, label,
@@ -262,7 +277,7 @@ export default function AboutPage() {
               </p>
               <Link
                 href="/quote"
-                className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white shadow-[0_12px_30px_rgba(22,119,255,0.35)] transition hover:bg-[#0d65df]"
+                className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white shadow-[0_12px_30px_rgba(22,119,255,0.35)] transition hover:bg-[#0d65df]"
               >
                 Get a Quote <ArrowRight className="h-4 w-4" />
               </Link>
@@ -274,21 +289,22 @@ export default function AboutPage() {
           className="overflow-hidden bg-[#1677ff] py-5"
           aria-label="Zhixin Paper brand"
         >
-          <div className="flex min-w-max items-center justify-around gap-20 px-8 text-white">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div
+          <div className="flex min-w-max items-center justify-around gap-10 px-4 md:gap-16 md:px-8">
+            {Array.from({ length: 8 }, (_, item) => (
+              <Image
                 key={item}
-                className="flex items-center gap-3 text-xl font-extrabold tracking-[0.22em] opacity-95"
-              >
-                <span className="h-3 w-10 bg-white" aria-hidden="true" />
-                <span>ZHIXIN PAPER</span>
-              </div>
+                src="/images/about-reference/brand-strip.jpg"
+                alt="Zhixin Paper"
+                width={150}
+                height={75}
+                className="h-auto w-[120px] object-contain"
+              />
             ))}
           </div>
         </div>
 
-        <section className="about-shell py-20 md:py-28">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <section className="about-shell py-16 md:py-20">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">
                 About Us
@@ -304,63 +320,58 @@ export default function AboutPage() {
               Send Your Inquiry Now <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="mt-12 grid gap-10 border-t border-[#dbe5f3] pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
-            <div className="text-base leading-8 text-[#44536b]">
-              <p className="text-xl font-bold leading-8 text-[#0d1b35]">
-                Zhixin Paper combines market understanding with direct
-                converting experience.
+          <div className="mt-10 border-t border-[#dbe5f3] pt-8 text-base leading-8 text-[#44536b]">
+            <p className="max-w-6xl text-lg font-bold leading-7 text-[#0d1b35] md:text-xl">
+              Zhixin Paper combines market understanding with direct converting experience.
+              Every quotation connects the paper grade with the printer, application, packing
+              plan, destination, and repeat-order expectations.
+            </p>
+            <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:gap-14">
+              <p>
+                The company started with customer-facing trade, then added slitting, winding,
+                printing, labels, packing, and factory investment in stages. That history keeps
+                requirements visible before a project enters production.
               </p>
-              <p className="mt-5">
-                The company started with customer-facing trade, then added
-                slitting, winding, printing, labels, packing, and factory
-                investment in stages. That history matters to buyers because
-                every quotation still needs to connect the paper grade with the
-                printer, application, packing plan, destination, and
-                repeat-order expectations.
+              <p>
+                Buyers can review thermal rolls, labels, NCR paper, and export documentation
+                through one inquiry route, with the specification captured for repeat orders.
               </p>
-              <Link
-                href="#history"
-                className="mt-5 inline-flex items-center gap-2 font-bold text-[#1677ff] hover:underline"
-              >
-                Read More <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-              {[
-                ["June 1, 2006", "Trade business began"],
-                ["November 2008", "First 600 mm slitter"],
-                ["2011–2017", "Manufacturing foundation"],
-                ["2026", "Stable long-term supply"],
-              ].map(([value, label]) => (
-                <div
-                  key={value}
-                  className="flex items-center gap-5 border-l-4 border-[#1677ff] bg-[#f3f7fd] px-5 py-4"
-                >
-                  <span className="text-2xl font-extrabold text-[#1677ff]">
-                    {value}
-                  </span>
-                  <span className="text-sm font-semibold text-[#44536b]">
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <Link
+              href="#history"
+              className="mt-5 inline-flex items-center gap-2 font-bold text-[#1677ff] hover:underline"
+            >
+              Read More <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </section>
 
-        <section
-          id="about-company-video"
-          className="about-shell pb-20 md:pb-28"
-        >
-          <div className="relative aspect-[16/7] overflow-hidden rounded-[28px] bg-[#0d1b35]">
+        <section id="about-company-video" className="bg-[#f3f7fd] py-16 md:py-20">
+          <div className="about-shell">
+            <h2 className="sr-only">Vision and Mission</h2>
+            <div className="grid gap-8 md:grid-cols-2">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">Vision</p>
+                <p className="mt-3 max-w-xl text-base leading-7 text-[#44536b]">
+                  Make paper procurement easier to qualify with clear, useful information.
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">Mission</p>
+                <p className="mt-3 max-w-xl text-base leading-7 text-[#44536b]">
+                  Turn requirements into checked product and supply decisions.
+                </p>
+              </div>
+            </div>
+            <div className="relative mt-10 aspect-[16/7] overflow-hidden rounded-[8px] bg-[#0d1b35]">
             <Image
-              src="/images/factory-overview.jpg"
+              src="/images/about-reference/section-wide.jpg"
               alt="Zhixin Paper factory overview"
               fill
               sizes="100vw"
-              className="object-cover opacity-85"
+              className="object-cover"
             />
-            <div className="absolute inset-0 bg-[#0d1b35]/25" />
+            <div className="absolute inset-0 bg-[#0d1b35]/20" />
             <Link
               href="/factory"
               aria-label="Open factory capability page"
@@ -368,14 +379,15 @@ export default function AboutPage() {
             >
               <Play className="ml-1 h-6 w-6 fill-current" />
             </Link>
+            </div>
           </div>
         </section>
 
-        <section className="bg-[#f3f7fd] py-20 md:py-28">
+        <section className="bg-white py-16 md:py-20">
           <div className="about-shell grid gap-12 lg:grid-cols-2 lg:gap-20">
             <ImagePanel
-              src="/images/thermal-rolls-product.jpg"
-              alt="Thermal paper rolls"
+              src="/images/about-reference/section-profile.jpg"
+              alt="Zhixin Paper production and customer service team"
               className="min-h-[360px] lg:min-h-[520px]"
             />
             <div className="flex flex-col justify-center">
@@ -383,7 +395,7 @@ export default function AboutPage() {
                 Our approach
               </p>
               <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-                Company Profile
+                From requirement to repeat supply
               </h2>
               <p className="mt-6 text-base leading-8 text-[#44536b]">
                 Years of supply development have made specification-led review
@@ -391,21 +403,6 @@ export default function AboutPage() {
                 printing, packing, destination, and documents before the order
                 enters production.
               </p>
-              <div className="mt-8 grid gap-7 sm:grid-cols-2">
-                <div>
-                  <h3 className="text-xl font-bold">Vision</h3>
-                  <p className="mt-2 text-sm leading-7 text-[#5d6b82]">
-                    Make paper procurement easier to qualify with clear, useful
-                    information.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Mission</h3>
-                  <p className="mt-2 text-sm leading-7 text-[#5d6b82]">
-                    Turn requirements into checked product and supply decisions.
-                  </p>
-                </div>
-              </div>
               <Link
                 href="/quote"
                 className="mt-9 inline-flex items-center gap-3 self-start rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0d65df]"
@@ -416,15 +413,15 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="about-shell py-20 md:py-24">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="about-shell border-y border-[#dbe5f3] py-12 md:py-14">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["200㎡", "First workshop in 2008"],
               ["600 mm", "First thermal slitter"],
               ["1,800㎡", "2011 manufacturing facility"],
               ["6", "Thermal lines by 2017"],
             ].map(([value, label]) => (
-              <div key={value} className="border-t-2 border-[#1677ff] pt-5">
+              <div key={value} className="border-t-2 border-[#1677ff] pt-4">
                 <div className="text-3xl font-extrabold text-[#1677ff]">
                   {value}
                 </div>
@@ -436,7 +433,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-[#f3f7fd] py-20 md:py-28">
+        <section className="bg-[#f3f7fd] py-16 md:py-20">
           <div className="about-shell">
             <div className="max-w-2xl">
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">
@@ -464,28 +461,25 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section
-          id="history"
-          className="scroll-mt-24 bg-[#0d1b35] py-20 text-white md:py-28"
-        >
+        <section id="history" className="scroll-mt-24 bg-white py-16 md:py-20">
           <div className="about-shell">
             <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#8bb9ff]">
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1677ff]">
                 History
               </p>
-              <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">
+              <h2 className="mt-3 text-4xl font-extrabold md:text-5xl text-[#0d1b35]">
                 Company History
               </h2>
-              <p className="mt-5 text-base leading-8 text-white/70">
+              <p className="mt-5 text-base leading-8 text-[#5d6b82]">
                 The development record explains how each capability was added
                 and what it changed for buyers.
               </p>
             </div>
-            <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {history.map(([year, title, text, image], index) => (
                 <article
                   key={year}
-                  className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04]"
+                  className="overflow-hidden border border-[#dbe5f3] bg-[#f3f7fd]"
                 >
                   <div className="relative aspect-[4/2]">
                     <Image
@@ -493,22 +487,22 @@ export default function AboutPage() {
                       alt={`${year} Zhixin Paper history`}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover"
+                      className="object-cover grayscale-[20%]"
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="text-2xl font-extrabold text-[#8bb9ff]">
+                  <div className="p-5">
+                    <div className="text-2xl font-extrabold text-[#1677ff]">
                       {year}
                     </div>
-                    <div className="mt-3 text-lg font-bold">{title}</div>
-                    <p className="mt-3 text-sm leading-7 text-white/65">
+                    <div className="mt-3 text-lg font-bold text-[#0d1b35]">{title}</div>
+                    <p className="mt-3 text-sm leading-7 text-[#5d6b82]">
                       {text}
                     </p>
-                    <div className="mt-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#8bb9ff]">
+                    <div className="mt-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#1677ff]">
                       <CheckCircle2 className="h-4 w-4" />
                       Why it matters to buyers
                     </div>
-                    <div className="mt-3 text-xs font-bold uppercase tracking-[0.15em] text-white/35">
+                    <div className="mt-3 text-xs font-bold uppercase tracking-[0.15em] text-[#8ba0bb]">
                       Chapter {String(index + 1).padStart(2, "0")}
                     </div>
                   </div>
@@ -564,6 +558,39 @@ export default function AboutPage() {
                     <p className="mt-2 text-sm leading-7 text-[#5d6b82]">
                       {text}
                     </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#0d1b35] py-16 text-white md:py-20">
+          <div className="about-shell">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#8bb9ff]">Process stories</p>
+                <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">Production in context</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-7 text-white/70">
+                The same review continues from material selection through export documentation and repeat-order control.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-8 md:grid-cols-2">
+              {[
+                ["Material and converting", "Match grade, size, core, winding, and packing to the printer or application before production.", "/images/about-reference/process-1.jpg"],
+                ["Export coordination", "Keep product, sample, freight, destination, and document questions connected in one project record.", "/images/about-reference/process-2.jpg"],
+              ].map(([title, text, image]) => (
+                <article key={title} className="grid overflow-hidden border border-white/15 bg-white/[0.06] sm:grid-cols-[0.9fr_1.1fr]">
+                  <div className="relative min-h-52">
+                    <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold">{title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-white/70">{text}</p>
+                    <Link href="/quote" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#8bb9ff]">
+                      Start with a specification <ArrowRight className="h-4 w-4" />
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -675,6 +702,19 @@ export default function AboutPage() {
               </Link>
             ))}
           </div>
+          <div className="mt-10 grid overflow-hidden border border-[#dbe5f3] bg-[#0d1b35] lg:grid-cols-[1fr_0.8fr] lg:items-center">
+            <div className="relative aspect-[784/556] lg:aspect-auto lg:h-full">
+              <Image src="/images/about-reference/catalog.jpg" alt="Zhixin Paper product and capability catalog" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            </div>
+            <div className="p-7 text-white md:p-9">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#8bb9ff]">Product and capability guide</p>
+              <h3 className="mt-3 text-2xl font-extrabold">Review the 2026 catalog route</h3>
+              <p className="mt-4 text-sm leading-7 text-white/70">Use the inquiry route to request product, material, packing, and compliance information for your project.</p>
+              <Link href="/quote" className="mt-6 inline-flex items-center gap-2 bg-[#1677ff] px-5 py-3 text-sm font-bold text-white">
+                Request a copy <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
         </section>
 
         <section
@@ -689,6 +729,7 @@ export default function AboutPage() {
               <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">
                 Send Your Inquiry Now
               </h2>
+              <p className="mt-4 text-sm font-bold uppercase tracking-[0.14em] text-[#8bb9ff]">Specification-led inquiry</p>
               <p className="mt-6 text-base leading-8 text-white/70">
                 Tell us what you need to source. The existing quote workflow
                 captures product, volume, destination, documents, and delivery
@@ -749,6 +790,14 @@ export default function AboutPage() {
                     rows={4}
                     required
                     className="mt-2 w-full resize-y border border-[#dbe5f3] px-4 py-3 font-normal outline-none focus:border-[#1677ff]"
+                  />
+                </label>
+                <label className="text-sm font-semibold sm:col-span-2">
+                  Supporting file <span className="font-normal text-[#5d6b82]">(optional)</span>
+                  <input
+                    name="attachment"
+                    type="file"
+                    className="mt-2 block w-full border border-dashed border-[#b9c9df] px-4 py-3 text-sm font-normal text-[#5d6b82] file:mr-4 file:border-0 file:bg-[#eef4fd] file:px-3 file:py-2 file:font-semibold file:text-[#1677ff]"
                   />
                 </label>
               </div>

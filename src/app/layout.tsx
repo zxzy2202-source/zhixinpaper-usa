@@ -23,6 +23,8 @@ const geistDisplay = localFont({
 const DEFAULT_TITLE = "Zhixin Paper | Thermal Paper Rolls & Labels Manufacturer";
 const DEFAULT_DESC =
   "Thermal rolls & labels for distributors & factories in Europe, US & Canada. OEM, BPA-free, compliance docs. Share size, material, samples, destination for a quote.";
+const DEFAULT_GOOGLE_SITE_VERIFICATION =
+  "vJ-hX1ihko5z3r2LZp6BMcQR1D_NbbIRtddWMERk1z4";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSeoGlobal();
@@ -55,7 +57,8 @@ export async function generateMetadata(): Promise<Metadata> {
       googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
     },
     verification: {
-      google: seo.googleSiteVerification?.trim() || undefined,
+      google:
+        seo.googleSiteVerification?.trim() || DEFAULT_GOOGLE_SITE_VERIFICATION,
       other: seo.bingSiteVerification?.trim()
         ? { "msvalidate.01": seo.bingSiteVerification.trim() }
         : undefined,

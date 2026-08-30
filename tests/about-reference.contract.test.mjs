@@ -71,6 +71,24 @@ test("About page uses a fluid full-width shell", () => {
   assert.doesNotMatch(source, /container-site/);
 });
 
+test("About page keeps the reference visual rhythm and media modules", () => {
+  assert.match(source, /about-reference\/about-banner\.jpg/);
+  assert.match(source, /about-reference\/brand-strip\.jpg/);
+  assert.match(source, /min-h-\[380px\]/);
+  assert.match(source, /Vision and Mission/);
+  assert.match(source, /Process stories/);
+  assert.match(source, /about-reference\/catalog\.jpg/);
+  assert.match(source, /Specification-led inquiry/);
+  assert.match(source, /type="file"/);
+});
+
+test("About page does not carry unsupported reference metrics", () => {
+  assert.doesNotMatch(source, /25\+\s*Years Experience/i);
+  assert.doesNotMatch(source, /200\+\s*Skilled Employee/i);
+  assert.doesNotMatch(source, /20000\+\s*Square Meters/i);
+  assert.doesNotMatch(source, /10\+\s*Automatic Manufacturing Line/i);
+});
+
 test("About page uses the shared site navigation", () => {
   assert.match(source, /import Header from ["']@\/components\/layout\/Header["']/);
   assert.match(source, /<Header \/>/);
