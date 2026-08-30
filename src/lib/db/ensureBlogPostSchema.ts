@@ -1,4 +1,5 @@
 import { createClient } from "@libsql/client";
+import { resolve } from "node:path";
 
 const CREATE_BLOG_POSTS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS blog_posts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,6 +31,7 @@ const COLUMN_ALTERS: Array<{ name: string; sql: string }> = [
 ];
 
 let ensurePromise: Promise<void> | null = null;
+const localDatabaseUrl = `file:${resolve(process.cwd(), "data", "zhixinpaper.db")}`;
 
 export function ensureBlogPostSchema() {
   if (ensurePromise) {
@@ -38,7 +40,7 @@ export function ensureBlogPostSchema() {
 
   ensurePromise = (async () => {
     const client = createClient({
-      url: process.env.TURSO_DATABASE_URL ?? "file:./data/zhixinpaper.db",
+      url: process.env.TURSO_DATABASE_URL ?? localDatabaseUrl,
       ...(process.env.TURSO_AUTH_TOKEN ? { authToken: process.env.TURSO_AUTH_TOKEN } : {}),
     });
 

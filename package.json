@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run db:init",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src tests scripts --max-warnings=0",
@@ -13,7 +14,7 @@
     "test:image-metadata": "node --import tsx --test tests/image-metadata.test.ts tests/image-upload-contract.test.ts",
     "test:product-explorer": "node --import tsx --test tests/product-explorer.test.ts",
     "test:optimization-log": "node --import tsx --test tests/optimization-log.test.ts",
-    "test:contracts": "node --import tsx --test tests/thermal-paper-keyword-owners.contract.test.mjs tests/product-hub.contract.test.mjs tests/thermal-paper-architecture.contract.test.mjs tests/faq-unification.contract.test.mjs tests/inquiry-page-ownership.contract.test.mjs tests/public-sample-route-ownership.contract.test.mjs tests/public-quote-route-ownership.contract.test.mjs",
+    "test:contracts": "node --import tsx --test tests/thermal-paper-keyword-owners.contract.test.mjs tests/product-hub.contract.test.mjs tests/thermal-paper-architecture.contract.test.mjs tests/faq-unification.contract.test.mjs tests/inquiry-page-ownership.contract.test.mjs tests/public-sample-route-ownership.contract.test.mjs tests/public-quote-route-ownership.contract.test.mjs tests/hostinger-deployment.contract.test.mjs",
     "test:inquiry-delivery": "node --import tsx --test tests/inquiry-delivery.test.ts",
     "test:sitemap-health": "node --import tsx --test tests/sitemap-health.test.ts",
     "db:init": "node scripts/init-db.mjs",
@@ -22,6 +23,9 @@
     "admin:create": "node scripts/create-admin.mjs",
     "migrate:r2": "node scripts/migrate-blob-to-r2.mjs",
     "feishu:read": "node scripts/read-feishu-wiki.mjs"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.700.0",
@@ -45,7 +49,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^20",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",

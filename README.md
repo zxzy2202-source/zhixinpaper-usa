@@ -18,6 +18,23 @@ npm run dev
 
 The development server uses the URL printed by Next.js. The database defaults to `data/zhixinpaper.db` when `TURSO_DATABASE_URL` is not set.
 
+## Hostinger GitHub Deployment
+
+Hostinger Node.js Web Apps supports Next.js deployments from GitHub. Use a Business or Cloud plan, select **Deploy Web App** → **Import Git Repository**, and choose this repository. Hostinger supports Node.js 18.x, 20.x, 22.x, and 24.x; this project declares Node.js `>=20.9.0`, so select Node.js 20 or newer.
+
+Use these build settings when Hostinger asks for them:
+
+- Install command: `npm install`
+- Build command: `npm run build`
+- Start command: `npm run start`
+- Framework: `Next.js`
+
+The `prebuild` script runs `npm run db:init` before `next build`. This creates the schema on a fresh GitHub checkout, where the ignored local `data/` directory is not present. For production, configure `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` in Hostinger instead of relying on the local SQLite fallback.
+
+Add the required runtime variables from `.env.example` in Hostinger's environment-variable settings, especially `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `ADMIN_SESSION_SECRET`, and `NEXT_PUBLIC_SITE_URL`. Add R2 and notification variables if the media library or inquiry notifications are enabled. Do not commit `.env.local`, credentials, API keys, or database tokens.
+
+After deployment, verify the public homepage, `/contact`, `/samples`, `/api/quote` (POST), `/sitemap.xml`, and `/robots.txt`. GitHub-connected deployments redeploy after pushes to the selected production branch.
+
 ## Quality Gates
 
 Run the repository-defined checks before release:
