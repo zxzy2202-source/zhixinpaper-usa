@@ -138,10 +138,10 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
               BPA-free thermal paper for Diebold Nixdorf, NCR, Wincor, Hyosung, teller terminals, and financial kiosks, with anti-static feed control and optional regulatory back print.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#7d4f16]">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#7d4f16]">
                 Request an ATM Roll Quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+              <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
                 Request Samples
               </Link>
             </div>
@@ -377,7 +377,7 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
                 </li>
               ))}
             </ol>
-            <Link href="/quote" className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0f5f5c]">
+            <Link href="/contact?mode=quote#contact-form" className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0f5f5c]">
               Start Your RFQ <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -445,10 +445,10 @@ export default function AtmBankingRollPage({ roll, faqs }: AtmBankingRollPagePro
             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/85">We will return the roll specification, sample plan, document pack, back-print route, packing recommendation, and shipping terms.</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0b1513]">
+            <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0b1513]">
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
+            <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
               Request Samples
             </Link>
           </div>

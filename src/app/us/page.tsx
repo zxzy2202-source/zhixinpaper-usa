@@ -127,7 +127,7 @@ export default function USPage() {
           description="Thermal paper rolls and labels for US distributors, importers, and e-commerce programs. Material chemistry, food-contact scope, California disclosures, printer fit, packing, and shipping responsibilities are confirmed for the quoted product."
           features={["Food-Contact Review", "California Review", "Phenol Options", "Quality Documents", "Delivered-Term Review", "Channel Packing", "Regulated Labels"]}
           ctaPrimaryLabel="Get US Quote"
-          ctaPrimaryHref="/quote"
+          ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{
             bgColor: "bg-[#0d1f2d]",
             overlayGradient: "bg-[linear-gradient(90deg,rgba(8,20,32,0.68)_0%,rgba(8,20,32,0.48)_48%,rgba(8,20,32,0.18)_82%,rgba(8,20,32,0.05)_100%)]",

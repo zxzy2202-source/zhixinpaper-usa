@@ -232,8 +232,8 @@ export default async function OEMSlugPage({ params }: { params: Promise<{ slug: 
           { label: page.title },
         ]}
         actions={[
-          { label: "Request a Quote", href: "/quote", kind: "primary" },
-          { label: "Request Samples", href: "/samples", kind: "secondary" },
+          { label: "Request a Quote", href: "/contact?mode=quote#contact-form", kind: "primary" },
+          { label: "Request Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
         ]}
       />
 

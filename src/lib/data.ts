@@ -1130,7 +1130,7 @@ export const NAV_ITEMS = [
         })),
       },
       { label: "Private Label Printing", href: "/oem-custom/private-label", tag: "P1" },
-      { label: "Request Samples →", href: "/samples" },
+      { label: "Request Samples →", href: "/contact?mode=samples#contact-form" },
     ],
   },
   {

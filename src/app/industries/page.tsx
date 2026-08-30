@@ -252,7 +252,7 @@ export default function IndustriesPage() {
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link
-                    href="/quote"
+                    href="/contact?mode=quote#contact-form"
                     className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_45px_rgba(185,130,47,0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
                   >
                     Request a Quote
@@ -387,7 +387,7 @@ export default function IndustriesPage() {
                   reason, the risk to check, and the details needed for a cleaner quote.
                 </p>
                 <Link
-                  href="/quote"
+                  href="/contact?mode=quote#contact-form"
                   className="mt-5 inline-flex w-fit items-center justify-center gap-2 bg-[#101b19] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#0f5f5c] active:translate-y-px"
                 >
                   Request a Quote
@@ -525,7 +525,7 @@ export default function IndustriesPage() {
               ))}
 
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="group flex min-h-full flex-col justify-between overflow-hidden border border-[#101b19] bg-[#101b19] p-6 text-white shadow-sm transition duration-200 hover:-translate-y-1 hover:bg-[#0f5f5c] hover:shadow-[0_18px_48px_rgba(20,33,31,0.16)]"
               >
                 <div>
@@ -564,14 +564,14 @@ export default function IndustriesPage() {
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
-                    href="/quote"
+                    href="/contact?mode=quote#contact-form"
                     className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
                   >
                     Request a Quote
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
-                    href="/samples"
+                    href="/contact?mode=samples#contact-form"
                     className="inline-flex items-center justify-center gap-2 border border-white/24 px-7 py-3.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/[0.08] active:translate-y-px"
                   >
                     Request Samples

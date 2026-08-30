@@ -205,7 +205,7 @@ export default function FactoryPage() {
                   routes, export packing, and repeat-order support before you request pricing or samples.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
+                  <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
                     Request a Quote
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
@@ -334,7 +334,7 @@ export default function FactoryPage() {
                 checked before bulk production.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/samples" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
+                <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
                   Request Samples
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>

@@ -117,7 +117,7 @@ export default function MexicoExportAndCustomsPage() {
                 Prepare the information needed for a comparable quotation and smoother shipment review. Product specification, material documents, export packing, destination, and delivery responsibilities should be confirmed together.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/quote" className="inline-flex min-h-12 items-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white hover:bg-[#7d4f16]">
+                <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white hover:bg-[#7d4f16]">
                   Request a Mexico quotation <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link href="/mx" className="inline-flex min-h-12 items-center border border-white/45 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10">
@@ -199,7 +199,7 @@ export default function MexicoExportAndCustomsPage() {
                 We will review the product, document, packing, and delivery information needed for a comparable Mexico quotation.
               </p>
             </div>
-            <Link href="/quote" className="inline-flex min-h-12 items-center gap-2 bg-[#0f5f5c] px-7 py-3 text-sm font-bold text-white">
+            <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center gap-2 bg-[#0f5f5c] px-7 py-3 text-sm font-bold text-white">
               Start a quotation <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

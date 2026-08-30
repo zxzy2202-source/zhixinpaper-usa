@@ -42,7 +42,7 @@ const FAQ_ITEMS = [
       {
         q: "How do I request a quote?",
         a: "Use our online quote form, email us at sales@zhixinpaper.com, or contact via WhatsApp (+86 187 9277 1927). Include product type, size, quantity, destination, and target market so the team can qualify the request and confirm the next step.",
-        link: { href: "/quote", text: "Get a Quote Now" },
+        link: { href: "/contact?mode=quote#contact-form", text: "Get a Quote Now" },
       },
       {
         q: "What is the lead time for production?",
@@ -52,7 +52,7 @@ const FAQ_ITEMS = [
       {
         q: "Can I request samples before placing a bulk order?",
         a: "Yes. Sample availability, charges, courier method, and delivery estimate are confirmed after the product specification, testing purpose, and destination are reviewed. Use our sample request form to provide those details.",
-        link: { href: "/samples", text: "Request Samples" },
+        link: { href: "/contact?mode=samples#contact-form", text: "Request Samples" },
       },
     ],
   },

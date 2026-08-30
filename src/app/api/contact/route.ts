@@ -3,12 +3,30 @@ import { Resend } from "resend";
 import { db } from "@/lib/db";
 import { contactInquiries } from "@/lib/db/schema";
 import { rateLimit } from "@/lib/rate-limit";
-import { notifyAll } from "@/lib/notify";
+import { notifyAll, type InquiryAttachment } from "@/lib/notify";
 import { buildInquiryResponse } from "@/lib/inquiry-delivery";
 import { COMPANY } from "@/lib/data";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY || "placeholder");
+}
+
+const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024;
+const MAX_TOTAL_ATTACHMENT_SIZE = 20 * 1024 * 1024;
+const ALLOWED_ATTACHMENT_TYPES = new Set([
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "text/csv",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+]);
+
+function cleanFilename(filename: string): string {
+  return filename.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 120) || "attachment";
 }
 
 export async function POST(request: NextRequest) {
@@ -23,8 +41,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
-    const { firstName, lastName, company, email, country, subject, message } = body;
+    const isMultipart = request.headers.get("content-type")?.includes("multipart/form-data");
+    let fields: Record<string, string> = {};
+    const attachments: InquiryAttachment[] = [];
+
+    if (isMultipart) {
+      const formData = await request.formData();
+      for (const key of ["firstName", "lastName", "company", "email", "whatsapp", "country", "subject", "message", "customerPath"]) {
+        const value = formData.get(key);
+        if (typeof value === "string") fields[key] = value;
+      }
+
+      const files = formData.getAll("attachments").filter((value): value is File => value instanceof File && value.size > 0);
+      const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+      if (totalSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+        return NextResponse.json({ error: "Attachments must total 20 MB or less." }, { status: 400 });
+      }
+      for (const file of files) {
+        if (!ALLOWED_ATTACHMENT_TYPES.has(file.type)) {
+          return NextResponse.json({ error: "Please upload PDF, Word, Excel, CSV, JPG, PNG, or WebP files only." }, { status: 400 });
+        }
+        if (file.size > MAX_ATTACHMENT_SIZE) {
+          return NextResponse.json({ error: "Each attachment must be 10 MB or smaller." }, { status: 400 });
+        }
+        attachments.push({
+          filename: cleanFilename(file.name),
+          content: Buffer.from(await file.arrayBuffer()),
+        });
+      }
+    } else {
+      const body = await request.json();
+      fields = Object.fromEntries(
+        ["firstName", "lastName", "company", "email", "whatsapp", "country", "subject", "message", "customerPath"]
+          .map((key) => [key, typeof body[key] === "string" ? body[key] : ""])
+      );
+    }
+
+    const { firstName, lastName, company, email, whatsapp, country, subject, message, customerPath } = fields;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !message) {
@@ -34,6 +87,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const attachmentNames = attachments.map((attachment) => attachment.filename);
+    const storedMessage = attachmentNames.length
+      ? `${message}\n\nAttachments: ${attachmentNames.join(", ")}`
+      : message;
+    const source = customerPath ? `contact_${customerPath}` : "contact_form";
     let stored = false;
     try {
       await db.insert(contactInquiries).values({
@@ -41,11 +99,12 @@ export async function POST(request: NextRequest) {
         lastName,
         email,
         company: company || null,
+        phone: whatsapp || null,
         country: country || null,
         subject: subject || null,
-        message,
+        message: storedMessage,
         status: "new",
-        source: "contact_form",
+        source,
         ipAddress: request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || null,
       });
       stored = true;
@@ -59,9 +118,16 @@ export async function POST(request: NextRequest) {
       email,
       company,
       country,
+      phone: whatsapp,
       subject,
+      details: {
+        "Customer path": customerPath || undefined,
+        "WhatsApp": whatsapp || undefined,
+        Attachments: attachmentNames.length ? attachmentNames.join(", ") : undefined,
+      },
       message,
-      source: "contact_form",
+      source,
+      attachments,
     });
 
     const acceptedResponse = buildInquiryResponse({

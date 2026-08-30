@@ -272,11 +272,11 @@ export default function BlogListClient({ posts }: Props) {
                   ))}
                 </ul>
                 <div className="mt-6 grid gap-3">
-                  <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-5 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16]">
+                  <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-5 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16]">
                     <Send className="h-4 w-4" aria-hidden="true" />
                     Start an RFQ
                   </Link>
-                  <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/25 px-5 text-sm font-semibold text-white transition-colors hover:border-white/60 hover:bg-white/5">
+                  <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/25 px-5 text-sm font-semibold text-white transition-colors hover:border-white/60 hover:bg-white/5">
                     Request samples
                   </Link>
                 </div>

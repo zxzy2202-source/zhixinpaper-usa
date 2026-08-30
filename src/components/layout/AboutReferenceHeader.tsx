@@ -11,7 +11,7 @@ const links = [
   ["PRODUCT DETAILS", "/products/thermal-paper-rolls"],
   ["ABOUT US", "/about"],
   ["BLOG", "/blog"],
-  ["CONTACT US", "/quote"],
+  ["CONTACT US", "/contact?mode=quote#contact-form"],
 ] as const;
 
 export default function AboutReferenceHeader() {

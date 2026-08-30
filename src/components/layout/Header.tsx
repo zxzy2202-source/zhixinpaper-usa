@@ -541,7 +541,7 @@ const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
     })),
     { label: "Thermal Labels ›", href: "/products/thermal-labels" },
     ...THERMAL_LABELS.slice(0, 4).map(l => ({ label: l.name, href: `/products/thermal-labels/${l.slug}` })),
-    { label: "Request Samples", href: "/samples", tag: "P1" },
+    { label: "Request Samples", href: "/contact?mode=samples#contact-form", tag: "P1" },
     { label: "Private Label Supply", href: "/oem-custom/private-label" },
     { label: "MOQ & Packing Guide", href: "/oem-custom/moq-guide" },
   ],
@@ -683,7 +683,7 @@ export default function Header() {
             />
             <div className="flex flex-col leading-tight">
               <span className="whitespace-nowrap text-base font-bold text-white">ZhixinPaper</span>
-<span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Since 2006</span>
+<span className="whitespace-nowrap text-[10px] font-semibold text-[#d6b273] opacity-90">Since 2009</span>
             </div>
           </Link>
 

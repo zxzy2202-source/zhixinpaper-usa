@@ -72,7 +72,8 @@ const RFQ_ASSURANCE = [
   },
 ];
 
-export default function QuoteForm() {
+export default function QuoteForm({ embedded = false, customerPath }: { embedded?: boolean; customerPath?: string }) {
+  const Wrapper = embedded ? "div" : "main";
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [autoReplySent, setAutoReplySent] = useState(false);
@@ -109,6 +110,7 @@ export default function QuoteForm() {
         body: JSON.stringify({
           ...formData,
           products: selectedProducts.map(id => PRODUCTS.find(p => p.id === id)?.label || id),
+          customerPath,
         }),
       });
       const data = await res.json();
@@ -126,7 +128,7 @@ export default function QuoteForm() {
 
   if (submitted) {
     return (
-      <main className="min-h-screen bg-[#f4f0e8] px-6 py-24">
+      <Wrapper className={embedded ? "bg-[#f4f0e8]" : "min-h-screen bg-[#f4f0e8] px-6 py-24"}>
         <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-stretch">
           <div className="border border-[#ded6c8] bg-white p-8 shadow-[0_18px_44px_rgba(20,33,31,0.08)] sm:p-10">
             <div className="mb-6 flex h-14 w-14 items-center justify-center bg-[#e7eee9] text-[#0f5f5c]">
@@ -152,7 +154,7 @@ export default function QuoteForm() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/samples"
+                href="/contact?mode=samples#contact-form"
                 className="inline-flex min-h-12 items-center justify-center border border-[#c8bcaa] bg-white px-6 py-3 text-sm font-semibold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:text-[#0f5f5c] active:translate-y-px"
               >
                 Request Samples
@@ -185,13 +187,13 @@ export default function QuoteForm() {
             </p>
           </aside>
         </div>
-      </main>
+      </Wrapper>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#f4f0e8]">
-      <section className="mx-auto max-w-6xl px-6 py-12">
+    <Wrapper className={embedded ? "bg-[#f4f0e8]" : "min-h-screen bg-[#f4f0e8]"}>
+      <section className={`mx-auto max-w-6xl ${embedded ? "px-0 py-0" : "px-6 py-12"}`}>
         <div className="flex flex-col-reverse gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Form */}
           <div>
@@ -425,13 +427,13 @@ export default function QuoteForm() {
             <div className="border border-[#c8bcaa] bg-[#f4f0e8] p-6">
               <h3 className="mb-2 text-base font-bold text-[#14211f]">Need samples first?</h3>
               <p className="text-slate-600 text-sm mb-4">Test the selected construction before a bulk order. Availability, sample charges, documents, and courier terms are confirmed after review.</p>
-              <Link href="/samples" className="block border border-[#c8bcaa] bg-white px-4 py-3 text-center text-sm font-semibold text-[#0f5f5c] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:bg-[#fbfaf6] active:translate-y-px">
+              <Link href="/contact?mode=samples#contact-form" className="block border border-[#c8bcaa] bg-white px-4 py-3 text-center text-sm font-semibold text-[#0f5f5c] transition duration-200 hover:-translate-y-0.5 hover:border-[#0f5f5c] hover:bg-[#fbfaf6] active:translate-y-px">
                 Request Samples
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </Wrapper>
   );
 }

@@ -121,8 +121,8 @@ export default async function IndustryDetailPage({ params }: Props) {
             { label: industry.name },
           ]}
           actions={[
-            { label: "Get Industry Quote", href: "/quote", kind: "primary" },
-            { label: "Request Samples", href: "/samples", kind: "secondary" },
+            { label: "Get Industry Quote", href: "/contact?mode=quote#contact-form", kind: "primary" },
+            { label: "Request Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
           ]}
           aside={(
             <aside className="hidden border border-[#ded6c8] bg-white/80 p-6 shadow-[0_18px_48px_rgba(20,33,31,0.08)] backdrop-blur-sm lg:block">
@@ -263,11 +263,11 @@ export default async function IndustryDetailPage({ params }: Props) {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+                <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
                   Request a Quote
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                   Request Samples
                 </Link>
               </div>
@@ -304,7 +304,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                       ISO 15223 medical-device labeling
                     </Link>
                   )}
-                  <Link href="/samples" className="hover:text-blue-700">Sample validation</Link>
+                  <Link href="/contact?mode=samples#contact-form" className="hover:text-blue-700">Sample validation</Link>
                 </div>
               </div>
             </div>

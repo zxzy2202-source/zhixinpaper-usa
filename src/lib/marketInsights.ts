@@ -445,7 +445,7 @@ export const INDUSTRY_SOLUTION_COMPARISONS: Record<string, IndustrySolutionCompa
 
 const projectQualificationRoute: IndustryResourceLink = {
   label: "Plan a qualification sample",
-  href: "/samples",
+  href: "/contact?mode=samples#contact-form",
   description: "Confirm the printer, material, documents, and acceptance checks before bulk approval.",
 };
 
@@ -532,7 +532,7 @@ export function buildIndustryEvidenceAnswers(
     },
     {
       label: "Application proof: sample validation",
-      href: "/samples",
+      href: "/contact?mode=samples#contact-form",
     },
   ];
 

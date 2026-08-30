@@ -72,7 +72,7 @@ export default function FactoryCapacityPage() {
           { label: "Capacity" },
         ]}
         actions={[
-          { label: "Request a Project Review", href: "/quote", kind: "primary" },
+          { label: "Request a Project Review", href: "/contact?mode=quote#contact-form", kind: "primary" },
           { label: "Discuss Supply Planning", href: "/contact", kind: "secondary" },
         ]}
       />

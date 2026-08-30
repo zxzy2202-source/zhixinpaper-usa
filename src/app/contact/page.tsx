@@ -20,6 +20,7 @@ export default async function ContactPage({
 }) {
   const params = await searchParams;
   const mode = typeof params.mode === "string" ? params.mode : undefined;
+  const context = typeof params.context === "string" ? params.context : undefined;
 
-  return <ContactClient mode={mode} />;
+  return <ContactClient mode={mode} context={context} />;
 }

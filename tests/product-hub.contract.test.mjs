@@ -81,7 +81,7 @@ test("industry resource links cover every industry and resolve to published cont
   const configuredSlugs = Object.keys(INDUSTRY_RESOURCES).sort();
   const blogHrefs = new Set(BLOG_POSTS.map((post) => `/blog/${post.slug}`));
   const complianceHrefs = new Set(COMPLIANCE_ITEMS.map((item) => `/compliance/${item.slug}`));
-  const projectRouteHrefs = new Set(["/samples", "/factory", "/factory/quality-control", "/quote"]);
+  const projectRouteHrefs = new Set(["/contact?mode=samples#contact-form", "/factory", "/factory/quality-control", "/contact?mode=quote#contact-form"]);
 
   assert.deepEqual(configuredSlugs, industrySlugs, "resource configurations must match the industry directory");
   for (const slug of industrySlugs) {
@@ -141,7 +141,7 @@ test("industry pages render three conditional evidence answers with verified rou
       assert.match(answer.answer, /document review confirms only its stated scope/);
       assert.deepEqual(
         answer.evidence.map((evidence) => evidence.href),
-        [resources.technicalGuide.href, resources.compliance.href, "/samples"],
+        [resources.technicalGuide.href, resources.compliance.href, "/contact?mode=samples#contact-form"],
         `${industry.slug} answers must expose technical, document-scope, and application-proof paths`
       );
     }

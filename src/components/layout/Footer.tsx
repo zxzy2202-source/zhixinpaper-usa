@@ -94,7 +94,7 @@ export default function Footer() {
               <div>
                 <div className="text-base font-bold leading-none text-white">ZhixinPaper</div>
                 <div className="mt-1 text-[10px] font-semibold text-[#d6b273] opacity-90">
-              Since 2006
+              Since 2009
                 </div>
               </div>
             </Link>

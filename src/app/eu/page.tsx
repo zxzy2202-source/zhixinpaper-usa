@@ -127,7 +127,7 @@ export default function EUPage() {
           description="Thermal paper rolls and labels for European distributors. Material chemistry, REACH or RoHS document scope, food-contact use, printer fit, packing, and destination responsibilities are confirmed for the quoted product."
           features={["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Delivered-Term Review", "Euro-Pallet Options", "Chain-of-Custody Options", "Food-Contact Review"]}
           ctaPrimaryLabel="Get Europe Quote"
-          ctaPrimaryHref="/quote"
+          ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{
             bgColor: "bg-[#0f1f2d]",
             overlayGradient: "bg-[linear-gradient(90deg,rgba(10,24,36,0.65)_0%,rgba(10,24,36,0.48)_48%,rgba(10,24,36,0.18)_82%,rgba(10,24,36,0.06)_100%)]",

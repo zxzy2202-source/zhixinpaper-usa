@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
       requiredBy,
       notes,
       source,
+      customerPath,
     } = body;
 
     // Validate required fields
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest) {
         specifications: specifications || null,
         message: notes || null,
         status: "new",
-        source: source || "quote_form",
+        source: source || (customerPath ? `contact_${customerPath}` : "quote_form"),
         ipAddress: request.headers.get("x-forwarded-for") || null,
       });
       stored = true;
@@ -92,9 +93,10 @@ export async function POST(request: NextRequest) {
         "Custom Printing": customPrinting,
         "Project stage": projectStage,
         "Required by": requiredBy,
+        "Customer path": customerPath || "Not specified",
       },
       message: notes,
-      source: source || "quote_form",
+      source: source || (customerPath ? `contact_${customerPath}` : "quote_form"),
     });
 
     const acceptedResponse = buildInquiryResponse({

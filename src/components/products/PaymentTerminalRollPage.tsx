@@ -103,10 +103,10 @@ export default function PaymentTerminalRollPage({ roll, faqs }: PaymentTerminalR
               A 57mm or 2 1/4-inch name is only a starting point. Confirm the terminal model, roll compartment, OD or length, core, winding, paper grade, and packing before approval.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
                 Send Terminal Specification <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
+              <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
                 Request Fit Samples
               </Link>
             </div>
@@ -235,7 +235,7 @@ export default function PaymentTerminalRollPage({ roll, faqs }: PaymentTerminalR
           <div>
             <p className="section-label">Quote preparation</p>
             <h2 className="mt-3 text-3xl font-bold text-[#14211f] md:text-4xl">Send the fields that change fit and landed cost.</h2>
-            <Link href="/quote" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
+            <Link href="/contact?mode=quote#contact-form" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
               Start a Terminal Roll RFQ <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -263,7 +263,7 @@ export default function PaymentTerminalRollPage({ roll, faqs }: PaymentTerminalR
             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/85">We will identify the missing specification fields and recommend a fit-check sample route.</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/samples" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white">
+            <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white">
               Request Samples <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/products/thermal-paper-rolls/standard-pos-rolls" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white">

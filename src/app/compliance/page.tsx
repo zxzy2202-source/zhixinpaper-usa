@@ -353,7 +353,7 @@ export default function CompliancePage() {
           primaryLabel="Request Documents"
           primaryHref="/contact"
           secondaryLabel="Request a Quote"
-          secondaryHref="/quote"
+          secondaryHref="/contact?mode=quote#contact-form"
           trustItems={["ISO 9001:2015", "BPA-free routes", "REACH/RoHS", "FSC / FDA document support"]}
         />
       </main>

@@ -92,8 +92,8 @@ export default function FDACompliantPage() {
           { label: "FDA Thermal Paper Documentation" },
         ]}
         actions={[
-          { label: "Request Documentation", href: "/quote", kind: "primary" },
-          { label: "Request Samples", href: "/samples", kind: "secondary" },
+          { label: "Request Documentation", href: "/contact?mode=quote#contact-form", kind: "primary" },
+          { label: "Request Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
         ]}
       />
 
@@ -159,7 +159,7 @@ export default function FDACompliantPage() {
           <h2 className="text-3xl font-extrabold mb-4">Planning a US Food-Contact Project?</h2>
           <p className="text-blue-100 mb-8">Request a project-specific quote identifying the material grade, intended use, document scope, samples, packing, and destination requirements.</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">
+            <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3  hover:bg-blue-50 transition-colors">
               Get a Quote <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/compliance/certificates" className="inline-flex items-center gap-2 border border-white/40 text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">

@@ -25,9 +25,9 @@ export default function CTABanner({
   title = "Send us your roll or label specification.",
   subtitle = "We will review product fit, samples, documents, packing, lead time, and shipping terms for your destination.",
   primaryLabel = "Request a Quote",
-  primaryHref = "/quote",
+  primaryHref = "/contact?mode=quote#contact-form",
   secondaryLabel = "Request Samples",
-  secondaryHref = "/samples",
+  secondaryHref = "/contact?mode=samples#contact-form",
   trustItems,
   showTrust = true,
 }: CTABannerProps) {

@@ -127,7 +127,7 @@ export default function CanadaPage() {
           description="Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province."
           features={["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"]}
           ctaPrimaryLabel="Get Canada Quote"
-          ctaPrimaryHref="/quote"
+          ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{
             bgColor: "bg-[#1f0d0d]",
             overlayGradient: "bg-[linear-gradient(90deg,rgba(20,8,8,0.68)_0%,rgba(20,8,8,0.48)_48%,rgba(20,8,8,0.18)_82%,rgba(20,8,8,0.05)_100%)]",

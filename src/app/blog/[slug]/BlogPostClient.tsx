@@ -30,6 +30,14 @@ function removeLeadingMarkdownTitle(content: string, title: string) {
   return lines.join("\n").trimStart();
 }
 
+function normalizePublicInquiryLinks(content: string) {
+  return content
+    .replace(/\/quote\?([^\s)\]"'<>]+)/g, (_match, query: string) => `/contact?mode=quote&${query}#contact-form`)
+    .replace(/\/quote(?=[\s)\]"'<>]|$)/g, "/contact?mode=quote#contact-form")
+    .replace(/\/samples\?([^\s)\]"'<>]+)/g, (_match, query: string) => `/contact?mode=samples&${query}#contact-form`)
+    .replace(/\/samples(?=[\s)\]"'<>]|$)/g, "/contact?mode=samples#contact-form");
+}
+
 function formatDate(date: string) {
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return date;
@@ -87,7 +95,7 @@ function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = 
             <p className="mt-6 max-w-[68ch] text-lg leading-8 text-[#3f504c]">{excerpt}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a href="#roll-size-quick-start" className="inline-flex min-h-11 items-center gap-2 bg-[#0f5f5c] px-5 text-sm font-bold text-white transition hover:bg-[#0a4745]">Build your size spec <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>
-              <Link href="/quote?context=roll-size-guide&sourcePage=%2Fblog%2Fthermal-paper-roll-sizes-guide" className="inline-flex min-h-11 items-center gap-2 border border-[#9c661d] bg-white px-5 text-sm font-bold text-[#7d4f16] transition hover:bg-[#fffaf0]">Send printer model <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+              <Link href="/contact?mode=quote&context=roll-size-guide&sourcePage=%2Fblog%2Fthermal-paper-roll-sizes-guide#contact-form" className="inline-flex min-h-11 items-center gap-2 border border-[#9c661d] bg-white px-5 text-sm font-bold text-[#7d4f16] transition hover:bg-[#fffaf0]">Send printer model <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
             </div>
             <div className="mt-8 border-t border-[#c8bcaa] pt-5">{metadata}</div>
           </> : <>
@@ -103,7 +111,7 @@ function ArticleHeader({ slug, title, excerpt, category, readTime, date, tags = 
 }
 
 function InquirySidebar() {
-  return <section className="border border-[#e1e6e4] bg-white p-5 shadow-[0_10px_28px_rgba(20,33,31,0.05)]"><h2 className="text-lg font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 text-sm leading-6 text-[#687772]">Share your roll or label specification and our team will route it to the right product path.</p><Link href="/quote" className="mt-5 flex min-h-11 items-center justify-center gap-2 bg-[#0f5f5c] px-4 text-sm font-bold text-white transition hover:bg-[#0a4745]">Start a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></section>;
+  return <section className="border border-[#e1e6e4] bg-white p-5 shadow-[0_10px_28px_rgba(20,33,31,0.05)]"><h2 className="text-lg font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 text-sm leading-6 text-[#687772]">Share your roll or label specification and our team will route it to the right product path.</p><Link href="/contact?mode=quote#contact-form" className="mt-5 flex min-h-11 items-center justify-center gap-2 bg-[#0f5f5c] px-4 text-sm font-bold text-white transition hover:bg-[#0a4745]">Start a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></section>;
 }
 
 function ArticleSidebar({ related, outline, category, guideMode = false }: { related: RelatedPost[]; outline: string[]; category: string; guideMode?: boolean }) {
@@ -121,7 +129,7 @@ function ArticleSidebar({ related, outline, category, guideMode = false }: { rel
       <section className="bg-[#14211f] p-5 text-white">
         <h2 className="text-lg font-bold">Project qualification</h2>
         <p className="mt-2 text-sm leading-6 text-[#c7d0cb]">Send the printer model and measured roll details for a representative sample check.</p>
-        <Link href="/samples?context=roll-size-guide" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#d6b273] hover:underline">Request samples <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+        <Link href="/contact?mode=samples&context=roll-size-guide#contact-form" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#d6b273] hover:underline">Request samples <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
       </section>
     </aside>;
   }
@@ -145,7 +153,7 @@ function IndustryFit({ links }: { links: IndustryLink[] }) {
 }
 
 function ArticleActions() {
-  return <div className="mt-12 border-t border-[#e1e6e4] pt-7"><div className="flex flex-wrap gap-3"><Link href="/contact" className="btn-primary">Contact technical team <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link><Link href="/quote" className="btn-outline">Get a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div></div>;
+  return <div className="mt-12 border-t border-[#e1e6e4] pt-7"><div className="flex flex-wrap gap-3"><Link href="/contact" className="btn-primary">Contact technical team <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link><Link href="/contact?mode=quote#contact-form" className="btn-outline">Get a quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div></div>;
 }
 
 function RelatedPosts({ related }: { related: RelatedPost[] }) {
@@ -161,7 +169,7 @@ function PreviousPost({ related }: { related: RelatedPost[] }) {
 }
 
 function InquiryBand() {
-  return <section className="mt-16 bg-[#f4f6f8] px-5 py-8 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#687772]">Tell us the product, dimensions, material, quantity, and destination. We will review the right specification before quoting.</p><Link href="/quote" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 bg-[#0f6af2] px-6 text-sm font-bold text-white transition hover:bg-[#0956c9]">Submit your requirement <Send className="h-4 w-4" aria-hidden="true" /></Link></section>;
+  return <section className="mt-16 bg-[#f4f6f8] px-5 py-8 md:px-8"><h2 className="text-2xl font-bold text-[#14211f]">Send Your Inquiry Today</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#687772]">Tell us the product, dimensions, material, quantity, and destination. We will review the right specification before quoting.</p><Link href="/contact?mode=quote#contact-form" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 bg-[#0f6af2] px-6 text-sm font-bold text-white transition hover:bg-[#0956c9]">Submit your requirement <Send className="h-4 w-4" aria-hidden="true" /></Link></section>;
 }
 
 function ArticleFrame({ header, outline, related, children, productLinks, industryLinks, guideMode = false }: { header: ArticleHeaderProps; outline: string[]; related: RelatedPost[]; children: React.ReactNode; productLinks: ProductLink[]; industryLinks: IndustryLink[]; guideMode?: boolean }) {
@@ -177,7 +185,7 @@ export default function BlogPostClient({ slug, dbPost, publishedDbPosts = [] }: 
     const date = dbPost.publishedAt || dbPost.createdAt;
     const related = [...publishedDbPosts, ...BLOG_POSTS.filter((post) => post.slug !== slug && post.category === dbPost.category).map((post) => ({ slug: post.slug, title: post.title, category: post.category, readTime: post.readTime, date: post.date }))].filter((post, index, posts) => posts.findIndex((candidate) => candidate.slug === post.slug) === index).filter((post) => post.slug !== slug && post.category === dbPost.category).slice(0, 3);
     const tags = dbPost.tags ? dbPost.tags.split(",").map((tag) => tag.trim()).filter(Boolean) : [];
-    const content = removeLeadingMarkdownTitle(dbPost.content, dbPost.title);
+    const content = normalizePublicInquiryLinks(removeLeadingMarkdownTitle(dbPost.content, dbPost.title));
     return <ArticleFrame header={{ slug, title: dbPost.title, excerpt: dbPost.excerpt, category: dbPost.category, readTime: dbPost.readTime, date, tags, coverImage: dbPost.coverImage }} outline={extractHeadings(content)} related={related} productLinks={productLinks} industryLinks={[]} guideMode={isRollSizeGuide}>
       {isRollSizeGuide && <RollSizeGuideTools />}
       <div className={isRollSizeGuide ? "max-w-[72ch]" : undefined}>

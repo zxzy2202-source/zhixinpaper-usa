@@ -61,7 +61,7 @@ export default function MarketsPage() {
           description="Start with the destination market, then confirm the product specification, application, required documents, packing, Incoterm, and current project scope before approval."
           breadcrumbs={[{ label: "Home", href: "/" }, { label: "Export Markets" }]}
           actions={[
-            { label: "Request a Quote", href: "/quote", kind: "primary" },
+            { label: "Request a Quote", href: "/contact?mode=quote#contact-form", kind: "primary" },
             { label: "Review Compliance", href: "/compliance", kind: "secondary" },
           ]}
         />

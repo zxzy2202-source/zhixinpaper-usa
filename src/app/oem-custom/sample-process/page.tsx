@@ -67,7 +67,7 @@ export default function SampleProcessPage() {
           { label: "OEM & Custom", href: "/oem-custom" },
           { label: "Sample Process" },
         ]}
-        actions={[{ label: "Submit Sample Requirements", href: "/samples", kind: "primary" }]}
+        actions={[{ label: "Submit Sample Requirements", href: "/contact?mode=samples#contact-form", kind: "primary" }]}
       />
 
       <section className="py-20">

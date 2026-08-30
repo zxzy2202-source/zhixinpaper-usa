@@ -66,8 +66,8 @@ export default function CACannabisLabelsPage() {
               Thermal cannabis labels for Canadian licensed producers, processors, and retailers, reviewed against the buyer&apos;s current bilingual copy, packaging, variable-data workflow, and applicable federal or provincial requirements. Final regulatory approval remains the buyer&apos;s responsibility.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/quote" className="bg-white text-red-700 font-bold px-8 py-3  hover:bg-red-50 transition-colors">Get a Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/contact?mode=quote#contact-form" className="bg-white text-red-700 font-bold px-8 py-3  hover:bg-red-50 transition-colors">Get a Quote</Link>
+              <Link href="/contact?mode=samples#contact-form" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
               <Link href="/ca" className="border-2 border-red-200 text-white font-semibold px-8 py-3 hover:bg-white/10 transition-colors">Back to Canada Supplier Page</Link>
             </div>
           </div>
@@ -151,7 +151,7 @@ export default function CACannabisLabelsPage() {
           <p className="text-red-100 mb-8">Share buyer-approved bilingual copy, product class, variable-data fields, packaging surface, province, and current requirements for material and artwork review. Regulatory approval remains with the licence holder and its qualified advisers.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/contact" className="bg-white text-red-700 font-bold px-10 py-4  hover:bg-red-50 transition-colors">Contact Our Team</Link>
-            <Link href="/quote" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Get a Quote</Link>
+            <Link href="/contact?mode=quote#contact-form" className="border-2 border-white text-white font-semibold px-10 py-4  hover:bg-white/10 transition-colors">Get a Quote</Link>
           </div>
         </div>
       </section>

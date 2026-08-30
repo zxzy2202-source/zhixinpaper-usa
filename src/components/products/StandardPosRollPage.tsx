@@ -92,10 +92,10 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
               Confirm real roll length, printer fit, paper grade, compliance files, carton packing, and delivery terms before bulk production.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10 active:translate-y-px">
+              <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10 active:translate-y-px">
                 Request Samples
               </Link>
             </div>
@@ -191,7 +191,7 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
                 </li>
               ))}
             </ol>
-            <Link href="/quote" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 bg-white px-7 py-3.5 text-sm font-bold text-[#14211f] transition hover:-translate-y-0.5 hover:bg-[#f4f0e8]">
+            <Link href="/contact?mode=quote#contact-form" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 bg-white px-7 py-3.5 text-sm font-bold text-[#14211f] transition hover:-translate-y-0.5 hover:bg-[#f4f0e8]">
               Start Your RFQ <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -283,10 +283,10 @@ export default function StandardPosRollPage({ roll, faqs, regionalNotes }: Stand
             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/85">We will return the specification route, sample plan, document pack, packing recommendation, and shipping terms.</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#0b1513]">
+            <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#0b1513]">
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+            <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
               Request Samples
             </Link>
           </div>

@@ -80,8 +80,8 @@ export default function USCannabisLabelsPage() {
               Thermal cannabis labels for US dispensaries, processors, and brand owners, reviewed against the buyer&apos;s current state rules, approved warning copy, packaging surface, print process, and track-and-trace workflow. Final regulatory approval remains the buyer&apos;s responsibility.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/quote" className="bg-white text-green-700 font-bold px-8 py-3  hover:bg-green-50 transition-colors">Get a Quote</Link>
-              <Link href="/samples" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
+              <Link href="/contact?mode=quote#contact-form" className="bg-white text-green-700 font-bold px-8 py-3  hover:bg-green-50 transition-colors">Get a Quote</Link>
+              <Link href="/contact?mode=samples#contact-form" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Samples</Link>
               <Link href="/us" className="border-2 border-green-200 text-white font-semibold px-8 py-3 hover:bg-white/10 transition-colors">Back to USA Supplier Page</Link>
             </div>
           </div>

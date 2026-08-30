@@ -136,13 +136,13 @@ export default function MexicoPage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/quote"
+                  href="/contact?mode=quote#contact-form"
                   className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
                 >
                   Request a Quote <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/samples"
+                  href="/contact?mode=samples#contact-form"
                   className="inline-flex min-h-12 items-center justify-center border border-white/45 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   Request Samples
@@ -229,7 +229,7 @@ export default function MexicoPage() {
               <p className="mt-5 text-base leading-8 text-[#4f5f5a]">
                 Avoid comparing only the price per roll. Actual length, diameter, core, paper grade, and packing all affect performance and landed cost.
               </p>
-              <Link href="/quote" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
+              <Link href="/contact?mode=quote#contact-form" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c]">
                 Open the quotation form <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -293,7 +293,7 @@ export default function MexicoPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex min-h-12 items-center gap-2 bg-[#0f5f5c] px-7 py-3 text-sm font-bold text-white">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center gap-2 bg-[#0f5f5c] px-7 py-3 text-sm font-bold text-white">
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact" className="inline-flex min-h-12 items-center border border-[#0f5f5c]/30 px-7 py-3 text-sm font-bold text-[#0f5f5c]">

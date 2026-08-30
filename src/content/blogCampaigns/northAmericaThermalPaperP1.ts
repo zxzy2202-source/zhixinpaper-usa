@@ -37,7 +37,7 @@ function buildContent(intro: string, sections: DraftSection[], faqs: DraftFaq[])
     "",
     "## Next Step",
     "",
-    "If you need a quote, sample plan, or packing review, move the project into the [quote form](/quote) or [samples request](/contact?mode=samples#contact-form).",
+    "If you need a quote, sample plan, or packing review, move the project into the [quote form](/contact?mode=quote#contact-form) or [samples request](/contact?mode=samples#contact-form).",
   ].join("\n");
 }
 
@@ -264,7 +264,7 @@ export const NORTH_AMERICA_THERMAL_PAPER_P1_CAMPAIGN: BlogCampaign = {
           body: [
             "If more than one DC will use the label, test each site with its own printer settings before the SKU goes live. One set of settings rarely fits every station.",
             "Put the approved barcode rule, carton label, and reorder trigger into the rollout note so receiving teams know what to expect.",
-            "Then route the final buy through the [thermal labels page](/products/thermal-labels) and the [quote form](/quote) if the order is ready.",
+            "Then route the final buy through the [thermal labels page](/products/thermal-labels) and the [quote form](/contact?mode=quote#contact-form) if the order is ready.",
           ],
         },
       ],

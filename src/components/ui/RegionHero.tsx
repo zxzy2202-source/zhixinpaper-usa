@@ -89,7 +89,7 @@ export default function RegionHero({
             {ctaPrimaryLabel} <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/samples"
+            href="/contact?mode=samples#contact-form"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 hover:border-white/40 transition-all backdrop-blur-sm text-sm"
           >
             Request Samples

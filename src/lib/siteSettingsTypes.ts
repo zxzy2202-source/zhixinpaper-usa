@@ -28,9 +28,9 @@ export const DEFAULT_HERO_HOME: HeroConfig = {
   subtitle:
     "Thermal paper rolls and labels for distributors in Europe, the USA, Canada, and Mexico. Share your size, volume, destination, and certificate needs before ordering.",
   primaryCtaText: "Get a Custom Quote",
-  primaryCtaHref: "/quote",
+  primaryCtaHref: "/contact?mode=quote#contact-form",
   secondaryCtaText: "Request Samples",
-  secondaryCtaHref: "/samples",
+  secondaryCtaHref: "/contact?mode=samples#contact-form",
   tertiaryCtaText: "Browse Products",
   tertiaryCtaHref: "/products",
 };

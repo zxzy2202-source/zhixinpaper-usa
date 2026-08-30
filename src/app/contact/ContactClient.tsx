@@ -117,6 +117,64 @@ const SALES_ROUTES = [
   },
 ];
 
+const CUSTOMER_PATHS = [
+  {
+    key: "custom-private-label",
+    number: "01",
+    title: "Custom / private-label direct",
+    audience: "Brand owners, importers, and growing consumer brands",
+    model: "Direct custom or private-label supply",
+    description: "For Amazon sellers and industry brands that want the product, packaging, and brand program reviewed together.",
+    action: "Plan a private-label project",
+    icon: Building2,
+    priority: false,
+  },
+  {
+    key: "own-brand-distribution",
+    number: "02",
+    title: "Own-brand distribution",
+    audience: "Distributors and importers with an established channel",
+    model: "Supply for your own brand portfolio",
+    description: "Match repeatable product specifications, packing, and supply planning to the channel you already serve.",
+    action: "Discuss distribution supply",
+    icon: PackageCheck,
+    priority: false,
+  },
+  {
+    key: "tender-supply",
+    number: "03",
+    title: "Tender supply + support",
+    audience: "Local tender companies and awarded contractors",
+    model: "Upstream supply with tender assistance",
+    description: "Share the bid specification, document scope, sample deadline, and delivery destination before submission or award.",
+    action: "Prepare a tender supply plan",
+    icon: ShieldCheck,
+    priority: true,
+  },
+  {
+    key: "peer-semi-finished",
+    number: "04",
+    title: "Semi-finished supply to peers",
+    audience: "Peer printing plants and converters",
+    model: "Material and semi-finished supply",
+    description: "Discuss parent rolls, converted stock, or other inputs your plant needs to complete its own production.",
+    action: "Discuss converter supply",
+    icon: FileText,
+    priority: false,
+  },
+  {
+    key: "peer-overflow-manufacturing",
+    number: "05",
+    title: "Overseas peer overflow manufacturing",
+    audience: "Overseas printing plants and converters",
+    model: "Overflow capacity and contract manufacturing",
+    description: "Route recurring overflow work with the product files, capacity window, quality requirements, and packing plan.",
+    action: "Discuss overflow production",
+    icon: Globe2,
+    priority: true,
+  },
+] as const;
+
 const SUPPORT_NETWORK = [
   {
     title: "Thermal paper rolls",
@@ -156,8 +214,9 @@ const SUPPORT_NETWORK = [
   },
 ];
 
-export default function ContactClient({ mode }: { mode?: string }) {
+export default function ContactClient({ mode, context }: { mode?: string; context?: string }) {
   const selectedRoute = mode === "quote" ? "Commercial RFQ" : mode === "samples" ? "Sample evaluation" : "General question";
+  const selectedCustomerPath = CUSTOMER_PATHS.find((path) => path.key === context);
 
   return (
     <>
@@ -247,16 +306,59 @@ export default function ContactClient({ mode }: { mode?: string }) {
               ))}
             </div>
 
+            <section className="mt-14 border-y border-[#dfe5ed] py-10" aria-labelledby="customer-paths-title">
+              <div className="max-w-3xl">
+                <p className="text-sm font-bold uppercase text-[#006af6]">Customer path</p>
+                <h2 id="customer-paths-title" className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+                  Which type of supply partner are you?
+                </h2>
+                <p className="mt-4 text-base leading-7 text-[#52647a]">
+                  Choose the closest match. Your selection travels with the Contact Us RFQ so sales can start with the right commercial context.
+                </p>
+              </div>
+
+              <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+                {CUSTOMER_PATHS.map((path) => {
+                  const Icon = path.icon;
+                  const href = `/contact?context=${path.key}#contact-form`;
+                  const selected = selectedCustomerPath?.key === path.key;
+                  return (
+                    <Link
+                      key={path.key}
+                      href={href}
+                      className={`group flex h-full flex-col border p-5 transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-[#006af6]/60 hover:shadow-[0_14px_30px_rgba(0,106,246,0.10)] ${selected ? "border-[#006af6] bg-[#eef5ff]" : "border-[#dfe5ed] bg-white"}`}
+                      data-customer-path={path.key}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#eaf2ff] text-[#006af6]"><Icon className="h-5 w-5" aria-hidden="true" /></span>
+                        <span className="text-xs font-bold tracking-[0.16em] text-[#91a0b2]">{path.number}</span>
+                      </div>
+                      <h3 className="mt-5 text-lg font-bold leading-6 text-[#001429]">{path.title}</h3>
+                      <p className="mt-3 text-sm font-semibold leading-6 text-[#26384f]">{path.audience}</p>
+                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.06em] text-[#7a8ba0]">{path.model}</p>
+                      <p className="mt-3 flex-1 text-sm leading-6 text-[#52647a]">{path.description}</p>
+                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#006af6]">{path.action}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
+                      {path.priority && <span className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-[#fff5df] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[#9c661d]"><ShieldCheck className="h-3 w-3" aria-hidden="true" /> Priority path</span>}
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+
             <div id="contact-form" className="mt-10 grid scroll-mt-28 overflow-hidden rounded-lg border border-[#e5e9f0] bg-white lg:grid-cols-[minmax(0,1fr)_420px]">
               <div className="p-5 sm:p-8 lg:p-10">
-                {mode && (
+                {(mode || selectedCustomerPath) && (
                   <div className="mb-6 border-l-4 border-[#006af6] bg-[#eef5ff] px-4 py-3">
-                    <p className="text-xs font-bold uppercase text-[#006af6]">Selected route</p>
-                    <p className="mt-1 text-sm font-bold text-[#001429]">{selectedRoute}</p>
-                    <p className="mt-1 text-xs leading-5 text-[#52647a]">Start here, then sales will move qualified requests into the detailed workflow when needed.</p>
+                    <p className="text-xs font-bold uppercase text-[#006af6]">Selected request</p>
+                    <p className="mt-1 text-sm font-bold text-[#001429]">{selectedCustomerPath?.title || selectedRoute}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#52647a]">
+                      {selectedCustomerPath
+                        ? `${selectedCustomerPath.audience}. Share the relevant files and project details below.`
+                        : "Use this Contact Us route to send your request; the team will keep the project context with your message."}
+                    </p>
                   </div>
                 )}
-                <QuickContactForm />
+                <QuickContactForm customerPath={selectedCustomerPath?.key} />
               </div>
               <aside className="bg-[#006af6] p-6 text-white sm:p-8 lg:p-10" aria-labelledby="contact-information-title">
                 <p className="text-sm font-bold uppercase text-white/75">Direct contact</p>

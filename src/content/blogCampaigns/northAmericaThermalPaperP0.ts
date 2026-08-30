@@ -55,7 +55,7 @@ For each device, verify:
 
 Buyers should also ask what "acceptance" means on site. Some teams only need the roll to fit. Others need quiet unwind, sharp image density, low dust, and no early paper-end complaints. Put those criteria into the RFQ. A useful sample plan is 2 to 3 rolls per device model, tested over at least one normal trading shift.
 
-If the device is unknown, do not guess from memory. Request a photo of the printer label, a photo of the loaded roll, and three measurements: width, OD, and core ID. That is enough to start a controlled quote. You can compare the result against the supplier's [thermal paper rolls page](/products/thermal-paper-rolls) and send the final purchase brief through the [quote form](/quote).
+If the device is unknown, do not guess from memory. Request a photo of the printer label, a photo of the loaded roll, and three measurements: width, OD, and core ID. That is enough to start a controlled quote. You can compare the result against the supplier's [thermal paper rolls page](/products/thermal-paper-rolls) and send the final purchase brief through the [quote form](/contact?mode=quote#contact-form).
 
 ## Review paper performance, packing, and delivery details
 
@@ -153,7 +153,7 @@ If there is any doubt, request both a paper option and a film option. Buyers sho
 
 The label brief should also say whether the site needs a permanent adhesive, removable adhesive, or freezer-grade adhesive. A warehouse team may use the same printer for two different jobs. If that happens, keep the SKUs separate and approve each one against its own use case.
 
-Review current options on the [thermal labels page](/products/thermal-labels) and use the [samples page](/samples) when you need a side-by-side test.
+Review current options on the [thermal labels page](/products/thermal-labels) and use the [samples page](/contact?mode=samples#contact-form) when you need a side-by-side test.
 
 ## Define barcode and print acceptance criteria
 
@@ -294,7 +294,7 @@ The buyer should assign one final approver and one backup approver. Too many rev
 
 If the project is urgent, collect comments in one review window instead of running separate rounds. That alone can cut several days from the first order schedule.
 
-When the team is ready, route the program through the [contact page](/contact) or combine the proof request with a commercial discussion through the [quote form](/quote).
+When the team is ready, route the program through the [contact page](/contact) or combine the proof request with a commercial discussion through the [quote form](/contact?mode=quote#contact-form).
 
 ## Frequently Asked Questions
 
@@ -359,7 +359,7 @@ Check these points before approval:
 
 If the program uses more than one surface, ask for separate sample sets. One approved label for smooth PP film does not automatically approve the same stock for rough corrugated cartons.
 
-The cold-chain route should also include a printer review. Direct thermal paper may work for short-life chilled labels. Film or thermal transfer labels may be safer for longer storage or heavier abrasion. Compare the options on the [freezer labels page](/products/thermal-labels/freezer-labels) and request trials through the [samples page](/samples).
+The cold-chain route should also include a printer review. Direct thermal paper may work for short-life chilled labels. Film or thermal transfer labels may be safer for longer storage or heavier abrasion. Compare the options on the [freezer labels page](/products/thermal-labels/freezer-labels) and request trials through the [samples page](/contact?mode=samples#contact-form).
 
 ## Run a barcode and handling trial
 

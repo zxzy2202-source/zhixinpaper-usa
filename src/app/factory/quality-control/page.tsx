@@ -71,7 +71,7 @@ export default function QualityControlPage() {
           { label: "Quality Control" },
         ]}
         actions={[
-          { label: "Discuss Quality Requirements", href: "/quote", kind: "primary" },
+          { label: "Discuss Quality Requirements", href: "/contact?mode=quote#contact-form", kind: "primary" },
           { label: "Review Available Documents", href: "/compliance/certificates", kind: "secondary" },
         ]}
       />

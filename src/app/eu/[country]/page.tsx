@@ -252,10 +252,10 @@ export default async function EUCountryPage({ params }: Props) {
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">
                 Get {c.name} Quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
+              <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
                 Request Samples
               </Link>
               <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">
@@ -393,7 +393,7 @@ export default async function EUCountryPage({ params }: Props) {
                       { label: "REACH/RoHS Document Review", href: "/compliance/reach-rohs" },
                       { label: "Custom OEM / Private Label", href: "/oem-custom" },
                       { label: "Request Compliance Docs", href: "/contact" },
-                      { label: "Request Quote", href: "/quote" },
+                      { label: "Request Quote", href: "/contact?mode=quote#contact-form" },
                     ].map((link) => (
                       <Link key={link.href} href={link.href} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 text-sm transition-colors">
                         <ArrowRight className="w-3.5 h-3.5 text-blue-600/50" />

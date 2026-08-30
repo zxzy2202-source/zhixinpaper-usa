@@ -276,7 +276,7 @@ export default function AboutPage() {
                 thermal rolls, labels, NCR forms, and export support for repeat supply.
               </p>
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white shadow-[0_12px_30px_rgba(22,119,255,0.35)] transition hover:bg-[#0d65df]"
               >
                 Get a Quote <ArrowRight className="h-4 w-4" />
@@ -321,7 +321,7 @@ export default function AboutPage() {
               </h2>
             </div>
             <Link
-              href="/quote"
+              href="/contact?mode=quote#contact-form"
               className="inline-flex items-center gap-3 self-start rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0d65df] md:self-auto"
             >
               Send Your Inquiry Now <ArrowRight className="h-4 w-4" />
@@ -474,7 +474,7 @@ export default function AboutPage() {
                 destination, and documents before the order enters production.
               </p>
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="mt-9 inline-flex items-center gap-3 self-start rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0d65df]"
               >
                 Send Your Inquiry Now <ArrowRight className="h-4 w-4" />
@@ -658,7 +658,7 @@ export default function AboutPage() {
                   <div className="p-6">
                     <h3 className="text-xl font-bold">{title}</h3>
                     <p className="mt-3 text-sm leading-7 text-white/70">{text}</p>
-                    <Link href="/quote" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#8bb9ff]">
+                    <Link href="/contact?mode=quote#contact-form" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#8bb9ff]">
                       Start with a specification <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
@@ -747,7 +747,7 @@ export default function AboutPage() {
                 Boxes,
                 "Product qualification",
                 "Share size, core, material, application, and destination.",
-                "/samples",
+                "/contact?mode=samples#contact-form",
               ],
             ].map(([Icon, title, text, href], index) => (
               <Link
@@ -780,7 +780,7 @@ export default function AboutPage() {
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#8bb9ff]">Product and capability guide</p>
               <h3 className="mt-3 text-2xl font-extrabold">Review the 2026 catalog route</h3>
               <p className="mt-4 text-sm leading-7 text-white/70">Use the inquiry route to request product, material, packing, and compliance information for your project.</p>
-              <Link href="/quote" className="mt-6 inline-flex items-center gap-2 bg-[#1677ff] px-5 py-3 text-sm font-bold text-white">
+              <Link href="/contact?mode=quote#contact-form" className="mt-6 inline-flex items-center gap-2 bg-[#1677ff] px-5 py-3 text-sm font-bold text-white">
                 Request a copy <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -823,7 +823,7 @@ export default function AboutPage() {
               </div>
             </div>
             <form
-              action="/quote"
+              action="/contact?mode=quote#contact-form"
               method="get"
               className="rounded-2xl bg-white p-6 text-[#0d1b35] sm:p-8"
             >
@@ -899,7 +899,7 @@ export default function AboutPage() {
               </p>
             </div>
             <Link
-              href="/quote"
+              href="/contact?mode=quote#contact-form"
               className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#1677ff] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#0d65df]"
             >
               Start a Project <ArrowRight className="h-4 w-4" />

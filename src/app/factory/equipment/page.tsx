@@ -118,7 +118,7 @@ export default function FactoryEquipmentPage() {
           { label: "Factory", href: "/factory" },
           { label: "Equipment" },
         ]}
-        actions={[{ label: "Discuss Production Requirements", href: "/quote", kind: "primary" }]}
+        actions={[{ label: "Discuss Production Requirements", href: "/contact?mode=quote#contact-form", kind: "primary" }]}
       />
 
       <section

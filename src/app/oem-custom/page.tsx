@@ -62,7 +62,7 @@ export default function OEMPage() {
               Private label, custom printing, and OEM supply for branded thermal consumables. Specifications, order quantity, samples, packaging, documents, schedule, and delivery terms are confirmed by project.
             </p>
             <div className="flex flex-wrap gap-3 mb-6">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Start OEM Project <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Start OEM Project <ArrowRight className="w-4 h-4" /></Link>
               <Link href="/oem-custom/sample-process" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Sample Process</Link>
             </div>
             {/* Trust strip */}

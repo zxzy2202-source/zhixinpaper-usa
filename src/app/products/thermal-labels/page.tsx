@@ -114,13 +114,13 @@ export default function ThermalLabelsPage() {
             </p>
             <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-[#7d4f16]"
               >
                 Request a Label Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
-                href="/samples"
+                href="/contact?mode=samples#contact-form"
                 className="inline-flex min-h-11 items-center justify-center border border-[#0f5f5c]/35 bg-white/55 px-7 py-3 text-sm font-semibold text-[#0f5f5c] transition-colors hover:border-[#0f5f5c] hover:bg-white"
               >
                 Request Samples

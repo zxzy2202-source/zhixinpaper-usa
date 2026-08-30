@@ -99,7 +99,7 @@ export default function QuotePage() {
                       Start your RFQ <ArrowRight className="h-4 w-4" />
                     </a>
                     <Link
-                      href="/samples"
+                      href="/contact?mode=samples#contact-form"
                       className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/15"
                     >
                       Request samples first

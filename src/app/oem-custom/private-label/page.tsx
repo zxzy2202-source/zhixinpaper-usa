@@ -69,8 +69,8 @@ export default function PrivateLabelPage() {
           { label: "Private Label" },
         ]}
         actions={[
-          { label: "Request a Project Quote", href: "/quote", kind: "primary" },
-          { label: "Plan Samples", href: "/samples", kind: "secondary" },
+          { label: "Request a Project Quote", href: "/contact?mode=quote#contact-form", kind: "primary" },
+          { label: "Plan Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
         ]}
       />
 

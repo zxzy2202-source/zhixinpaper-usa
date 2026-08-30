@@ -163,7 +163,7 @@ Ask the supplier to print these fields on the carton label:
 
 If the project serves more than one DC, decide whether each pallet can contain mixed store allocations or whether pallets must stay single-SKU. Buyers should write that rule before production, not after the first shipment is packed.
 
-You can cross-check physical options on the [thermal paper rolls page](/products/thermal-paper-rolls) and route final commercial requirements through the [quote form](/quote).
+You can cross-check physical options on the [thermal paper rolls page](/products/thermal-paper-rolls) and route final commercial requirements through the [quote form](/contact?mode=quote#contact-form).
 
 ## Handle unknown legacy devices without stopping the RFQ
 
@@ -273,7 +273,7 @@ A practical approval file should include:
 - Batch number or lot number reference
 - Final reviewer and review date
 
-If the label is applied to flexible packaging or cold surfaces, run a short trial before production release. Samples requested through the [samples page](/samples) are more useful when the buyer provides the true pack surface and the intended storage path.
+If the label is applied to flexible packaging or cold surfaces, run a short trial before production release. Samples requested through the [samples page](/contact?mode=samples#contact-form) are more useful when the buyer provides the true pack surface and the intended storage path.
 
 This is also where commercial discipline helps. If a buyer changes the surface, the storage condition, or the laminate after the first review, the approval should be reopened. That is not bureaucracy. It is change control.
 

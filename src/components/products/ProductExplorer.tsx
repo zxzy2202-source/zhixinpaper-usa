@@ -255,7 +255,7 @@ export default function ProductExplorer({ items }: ProductExplorerProps) {
                 </p>
               </div>
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="mt-3 inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-4 text-sm font-bold text-white transition hover:bg-[#7d4f16] md:mt-0"
               >
                 Request a Quote
@@ -346,7 +346,7 @@ export default function ProductExplorer({ items }: ProductExplorerProps) {
                       Clear filters
                     </button>
                     <Link
-                      href="/quote"
+                      href="/contact?mode=quote#contact-form"
                       className="inline-flex min-h-11 items-center justify-center gap-2 border border-[#0f5f5c] px-5 text-sm font-bold text-[#0f5f5c]"
                     >
                       Request a Quote

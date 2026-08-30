@@ -87,8 +87,8 @@ function buildCtaSection() {
     "",
     "If you need support on specifications, documentation scope, or sample planning, continue with one of these internal pages:",
     "",
-    "- [Request Samples](/samples) to validate material, dimensions, and printer fit.",
-    "- [Get a Quote](/quote) to align the RFQ with width, OD, core, chemistry, packing, and destination requirements.",
+    "- [Request Samples](/contact?mode=samples#contact-form) to validate material, dimensions, and printer fit.",
+    "- [Get a Quote](/contact?mode=quote#contact-form) to align the RFQ with width, OD, core, chemistry, packing, and destination requirements.",
     "- [Contact Us](/contact) for project-specific technical review.",
     "",
   ].join("\n");

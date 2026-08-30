@@ -275,7 +275,7 @@ export default function ProductsPage() {
                     Choose a Product Line
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
-                  <Link href="/quote" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#fbfaf6]/10 active:translate-y-px">
+                  <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#fbfaf6]/10 active:translate-y-px">
                     Request a Quote
                   </Link>
                 </div>
@@ -459,11 +459,11 @@ export default function ProductsPage() {
                         ))}
                       </div>
                       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                        <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
+                        <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
                           Request a Quote
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
                         </Link>
-                        <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#fbfaf6]/10 active:translate-y-px">
+                        <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#fbfaf6]/10 active:translate-y-px">
                           Request Samples
                         </Link>
                       </div>

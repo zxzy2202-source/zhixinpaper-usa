@@ -127,7 +127,7 @@ export default function FSCPaperPage() {
           <h2 className="text-3xl font-bold mb-4">Review an FSC Paper Requirement</h2>
           <p className="text-green-100 mb-8">Share the product construction, quantity, destination, requested claim, and artwork needs so the available paper route and current documents can be reviewed.</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Request Sourcing Review</Link>
+            <Link href="/contact?mode=quote#contact-form" className="bg-white text-green-700 font-semibold px-8 py-3  hover:bg-green-50 transition-colors">Request Sourcing Review</Link>
             <Link href="/compliance/certificates" className="border-2 border-white text-white font-semibold px-8 py-3  hover:bg-white/10 transition-colors">Request Current Documents</Link>
           </div>
         </div>

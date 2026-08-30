@@ -158,7 +158,7 @@ export default function BPAFreePage() {
               <p className="text-sm leading-7 text-[#aebbb5]">
                 Quote-ready input: product specification, application, printer, required wording, destination, buyer standard, quantity, and document template.
               </p>
-              <Link href="/quote" className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
+              <Link href="/contact?mode=quote#contact-form" className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#7d4f16]">
                 Confirm Grade & Documents <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -265,7 +265,7 @@ export default function BPAFreePage() {
               <p className="mt-3 max-w-2xl text-sm leading-7 text-white/85">We will confirm the available grade route, evidence needed, sample plan, packing, and quote fields.</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white">
                 Request a Grade Review <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/products/thermal-paper-rolls" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white">

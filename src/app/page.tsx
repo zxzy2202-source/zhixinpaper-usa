@@ -196,7 +196,7 @@ export default function HomePage() {
                 </p>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <Link
-                    href="/quote"
+                    href="/contact?mode=quote#contact-form"
                     className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#9c661d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_18px_46px_rgba(185,130,47,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px"
                   >
                     Request a Quote
@@ -229,7 +229,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Link href="/quote" className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-bold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f4f0e8] active:translate-y-px">
+                <Link href="/contact?mode=quote#contact-form" className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-bold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f4f0e8] active:translate-y-px">
                   Request a Quote
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -259,7 +259,7 @@ export default function HomePage() {
               <p className="mt-4 max-w-xl text-base leading-7 text-[#4f5f5a]">
                 When an international contractor or tendering company has a fixed submission date, the right first step is a complete specification review, not a generic product list.
               </p>
-              <Link href="/quote" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
+              <Link href="/contact?mode=quote#contact-form" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:underline">
                 Start a project RFQ <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -362,7 +362,7 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
-            <Link href="/quote" className="mt-10 inline-flex min-h-12 items-center justify-center gap-2 bg-white px-7 py-3.5 text-sm font-bold text-[#14211f] transition hover:-translate-y-0.5 hover:bg-[#f4f0e8]">
+            <Link href="/contact?mode=quote#contact-form" className="mt-10 inline-flex min-h-12 items-center justify-center gap-2 bg-white px-7 py-3.5 text-sm font-bold text-[#14211f] transition hover:-translate-y-0.5 hover:bg-[#f4f0e8]">
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -480,10 +480,10 @@ export default function HomePage() {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href="/quote" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#0b1513]">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#14211f] px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#0b1513]">
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/samples" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+              <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-12 items-center justify-center border border-white/55 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
                 Request Samples
               </Link>
             </div>

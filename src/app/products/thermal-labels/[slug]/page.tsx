@@ -193,8 +193,8 @@ export default async function LabelDetailPage({ params }: Props) {
             { label: label.name },
           ]}
           actions={[
-            { label: "Request a Quote", href: "/quote", kind: "primary" },
-            { label: "Request Samples", href: "/samples", kind: "secondary" },
+            { label: "Request a Quote", href: "/contact?mode=quote#contact-form", kind: "primary" },
+            { label: "Request Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
           ]}
           media={(
             <SlotImage
@@ -327,10 +327,10 @@ export default async function LabelDetailPage({ params }: Props) {
                       <p className="text-[#d6b273] text-sm">Custom sizes, adhesives, printing, tooling, samples, packing, and order quantity are confirmed by project review.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
-                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
+                      <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
                         Request Samples
                       </Link>
-                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] text-white font-bold  hover:bg-[#7d4f16] transition-colors text-sm shadow-sm border border-[#b9822f]">
+                      <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] text-white font-bold  hover:bg-[#7d4f16] transition-colors text-sm shadow-sm border border-[#b9822f]">
                         Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
@@ -452,7 +452,7 @@ export default async function LabelDetailPage({ params }: Props) {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
                 Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-slate-400 text-xs">Response timing confirmed after specification and document review</p>
@@ -518,7 +518,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Request Samples</p>
                   <p className="text-slate-500 text-xs mb-3">Test print quality and adhesion before bulk order. Shipped within 3 days.</p>
-                  <Link href="/samples" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
+                  <Link href="/contact?mode=samples#contact-form" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
                     Request Now <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>

@@ -37,7 +37,7 @@ function buildContent(intro: string, sections: DraftSection[], faqs: DraftFaq[])
     "",
     "## Next Step",
     "",
-    "If the project is ready for sampling or quotation, move it through the [samples request](/contact?mode=samples#contact-form) or the [quote form](/quote).",
+    "If the project is ready for sampling or quotation, move it through the [samples request](/contact?mode=samples#contact-form) or the [quote form](/contact?mode=quote#contact-form).",
   ].join("\n");
 }
 
@@ -156,7 +156,7 @@ export const EUROPE_MEXICO_COMPLIANCE_P1_CAMPAIGN: BlogCampaign = {
           body: [
             "The buyer's approval note should say what was tested, what was accepted, and what must not change. That is enough for procurement, QA, and the supplier to stay aligned.",
             "If the next quote uses a different grade name, re-check the sample instead of assuming it is a naming issue only.",
-            "For open document requests, keep the conversation tied to the [compliance page](/compliance) and the [quote form](/quote).",
+            "For open document requests, keep the conversation tied to the [compliance page](/compliance) and the [quote form](/contact?mode=quote#contact-form).",
           ],
         },
       ],
@@ -210,7 +210,7 @@ export const EUROPE_MEXICO_COMPLIANCE_P1_CAMPAIGN: BlogCampaign = {
           body: [
             "The approval note should carry the final item code, carton rule, and destination code. That makes the next reorder much easier to check.",
             "If the next shipment changes size, winding, or pallet mix, ask for a new sample review before approval.",
-            "For project follow-up, move the buyer into the [thermal paper rolls page](/products/thermal-paper-rolls) or the [quote form](/quote).",
+            "For project follow-up, move the buyer into the [thermal paper rolls page](/products/thermal-paper-rolls) or the [quote form](/contact?mode=quote#contact-form).",
           ],
         },
       ],
@@ -265,7 +265,7 @@ export const EUROPE_MEXICO_COMPLIANCE_P1_CAMPAIGN: BlogCampaign = {
             "The approval note should list the printer model, label code, adhesive, core, and winding direction. That gives the next reorder a clean reference point.",
             "If more than one DC uses the label, test the distinct printer families separately before you roll out a single SKU.",
             "If the sample sits in a warehouse before release, note the storage condition and the approval owner so the handoff stays clear.",
-            "For final pricing, the buyer can move from the [thermal labels page](/products/thermal-labels) to the [samples page](/contact?mode=samples#contact-form) and then to [quote](/quote).",
+            "For final pricing, the buyer can move from the [thermal labels page](/products/thermal-labels) to the [samples page](/contact?mode=samples#contact-form) and then to [quote](/contact?mode=quote#contact-form).",
           ],
         },
       ],

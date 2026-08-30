@@ -69,8 +69,8 @@ export default function CustomPrintingPage() {
           { label: "Custom Printing" },
         ]}
         actions={[
-          { label: "Request a Printing Review", href: "/quote", kind: "primary" },
-          { label: "Plan Print Samples", href: "/samples", kind: "secondary" },
+          { label: "Request a Printing Review", href: "/contact?mode=quote#contact-form", kind: "primary" },
+          { label: "Plan Print Samples", href: "/contact?mode=samples#contact-form", kind: "secondary" },
         ]}
       />
 

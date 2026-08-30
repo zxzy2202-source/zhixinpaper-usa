@@ -124,7 +124,7 @@ export default function RollSizeGuideTools() {
             </div>
           </div>
           <Link
-            href="/samples?context=roll-size-guide&sourcePage=%2Fblog%2Fthermal-paper-roll-sizes-guide"
+            href="/contact?mode=samples&context=roll-size-guide&sourcePage=%2Fblog%2Fthermal-paper-roll-sizes-guide#contact-form"
             className="mt-8 inline-flex min-h-11 items-center gap-2 bg-[#d6b273] px-5 text-sm font-bold text-[#14211f] transition hover:bg-[#e3c58f]"
           >
             Project qualification <ArrowRight className="h-4 w-4" aria-hidden="true" />

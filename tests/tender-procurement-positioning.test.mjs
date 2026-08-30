@@ -9,13 +9,13 @@ test("homepage speaks to international tender and project procurement teams", ()
   assert.match(page, /international contractors, tendering companies, and project procurement teams/i);
   assert.match(page, /bid specification/i);
   assert.match(page, /project procurement/i);
-  assert.match(page, /href="\/quote"/);
+  assert.match(page, /href="\/contact\?mode=quote#contact-form"/);
 });
 
 test("quote flow captures tender stage and required-by timing", () => {
   const page = read("src/app/quote/page.tsx");
   const form = read("src/app/quote/QuoteForm.tsx");
-  assert.match(page, /project RFQ/i);
+  assert.match(page, /project-ready quote|project RFQ/i);
   assert.match(form, /projectStage/);
   assert.match(form, /requiredBy/);
   assert.match(form, /Tender stage/i);

@@ -20,7 +20,8 @@ test("About page follows the reference company-profile section contract", () => 
   ]) {
     assert.match(source, new RegExp(label));
   }
-  assert.match(source, /href=\"\/quote\"/);
+  assert.match(source, /href=\"\/contact\?mode=quote#contact-form\"/);
+  assert.match(source, /\/contact\?mode=samples#contact-form/);
   assert.match(source, /href=\"\/factory\"/);
   assert.match(source, /\/factory\/quality-control/);
   assert.doesNotMatch(source, /Lorem ipsum/i);
@@ -76,8 +77,10 @@ test("About page presents the supplied company culture asset with accessible val
 });
 
 test("shared brand labels do not contradict the 2006 company story", () => {
-  assert.match(headerSource, /Since 2006/);
-  assert.match(footerSource, /Since 2006/);
+  assert.match(headerSource, /Since 2009/);
+  assert.match(footerSource, /Since 2009/);
+  assert.doesNotMatch(headerSource, /Since 2006/);
+  assert.doesNotMatch(footerSource, /Since 2006/);
   assert.doesNotMatch(headerSource, /Company Established 2009/);
   assert.doesNotMatch(footerSource, /Company Established 2009/);
 });

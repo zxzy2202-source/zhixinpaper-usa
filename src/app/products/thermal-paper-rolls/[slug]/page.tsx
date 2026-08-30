@@ -601,19 +601,19 @@ export default async function RollDetailPage({ params }: Props) {
                   <div className="flex flex-wrap gap-3">
                     {isCustomPrinted ? (
                       <>
-                        <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
+                        <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
                           Request a Print Sample <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
+                        <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
                           Submit Artwork &amp; Get Quote
                         </Link>
                       </>
                     ) : (
                       <>
-                        <Link href="/quote" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
+                        <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-11 items-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#101b19]/30 transition-all hover:bg-[#7d4f16]">
                           Request a Quote <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <Link href="/samples" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
+                        <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-11 items-center gap-2 border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/20">
                           Request Samples
                         </Link>
                         <a
@@ -668,7 +668,7 @@ export default async function RollDetailPage({ params }: Props) {
                           ))}
                         </div>
                         <Link
-                          href="/quote"
+                          href="/contact?mode=quote#contact-form"
                           className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
                         >
                           Request a Quote
@@ -706,14 +706,14 @@ export default async function RollDetailPage({ params }: Props) {
                           ))}
                         </div>
                         <Link
-                          href="/samples"
+                          href="/contact?mode=samples#contact-form"
                           className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-[#9c661d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
                         >
                           Request a Print Sample
                           <ArrowRight className="h-4 w-4" />
                         </Link>
                         <Link
-                          href="/quote"
+                          href="/contact?mode=quote#contact-form"
                           className="mt-2 inline-flex min-h-10 w-full items-center justify-center gap-2 border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
                         >
                           Submit Artwork &amp; Get Quote
@@ -824,7 +824,7 @@ export default async function RollDetailPage({ params }: Props) {
                     ))}
                   </div>
                   <Link
-                    href="/quote"
+                    href="/contact?mode=quote#contact-form"
                     className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#7d4f16]"
                   >
                     Request a Quote
@@ -883,11 +883,11 @@ export default async function RollDetailPage({ params }: Props) {
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/quote" className="inline-flex min-h-11 items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+                <Link href="/contact?mode=quote#contact-form" className="inline-flex min-h-11 items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
                   Request a Quote
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/samples" className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                <Link href="/contact?mode=samples#contact-form" className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                   Test Samples First
                 </Link>
               </div>
@@ -930,11 +930,11 @@ export default async function RollDetailPage({ params }: Props) {
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+                <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
                   Request a Quote
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/samples" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                   Request Samples
                 </Link>
               </div>
@@ -1087,10 +1087,10 @@ export default async function RollDetailPage({ params }: Props) {
                       <p className="text-[#d6b273] text-sm">Our team can tailor any product to your exact requirements.</p>
                     </div>
                     <div className="flex gap-3 shrink-0 flex-wrap">
-                      <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
+                      <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0f5f5c] font-bold  hover:bg-[#f4f0e8] transition-colors text-sm shadow-sm">
                         Request Samples
                       </Link>
-                      <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] text-white font-bold  hover:bg-[#7d4f16] transition-colors text-sm shadow-sm border border-[#b9822f]">
+                      <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#9c661d] text-white font-bold  hover:bg-[#7d4f16] transition-colors text-sm shadow-sm border border-[#b9822f]">
                         Request a Quote <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
@@ -1167,7 +1167,7 @@ export default async function RollDetailPage({ params }: Props) {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
+              <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c661d] hover:bg-[#7d4f16] text-white font-bold  text-sm transition-colors shadow-sm">
                 Request a Quote <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-slate-400 text-xs">Response timing confirmed after specification and document review</p>
@@ -1246,7 +1246,7 @@ export default async function RollDetailPage({ params }: Props) {
                   <Link href="/oem-custom/private-label" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold  text-sm transition-colors shadow-sm">
                     Explore OEM Options <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link href="/samples" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-emerald-400 hover:text-emerald-600 transition-all text-sm">
+                  <Link href="/contact?mode=samples#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-emerald-400 hover:text-emerald-600 transition-all text-sm">
                     Request Branded Sample
                   </Link>
                 </div>
@@ -1285,7 +1285,7 @@ export default async function RollDetailPage({ params }: Props) {
                 <div>
                   <p className="font-bold text-slate-900 text-sm mb-1">Request Samples</p>
                   <p className="text-slate-500 text-xs mb-3">Sample specification, quantity, fee, production method, courier route, and schedule are confirmed before dispatch.</p>
-                  <Link href="/samples" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
+                  <Link href="/contact?mode=samples#contact-form" className="text-[#0f5f5c] hover:text-[#0f5f5c] font-semibold text-xs flex items-center gap-1">
                     Request Now <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>

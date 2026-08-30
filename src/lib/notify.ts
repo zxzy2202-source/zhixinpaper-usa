@@ -21,6 +21,11 @@ import { COMPANY } from "@/lib/data";
 // ── 通用类型 ─────────────────────────────────────────────────────
 export type InquiryKind = "contact" | "quote" | "samples";
 
+export interface InquiryAttachment {
+  filename: string;
+  content: Buffer;
+}
+
 export interface InquiryPayload {
   kind: InquiryKind;
   /** 客户姓名 */
@@ -41,6 +46,8 @@ export interface InquiryPayload {
   message?: string;
   /** 来源标识（如 quote_form, product_pdp） */
   source?: string;
+  /** Optional files attached to the sales email. */
+  attachments?: InquiryAttachment[];
 }
 
 // ── 模板：标题（用于 Server酱 title / 邮件 subject） ──────────────
@@ -218,6 +225,10 @@ async function sendEmail(p: InquiryPayload): Promise<{
       replyTo: p.email,
       subject: buildTitle(p),
       html: buildEmailHtml(p),
+      attachments: p.attachments?.map((attachment) => ({
+        filename: attachment.filename,
+        content: attachment.content,
+      })),
     });
     if (error) return { ok: false, error: String(error) };
     return { ok: true };

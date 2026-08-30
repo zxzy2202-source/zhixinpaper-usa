@@ -174,7 +174,7 @@ export default async function ComplianceDetailPage({ params }: Props) {
             <p className="text-slate-500 text-lg max-w-2xl mb-6">{item.description}</p>
             <div className="flex flex-wrap gap-3">
                <Link href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold  transition-colors shadow-sm text-sm">Request Documents <Download className="w-4 h-4" /></Link>
-               <Link href="/quote" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Product Review</Link>
+               <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-slate-300 text-slate-700 font-semibold  hover:border-blue-400 hover:text-blue-600 transition-all text-sm">Request Product Review</Link>
             </div>
           </div>
         </section>

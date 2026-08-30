@@ -43,7 +43,7 @@ export default function FaqPageClient({ groups }: FaqPageClientProps) {
             <p className="mt-6 max-w-2xl text-base leading-7 text-[#dbe3dd] md:text-lg">
               Clear answers for distributors, importers, and buyers reviewing thermal paper, labels, compliance, OEM services, and ordering details.
             </p>
-            <Link href="/quote" className="mt-8 inline-flex min-h-12 items-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#9c661d]">
+            <Link href="/contact?mode=quote#contact-form" className="mt-8 inline-flex min-h-12 items-center gap-2 bg-[#b9822f] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#9c661d]">
               Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
@@ -138,7 +138,7 @@ export default function FaqPageClient({ groups }: FaqPageClientProps) {
           <div className="mt-10 border-t border-[#ded6c8] pt-6">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#87918c]">Need a project answer?</p>
             <p className="mt-3 text-sm leading-6 text-[#4f5f5a]">Send the size, grade, quantity, destination, and application. We will review the right product path with you.</p>
-            <Link href="/quote" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#9c661d]">Start an RFQ <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact?mode=quote#contact-form" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f5f5c] hover:text-[#9c661d]">Start an RFQ <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
           </div>
         </aside>
       </section>

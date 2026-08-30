@@ -73,8 +73,8 @@ export default function MOQGuidePage() {
           { label: "MOQ Guide" },
         ]}
         actions={[
-          { label: "Discuss Project Quantity", href: "/quote", kind: "primary" },
-          { label: "Plan Sample Evaluation", href: "/samples", kind: "secondary" },
+          { label: "Discuss Project Quantity", href: "/contact?mode=quote#contact-form", kind: "primary" },
+          { label: "Plan Sample Evaluation", href: "/contact?mode=samples#contact-form", kind: "secondary" },
         ]}
       />
 
@@ -113,7 +113,7 @@ export default function MOQGuidePage() {
             <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Volume Discounts</h3>
               <p className="text-slate-500 text-sm mb-4">Tiered pricing is quoted from the approved specification, order quantity, SKU mix, packing, forecast, and delivery plan.</p>
-              <Link href="/quote" className="text-blue-600 font-medium text-sm hover:text-blue-800">Request volume pricing →</Link>
+              <Link href="/contact?mode=quote#contact-form" className="text-blue-600 font-medium text-sm hover:text-blue-800">Request volume pricing →</Link>
             </div>
             <div className="bg-blue-50  p-6 border border-blue-100">
               <h3 className="font-semibold text-slate-800 mb-2">Mixed Container Orders</h3>

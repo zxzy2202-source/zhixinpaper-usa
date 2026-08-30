@@ -123,7 +123,7 @@ export default function SamplesClient() {
                 Browse Products
               </Link>
               <Link
-                href="/quote"
+                href="/contact?mode=quote#contact-form"
                 className="border border-[#ded6c8] text-[#33413e] font-semibold px-6 py-3  hover:bg-[#f4f0e8] transition-colors"
               >
                 Request a Quote
@@ -152,7 +152,7 @@ export default function SamplesClient() {
               Need bulk pricing, compliance documents, freight, or tender support instead?
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/quote" className="font-bold text-[#d6b273] hover:text-white">Start a commercial RFQ</Link>
+              <Link href="/contact?mode=quote#contact-form" className="font-bold text-[#d6b273] hover:text-white">Start a commercial RFQ</Link>
               <Link href="/contact" className="font-semibold text-white hover:text-[#d6b273]">Contact sales</Link>
             </div>
           </div>
@@ -396,7 +396,7 @@ export default function SamplesClient() {
                     A sample request does not replace a commercial quotation. Use the RFQ when price, volume, Incoterms, compliance scope, or supply timing is the decision.
                   </p>
                   <div className="mt-5 flex flex-col gap-3 text-sm font-bold">
-                    <Link href="/quote" className="text-[#9c661d] hover:text-[#7d4f16]">Go to commercial RFQ →</Link>
+                    <Link href="/contact?mode=quote#contact-form" className="text-[#9c661d] hover:text-[#7d4f16]">Go to commercial RFQ →</Link>
                     <Link href="/contact" className="text-[#0f5f5c] hover:text-[#14211f]">Ask a general question →</Link>
                   </div>
                 </div>
