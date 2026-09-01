@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const source = await readFile(new URL("../src/app/about/page.tsx", import.meta.url), "utf8");
+const imageSlotsSource = await readFile(new URL("../src/lib/imageSlots.ts", import.meta.url), "utf8");
 const headerSource = await readFile(new URL("../src/components/layout/Header.tsx", import.meta.url), "utf8");
 const footerSource = await readFile(new URL("../src/components/layout/Footer.tsx", import.meta.url), "utf8");
 
@@ -64,7 +65,8 @@ test("About page reflects the verified brand-story timeline", () => {
 
 test("About page presents the supplied company culture asset with accessible values", () => {
   assert.match(source, /Company Culture/);
-  assert.match(source, /\/images\/about\/company-culture\.png/);
+  assert.match(source, /slotKey="about\.culture"/);
+  assert.match(imageSlotsSource, /key: "about\.culture"[\s\S]*fallback: "\/images\/about\/company-culture\.png"/);
   assert.match(source, /Build confidence in every order/);
   for (const value of [
     "Clear communication",
@@ -91,15 +93,52 @@ test("About page uses a fluid full-width shell", () => {
 });
 
 test("About page keeps the reference visual rhythm and media modules", () => {
-  assert.match(source, /about-reference\/about-banner\.jpg/);
+  assert.match(source, /import SlotImage from ["']@\/components\/ui\/SlotImage["']/);
+  assert.match(source, /<SlotImage[\s\S]*slotKey="about\.banner"/);
+  assert.doesNotMatch(source, /src="\/images\/about-reference\/about-banner\.jpg"/);
+  assert.match(imageSlotsSource, /key: "about\.banner"[\s\S]*fallback: "\/images\/about-reference\/about-banner\.jpg"/);
   assert.match(source, /src="\/images\/logo\.png"/);
   assert.doesNotMatch(source, /about-reference\/brand-strip\.jpg/);
   assert.match(source, /min-h-\[380px\]/);
   assert.match(source, /Vision and Mission/);
   assert.match(source, /Process stories/);
-  assert.match(source, /about-reference\/catalog\.jpg/);
+  assert.match(source, /slotKey="about\.catalog"/);
+  assert.match(imageSlotsSource, /key: "about\.catalog"[\s\S]*fallback: "\/images\/about-reference\/catalog\.jpg"/);
   assert.match(source, /Specification-led inquiry/);
   assert.match(source, /type="file"/);
+});
+
+test("all editable About page images use registered image slots", () => {
+  for (const slotKey of [
+    "about.banner",
+    "about.vision",
+    "about.culture",
+    "about.approach",
+    "about.catalog",
+    "about.history.2006",
+    "about.history.2009",
+    "about.history.2009-2010",
+    "about.history.2011-2017",
+    "about.history.2018",
+    "about.history.2022-2025",
+    "about.history.2026",
+    "about.equipment.thermal-paper",
+    "about.equipment.thermal-label",
+    "about.equipment.ncr",
+    "about.equipment.quality",
+    "about.process.material",
+    "about.process.export",
+    "about.team.production",
+    "about.team.quality",
+    "about.team.export",
+    "about.team.artwork",
+    "about.team.packing",
+    "about.team.support",
+  ]) {
+    assert.match(source, new RegExp(`"${slotKey.replaceAll(".", "\\.")}"`));
+    assert.match(imageSlotsSource, new RegExp(`key: "${slotKey.replaceAll(".", "\\.")}"`));
+  }
+  assert.doesNotMatch(source, /<Image[\s\S]{0,120}src="\/images\/(?!logo\.png)/);
 });
 
 test("About page does not carry unsupported reference metrics", () => {

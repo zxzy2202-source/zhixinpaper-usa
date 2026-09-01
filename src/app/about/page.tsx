@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SlotImage from "@/components/ui/SlotImage";
 import { breadcrumbSchema, buildMetadata, organizationSchema } from "@/lib/seo";
 import {
   ArrowRight,
@@ -33,43 +34,43 @@ const history = [
     "June 1, 2006",
     "Trade business begins",
     "Zhixin Paper started with one person and no factory, learning customer requirements directly through the market before building manufacturing capability.",
-    "/images/factory-overview.jpg",
+    "about.history.2006",
   ],
   [
     "November 2009",
     "First 600 mm slitter",
     "In a 200㎡ workshop, the first 600 mm thermal paper slitting machine marked the practical transition from trade to production.",
-    "/images/hero-bg.jpg",
+    "about.history.2009",
   ],
   [
     "2009–2010",
     "NCR and workshop expansion",
     "The first NCR computer paper line was installed, the workshop grew from 400㎡ to 800㎡, and the operation reached four thermal slitters and two NCR lines.",
-    "/images/compliance-certifications.jpg",
+    "about.history.2009-2010",
   ],
   [
     "2011–2017",
     "Manufacturing foundation",
     "Zhixin moved into a 1,800㎡ facility, installed four-color full-rotary NCR printing, expanded to six thermal lines, and began thermal label production.",
-    "/images/thermal-rolls-product.jpg",
+    "about.history.2011-2017",
   ],
   [
     "2018",
     "Factory upgrade for projects",
     "An independent factory, automatic thermal-roll packing, equipment upgrades, and improved safety standards strengthened the supply base for larger projects.",
-    "/images/factory-overview.jpg",
+    "about.history.2018",
   ],
   [
     "2022–2025",
     "International capability rebuilt",
     "The team rebuilt export knowledge and customer communication from the ground up, creating the service route used for international cooperation today.",
-    "/images/thermal-labels-product.jpg",
+    "about.history.2022-2025",
   ],
   [
     "2026",
     "Stable long-term supply",
     "Zhixin combines a real factory operation, mature production capability, and international communication to support stable long-term supply for global customers.",
-    "/images/factory-overview.jpg",
+    "about.history.2026",
   ],
 ] as const;
 
@@ -110,25 +111,25 @@ const equipment = [
   [
     "Thermal paper converting",
     "Roll slitting, winding, core selection, and finished-roll packing for printer and POS applications.",
-    "/images/about-reference/equipment-1.jpg",
+    "about.equipment.thermal-paper",
     Factory,
   ],
   [
     "Thermal label production",
     "Label formats can be reviewed alongside material, adhesive, liner, artwork, and barcode requirements.",
-    "/images/about-reference/equipment-2.jpg",
+    "about.equipment.thermal-label",
     Boxes,
   ],
   [
     "NCR paper and printing",
     "The company's development includes NCR lines and four-color full-rotary NCR printing capability.",
-    "/images/about-reference/equipment-3.jpg",
+    "about.equipment.ncr",
     Printer,
   ],
   [
     "Quality and export review",
     "Carton marks, pallet plans, destination, and shipping terms are clarified before the quote is finalized.",
-    "/images/about-reference/equipment-4.jpg",
+    "about.equipment.quality",
     FileCheck2,
   ],
 ] as const;
@@ -137,32 +138,45 @@ const team = [
   [
     "Production coordination",
     "Specification, capacity, and packing checks are aligned before a quotation is released.",
-    "/images/factory-overview.jpg",
+    "about.team.production",
   ],
   [
     "Quality review",
     "Inspection points and requested documents are matched to the paper grade and destination.",
-    "/images/compliance-certifications.jpg",
+    "about.team.quality",
   ],
   [
     "Export service",
     "Product, sample, freight, and document questions stay connected through the inquiry route.",
-    "/images/thermal-labels-product.jpg",
+    "about.team.export",
   ],
   [
     "Artwork and labels",
     "Artwork, barcode, adhesive, liner, and label format checks stay visible before approval.",
-    "/images/about-reference/equipment-2.jpg",
+    "about.team.artwork",
   ],
   [
     "Packing and documents",
     "Carton marks, pallet plans, destination, and requested files are checked with the order.",
-    "/images/about-reference/equipment-4.jpg",
+    "about.team.packing",
   ],
   [
     "Customer support",
     "One contact route keeps product fit, samples, freight, and follow-up questions together.",
-    "/images/about-reference/process-2.jpg",
+    "about.team.support",
+  ],
+] as const;
+
+const processStories = [
+  [
+    "Material and converting",
+    "Match grade, size, core, winding, and packing to the printer or application before production.",
+    "about.process.material",
+  ],
+  [
+    "Export coordination",
+    "Keep product, sample, freight, destination, and document questions connected in one project record.",
+    "about.process.export",
   ],
 ] as const;
 
@@ -198,11 +212,11 @@ function ContactRail() {
 }
 
 function ImagePanel({
-  src,
+  slotKey,
   alt,
   className = "",
 }: {
-  src: string;
+  slotKey: string;
   alt: string;
   className?: string;
 }) {
@@ -210,8 +224,8 @@ function ImagePanel({
     <div
       className={`relative overflow-hidden rounded-[28px] bg-[#dce8f5] ${className}`}
     >
-      <Image
-        src={src}
+      <SlotImage
+        slotKey={slotKey}
         alt={alt}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
@@ -242,8 +256,8 @@ export default function AboutPage() {
       ))}
       <main id="main-content" className="bg-white pt-[64px] text-[#0d1b35] md:pt-[92px]">
         <section className="relative overflow-hidden bg-[#0d1b35] text-white">
-          <Image
-            src="/images/about-reference/about-banner.jpg"
+          <SlotImage
+            slotKey="about.banner"
             alt="Zhixin Paper production campus and factory capability"
             fill
             priority
@@ -374,8 +388,8 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="relative mt-10 aspect-[16/7] overflow-hidden rounded-[8px] bg-[#0d1b35]">
-            <Image
-              src="/images/about-reference/section-wide.jpg"
+            <SlotImage
+              slotKey="about.vision"
               alt="Zhixin Paper factory overview"
               fill
               sizes="100vw"
@@ -411,23 +425,15 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="mt-10">
-              <a
-                href="/images/about/company-culture.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Open the Zhixin Paper company culture display at full size"
-                className="block overflow-hidden border border-[#dbe5f3] bg-[#f3f7fd] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1677ff]"
-              >
-                <Image
-                  src="/images/about/company-culture.png"
-                  alt="Zhixin Paper company culture display at the workshop entrance"
-                  width={2048}
-                  height={1152}
-                  sizes="100vw"
-                  className="h-auto w-full"
-                />
-              </a>
+            <figure className="mt-10 overflow-hidden border border-[#dbe5f3] bg-[#f3f7fd]">
+              <SlotImage
+                slotKey="about.culture"
+                alt="Zhixin Paper company culture display at the workshop entrance"
+                width={2048}
+                height={1152}
+                sizes="100vw"
+                className="h-auto w-full"
+              />
               <figcaption className="sr-only">
                 Zhixin Paper company culture and brand values displayed at the workshop entrance.
               </figcaption>
@@ -456,7 +462,7 @@ export default function AboutPage() {
         <section className="bg-[#f3f7fd] py-16 md:py-20">
           <div className="about-shell grid gap-12 lg:grid-cols-2 lg:gap-20">
             <ImagePanel
-              src="/images/about-reference/section-profile.jpg"
+              slotKey="about.approach"
               alt="Zhixin Paper production and customer service team"
               className="min-h-[360px] lg:min-h-[520px]"
             />
@@ -546,14 +552,14 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {history.map(([year, title, text, image], index) => (
+              {history.map(([year, title, text, slotKey], index) => (
                 <article
                   key={year}
                   className="overflow-hidden border border-[#dbe5f3] bg-[#f3f7fd]"
                 >
                   <div className="relative aspect-[4/2]">
-                    <Image
-                      src={image}
+                    <SlotImage
+                      slotKey={slotKey}
                       alt={`${year} Zhixin Paper history`}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -603,14 +609,14 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
-              {equipment.map(([title, text, image, Icon], index) => (
+              {equipment.map(([title, text, slotKey, Icon], index) => (
                 <article
                   key={title}
                   className="overflow-hidden rounded-2xl border border-[#dbe5f3] bg-white"
                 >
                   <div className="relative aspect-[4/2.3]">
-                    <Image
-                      src={image}
+                    <SlotImage
+                      slotKey={slotKey}
                       alt={title}
                       fill
                       sizes="(max-width: 768px) 100vw, 30vw"
@@ -647,13 +653,10 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="mt-10 grid gap-8 md:grid-cols-2">
-              {[
-                ["Material and converting", "Match grade, size, core, winding, and packing to the printer or application before production.", "/images/about-reference/process-1.jpg"],
-                ["Export coordination", "Keep product, sample, freight, destination, and document questions connected in one project record.", "/images/about-reference/process-2.jpg"],
-              ].map(([title, text, image]) => (
+              {processStories.map(([title, text, slotKey]) => (
                 <article key={title} className="grid overflow-hidden border border-white/15 bg-white/[0.06] sm:grid-cols-[0.9fr_1.1fr]">
                   <div className="relative min-h-52">
-                    <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
+                    <SlotImage slotKey={slotKey} alt={title} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold">{title}</h3>
@@ -683,14 +686,14 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {team.map(([title, text, image]) => (
+              {team.map(([title, text, slotKey]) => (
                 <article
                   key={title}
                   className="overflow-hidden rounded-2xl bg-white"
                 >
                   <div className="relative aspect-[4/3]">
-                    <Image
-                      src={image}
+                    <SlotImage
+                      slotKey={slotKey}
                       alt={title}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -774,7 +777,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-10 grid overflow-hidden border border-[#dbe5f3] bg-[#0d1b35] lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div className="relative aspect-[784/556] lg:aspect-auto lg:h-full">
-              <Image src="/images/about-reference/catalog.jpg" alt="Zhixin Paper product and capability catalog" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+              <SlotImage slotKey="about.catalog" alt="Zhixin Paper product and capability catalog" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
             </div>
             <div className="p-7 text-white md:p-9">
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#8bb9ff]">Product and capability guide</p>
