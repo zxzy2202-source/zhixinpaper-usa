@@ -114,13 +114,6 @@ const HERO_PROOF = [
   "Export documentation",
 ] as const;
 
-const RFQ_FIELDS = [
-  "Product use case",
-  "Size, core, OD or label format",
-  "Monthly quantity and destination",
-  "Required certificates and packing",
-] as const;
-
 const PROJECT_BUYER_POINTS = [
   {
     title: "Bid specification",
@@ -186,7 +179,7 @@ export default function HomePage() {
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,20,18,0.65)_0%,rgba(8,20,18,0.48)_48%,rgba(8,20,18,0.18)_82%,rgba(8,20,18,0.05)_100%)]" />
 
           <div className="container-site py-14 md:py-18 lg:py-20">
-            <div className="grid gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-end">
+            <div>
               <div className="max-w-[760px]">
                 <h1 className="text-[2.35rem] font-bold leading-[1.05] text-white sm:text-5xl lg:text-[4rem]">
                   Thermal Paper Rolls & Labels for International Tender Projects.
@@ -211,29 +204,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <aside className="border border-white/14 bg-[#0b1513]/86 p-5 shadow-[0_24px_80px_rgba(5,16,14,0.34)] backdrop-blur-sm md:p-6">
-                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
-                  <div>
-                    <p className="text-xs font-bold text-[#d6b273]">RFQ checklist</p>
-                    <h2 className="mt-2 text-2xl font-bold leading-tight text-white">
-                      Send the details buyers actually check.
-                    </h2>
-                  </div>
-                  <FileCheck2 className="h-6 w-6 shrink-0 text-[#d6b273]" aria-hidden="true" />
-                </div>
-                <div className="mt-5 grid gap-3">
-                  {RFQ_FIELDS.map((field) => (
-                    <div key={field} className="flex items-center gap-3 border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-[#dce4df]">
-                      <Check className="h-4 w-4 shrink-0 text-[#d6b273]" aria-hidden="true" />
-                      {field}
-                    </div>
-                  ))}
-                </div>
-                <Link href="/contact?mode=quote#contact-form" className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-bold text-[#14211f] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f4f0e8] active:translate-y-px">
-                  Request a Quote
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              </aside>
             </div>
           </div>
         </section>
