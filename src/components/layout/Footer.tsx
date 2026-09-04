@@ -58,7 +58,7 @@ const FooterLinks = ({ links }: { links: FooterLink[] }) => (
       <li key={link.href}>
         <Link
           href={link.href}
-          className="group flex min-h-6 items-center gap-2 text-sm leading-6 text-slate-400 transition-colors hover:text-white"
+          className="group flex min-h-11 items-center gap-2 text-sm leading-6 text-slate-400 transition-colors hover:text-white md:min-h-6"
         >
           <ArrowRight className="h-3 w-3 shrink-0 text-[#d6b273] opacity-50 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
           <span>{link.label}</span>
@@ -70,9 +70,9 @@ const FooterLinks = ({ links }: { links: FooterLink[] }) => (
 
 const FooterSection = ({ title, links }: FooterSection) => (
   <div>
-    <h4 className="mb-4 text-xs font-bold text-[#efe7d6]">
+    <h2 className="mb-4 text-xs font-bold text-[#efe7d6]">
       {title}
-    </h4>
+    </h2>
     <FooterLinks links={links} />
   </div>
 );
@@ -83,7 +83,7 @@ export default function Footer() {
       <div className="container-site py-10 lg:py-12">
         <div className="grid gap-10 lg:grid-cols-[minmax(280px,1fr)_minmax(0,1.2fr)]">
           <div className="max-w-xl lg:max-w-md">
-            <Link href="/" className="group mb-5 inline-flex items-center gap-2.5" aria-label="Zhi Xin Paper - Home">
+            <Link href="/" className="group mb-5 inline-flex min-h-11 items-center gap-2.5" aria-label="Zhi Xin Paper - Home">
               <Image
                 src="/images/logo.png"
                 alt="Zhi Xin Paper"
@@ -106,13 +106,13 @@ export default function Footer() {
             <div className="mt-5 space-y-3 text-sm text-[#aebbb5]">
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 shrink-0 text-[#d6b273]" />
-                <a href={`tel:${COMPANY.phone}`} className="transition-colors hover:text-white">
+                <a href={`tel:${COMPANY.phone}`} className="inline-flex min-h-11 items-center transition-colors hover:text-white">
                   {COMPANY.phone}
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 shrink-0 text-[#d6b273]" />
-                <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-white">
+                <a href={`mailto:${COMPANY.email}`} className="inline-flex min-h-11 items-center transition-colors hover:text-white">
                   {COMPANY.email}
                 </a>
               </div>

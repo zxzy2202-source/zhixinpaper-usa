@@ -278,8 +278,8 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
         </section>
 
         <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24 xl:px-16">
-          <div className="mx-auto max-w-[1320px]">
-            <div className="max-w-3xl">
+          <div className="mx-auto flex max-w-[1320px] flex-col">
+            <div className="order-1 max-w-3xl">
               <p className="text-sm font-bold uppercase text-[#006af6]">Contact us</p>
               <h2 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
                 Get support from Zhixin Paper
@@ -289,7 +289,7 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
               </p>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Contact request routes">
+            <div className="order-2 mt-8 grid gap-3 sm:grid-cols-3" aria-label="Contact request routes">
               {[
                 ["General question", "Product, document, or project support", "/contact#contact-form"],
                 ["Commercial RFQ", "Pricing, volume, freight, and timing", "/contact?mode=quote#contact-form"],
@@ -306,7 +306,7 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
               ))}
             </div>
 
-            <section className="mt-14 border-y border-[#dfe5ed] py-10" aria-labelledby="customer-paths-title">
+            <section className="order-4 mt-14 border-y border-[#dfe5ed] py-10 lg:order-3" aria-labelledby="customer-paths-title">
               <div className="max-w-3xl">
                 <p className="text-sm font-bold uppercase text-[#006af6]">Customer path</p>
                 <h2 id="customer-paths-title" className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
@@ -317,7 +317,10 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
                 </p>
               </div>
 
-              <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+              <p className="mt-6 text-sm font-semibold text-[#52647a] md:hidden">
+                Swipe or tab to compare customer paths.
+              </p>
+              <div className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:mt-8 md:grid md:grid-cols-2 md:overflow-visible md:pb-0 xl:grid-cols-5">
                 {CUSTOMER_PATHS.map((path) => {
                   const Icon = path.icon;
                   const href = `/contact?context=${path.key}#contact-form`;
@@ -326,16 +329,16 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
                     <Link
                       key={path.key}
                       href={href}
-                      className={`group flex h-full flex-col border p-5 transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-[#006af6]/60 hover:shadow-[0_14px_30px_rgba(0,106,246,0.10)] ${selected ? "border-[#006af6] bg-[#eef5ff]" : "border-[#dfe5ed] bg-white"}`}
+                      className={`group flex h-full min-w-[85%] snap-start flex-col border p-5 transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-[#006af6]/60 hover:shadow-[0_14px_30px_rgba(0,106,246,0.10)] md:min-w-0 ${selected ? "border-[#006af6] bg-[#eef5ff]" : "border-[#dfe5ed] bg-white"}`}
                       data-customer-path={path.key}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#eaf2ff] text-[#006af6]"><Icon className="h-5 w-5" aria-hidden="true" /></span>
-                        <span className="text-xs font-bold tracking-[0.16em] text-[#91a0b2]">{path.number}</span>
+                        <span className="text-xs font-bold tracking-[0.16em] text-[#52647a]">{path.number}</span>
                       </div>
                       <h3 className="mt-5 text-lg font-bold leading-6 text-[#001429]">{path.title}</h3>
                       <p className="mt-3 text-sm font-semibold leading-6 text-[#26384f]">{path.audience}</p>
-                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.06em] text-[#7a8ba0]">{path.model}</p>
+                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.06em] text-[#52647a]">{path.model}</p>
                       <p className="mt-3 flex-1 text-sm leading-6 text-[#52647a]">{path.description}</p>
                       <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#006af6]">{path.action}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
                       {path.priority && <span className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-[#fff5df] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[#9c661d]"><ShieldCheck className="h-3 w-3" aria-hidden="true" /> Priority path</span>}
@@ -345,7 +348,7 @@ export default function ContactClient({ mode, context }: { mode?: string; contex
               </div>
             </section>
 
-            <div id="contact-form" className="mt-10 grid scroll-mt-28 overflow-hidden rounded-lg border border-[#e5e9f0] bg-white lg:grid-cols-[minmax(0,1fr)_420px]">
+            <div id="contact-form" className="order-3 mt-10 grid scroll-mt-28 overflow-hidden rounded-lg border border-[#e5e9f0] bg-white lg:order-4 lg:grid-cols-[minmax(0,1fr)_420px]">
               <div className="p-5 sm:p-8 lg:p-10">
                 {(mode || selectedCustomerPath) && (
                   <div className="mb-6 border-l-4 border-[#006af6] bg-[#eef5ff] px-4 py-3">

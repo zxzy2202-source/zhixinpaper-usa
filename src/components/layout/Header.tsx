@@ -16,6 +16,9 @@ import {
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Tag = "SEO" | "P1" | "New" | "GEO";
 
+const getMobileSubmenuId = (label: NavLabel) =>
+  `mobile-submenu-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
 interface NavBadgeProps { tag?: Tag }
 function NavBadge({ tag }: NavBadgeProps) {
   if (!tag) return null;
@@ -584,6 +587,9 @@ export default function Header() {
   const [mobileExpanded, setMobileExpanded] = useState<NavLabel | null>(null);
   const pathname = usePathname();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileDialogRef = useRef<HTMLDivElement>(null);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -595,6 +601,56 @@ export default function Header() {
     setMobileOpen(false);
     setActiveMenu(null);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : mobileToggleRef.current;
+
+    document.body.style.overflow = "hidden";
+    mobileCloseRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const dialog = mobileDialogRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [mobileOpen]);
 
   const openMenu  = (label: NavLabel) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -708,6 +764,7 @@ export default function Header() {
                 >
                   <Link
                     href={href}
+                    aria-current={active ? "page" : undefined}
                     aria-haspopup={hasDrop ? "true" : undefined}
                     aria-expanded={hasDrop && activeMenu === label ? "true" : undefined}
                     onFocus={() => hasDrop && openMenu(label)}
@@ -754,7 +811,8 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="p-2 text-white transition-colors hover:bg-white/10 xl:hidden"
+            ref={mobileToggleRef}
+            className="flex min-h-11 min-w-11 items-center justify-center text-white transition-colors hover:bg-white/10 xl:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
@@ -768,14 +826,33 @@ export default function Header() {
 
       {/* Mobile menu overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] xl:hidden">
+        <div
+          ref={mobileDialogRef}
+          className="fixed inset-0 z-[60] xl:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+        >
           <button
             type="button"
             className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
-            aria-label="Close menu"
+            aria-hidden="true"
+            tabIndex={-1}
             onClick={() => setMobileOpen(false)}
           />
           <div id="mobile-navigation" className="absolute left-0 right-0 top-[72px] max-h-[calc(100vh-72px)] overflow-y-auto overscroll-contain border-b border-[#ded6c8] bg-[#fbfaf6] shadow-[0_28px_70px_rgba(20,33,31,0.18)]">
+            <div className="flex items-center justify-between border-b border-[#ded6c8] px-4 py-2">
+              <p className="text-sm font-bold text-[#14211f]">Navigation</p>
+              <button
+                ref={mobileCloseRef}
+                type="button"
+                className="flex min-h-11 min-w-11 items-center justify-center text-[#14211f] transition-colors hover:bg-white"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
             <div className="p-4 space-y-1">
               {NAV_LABELS.map((label) => {
                 const href = navHref[label];
@@ -790,7 +867,7 @@ export default function Header() {
                           className="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-[#14211f] transition-colors hover:bg-white hover:text-[#0f5f5c]"
                           onClick={() => setMobileExpanded(mobileExpanded === label ? null : label)}
                           aria-expanded={mobileExpanded === label}
-                          aria-controls={`mobile-submenu-${label.toLowerCase()}`}
+                          aria-controls={mobileExpanded === label ? getMobileSubmenuId(label) : undefined}
                           type="button"
                         >
                           <span>{label}</span>
@@ -803,7 +880,7 @@ export default function Header() {
                         </button>
 
                         {mobileExpanded === label && (
-                          <div id={`mobile-submenu-${label.toLowerCase()}`} className="ml-4 mt-1 space-y-0.5 pb-2">
+                          <div id={getMobileSubmenuId(label)} className="ml-4 mt-1 space-y-0.5 pb-2">
                             {label === "Products" && (
                               <div className="mb-3 overflow-hidden border border-[#c8bcaa] bg-white shadow-[0_14px_34px_rgba(20,33,31,0.10)]">
                                 <div className="bg-[#101b19] px-4 py-3 text-white">

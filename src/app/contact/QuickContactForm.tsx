@@ -195,7 +195,7 @@ export default function QuickContactForm({ customerPath }: QuickContactFormProps
 
       <div>
         <label htmlFor="contact-attachments" className="mb-2 block text-xs font-bold text-[#52647a]">
-          Project files <span className="font-normal text-[#91a0b2]">(optional)</span>
+          Project files <span className="font-normal text-[#52647a]">(optional)</span>
         </label>
         <label
           htmlFor="contact-attachments"
@@ -215,7 +215,7 @@ export default function QuickContactForm({ customerPath }: QuickContactFormProps
             }}
           />
         </label>
-        <p className="mt-2 text-xs leading-5 text-[#7a8ba0]">Up to 3 files, 10 MB each.</p>
+        <p className="mt-2 text-xs leading-5 text-[#52647a]">Up to 3 files, 10 MB each.</p>
         {attachments.length > 0 && (
           <ul className="mt-3 space-y-2" aria-label="Attached files">
             {attachments.map((file, index) => (
@@ -237,7 +237,7 @@ export default function QuickContactForm({ customerPath }: QuickContactFormProps
 
       <div>
         <label htmlFor="contact-whatsapp" className="mb-2 block text-xs font-bold text-[#52647a]">
-          WhatsApp <span className="font-normal text-[#91a0b2]">(optional)</span>
+          WhatsApp <span className="font-normal text-[#52647a]">(optional)</span>
         </label>
         <input
           id="contact-whatsapp"
@@ -254,7 +254,7 @@ export default function QuickContactForm({ customerPath }: QuickContactFormProps
 
       <div>
         <label htmlFor="contact-company" className="mb-2 block text-xs font-bold text-[#52647a]">
-          Company
+          Company <span className="font-normal text-[#52647a]">(optional)</span>
         </label>
         <input
           id="contact-company"
@@ -285,11 +285,12 @@ export default function QuickContactForm({ customerPath }: QuickContactFormProps
       <button
         type="submit"
         disabled={status === "submitting"}
+        aria-live="polite"
         className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#006af6] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0057cc] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Sending
+            <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" /> Sending…
           </>
         ) : (
           <>
