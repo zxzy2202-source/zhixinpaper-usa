@@ -22,6 +22,42 @@ export function absoluteUrl(value: string) {
   return canonicalUrl(value);
 }
 
+// ─── Index control ───────────────────────────────────────────────────────────
+// Roll product pages kept reachable for buyers but held out of search until
+// keyword/GSC/inquiry data justifies a standalone URL. See
+// north-america-keyword-metrics-serp-report.md §6 ("Hold").
+export const NOINDEX_ROLL_SLUGS = new Set<string>([
+  "lottery-gaming-rolls",
+  "casino-tito-rolls",
+  "parking-ticketing-rolls",
+  "kiosk-vending-rolls",
+  "transport-ticket-rolls",
+  "medical-rolls",
+]);
+
+// Roll slugs whose search signals are consolidated onto another roll page via
+// rel=canonical (kept live, not noindexed).
+export const ROLL_CANONICAL_OVERRIDES: Record<string, string> = {
+  "back-print-thermal-rolls": "custom-printed-rolls",
+};
+
+// EU per-country routes (/eu/[country]) are held out of search pending local
+// keyword and demand data; the /eu hub stays indexed.
+export const EU_COUNTRY_PAGES_NOINDEX = true;
+
+// robots value for pages we keep crawlable and link-followable but out of the index.
+export const NOINDEX_FOLLOW = { index: false, follow: true } as const;
+
+// Build a unique meta description for a product detail page from its own copy,
+// so every /products/**/[slug] page ships distinct text instead of one shared
+// template string. Prefers the one-line heroDesc; falls back to the first
+// sentence of the longer description when heroDesc runs long.
+export function productMetaDescription(heroDesc: string, description: string) {
+  const base =
+    heroDesc.length <= 165 ? heroDesc : description.split(/(?<=\.)\s+/)[0];
+  return base.length <= 175 ? base : `${base.slice(0, 172).replace(/\s+\S*$/, "")}…`;
+}
+
 // ─── Core metadata factory ────────────────────────────────────────────────────
 export function buildMetadata({
   title,

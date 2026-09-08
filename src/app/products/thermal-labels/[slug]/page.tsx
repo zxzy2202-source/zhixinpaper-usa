@@ -8,7 +8,7 @@ import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
 import { SlotImage } from "@/components/ui/SlotImage";
 import { COMPANY, THERMAL_LABELS } from "@/lib/data";
-import { breadcrumbSchema, canonicalUrl, productSchema } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl, productMetaDescription, productSchema } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award,
   Star, Shield, Zap, Tag, MessageSquare, Download, Layers, Clock,
@@ -23,13 +23,34 @@ export async function generateStaticParams() {
   return THERMAL_LABELS.map((label) => ({ slug: label.slug }));
 }
 
+// Per-slug title/description overrides for the highest-value label pages so the
+// <title> carries the term buyers actually search, instead of "<name> Wholesale".
+const LABEL_SEO_OVERRIDES: Record<string, { title: string; description: string }> = {
+  "direct-thermal-labels": {
+    title: "4 x 6 Direct Thermal Shipping Labels",
+    description:
+      "Wholesale 4 x 6 direct thermal shipping labels in roll and fanfold formats for e-commerce and warehouse printers, with printer-fit checks and samples.",
+  },
+  "thermal-transfer-labels": {
+    title: "Thermal Transfer Labels for Industrial Use",
+    description:
+      "Wholesale thermal transfer labels on paper, PET, and PP facestocks for industrial assets, outdoor equipment, and chemical exposure, ribbon-matched before approval.",
+  },
+  "barcode-warehouse-labels": {
+    title: "Barcode & Warehouse Labels — Inventory & Pallet",
+    description:
+      "Wholesale barcode, inventory, pallet, and warehouse labels in roll and fanfold formats. Direct thermal or thermal transfer, scan-verified on a sample before bulk.",
+  },
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const label = THERMAL_LABELS.find((l) => l.slug === slug);
   if (!label) return {};
+  const override = LABEL_SEO_OVERRIDES[slug];
   return {
-    title: `${label.name} Wholesale`,
-    description: `Wholesale ${label.name.toLowerCase()} for distributors and OEM buyers. Custom sizes, printer-fit checks, export packing, compliance files, and samples.`,
+    title: override?.title ?? `${label.name} Wholesale`,
+    description: override?.description ?? productMetaDescription(label.heroDesc, label.description),
     alternates: {
       canonical: canonicalUrl(`/products/thermal-labels/${slug}`),
       languages: {
@@ -132,6 +153,7 @@ export default async function LabelDetailPage({ params }: Props) {
     ...THERMAL_LABELS.slice(currentIndex + 1),
     ...THERMAL_LABELS.slice(0, currentIndex),
   ].slice(0, 4);
+  const heroHeading = (label as { h1?: string }).h1 || label.name;
   const heroText = (label as { heroDesc?: string }).heroDesc || `${label.name} for distributor and OEM projects. Facestock, adhesive, liner, printer compatibility, documents, printing, packing, and private-label scope are confirmed for the quotation.`;
   const descText = (label as { description?: string }).description || `${label.name} for wholesale distributors and importers. Material documents, order quantity, OEM printing, and private-label options are confirmed for the quoted construction and project.`;
 
@@ -177,7 +199,7 @@ export default async function LabelDetailPage({ params }: Props) {
         <HeroBanner
           variant="media"
           eyebrow="Thermal label supply"
-          title={label.name}
+          title={heroHeading}
           description={(
             <>
               <p className="font-semibold text-[#d6b273]">{label.subtitle}</p>

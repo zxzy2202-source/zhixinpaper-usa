@@ -3,12 +3,11 @@ import {
   THERMAL_PAPER_ROLLS,
   THERMAL_LABELS,
   INDUSTRIES,
-  GEO_REGIONS,
   COMPLIANCE_ITEMS,
   BLOG_POSTS,
 } from "@/lib/data";
 
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, NOINDEX_ROLL_SLUGS, ROLL_CANONICAL_OVERRIDES } from "@/lib/seo";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
@@ -40,17 +39,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/industries`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/markets`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/eu`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/eu/germany`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/eu/uk`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/eu/france`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/eu/netherlands`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/eu/poland`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
+    // /eu/[country] routes are noindex (see EU_COUNTRY_PAGES_NOINDEX) — omitted from sitemap.
     { url: `${BASE_URL}/us`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/us/fda-compliant`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/us/cannabis-labels`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/ca`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/ca/cannabis-labels`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/mx`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/mx/etiquetas-codigo-barras`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/mx/export-and-customs`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/factory`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/factory/overview`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
@@ -83,11 +79,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/cookie-policy`, lastModified: STATIC_LASTMOD, changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  const rollPages: MetadataRoute.Sitemap = THERMAL_PAPER_ROLLS.map((roll) => ({
-    url: `${BASE_URL}/products/thermal-paper-rolls/${roll.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  const rollPages: MetadataRoute.Sitemap = THERMAL_PAPER_ROLLS
+    // Drop noindexed rolls and slugs canonicalized onto another roll page.
+    .filter((roll) => !NOINDEX_ROLL_SLUGS.has(roll.slug) && !(roll.slug in ROLL_CANONICAL_OVERRIDES))
+    .map((roll) => ({
+      url: `${BASE_URL}/products/thermal-paper-rolls/${roll.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }));
 
   const labelPages: MetadataRoute.Sitemap = THERMAL_LABELS.map((label) => ({
     url: `${BASE_URL}/products/thermal-labels/${label.slug}`,
@@ -100,13 +99,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
-
-  const euCountryPages: MetadataRoute.Sitemap =
-    GEO_REGIONS.find((r) => r.slug === "eu")?.countries?.map((c) => ({
-      url: `${BASE_URL}/eu/${c.slug}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })) || [];
 
   const compliancePages: MetadataRoute.Sitemap = COMPLIANCE_ITEMS.map((item) => ({
     url: `${BASE_URL}/compliance/${item.slug}`,
@@ -153,7 +145,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...rollPages,
     ...labelPages,
     ...industryPages,
-    ...euCountryPages,
     ...compliancePages,
     ...dbBlogPages,
     ...blogPages,

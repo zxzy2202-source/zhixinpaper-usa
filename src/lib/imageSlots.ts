@@ -466,6 +466,15 @@ export const SLOT_REGISTRY = [
     recommendedSize: "640 × 480 px",
   },
   {
+    key: "products.card.barcode-warehouse-labels",
+    label: "产品卡片 - Barcode & Warehouse Labels",
+    description: "行业页推荐产品区卡片图",
+    group: "products",
+    fallback: "/images/thermal-labels-product.jpg",
+    defaultAlt: "Barcode and warehouse thermal labels by Zhixin Paper",
+    recommendedSize: "640 × 480 px",
+  },
+  {
     key: "products.card.freezer-cold-chain-labels",
     label: "产品卡片 - Freezer Cold Chain Labels",
     description: "行业页推荐产品区卡片图",

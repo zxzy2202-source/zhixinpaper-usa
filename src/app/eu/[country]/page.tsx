@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CTABanner from "@/components/ui/CTABanner";
 import FaqSection from "@/components/ui/FaqSection";
 import { COMPANY, GEO_REGIONS, THERMAL_PAPER_ROLLS, THERMAL_LABELS } from "@/lib/data";
-import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/seo";
+import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema, EU_COUNTRY_PAGES_NOINDEX, NOINDEX_FOLLOW } from "@/lib/seo";
 import { normalizeFaqItem } from "@/lib/faq";
 import {
   ArrowRight, CheckCircle2, Truck, ShieldCheck, Package, MapPin,
@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     ...metadata,
+    ...(EU_COUNTRY_PAGES_NOINDEX ? { robots: NOINDEX_FOLLOW } : {}),
     openGraph: {
       ...metadata.openGraph,
       title: `Thermal Paper Supplier ${c.name} | Zhixin Paper`,

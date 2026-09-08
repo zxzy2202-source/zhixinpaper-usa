@@ -11,7 +11,7 @@ import AtmBankingRollPage from "@/components/products/AtmBankingRollPage";
 import PaymentTerminalRollPage from "@/components/products/PaymentTerminalRollPage";
 import { COMPANY, THERMAL_PAPER_ROLLS } from "@/lib/data";
 import { PRODUCT_BUYER_CHECKS } from "@/lib/marketInsights";
-import { breadcrumbSchema, canonicalUrl, faqSchema, productSchema } from "@/lib/seo";
+import { breadcrumbSchema, canonicalUrl, faqSchema, productMetaDescription, productSchema, NOINDEX_ROLL_SLUGS, ROLL_CANONICAL_OVERRIDES, NOINDEX_FOLLOW } from "@/lib/seo";
 import {
   ArrowRight, CheckCircle2, Package, Truck, Award, ChevronRight,
   Star, Shield, Zap, MessageSquare, Download, Layers, Clock,
@@ -271,14 +271,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  if (slug === "custom-printed-rolls") {
+    return {
+      title: "Custom Printed Thermal Paper Rolls",
+      description:
+        "Wholesale custom printed thermal paper rolls with front or reverse-side artwork, brand colors, and QR codes. Artwork proofing, printer-fit checks, and samples.",
+      alternates: {
+        canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        languages: {
+          en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+          "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        },
+      },
+      openGraph: {
+        title: "Custom Printed Thermal Paper Rolls",
+        description: "Branded receipt rolls with front or back-print artwork, proofing, printer-fit checks, and samples before bulk supply.",
+        type: "website",
+        images: [{ url: "/images/thermal-rolls-product.jpg", width: 1200, height: 630, alt: "Custom printed thermal paper receipt rolls" }],
+      },
+    };
+  }
+
+  const canonicalPath = `/products/thermal-paper-rolls/${ROLL_CANONICAL_OVERRIDES[slug] ?? slug}`;
   return {
     title: `${roll.name} Wholesale`,
-    description: `Wholesale ${roll.name.toLowerCase()} for distributors and OEM buyers. Confirm size, printer fit, paper grade, compliance files, export packing, and samples.`,
+    description: productMetaDescription(roll.heroDesc, roll.description),
+    ...(NOINDEX_ROLL_SLUGS.has(slug) ? { robots: NOINDEX_FOLLOW } : {}),
     alternates: {
-      canonical: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+      canonical: canonicalUrl(canonicalPath),
       languages: {
-        en: canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
-        "x-default": canonicalUrl(`/products/thermal-paper-rolls/${slug}`),
+        en: canonicalUrl(canonicalPath),
+        "x-default": canonicalUrl(canonicalPath),
       },
     },
   };
@@ -563,7 +586,7 @@ export default async function RollDetailPage({ params }: Props) {
                     </p>
                   )}
                   <h1 className="font-bold text-white text-4xl md:text-5xl xl:text-6xl leading-tight mb-4 drop-shadow-lg">
-                    {isStandardPos ? STANDARD_POS_PAGE.title : roll.name}
+                    {isStandardPos ? STANDARD_POS_PAGE.title : ((roll as { h1?: string }).h1 || roll.name)}
                   </h1>
                   <p className="max-w-xl text-[#d6b273] text-xl font-medium mb-5">
                     {isStandardPos ? STANDARD_POS_PAGE.subtitle : roll.subtitle}

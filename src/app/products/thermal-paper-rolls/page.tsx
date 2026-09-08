@@ -11,9 +11,9 @@ import { breadcrumbSchema, buildMetadata, canonicalUrl, faqSchema } from "@/lib/
 import { ArrowRight, CheckCircle2, Factory, Layers, Printer, ScanLine, Scissors, Truck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Thermal Paper Rolls: Sizes and Wholesale Specs",
+  title: "Wholesale Thermal Paper Rolls for POS & Terminals",
   description:
-    "Compare thermal paper roll sizes, metric and inch names, POS and terminal uses, core IDs, coatings, packing, and wholesale quote requirements.",
+    "Wholesale thermal paper rolls for POS, payment terminal, ATM, and ticketing programs — BPA-free grades, printer-fit checks, OEM printing, and samples.",
   path: "/products/thermal-paper-rolls",
   languages: {
     en: "https://www.zhixinpaper.com/products/thermal-paper-rolls",
@@ -124,8 +124,18 @@ export default function ThermalPaperRollsPage() {
             <h1 className="font-bold text-[#14211f] text-5xl md:text-6xl mb-4">
               Thermal Paper Rolls
             </h1>
-            <p className="text-[#4f5f5a] text-lg max-w-2xl mb-6">
+            <p className="text-[#4f5f5a] text-lg max-w-2xl mb-4">
               Standard POS rolls, payment terminal rolls, ATM rolls, lottery and casino tickets, parking tickets, and custom printed receipt paper. BPA-free, REACH compliant, with OEM printing and DDP shipping options.
+            </p>
+            <p className="text-[#4f5f5a] text-sm max-w-2xl mb-6">
+              Need to match a size first?{" "}
+              <Link
+                href="/blog/thermal-paper-roll-sizes-guide"
+                className="font-semibold text-[#0f5f5c] underline underline-offset-2 hover:text-[#0b4b49]"
+              >
+                Read the thermal paper roll sizes guide
+              </Link>{" "}
+              for metric-to-inch names, OD versus length, and core IDs.
             </p>
             <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link

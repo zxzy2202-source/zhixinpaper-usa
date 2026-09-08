@@ -21,3 +21,15 @@ test("legacy folder values are not treated as thumbnail URLs", async () => {
 
   assert.match(page, /f\.folder\?\.startsWith\("http"\) \? f\.folder : f\.url/);
 });
+
+test("image slot updates expire the cached slot data immediately", async () => {
+  const route = await source("src/app/api/admin/image-slots/route.ts");
+
+  assert.match(route, /revalidateTag\(IMAGE_SLOT_CACHE_TAG, \{ expire: 0 \}\)/);
+});
+
+test("homepage renders image slots at request time", async () => {
+  const page = await source("src/app/page.tsx");
+
+  assert.match(page, /export const dynamic = "force-dynamic"/);
+});

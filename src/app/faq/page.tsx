@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { normalizeFaqItem } from "@/lib/faq";
-import { faqSchema } from "@/lib/seo";
+import { breadcrumbSchema, faqSchema } from "@/lib/seo";
 import FaqPageClient from "./FaqPageClient";
 
 
@@ -119,12 +119,24 @@ export default function FAQPage() {
     questions: section.questions.map(normalizeFaqItem),
   }));
   const allFaqs = groups.flatMap((section) => section.questions);
-  const faqJsonLd = faqSchema(allFaqs);
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "FAQ", url: "/faq" },
+    ]),
+    faqSchema(allFaqs),
+  ];
 
   return (
     <>
       <Header />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      {jsonLd.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+        />
+      ))}
       <FaqPageClient groups={groups} />
       <Footer />
     </>

@@ -17,6 +17,8 @@ For product families not yet published here, use the complete global catalog at 
 - Credit card terminal paper rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls/credit-card-terminal-rolls
 - Custom printed thermal rolls: https://www.zhixinpaper.com/products/thermal-paper-rolls/custom-printed-rolls
 - Thermal labels: https://www.zhixinpaper.com/products/thermal-labels
+- Direct thermal 4 x 6 shipping labels: https://www.zhixinpaper.com/products/thermal-labels/direct-thermal-labels
+- Barcode and warehouse labels: https://www.zhixinpaper.com/products/thermal-labels/barcode-warehouse-labels
 - BPA-free, BPS-free and phenol-free terminology: https://www.zhixinpaper.com/compliance/bpa-free
 - Thermal paper roll size guide: https://www.zhixinpaper.com/blog/thermal-paper-roll-sizes-guide
 - Thermal paper printer compatibility guide: https://www.zhixinpaper.com/blog/thermal-paper-printer-compatibility-guide
@@ -29,6 +31,8 @@ For product families not yet published here, use the complete global catalog at 
 - Europe: https://www.zhixinpaper.com/eu
 - United States: https://www.zhixinpaper.com/us
 - Canada: https://www.zhixinpaper.com/ca
+- Mexico (Spanish): https://www.zhixinpaper.com/mx
+- Mexico barcode labels (Spanish): https://www.zhixinpaper.com/mx/etiquetas-codigo-barras
 
 ## Thermal paper roll terminology
 
@@ -47,6 +51,8 @@ For product families not yet published here, use the complete global catalog at 
 - `BPA free thermal paper`, `BPS free thermal paper`, and `phenol free thermal paper` share the compliance terminology page; they are not treated as interchangeable proof.
 - `thermal printer paper` and model-fit questions are owned by the printer compatibility guide.
 - `thermal paper roll dimensions`, `3 1/8`, `2 1/4`, 80mm, and 57mm sizing questions are supported by the roll size guide and relevant product modules.
+- `barcode labels`, `warehouse labels`, `inventory labels`, and `pallet labels` are owned by the Barcode and warehouse labels page; `4 x 6 shipping labels` and `direct thermal labels` are owned by the Direct thermal 4 x 6 shipping labels page.
+- `etiquetas de código de barras`, `etiquetas térmicas`, `etiquetas para envíos`, and `etiquetas 4x6` are owned by the Spanish Mexico barcode labels page; `rollos de papel térmico` and `papel térmico` are owned by the Spanish Mexico page.
 
 ## Evidence and claim boundaries
 
