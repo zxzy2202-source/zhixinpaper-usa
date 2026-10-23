@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const productLines = [
   {
-    label: "Product line 01",
+    label: "Thermal Paper",
     title: "Thermal Paper Rolls",
     href: "/products/thermal-paper-rolls",
     slotKey: "home.product.thermal-rolls",
@@ -52,7 +52,7 @@ const productLines = [
     cta: "Browse thermal paper rolls",
   },
   {
-    label: "Product line 02",
+    label: "Thermal Printing Labels",
     title: "Thermal Labels",
     href: "/products/thermal-labels",
     slotKey: "home.product.thermal-labels",
@@ -118,7 +118,7 @@ const quoteFields = [
 const quoteOutcomes = ["Sample plan", "Document list", "Packing option", "Shipping term"];
 
 const sourcingProof = [
-  { value: "2", label: "main product lines", text: "Rolls and labels are routed separately for cleaner RFQs." },
+  { value: "4", label: "product lines", text: "Thermal Paper; Thermal Printing Labels; Carbonless Paper & NCR Forms; Custom Product & Packaging Labels." },
   { value: "Reviewed", label: "quote scope", text: "Response timing follows specification, document, and packing review." },
   { value: "OEM", label: "repeat programs", text: "Carton marks, private label, and mixed-SKU export packing." },
 ] as const;
@@ -126,7 +126,7 @@ const sourcingProof = [
 const sourcingSummary = [
   {
     term: "Main product families",
-    detail: "Thermal paper rolls for POS, ATM, lottery, casino, transport, medical, kiosk, and custom receipt programs; thermal labels for shipping, barcode, cold-chain, retail, wristband, synthetic, tamper-evident, and industrial use.",
+    detail: "Thermal Paper; Thermal Printing Labels; Carbonless Paper & NCR Forms; and Custom Product & Packaging Labels, with standard products, OEM/ODM, and private-label supply.",
   },
   {
     term: "Best RFQ starting point",

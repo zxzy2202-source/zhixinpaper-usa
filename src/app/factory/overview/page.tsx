@@ -14,7 +14,7 @@ const webPageSchema = {
   name: "Thermal Paper Converting and Label Manufacturing",
   url: PAGE_URL,
   description:
-    "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
+    "Review Zhixin Paper's thermal paper slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
 };
 
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -29,8 +29,8 @@ const jsonLd = [
 ];
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Factory Overview: Coating to Packing",
-  description: "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
+  title: "Thermal Paper Factory Overview: Slitting to Packing",
+  description: "Review Zhixin Paper's thermal paper slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
   alternates: {
     canonical: PAGE_URL,
     languages: {
@@ -42,26 +42,26 @@ export const metadata: Metadata = {
 
 export default function FactoryOverviewPage() {
   const stats = [
-    { value: "By Site", label: "Production Area Review" },
-    { value: "By Line", label: "Equipment Inventory" },
-    { value: "By RFQ", label: "Capacity Planning" },
-    { value: "By Scope", label: "Quality Documents" },
-    { value: "Est. 2009", label: "Company History" },
-    { value: "By Function", label: "Production Team" },
+    { value: "5,000 m²", label: "Factory Area" },
+    { value: "65", label: "Employees" },
+    { value: "11", label: "Slitting Machines" },
+    { value: "30 tons", label: "Per Day" },
+    { value: "Since 2009", label: "Manufacturing" },
+    { value: "50+", label: "Export Countries" },
   ];
 
   const sections = [
     {
-      title: "Coating & Base Paper Division",
-      desc: "Coating routes, line availability, material formulation, sensitivity, image density, and retention targets are reviewed against the exact product specification and current production plan.",
+      title: "Sourced Materials",
+      desc: "Thermal paper jumbo rolls and blank label stock are sourced through consolidated purchasing before in-house converting and production.",
     },
     {
       title: "Slitting & Converting Division",
-      desc: "Slitting and converting equipment is selected by roll width, OD, core, winding, material, tolerance, and approved specification. Inspection records are defined by project.",
+      desc: "Sourced jumbo rolls are slit in-house by roll width, OD, core, winding, and approved specification. Inspection records are defined by project.",
     },
     {
       title: "Label Manufacturing Division",
-      desc: "Label converting routes are reviewed by facestock, adhesive, liner, printing, die cutting, lamination, format, and approved sample before production planning.",
+      desc: "Custom printed labels are produced in-house through printing, die-cutting, vision inspection, slitting, and packaging after label stock is sourced.",
     },
     {
       title: "Quality Control Laboratory",
@@ -113,7 +113,7 @@ export default function FactoryOverviewPage() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-slate-800 mb-4">Production Divisions</h2>
-          <p className="text-slate-500 mb-12 max-w-2xl">Our facility is organized into specialized production divisions, each equipped with dedicated machinery and staffed by experienced technicians.</p>
+          <p className="text-slate-500 mb-12 max-w-2xl">Our one-site facility covers 5,000 m² and supports a 65-person team across sourcing, converting, inspection, printing, and packing.</p>
           <div className="grid md:grid-cols-2 gap-8">
             {sections.map((s, i) => (
               <div key={i} className="bg-white border border-slate-200  p-8 shadow-sm hover:shadow-md transition-shadow">

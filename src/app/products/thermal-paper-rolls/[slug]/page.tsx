@@ -39,21 +39,21 @@ const STANDARD_POS_PAGE = {
     "Roll width, length or outer diameter",
     "Core ID, winding direction, and carton count",
     "Printer or terminal model, such as Epson, Star, Bixolon, Clover, Square, or PAX",
-    "BPA-free, REACH, Prop 65, FDA, FSC, or phenol-free document needs",
+    "BPA-free / BPS-free grade, test report, or material declaration needs",
     "Destination market, shipping term, and pallet or mixed-SKU plan",
   ],
   regionalNotes: [
     {
       market: "Europe",
       href: "/eu",
-      compliance: "BPA-free, REACH, RoHS, FSC, and EU buyer document packs",
+      compliance: "BPA-free / BPS-free grades and EU buyer document packs",
       sourcing: "Common POS roll sizes include 80x80mm and 57mm till rolls for retail and hospitality distributors.",
       shipping: "FOB Qingdao, CIF Hamburg or Rotterdam, and DDP options on request.",
     },
     {
       market: "United States",
       href: "/us",
-      compliance: "BPA-free, Prop 65 support, FDA-related document requests, and ISO files",
+      compliance: "BPA-free / BPS-free grades and US buyer document requests",
       sourcing: "Popular for 3 1/8 inch receipt rolls, payment terminal programs, POS resellers, and retail chains.",
       shipping: "FOB Qingdao, CIF Los Angeles or Long Beach, plus DDP and LTL planning for repeat orders.",
     },
@@ -74,7 +74,7 @@ const STANDARD_POS_PAGE = {
     {
       question: "Are these POS thermal paper rolls available as BPA-free?",
       answer:
-        "Yes. BPA-free POS thermal paper grades are available for Europe, the United States, and Canada. Buyers can request REACH, RoHS, Prop 65, FDA-related, FSC, ISO, or phenol-free document support before ordering.",
+        "Yes. BPA-free and BPS-free POS thermal paper grades are available by selected grade. Buyers can request test reports and material declarations before ordering.",
     },
     {
       question: "Which POS printers are compatible with these receipt rolls?",
@@ -174,7 +174,7 @@ const STANDARD_POS_RISK_MAP = [
   },
   {
     risk: "Fading receipts",
-    proof: "Thermal coating, storage conditions and image-life expectation documented in the TDS.",
+    proof: "Selected grade, storage conditions, and image-life expectation documented in the TDS.",
   },
   {
     risk: "Chemical claims",
@@ -186,7 +186,7 @@ const STANDARD_POS_RISK_MAP = [
   },
   {
     risk: "Approval delays",
-    proof: "SGS, Intertek, ISO, REACH and FSC file requests collected at the RFQ stage.",
+    proof: "Test report and material declaration requests collected at the RFQ stage.",
   },
 ];
 
@@ -348,19 +348,19 @@ const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; 
 // ── Compliance documents by product slug ──
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string; icon: string }[]> = {
   "standard-pos-rolls": [
-    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
+    { name: "BPA-free / BPS-free test report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Revision, storage guidance, and print parameters reviewed for the quoted grade", icon: "download" },
   ],
   "atm-banking-rolls": [
-    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
+    { name: "BPA-free / BPS-free test report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
     { name: "REACH / RoHS Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Image Stability Report", desc: "Test conditions matched to the selected grade and retention target", icon: "download" },
   ],
   "default": [
-    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade", icon: "shield" },
+    { name: "BPA-free / BPS-free test report", desc: "Availability and scope confirmed for the quoted grade", icon: "shield" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted grade", icon: "download" },

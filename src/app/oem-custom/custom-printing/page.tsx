@@ -100,7 +100,7 @@ export default function CustomPrintingPage() {
                   ["Colors", "Up to 4 colors per side (front and/or back)"],
                   ["Color Matching", "Pantone color matching available"],
                   ["Minimum Print Area", "10mm × 10mm"],
-                  ["Registration Accuracy", "±0.5mm"],
+                  ["Print capability", "Up to 9-color full-rotary label printing"],
                   ["Minimum Order Quantity", "Confirmed by material, artwork, print setup, tooling, packing, and quantity"],
                   ["Production Schedule", "Confirmed after artwork, proof or sample, capacity, and packing review"],
                   ["Artwork Format", "AI, EPS, PDF (vector preferred)"],

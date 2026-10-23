@@ -25,33 +25,33 @@ import {
 export const metadata: Metadata = buildMetadata({
   title: "About Zhixin Paper Manufacturing and Supply",
   description:
-    "Learn how Zhixin Paper grew from a one-person trading business founded on June 1, 2006 into a thermal paper, label, NCR form, and international supply partner.",
+    "Learn how Zhixin Paper has manufactured thermal paper, labels, NCR forms, and packaging labels since 2009.",
   path: "/about",
 });
 
 const history = [
   [
-    "June 1, 2006",
+    "June 2006",
     "Trade business begins",
     "Zhixin Paper started with one person and no factory, learning customer requirements directly through the market before building manufacturing capability.",
     "about.history.2006",
   ],
   [
-    "November 2009",
-    "First 600 mm slitter",
-    "In a 200㎡ workshop, the first 600 mm thermal paper slitting machine marked the practical transition from trade to production.",
+    "August 2009",
+    "First thermal paper slitter",
+    "In a 200㎡ workshop, the first thermal paper slitting machine marked the transition from trading to manufacturing.",
     "about.history.2009",
   ],
   [
     "2009–2010",
     "NCR and workshop expansion",
-    "The first NCR computer paper line was installed, the workshop grew from 400㎡ to 800㎡, and the operation reached four thermal slitters and two NCR lines.",
+    "The first NCR computer paper line was installed and the workshop grew from 400㎡ to 800㎡.",
     "about.history.2009-2010",
   ],
   [
     "2011–2017",
     "Manufacturing foundation",
-    "Zhixin moved into a 1,800㎡ facility, installed four-color full-rotary NCR printing, expanded to six thermal lines, and began thermal label production.",
+    "Zhixin moved into a 1,800㎡ facility, added multi-color NCR printing, and began thermal label production.",
     "about.history.2011-2017",
   ],
   [
@@ -122,7 +122,7 @@ const equipment = [
   ],
   [
     "NCR paper and printing",
-    "The company's development includes NCR lines and four-color full-rotary NCR printing capability.",
+    "The company's development includes NCR forms and multi-color NCR printing capability.",
     "about.equipment.ncr",
     Printer,
   ],
@@ -278,15 +278,15 @@ export default function AboutPage() {
             </nav>
             <div className="max-w-xl">
               <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#b8d3ff]">
-                Established June 1, 2006
+                Since 2009
               </p>
               <h1 className="!text-white text-5xl font-extrabold leading-[1.04] tracking-normal md:text-6xl">
                 About Us
               </h1>
               <p className="mt-5 max-w-lg text-base leading-7 text-white/90 md:text-lg">
-                Zhixin Paper began on June 1, 2006 with one person and a trading
-                business. A first 600 mm slitter in a 200㎡ workshop in November
-                2009 marked the move into manufacturing; today we connect
+                Zhixin Paper began in trading in June 2006 and has manufactured
+                thermal paper since August 2009. The first thermal paper slitter
+                operated in a 200㎡ workshop; today we connect
                 thermal rolls, labels, NCR forms, and export support for repeat supply.
               </p>
               <Link
@@ -350,10 +350,9 @@ export default function AboutPage() {
             </p>
             <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:gap-14">
               <p>
-                The story starts on June 1, 2006 with one person and no factory.
-                After the first 600 mm slitter arrived in November 2009, Zhixin
-                added slitting, winding, NCR printing, labels, packing, and factory
-                investment in stages.
+                The business started in trading in June 2006. Manufacturing began
+                in August 2009 with the first thermal paper slitter, followed by
+                staged investment in slitting, NCR printing, labels, packing, and factory space.
               </p>
               <p>
                 Today, buyers can review thermal rolls, labels, NCR forms, and
@@ -495,7 +494,7 @@ export default function AboutPage() {
               ["200㎡", "First manufacturing workshop in 2009"],
               ["600 mm", "First thermal slitter"],
               ["1,800㎡", "2011 manufacturing facility"],
-              ["6", "Thermal lines by 2017"],
+              ["5,000 m²", "Current factory"],
             ].map(([value, label]) => (
               <div key={value} className="border-t-2 border-[#1677ff] pt-4">
                 <div className="text-3xl font-extrabold text-[#1677ff]">
