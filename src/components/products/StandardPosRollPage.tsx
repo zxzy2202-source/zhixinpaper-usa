@@ -51,11 +51,8 @@ const RISKS = [
 ];
 
 const DOCUMENTS = [
-  "BPA-free test report",
-  "REACH and RoHS declarations",
-  "Prop 65 support files",
-  "ISO 9001 certificate",
-  "FSC documentation when required",
+  "BPA-free / BPS-free grade test reports",
+  "Material declarations",
   "Technical data sheet",
 ];
 

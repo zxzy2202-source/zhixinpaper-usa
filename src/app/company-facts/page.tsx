@@ -19,11 +19,11 @@ export const metadata: Metadata = buildMetadata({
 const facts = [
   ["Legal entity", "Xi'an Zhi Xin Paper Co., Ltd.", "Confirm the contracting entity on the quotation and order documents."],
   ["Brand name", "Zhixin Paper / ZhixinPaper", "The trade name used across the website and product materials."],
-  ["Legal registration", "Xi'an Zhi Xin Paper Co., Ltd. registered in August 2009", "The current legal entity is distinct from the predecessor business established in 2006."],
-  ["Business roots", "Predecessor business established in 2006", "Zhixin Electronics Business Department preceded the current company; converting practice began in 2008."],
-  ["Manufacturing scope", "Thermal paper rolls, thermal labels, and NCR forms", "Product construction, printer fit, packing, and document requirements are reviewed per SKU."],
+  ["Manufacturing start", "Since 2009", "The business started in trading in June 2006; manufacturing began in August 2009."],
+  ["Current capability", "65 employees; 5,000 m² factory; 11 slitting machines", "Thermal paper rolls are slit in-house; sourced label stock supports in-house custom label production."],
+  ["Manufacturing scope", "Thermal Paper; Thermal Printing Labels; Carbonless Paper & NCR Forms; Custom Product & Packaging Labels", "Product construction, printer fit, packing, and document requirements are reviewed per SKU."],
   ["Primary B2B buyers", "Importers, distributors, OEM and private-label programs", "Projects are reviewed around repeat-order specifications and destination requirements."],
-  ["Factory location", "Gaoling District, Xi'an, Shaanxi, China", "Factory and quality-control information is available through the linked review pages."],
+  ["Factory location", "Xi'an, Shaanxi, China", "Factory and quality-control information is available through the linked review pages."],
 ];
 
 const reviewRoutes = [

@@ -15,7 +15,7 @@ interface CTABannerProps {
 }
 
 const DEFAULT_TRUST = [
-  "Quality system documents available for review",
+  "Test reports available on request",
   "Quote reviewed against your specification",
   "Sample options confirmed by project",
   "Shipping terms reviewed by destination",

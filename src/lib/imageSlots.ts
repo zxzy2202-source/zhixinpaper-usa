@@ -150,11 +150,11 @@ export const SLOT_REGISTRY = [
   },
   {
     key: "about.history.2006",
-    label: "About 页 - 历史 2006",
+    label: "About 页 - 历史节点 2006",
     description: "Company History 第一阶段图片",
     group: "about",
     fallback: "/images/factory-overview.jpg",
-    defaultAlt: "June 1, 2006 Zhixin Paper history",
+    defaultAlt: "Zhixin Paper trading history from June 2006",
     recommendedSize: "800 × 400 px",
   },
   {
@@ -163,7 +163,7 @@ export const SLOT_REGISTRY = [
     description: "Company History 2009 年第一台分切机阶段图片",
     group: "about",
     fallback: "/images/hero-bg.jpg",
-    defaultAlt: "November 2009 Zhixin Paper history",
+    defaultAlt: "August 2009 Zhixin Paper manufacturing history",
     recommendedSize: "800 × 400 px",
   },
   {
@@ -330,11 +330,11 @@ export const SLOT_REGISTRY = [
   },
   {
     key: "factory.equipment.thermal-coating",
-    label: "设备页 - Thermal Coating",
-    description: "热敏涂布工序设备实拍，需展示辊筒、料幅或连续生产线",
+    label: "设备页 - 原材料备料（原 Thermal Coating 图位）",
+    description: "外购母卷 / 空白标签半成品入库与备料实拍；不要放涂布设备照片",
     group: "factory",
     fallback: "/images/factory-overview.jpg",
-    defaultAlt: "Thermal coating production equipment used in a paper manufacturing process",
+    defaultAlt: "Sourced thermal paper rolls prepared for in-house converting",
     recommendedSize: "1200 × 900 px",
   },
   {

@@ -260,12 +260,12 @@ export default function ThermalPaperRollsPage() {
           <div className="container-site">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-center mb-12">
               <div>
-                <p className="text-xs font-bold text-[#d6b273]">Production line</p>
+                <p className="text-xs font-bold text-[#d6b273]">In-house converting</p>
                 <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
-                  From jumbo roll to finished roll.
+                  From sourced jumbo rolls to finished roll.
                 </h2>
                 <p className="mt-5 text-sm leading-7 text-[#c7d0cb] max-w-xl">
-                  Every thermal paper roll order follows a documented production path. From slitting and rewinding to packing and palletizing, each step is tracked against the approved specification.
+                  Sourced jumbo rolls are slit in-house, inspected, and packed against the approved specification.
                 </p>
               </div>
               <div className="relative aspect-[16/10] overflow-hidden border border-white/10">
@@ -281,18 +281,17 @@ export default function ThermalPaperRollsPage() {
 
             <div className="relative">
               <div className="absolute top-7 left-7 right-7 h-0.5 bg-[#2a4a3c] hidden lg:block" aria-hidden="true" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
                 {[
-                  { icon: <Layers className="w-5 h-5" />, step: "Coating", detail: "Thermal coating applied to base paper with controlled sensitivity and density" },
-                  { icon: <Scissors className="w-5 h-5" />, step: "Slitting", detail: "Jumbo rolls slit to ordered width with precise edge control" },
-                  { icon: <Factory className="w-5 h-5" />, step: "Rewinding", detail: "Slit rolls rewound to specified outer diameter and core ID" },
-                  { icon: <Printer className="w-5 h-5" />, step: "Printing", detail: "Custom logo, patterns, or compliance text printed on roll back" },
-                  { icon: <ScanLine className="w-5 h-5" />, step: "QC inspection", detail: "OD, core fit, image density, and scan reliability tested per batch" },
-                  { icon: <Truck className="w-5 h-5" />, step: "Packing & dispatch", detail: "Carton labels, pallet plans, and shipping documents matched to order" },
+                  { icon: <Layers className="w-5 h-5" />, step: "Sourced jumbo rolls", detail: "Jumbo rolls are sourced through consolidated purchasing" },
+                  { icon: <Scissors className="w-5 h-5" />, step: "Slitting", detail: "Jumbo rolls are slit in-house to the ordered width" },
+                  { icon: <Printer className="w-5 h-5" />, step: "Printing", detail: "Optional multi-color logo or pattern printing on the roll" },
+                  { icon: <ScanLine className="w-5 h-5" />, step: "Inspection", detail: "Roll dimensions, core fit, and print performance are checked" },
+                  { icon: <Truck className="w-5 h-5" />, step: "Packing & dispatch", detail: "Finished rolls are packed and matched to the order" },
                 ].map((item, i) => (
                   <div key={item.step} className="relative flex flex-col items-center text-center">
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 z-10 ${
-                      i === 5 ? "bg-emerald-600 text-white" : "bg-[#1a3a2e] text-[#d6b273]"
+                      i === 4 ? "bg-emerald-600 text-white" : "bg-[#1a3a2e] text-[#d6b273]"
                     }`}>
                       {item.icon}
                     </div>
@@ -307,7 +306,7 @@ export default function ThermalPaperRollsPage() {
               <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
                 <SlotImage
                   slotKey="factory.equipment.thermal-coating"
-                  alt="Thermal coating production line for paper rolls"
+                  alt="Sourced thermal paper jumbo rolls prepared for slitting"
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -344,9 +343,9 @@ export default function ThermalPaperRollsPage() {
 
             <div className="mt-10 grid gap-5 sm:grid-cols-3">
               {[
-                { label: "Coating width", value: "Up to 1,600mm", desc: "Accommodates large-format jumbo rolls" },
-                { label: "Slitting precision", value: "±0.5mm", desc: "Consistent width across every roll in the order" },
-                { label: "Annual capacity", value: "500M+ rolls", desc: "Multi-line production for volume buyers" },
+                { label: "Daily output", value: "30 tons per day", desc: "Thermal paper production capacity" },
+                { label: "Slitting equipment", value: "11 slitting machines", desc: "In-house roll converting" },
+                { label: "Factory area", value: "5,000 m² factory", desc: "One-site manufacturing and packing" },
               ].map((stat) => (
                 <div key={stat.label} className="border border-white/10 bg-white/[0.04] p-6 text-center">
                   <p className="font-bold text-[#d6b273] text-2xl mb-1">{stat.value}</p>

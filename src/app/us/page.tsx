@@ -54,7 +54,7 @@ const US_COMPLIANCE = [
   { label: "California Review", desc: "Chemical and warning scope checked by quoted grade", href: "/compliance/fda-us" },
   { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
   { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
-  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "Material Declarations", desc: "Documents matched to the quoted material and project", href: "/contact" },
   { label: "Regulated Labels", desc: "Requirements reviewed by state and application", href: "/us/cannabis-labels" },
 ];
 

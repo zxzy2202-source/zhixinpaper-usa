@@ -45,8 +45,8 @@ export const metadata: Metadata = {
 };
 
 const tourStops = [
-  { id: "01", name: "Raw Material Warehouse", desc: "Review the visible storage and material-control areas used for base paper, coating inputs, adhesives, and packaging materials. Incoming inspection and release records can be discussed for the quoted project." },
-  { id: "02", name: "Thermal Coating Area", desc: "Review the coating equipment and process-control points visible during the walkthrough. Available line configuration, coating method, inspection controls, and production scheduling must be confirmed for the selected grade." },
+  { id: "01", name: "Sourced Material Warehouse", desc: "Review the visible storage and material-control areas used for sourced jumbo rolls, blank label stock, adhesives, and packaging materials. Incoming inspection and release records can be discussed for the quoted project." },
+  { id: "02", name: "Slitting & Converting Area", desc: "Review the in-house slitting and converting equipment visible during the walkthrough. Available configuration, inspection controls, and production scheduling must be confirmed for the selected product." },
   { id: "03", name: "Slitting & Converting Hall", desc: "Review the converting equipment used to produce quoted roll dimensions and winding formats. Tension, roll hardness, diameter, core, and tolerance criteria are confirmed through the approved specification and inspection plan." },
   { id: "04", name: "Label Production Area", desc: "Review the printing, die-cutting, and finishing capabilities relevant to the requested label construction. Process availability depends on facestock, adhesive, liner, artwork, finishing, quantity, and schedule." },
   { id: "05", name: "Quality Control Laboratory", desc: "Review the visible inspection equipment and discuss which incoming, in-process, and finished-product checks apply to the quoted construction. Acceptance criteria and report availability require project confirmation." },
@@ -58,7 +58,7 @@ const factoryTourVideoSchema = {
   "@type": "VideoObject",
   name: "Zhixin Paper Virtual Factory Tour",
   description:
-    "Factory walkthrough covering material handling, thermal coating, converting, label production, inspection, packing, and warehousing.",
+    "Factory walkthrough covering sourced material handling, slitting, converting, label production, inspection, packing, and warehousing.",
   thumbnailUrl: [canonicalUrl("/images/factory-overview.jpg")],
   contentUrl: canonicalUrl("/videos/factory-tour.mp4"),
   embedUrl: canonicalUrl("/factory/virtual-tour"),

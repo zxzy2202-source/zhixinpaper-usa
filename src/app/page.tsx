@@ -91,7 +91,7 @@ const SPEC_STEPS = [
     icon: <ShieldCheck className="h-5 w-5" />,
     number: "02",
     title: "Match samples and files",
-    copy: "Approve print, adhesion, image life, BPA/BPS-free grade, REACH, Prop 65, FSC, FDA, or ISO files.",
+    copy: "Approve print, adhesion, image life, BPA-free / BPS-free grade, and test reports.",
   },
   {
     icon: <Truck className="h-5 w-5" />,
@@ -250,7 +250,7 @@ export default function HomePage() {
         <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-20 md:py-28">
           <div className="container-site">
             <div className="max-w-3xl border-b border-[#ded6c8] pb-10">
-              <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Two product lines. One supply partner.</h2>
+              <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Four product lines. One supply partner.</h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[#4f5f5a]">
                 Start with the product your customer buys. Each route leads to the sizes, applications, material options, and RFQ details needed for an accurate quote.
               </p>
