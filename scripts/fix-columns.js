@@ -6,8 +6,19 @@
 const { createClient } = require("@libsql/client");
 const fs = require("fs");
 
-const url = process.env.TURSO_DATABASE_URL || "libsql://zhixinpaper-usa-zxpapers.aws-ap-northeast-1.turso.io";
-const authToken = process.env.TURSO_AUTH_TOKEN || fs.readFileSync("/home/ubuntu/.turso_token", "utf8").trim();
+const url = process.env.TURSO_DATABASE_URL;
+const authToken = process.env.TURSO_AUTH_TOKEN;
+
+if (!url) {
+  console.error("❌ 缺少 TURSO_DATABASE_URL 环境变量");
+  console.error("用法: TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... node scripts/fix-columns.js");
+  process.exit(1);
+}
+
+if (!authToken) {
+  console.error("❌ 缺少 TURSO_AUTH_TOKEN 环境变量");
+  process.exit(1);
+}
 
 const client = createClient({ url, authToken });
 

@@ -9,9 +9,17 @@ const bcrypt = require("bcryptjs");
 
 const url = process.env.TURSO_DATABASE_URL;
 const authToken = process.env.TURSO_AUTH_TOKEN;
+const adminEmail = process.env.ADMIN_EMAIL;
+const adminPassword = process.env.ADMIN_PASSWORD;
 
 if (!url) {
   console.error("❌ 缺少 TURSO_DATABASE_URL 环境变量");
+  process.exit(1);
+}
+
+if (!adminEmail || !adminPassword) {
+  console.error("❌ 缺少 ADMIN_EMAIL 或 ADMIN_PASSWORD 环境变量");
+  console.error("用法: TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... ADMIN_EMAIL=... ADMIN_PASSWORD=... node scripts/init-turso.js");
   process.exit(1);
 }
 
@@ -163,16 +171,16 @@ async function init() {
   // 创建管理员账号
   const existing = await client.execute({
     sql: "SELECT id FROM admin_users WHERE email = ?",
-    args: ["admin@zhixinpaper.com"],
+    args: [adminEmail],
   });
 
   if (existing.rows.length === 0) {
-    const passwordHash = bcrypt.hashSync("ZhixinAdmin2025!", 12);
+    const passwordHash = bcrypt.hashSync(adminPassword, 12);
     await client.execute({
       sql: "INSERT INTO admin_users (email, name, password_hash, role) VALUES (?, ?, ?, ?)",
-      args: ["admin@zhixinpaper.com", "Admin", passwordHash, "super_admin"],
+      args: [adminEmail, "Admin", passwordHash, "super_admin"],
     });
-    console.log("✅ 管理员账号创建: admin@zhixinpaper.com");
+    console.log("✅ 管理员账号创建:", adminEmail);
   } else {
     console.log("ℹ️  管理员账号已存在，跳过");
   }
