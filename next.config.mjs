@@ -38,27 +38,20 @@ const nextConfig = {
     const CANONICAL = "https://www.zhixinpaper.com";
     const NOT_API = "/:path((?!api(?:/|$)).*)";
     return [
-      // http (either host) -> canonical https in a single hop
+      // Old URL -> canonical page in a single hop (any host).
       {
-        source: NOT_API,
-        has: [
-          { type: "header", key: "x-forwarded-proto", value: "http" },
-          { type: "host", value: "(www\\.)?zhixinpaper\\.com" },
-        ],
-        destination: `${CANONICAL}/:path`,
-        statusCode: 301,
+        source: "/compliance/phenol-free",
+        destination: `${CANONICAL}/compliance/bpa-free`,
+        permanent: true,
       },
-      // apex https -> www
+      // apex -> www (308 keeps the request method). http -> https is
+      // handled by Hostinger's Force HTTPS at the edge, not here, to avoid
+      // redirect loops behind the TLS-terminating proxy.
       {
         source: NOT_API,
         has: [{ type: "host", value: "zhixinpaper\\.com" }],
         destination: `${CANONICAL}/:path`,
-        statusCode: 301,
-      },
-      {
-        source: "/compliance/phenol-free",
-        destination: "/compliance/bpa-free",
-        statusCode: 301,
+        permanent: true,
       },
     ];
   },
