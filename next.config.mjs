@@ -33,7 +33,28 @@ const nextConfig = {
   // Performance: enable React strict mode
   reactStrictMode: true,
   async redirects() {
+    // Canonical origin is https://www.zhixinpaper.com (see src/lib/seo.ts).
+    // /api/* is excluded so cron, IndexNow and form POSTs are never redirected.
+    const CANONICAL = "https://www.zhixinpaper.com";
+    const NOT_API = "/:path((?!api(?:/|$)).*)";
     return [
+      // http (either host) -> canonical https in a single hop
+      {
+        source: NOT_API,
+        has: [
+          { type: "header", key: "x-forwarded-proto", value: "http" },
+          { type: "host", value: "(www\\.)?zhixinpaper\\.com" },
+        ],
+        destination: `${CANONICAL}/:path`,
+        statusCode: 301,
+      },
+      // apex https -> www
+      {
+        source: NOT_API,
+        has: [{ type: "host", value: "zhixinpaper\\.com" }],
+        destination: `${CANONICAL}/:path`,
+        statusCode: 301,
+      },
       {
         source: "/compliance/phenol-free",
         destination: "/compliance/bpa-free",
