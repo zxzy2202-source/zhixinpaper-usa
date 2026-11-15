@@ -33,11 +33,25 @@ const nextConfig = {
   // Performance: enable React strict mode
   reactStrictMode: true,
   async redirects() {
+    // Canonical origin is https://www.zhixinpaper.com (see src/lib/seo.ts).
+    // /api/* is excluded so cron, IndexNow and form POSTs are never redirected.
+    const CANONICAL = "https://www.zhixinpaper.com";
+    const NOT_API = "/:path((?!api(?:/|$)).*)";
     return [
+      // Old URL -> canonical page in a single hop (any host).
       {
         source: "/compliance/phenol-free",
-        destination: "/compliance/bpa-free",
-        statusCode: 301,
+        destination: `${CANONICAL}/compliance/bpa-free`,
+        permanent: true,
+      },
+      // apex -> www (308 keeps the request method). http -> https is
+      // handled by Hostinger's Force HTTPS at the edge, not here, to avoid
+      // redirect loops behind the TLS-terminating proxy.
+      {
+        source: NOT_API,
+        has: [{ type: "host", value: "zhixinpaper\\.com" }],
+        destination: `${CANONICAL}/:path`,
+        permanent: true,
       },
     ];
   },
