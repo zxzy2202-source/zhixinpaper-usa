@@ -15,7 +15,7 @@ const webPageSchema = {
   name: "Manufacturing Equipment",
   url: PAGE_URL,
   description:
-    "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
+    "Explore the slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
 };
 
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -31,7 +31,7 @@ const jsonLd = [
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Equipment",
-  description: "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
+  description: "Explore the slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
   alternates: {
     canonical: PAGE_URL,
     languages: {
@@ -44,18 +44,18 @@ export const metadata: Metadata = {
 const equipment = [
   {
     slug: "thermal-coating",
-    category: "Thermal Coating",
-    summary: "Used within the coating stage for applicable thermal paper constructions and protective layers.",
-    roles: ["Material and coating-route preparation", "Controlled web handling through the coating stage", "Process checks against the approved product plan"],
+    category: "Sourced Roll Materials",
+    summary: "Sourced jumbo rolls and blank label stock are prepared for the applicable in-house converting route.",
+    roles: ["Sourced material receipt and review", "Roll and label stock preparation", "Process checks against the approved product plan"],
     slotKey: "factory.equipment.thermal-coating",
-    alt: "Thermal coating production equipment used in a paper manufacturing process",
+    alt: "Sourced thermal paper rolls prepared for in-house converting",
     objectPosition: "center",
   },
   {
     slug: "slitting-rewinding",
     category: "Slitting & Rewinding",
     summary: "Supports roll conversion and rewinding according to the confirmed width, length, core, winding, and packing format.",
-    roles: ["Jumbo-roll conversion into finished formats", "Web tension and winding review", "Dimensional and roll-finish checks"],
+    roles: ["Jumbo-roll conversion into finished formats", "Winding review", "Dimensional and roll-finish checks"],
     slotKey: "factory.equipment.slitting-rewinding",
     alt: "Paper roll slitting and rewinding equipment in a converting facility",
     objectPosition: "center",
@@ -63,8 +63,8 @@ const equipment = [
   {
     slug: "flexographic-printing",
     category: "Flexographic Printing",
-    summary: "Supports custom back printing, branding, codes, and label graphics after artwork and print-route review.",
-    roles: ["Artwork and plate-route confirmation", "Ink, substrate, and color review", "Registration and print-sample checks"],
+    summary: "Supports custom label printing, branding, codes, and graphics after artwork and print-route review.",
+    roles: ["Artwork and plate-route confirmation", "Ink, substrate, and color review", "Print-sample checks"],
     slotKey: "factory.equipment.flexographic-printing",
     alt: "Flexographic printing equipment for custom paper and label projects",
     objectPosition: "52% center",

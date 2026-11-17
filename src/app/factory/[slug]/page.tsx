@@ -28,7 +28,7 @@ const FACTORY_PAGES: Record<string, {
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-4">About Our Manufacturing Facility</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Xi&apos;an Zhi Xin Paper Co., Ltd. was registered in August 2009. Its manufacturing facility in Xi&apos;an, Shaanxi, China includes thermal paper converting and production equipment. Current floor area, line configuration, and output capacity should be confirmed during supplier qualification.
+              Xi&apos;an Zhi Xin Paper Co., Ltd. has manufactured in Xi&apos;an, Shaanxi, China since August 2009. The one-site operation covers 5,000 m², has 65 employees, and includes 11 slitting machines.
             </p>
             <p className="text-slate-600 leading-relaxed">
               The applicable manufacturing site, quality controls, traceability records, inspection plan, and release documents are confirmed for the quoted product and current project scope.
@@ -38,12 +38,11 @@ const FACTORY_PAGES: Record<string, {
             <h3 className="font-bold text-slate-800 mb-4">Facility at a Glance</h3>
             <div className="space-y-3">
               {[
-                ["Floor Area", "Confirmed by site review"],
-                ["Company Registered", "August 2009"],
-                ["Coating Route", "Confirmed by quoted grade"],
-                ["Converting Lines", "Confirmed by site and SKU"],
-                ["Annual Capacity", "Confirmed by RFQ and schedule"],
-                ["Workforce", "Confirmed by function and site"],
+                ["Floor Area", "5,000 m² factory"],
+                ["Manufacturing", "Since August 2009"],
+                ["Slitting Machines", "11"],
+                ["Daily Output", "30 tons per day"],
+                ["Workforce", "65 employees"],
                 ["Documents", "Reviewed by holder, scope, and validity"],
                 ["Export Routes", "Confirmed by destination and Incoterm"],
               ].map(([label, value]) => (
@@ -59,8 +58,8 @@ const FACTORY_PAGES: Record<string, {
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Production Capabilities</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: "🏭", title: "Thermal Paper Coating", desc: "Coating route, source mill, chemistry, basis weight, and applicable quality records are confirmed for the quoted grade." },
-              { icon: "✂️", title: "Precision Slitting", desc: "Slitting route, dimensions, core, winding, tolerance, and inspection method are confirmed from the approved specification." },
+              { icon: "🏭", title: "Thermal Paper Slitting", desc: "Sourced jumbo rolls are slit in-house by dimensions, core, winding, and approved specification." },
+              { icon: "✂️", title: "Roll Inspection", desc: "Roll dimensions, core fit, winding, and inspection method are confirmed from the approved specification." },
               { icon: "🏷️", title: "Label Die-Cutting", desc: "Tooling, shape, perforation, liner, roll or fanfold format, and dimensional acceptance criteria are confirmed by project." },
               { icon: "🖨️", title: "Custom Printing", desc: "Artwork, ink system, color target, registration criteria, approved sample, and inspection plan are confirmed before production." },
             ].map((item) => (
@@ -78,7 +77,7 @@ const FACTORY_PAGES: Record<string, {
   equipment: {
     title: "Equipment & Technology",
     metaTitle: "Thermal Paper Slitting Machines & Label Die Cutting Equipment | Zhixin Paper",
-    metaDesc: "Review thermal paper coating, slitting, die-cutting, and printing routes. Equipment identity, operating range, tolerance, and current availability are confirmed during project review.",
+    metaDesc: "Review thermal paper slitting, die-cutting, and printing routes. Equipment identity, operating range, and current availability are confirmed during project review.",
     hero: "bg-gradient-to-br from-blue-800 to-blue-600",
     subtitle: "Advanced Production Technology for Precision Output",
     content: (
@@ -88,9 +87,9 @@ const FACTORY_PAGES: Record<string, {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                name: "Thermal Coating Route",
-                specs: ["Web width: confirmed by selected line", "Speed: confirmed by grade and run", "Coating weight: confirmed by specification", "Controls: reviewed during qualification"],
-                desc: "Confirm the source mill or coating site, selected line, chemistry, control plan, and records that apply to the quoted thermal grade.",
+                name: "Sourced Material Route",
+                specs: ["Jumbo rolls: sourced", "Label stock: sourced", "Incoming review: by project", "Controls: reviewed during qualification"],
+                desc: "Confirm the sourced material, selected converting route, control plan, and records that apply to the quoted product.",
               },
               {
                 name: "Precision Slitting Route",
@@ -230,10 +229,10 @@ const FACTORY_PAGES: Record<string, {
           <p className="text-slate-600 mb-6">Request the current holder, issuer, scope, validity period, report method, product grade, and destination applicability before relying on any certificate, declaration, or test report.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { name: "Quality-System Documents", issuer: "Current holder and scope", href: "/compliance/iso-9001" },
-              { name: "Phenol / Material Documents", issuer: "Quoted grade and report scope", href: "/compliance/bpa-free" },
-              { name: "REACH/RoHS Review", issuer: "Selected material and destination", href: "/compliance/reach-rohs" },
-              { name: "Chain-of-Custody Review", issuer: "Current certificate route and claim", href: "/compliance/fsc-paper" },
+              { name: "BPA-free / BPS-free grades", issuer: "Quoted grade and report scope", href: "/compliance/bpa-free" },
+              { name: "Test reports", issuer: "Available on request", href: "/contact" },
+              { name: "Material declarations", issuer: "Selected material and destination", href: "/contact" },
+              { name: "Factory capability", issuer: "5,000 m², 65 employees, 11 slitting machines", href: "/factory/overview" },
             ].map((cert) => (
               <Link key={cert.name} href={cert.href} className="bg-white  p-4 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all text-center group">
                 <div className="text-2xl mb-2">📋</div>
@@ -249,7 +248,7 @@ const FACTORY_PAGES: Record<string, {
   "virtual-tour": {
     title: "Virtual Factory Tour",
     metaTitle: "Virtual Thermal Paper Factory Tour | Manufacturing Facility Video | Zhixin Paper",
-    metaDesc: "Take a virtual tour of our thermal paper manufacturing facility. See our coating lines, slitting machines, quality control lab, and warehouse.",
+    metaDesc: "Take a virtual tour of our thermal paper manufacturing facility. See our sourced material areas, slitting machines, quality control lab, and warehouse.",
     hero: "bg-gradient-to-br from-orange-800 to-orange-600",
     subtitle: "See Our Manufacturing Facility From Anywhere in the World",
     content: (
@@ -268,7 +267,7 @@ const FACTORY_PAGES: Record<string, {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { area: "Coating Hall", desc: "Review the selected coating route, applicable line, material controls, and records for the quoted grade." },
+              { area: "Sourced Material Area", desc: "Review the sourced material areas, material controls, and records relevant to the quoted product." },
               { area: "Slitting Room", desc: "Review converting equipment, dimensions, winding, tolerance, inspection, and line availability for the SKU." },
               { area: "Label Production", desc: "Review tooling, printing, die-cutting, liner, roll or fanfold format, and approved acceptance criteria." },
               { area: "QC Laboratory", desc: "Review available methods, calibrated equipment, sample conditioning, limits, and external-laboratory needs." },

@@ -69,7 +69,7 @@ export default function OEMPage() {
             <div className="flex flex-wrap gap-4 text-xs text-slate-500">
               {[
                 { icon: <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />, text: "Quality documents by site and scope" },
-                { icon: <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />, text: "Chain-of-custody options by grade" },
+                { icon: <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />, text: "Material declarations by grade" },
                 { icon: <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />, text: "Material declarations by destination" },
                 { icon: <ShieldCheck className="w-4 h-4 text-green-500" aria-hidden="true" />, text: "NDA available on request" },
               ].map((item) => (

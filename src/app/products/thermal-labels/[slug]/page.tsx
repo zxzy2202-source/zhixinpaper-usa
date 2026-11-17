@@ -124,7 +124,7 @@ const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; 
 // ── Compliance docs by label slug ──
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
   "direct-thermal-labels": [
-    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted label grade" },
+    { name: "BPA-free / BPS-free test report", desc: "Availability and scope confirmed for the quoted label grade" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
     { name: "Image Stability Report", desc: "Test conditions matched to the selected material and retention target" },
     { name: "Technical Data Sheet (TDS)", desc: "Full adhesive, facestock & barcode specs" },
@@ -136,7 +136,7 @@ const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
     { name: "Technical Data Sheet (TDS)", desc: "Temperature range, adhesive & facestock specs" },
   ],
   "default": [
-    { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade" },
+    { name: "BPA-free / BPS-free test report", desc: "Availability and scope confirmed for the quoted grade" },
     { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request" },
     { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted construction" },
@@ -495,7 +495,7 @@ export default async function LabelDetailPage({ params }: Props) {
                 <>
                   {" "}For medical-device applications, review our{" "}
                   <Link href="/compliance/iso-15223" className="font-semibold text-[#0f5f5c] hover:underline">
-                    ISO 15223 medical-device labeling requirements
+                    Medical-device labeling requirements
                   </Link>
                   .
                 </>

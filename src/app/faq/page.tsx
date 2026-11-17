@@ -66,8 +66,8 @@ const FAQ_ITEMS = [
       },
       {
         q: "Do you have ISO 9001 certification?",
-        a: "A quality management certificate can be reviewed on request. Buyers should verify the current certificate holder, issuer, validity period, and scope against the manufacturing entity and products covered by their order.",
-        link: { href: "/compliance/iso-9001", text: "ISO 9001 Certificate" },
+        a: "We can share our certificate files on request; please check the dates printed on each certificate.",
+        link: null,
       },
       {
         q: "Can you provide FDA compliance documentation for the US market?",
@@ -76,8 +76,8 @@ const FAQ_ITEMS = [
       },
       {
         q: "Do you have FSC certification?",
-        a: "FSC-related sourcing options may be available for selected paper and supply chains. Any FSC claim or logo use requires verification of the current certificate holder, scope, product claim, and trademark approval before printing.",
-        link: { href: "/compliance/fsc-paper", text: "FSC Certification Details" },
+        a: "Our raw materials are FSC-certified.",
+        link: null,
       },
     ],
   },

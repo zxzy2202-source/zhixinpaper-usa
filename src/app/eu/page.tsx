@@ -53,7 +53,7 @@ const EU_COMPLIANCE = [
   { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
   { label: "REACH/RoHS Review", desc: "Applicable scope checked by material and use", href: "/compliance/reach-rohs" },
   { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
-  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "Material Declarations", desc: "Documents matched to the quoted material and project", href: "/contact" },
   { label: "Food-Contact Review", desc: "Scope checked by construction and intended use", href: "/compliance/eu-food-contact" },
   { label: "Test Reports", desc: "Available reports matched to the quoted grade", href: "/compliance/certificates" },
 ];
@@ -125,7 +125,7 @@ export default function EUPage() {
           marketLabel="European Union Market"
           title="Thermal Paper Supplier Europe"
           description="Thermal paper rolls and labels for European distributors. Material chemistry, REACH or RoHS document scope, food-contact use, printer fit, packing, and destination responsibilities are confirmed for the quoted product."
-          features={["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Delivered-Term Review", "Euro-Pallet Options", "Chain-of-Custody Options", "Food-Contact Review"]}
+          features={["BPA-free / BPS-free grades", "Test Reports", "Material Declarations", "Delivered-Term Review", "Euro-Pallet Options", "Food-Contact Review"]}
           ctaPrimaryLabel="Get Europe Quote"
           ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{

@@ -306,7 +306,7 @@ export const BLOG_CONTENT: BlogContent[] = [
       {
         heading: "Physical Specifications",
         body: [
-          "Paper width is determined by the terminal model. Common widths for lottery terminals include 80mm, 112mm, and custom widths. Width tolerance is typically ±0.5mm; tighter tolerances may be required for high-speed terminals.",
+          "Paper width is determined by the terminal model. Common widths for lottery terminals include 80mm, 112mm, and custom widths. Confirm the approved width, core, roll diameter, and sample against the terminal before production.",
           "Core diameter and roll diameter must match the terminal specifications exactly. Standard core diameters are 12mm and 25mm; roll diameters range from 50mm to 200mm depending on the terminal capacity.",
           "Paper weight (grammage) affects roll capacity and print quality. Heavier papers provide more rolls per pallet but may reduce the number of tickets per roll. Standard lottery paper is typically 55-65 gsm.",
         ],

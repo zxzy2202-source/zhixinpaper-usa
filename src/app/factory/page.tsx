@@ -54,7 +54,7 @@ const capabilityStats = [
 const factoryProof = [
   {
     icon: Award,
-    title: "ISO-managed production",
+    title: "Documented production checks",
     text: "Quality procedures, incoming material checks, in-process records, and finished-goods inspection before shipment.",
   },
   {
@@ -99,7 +99,7 @@ const capabilityPanels = [
 ];
 
 const productionFlow = [
-  { step: "Material check", text: "Base paper, coating grade, adhesive, liner, and certificate route are confirmed." },
+  { step: "Material check", text: "Sourced jumbo rolls, blank label stock, adhesive, liner, and document route are confirmed." },
   { step: "Spec setup", text: "Width, OD, core ID, sensitivity, label format, print artwork, and packing are locked." },
   { step: "Production run", text: "Slitting, winding, die-cutting, printing, or fanfold work follows the approved spec." },
   { step: "QC release", text: "Size, roll tension, print density, barcode scan, adhesive, and carton count are inspected." },
@@ -107,10 +107,10 @@ const productionFlow = [
 ];
 
 const documentRoutes = [
-  { title: "ISO 9001:2015", href: "/compliance/iso-9001", text: "Quality management certificate and audit route." },
-  { title: "BPA-free / phenol-free", href: "/compliance/bpa-free", text: "Thermal paper formulation and test file route." },
-  { title: "REACH / RoHS", href: "/compliance/reach-rohs", text: "Chemical compliance files for import review." },
-  { title: "FSC and FDA files", href: "/compliance", text: "Responsible paper, food-contact, and regulated-use documents." },
+  { title: "BPA-free / BPS-free grades", href: "/compliance/bpa-free", text: "Selected grades and test reports reviewed by project." },
+  { title: "Test reports", href: "/contact", text: "Test reports available on request for the quoted product." },
+  { title: "Material declarations", href: "/contact", text: "Material declarations reviewed by product and project." },
+  { title: "Factory capability", href: "/factory/overview", text: "5,000 m² factory, 65 employees, and 11 slitting machines." },
 ];
 
 const factoryPages = [
@@ -123,7 +123,7 @@ const factoryPages = [
   {
     href: "/factory/equipment",
     title: "Equipment and machines",
-    text: "Slitting, die-cutting, coating, printing, and packing equipment details.",
+    text: "Slitting, die-cutting, printing, and packing equipment details.",
     icon: Settings,
   },
   {
@@ -444,7 +444,7 @@ export default function FactoryPage() {
               { icon: Boxes, title: "Thermal paper rolls", href: "/products/thermal-paper-rolls" },
               { icon: BadgeCheck, title: "Compliance", href: "/compliance" },
               { icon: Truck, title: "Export supply", href: "/eu" },
-              { icon: ShieldCheck, title: COMPANY.certifications[0], href: "/compliance/iso-9001" },
+              { icon: ShieldCheck, title: COMPANY.certifications[0], href: "/contact" },
             ].map((item) => {
               const Icon = item.icon;
               return (

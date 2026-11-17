@@ -54,7 +54,7 @@ const CA_COMPLIANCE = [
   { label: "Regulated Labels", desc: "Federal and provincial requirements reviewed", href: "/ca/cannabis-labels" },
   { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
   { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
-  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "Material Declarations", desc: "Documents matched to the quoted material and project", href: "/contact" },
   { label: "CEPA Scope Review", desc: "Material and chemical scope checked by project", href: "/compliance/reach-rohs" },
 ];
 
@@ -125,7 +125,7 @@ export default function CanadaPage() {
           marketLabel="Canada Market"
           title="Thermal Paper Supplier Canada"
           description="Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province."
-          features={["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"]}
+          features={["Canadian Material Review", "BPA-free / BPS-free grades", "Regulated Labels", "Test Reports", "Delivered-Term Review", "Bilingual Artwork", "Material Declarations"]}
           ctaPrimaryLabel="Get Canada Quote"
           ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{
@@ -212,7 +212,7 @@ export default function CanadaPage() {
           <div className="container-site">
             <div className="max-w-3xl mb-10">
               <h2 className="text-3xl font-bold text-slate-900 md:text-5xl">
-                Two product lines. Built for Canada.
+                Four product lines. Built for Canada.
               </h2>
               <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
                 Each project is reviewed against the exact product grade, printer, intended use, documents, bilingual artwork, packing, and destination requirements. Select a product line to browse available configurations.

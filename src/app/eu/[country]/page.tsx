@@ -156,7 +156,7 @@ const COUNTRY_FAQ: Record<string, { q: string; a: string }[]> = {
     { q: "Can you offer BPA-free or other phenol options?", a: "BPA-free, BPS-free, or phenol-free routes may be offered by selected grade. Chemistry, intended use, destination, and current supporting documents are confirmed for the quoted SKU." },
     { q: "Can delivered terms be quoted for European destinations?", a: "Delivered terms may be quoted after destination, classification, duties, VAT, customs responsibilities, and inland delivery are reviewed. The written quotation states included costs and responsibilities." },
     { q: "What is the minimum order quantity?", a: "MOQ is confirmed by dimensions, material, printing, die-cut or tooling needs, packing, and volume. Share the target SKU and quantity for the applicable minimum and price breakpoints." },
-    { q: "Can procurement request supporting documents?", a: "Available quality, chemistry, chain-of-custody, food-contact, and technical documents are matched to the exact quoted material, intended use, report scope, language need, and current validity." },
+    { q: "Can procurement request supporting documents?", a: "Available material, food-contact, and technical documents are matched to the exact quoted material, intended use, report scope, language need, and current validity." },
   ],
 };
 
@@ -174,7 +174,7 @@ export default async function EUCountryPage({ params }: Props) {
     "Incoterm, customs, VAT, and final-delivery responsibilities stated in the quotation",
   ];
 
-  const compliance: string[] = c.compliance || ["Phenol Options", "REACH/RoHS Review", "Quality Documents", "Chain-of-Custody Options"];
+  const compliance: string[] = c.compliance || ["BPA-free / BPS-free grades", "Test Reports", "Material Declarations"];
   const marketInsights = MARKET_INSIGHTS[country] || null;
   const logisticsSteps = LOGISTICS_STEPS["default"];
   const popularProductLinks = POPULAR_PRODUCTS_LINKS[country] || POPULAR_PRODUCTS_LINKS["default"];
@@ -489,7 +489,7 @@ export default async function EUCountryPage({ params }: Props) {
                 { label: "Phenol Options", desc: "Chemistry confirmed by grade", href: "/compliance/bpa-free" },
                 { label: "REACH/RoHS Review", desc: "Applicable scope checked by material", href: "/compliance/reach-rohs" },
                 { label: "Quality Documents", desc: "Available system files reviewed", href: "/compliance/iso-9001" },
-                { label: "Chain of Custody", desc: "Option confirmed by quoted SKU", href: "/compliance/fsc-paper" },
+                { label: "Material Declarations", desc: "Documents matched to the quoted material and project", href: "/contact" },
                 { label: "Food-Contact Review", desc: "Scope checked by construction and use", href: "/compliance/eu-food-contact" },
                 { label: "Test Reports", desc: "Matched to selected grade and scope", href: "/compliance/certificates" },
               ].map((item) => (

@@ -207,7 +207,7 @@ function ProductsMegaMenu() {
       </div>
 
       <div className="flex items-center justify-between border-t border-[#ded6c8] bg-[#f4f0e8] px-6 py-3">
-        <span className="text-xs text-[#687772]">Material, quality-system, chain-of-custody, and market documents are reviewed by quoted grade and current scope.</span>
+        <span className="text-xs text-[#687772]">Material declarations, test reports, and market documents are reviewed by quoted grade and current scope.</span>
         <Link href="/compliance" className="inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
           Compliance files <ArrowRight className="h-3 w-3" />
         </Link>

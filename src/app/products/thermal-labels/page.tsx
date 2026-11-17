@@ -207,13 +207,13 @@ export default function ThermalLabelsPage() {
                   From raw material to shipped labels.
                 </h2>
                 <p className="mt-5 text-sm leading-7 text-[#c7d0cb] max-w-xl">
-                  Every thermal label order follows a documented production path. From coating and die-cutting to slitting and packing, each step is tracked against the approved specification — so the second order matches the first.
+                  Every thermal label order follows a documented production path. From sourced label stock through printing, die-cutting, vision inspection, slitting, and packing, each step is tracked against the approved specification.
                 </p>
               </div>
               <div className="relative aspect-[16/10] overflow-hidden border border-white/10">
                 <SlotImage
                   slotKey="factory.equipment.die-cutting-finishing"
-                  alt="Thermal label die-cutting and finishing production line"
+                  alt="Thermal label die-cutting and finishing equipment"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -225,11 +225,11 @@ export default function ThermalLabelsPage() {
               <div className="absolute top-7 left-7 right-7 h-0.5 bg-[#2a4a3c] hidden lg:block" aria-hidden="true" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
                 {[
-                  { icon: <Layers className="w-5 h-5" />, step: "Coating", detail: "Thermal coating applied to facestock with controlled sensitivity and density" },
+                  { icon: <Layers className="w-5 h-5" />, step: "Sourced label stock", detail: "Blank label stock is sourced through consolidated purchasing" },
                   { icon: <Printer className="w-5 h-5" />, step: "Printing", detail: "Custom logo, brand, or compliance text printed before lamination" },
-                  { icon: <Scissors className="w-5 h-5" />, step: "Die-cutting", detail: "Precision rotary or flatbed die-cutting to exact label dimensions" },
+                  { icon: <Scissors className="w-5 h-5" />, step: "Die-cutting", detail: "Custom label stock is die-cut to the approved format" },
                   { icon: <ScanLine className="w-5 h-5" />, step: "QC inspection", detail: "Barcode scan rate, adhesion, and image density tested per batch" },
-                  { icon: <Factory className="w-5 h-5" />, step: "Slitting & rewinding", detail: "Master rolls slit to ordered width, rewound to specified core and OD" },
+                  { icon: <Factory className="w-5 h-5" />, step: "Slitting", detail: "Printed and die-cut label stock is slit to the ordered width" },
                   { icon: <Truck className="w-5 h-5" />, step: "Packing & dispatch", detail: "Carton labels, pallet plans, and shipping documents matched to order" },
                 ].map((item, i) => (
                   <div key={item.step} className="relative flex flex-col items-center text-center">
@@ -249,7 +249,7 @@ export default function ThermalLabelsPage() {
               <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
                 <SlotImage
                   slotKey="factory.equipment.thermal-coating"
-                  alt="Thermal coating production line for label facestock"
+                  alt="Sourced blank label stock prepared for custom printing"
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -286,9 +286,9 @@ export default function ThermalLabelsPage() {
 
             <div className="mt-10 grid gap-5 sm:grid-cols-3">
               {[
-                { label: "Coating width", value: "Up to 1,600mm", desc: "Accommodates large-format label orders" },
-                { label: "Die-cutting precision", value: "±0.1mm", desc: "Suitable for barcode and auto-apply labels" },
-                { label: "Annual capacity", value: "500M+ labels", desc: "Multi-line production for volume buyers" },
+                { label: "Printing capability", value: "Up to 9-color", desc: "Full-rotary label printing with inline finishing options" },
+                { label: "Vision inspection", value: "3 inspection slitters", desc: "Vision inspection slitting machines for labels" },
+                { label: "Factory area", value: "5,000 m² factory", desc: "One-site manufacturing and packing" },
               ].map((stat) => (
                 <div key={stat.label} className="border border-white/10 bg-white/[0.04] p-6 text-center">
                   <p className="font-bold text-[#d6b273] text-2xl mb-1">{stat.value}</p>
