@@ -167,7 +167,7 @@ export default function QuoteForm({ embedded = false, customerPath }: { embedded
             <div className="mt-5 grid gap-4">
               {[
                 "Confirm size, core, coating, carton count, and printer fit.",
-                "Match compliance files such as BPA-free, REACH, Prop 65, FDA, FSC, or ISO.",
+                "Review available technical and inspection documents for the selected material and intended use.",
                 "Reply with sample plan, lead time, packing notes, and freight option.",
               ].map((item) => (
                 <div key={item} className="grid grid-cols-[32px_minmax(0,1fr)] gap-3 text-sm leading-6 text-[#4f5f5a]">

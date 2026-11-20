@@ -62,15 +62,14 @@ const COMPLIANCE_DETAILS: Record<string, { title: string; details: string[]; mar
     products: ["Products manufactured within the verified site and scope"],
   },
   "fsc-paper": {
-    title: "Chain-of-Custody Paper Options",
+    title: "Selected Raw Material Certificates",
     details: [
-      "Chain-of-custody availability depends on the selected paper, supplier route, production site, and order scope",
-      "Logo or claim use requires project-specific approval and applicable trademark rules",
-      "The quotation should identify the exact claim, evidence, and transaction-document requirements",
-      "Do not infer chain-of-custody status from a generic paper description",
+      "Supplier FSC certificates are available on request for selected applicable raw materials",
+      "Confirm the material and supplier certificate scope for the request",
+      "A supplier certificate does not certify Zhixin or its finished products",
     ],
-    markets: ["Markets accepted by the verified chain-of-custody route"],
-    products: ["Selected standard rolls", "Selected custom printed rolls"],
+    markets: ["Material scope reviewed by request"],
+    products: ["Selected applicable raw materials"],
   },
   "eu-food-contact": {
     title: "EU Food-Contact Scope Review",

@@ -11,7 +11,7 @@ interface TrustBadgeProps {
 const BADGE_CONFIG: Record<BadgeVariant, { icon: React.ElementType; label: string; color: string }> = {
   iso:   { icon: Award,        label: "Quality Documents", color: "bg-[#f4f0e8] text-[#0f5f5c] border-[#ded6c8]" },
   bpa:   { icon: ShieldCheck,  label: "Phenol Options",    color: "bg-green-50 text-green-700 border-green-100" },
-  fsc:   { icon: Leaf,         label: "Chain of Custody",  color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
+  fsc:   { icon: Leaf,         label: "Selected Raw Material Certificates",  color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
   fda:   { icon: FileCheck,    label: "Scope Review",      color: "bg-sky-50 text-sky-700 border-sky-100" },
   reach: { icon: CheckCircle2, label: "Document Review",   color: "bg-violet-50 text-violet-700 border-violet-100" },
   custom:{ icon: ShieldCheck,  label: "",                color: "bg-slate-50 text-slate-700 border-slate-100" },

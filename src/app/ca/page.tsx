@@ -54,7 +54,7 @@ const CA_COMPLIANCE = [
   { label: "Regulated Labels", desc: "Federal and provincial requirements reviewed", href: "/ca/cannabis-labels" },
   { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
   { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
-  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "Selected Raw Materials", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
   { label: "CEPA Scope Review", desc: "Material and chemical scope checked by project", href: "/compliance/reach-rohs" },
 ];
 
@@ -81,7 +81,7 @@ const CA_FAQ = [
   },
   {
     q: "Can delivered shipping terms be quoted for Canada?",
-    a: "Delivered terms may be quoted after destination, classification, duties, GST or HST, customs responsibilities, and inland delivery are reviewed. The written quotation states included costs and each party's responsibilities.",
+    a: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
   },
   {
     q: "How is the delivery schedule confirmed?",
@@ -125,7 +125,7 @@ export default function CanadaPage() {
           marketLabel="Canada Market"
           title="Thermal Paper Supplier Canada"
           description="Thermal paper rolls and labels for Canadian distributors and importers. Material chemistry, bilingual artwork, regulated-label requirements, printer fit, documents, and shipping responsibilities are confirmed for the quoted product and province."
-          features={["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Chain-of-Custody Options"]}
+          features={["Canadian Material Review", "Phenol Options", "Regulated Labels", "Quality Documents", "Delivered-Term Review", "Bilingual Artwork", "Selected Raw Material Certificates"]}
           ctaPrimaryLabel="Get Canada Quote"
           ctaPrimaryHref="/contact?mode=quote#contact-form"
           theme={{
@@ -202,7 +202,7 @@ export default function CanadaPage() {
               <span>Schedule: <strong>confirmed by quotation</strong> after specification, capacity, route, and booking review</span>
             </div>
             <div className="flex items-center gap-2 ml-auto">
-              <span className="text-red-200 text-xs">FOB · CIF · delivered terms reviewed by destination, tax, and responsibility</span>
+              <span className="text-red-200 text-xs">For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.</span>
             </div>
           </div>
         </section>
@@ -212,7 +212,7 @@ export default function CanadaPage() {
           <div className="container-site">
             <div className="max-w-3xl mb-10">
               <h2 className="text-3xl font-bold text-slate-900 md:text-5xl">
-                Two product lines. Built for Canada.
+                Products for Canada.
               </h2>
               <p className="mt-4 text-base leading-8 text-slate-500 max-w-2xl">
                 Each project is reviewed against the exact product grade, printer, intended use, documents, bilingual artwork, packing, and destination requirements. Select a product line to browse available configurations.

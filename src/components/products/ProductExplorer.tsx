@@ -97,7 +97,7 @@ function FilterControls({
   return (
     <div className="grid gap-7">
       <FilterGroup
-        legend="Product line"
+        legend="Catalog format"
         options={PRODUCT_LINE_OPTIONS}
         selected={filters.line ? [filters.line] : []}
         onToggle={(line) => onLineChange(filters.line === line ? null : line)}
@@ -203,7 +203,7 @@ export default function ProductExplorer({ items }: ProductExplorerProps) {
             Find the product by use case or buying requirement.
           </h2>
           <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a] md:text-base">
-            Start with the environment your customer operates in, or narrow the catalog by product line and procurement attributes.
+            Browse roll and label detail pages by format, application and procurement attributes. See the category overview above for the full manufactured range.
           </p>
         </div>
 

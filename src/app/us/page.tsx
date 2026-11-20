@@ -54,7 +54,7 @@ const US_COMPLIANCE = [
   { label: "California Review", desc: "Chemical and warning scope checked by quoted grade", href: "/compliance/fda-us" },
   { label: "Phenol Options", desc: "BPA-free, BPS-free, or phenol-free by grade", href: "/compliance/bpa-free" },
   { label: "Quality Documents", desc: "Available quality-system documents reviewed by project", href: "/compliance/iso-9001" },
-  { label: "Chain of Custody", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
+  { label: "Selected Raw Materials", desc: "Paper options subject to SKU and supplier confirmation", href: "/compliance/fsc-paper" },
   { label: "Regulated Labels", desc: "Requirements reviewed by state and application", href: "/us/cannabis-labels" },
 ];
 
@@ -77,7 +77,7 @@ const US_FAQ = [
   },
   {
     q: "Can delivered shipping terms be quoted for the United States?",
-    a: "Delivered terms may be quoted after the destination, product classification, tariffs, taxes, customs responsibilities, and inland delivery are reviewed. The written quotation states what is included and which party is responsible for each step.",
+    a: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
   },
   {
     q: "Can you supply labels for regulated cannabis products?",
@@ -204,7 +204,7 @@ export default function USPage() {
               <span>Schedule: <strong>confirmed by quotation</strong> after specification, capacity, route, and booking review</span>
             </div>
             <div className="flex items-center gap-2 ml-auto">
-              <span className="text-blue-200 text-xs">FOB · CIF · delivered terms reviewed by destination and responsibility</span>
+              <span className="text-blue-200 text-xs">For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.</span>
             </div>
           </div>
         </section>

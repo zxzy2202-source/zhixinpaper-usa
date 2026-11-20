@@ -81,7 +81,7 @@ const FAQS = [
   {
     question: "¿Qué documentos de cumplimiento están disponibles?",
     answer:
-      "El paquete de documentos depende del grado seleccionado y del uso final. Antes de ordenar, confirmamos por escrito el alcance requerido, como BPA, REACH, FSC, contacto con alimentos u otros documentos aplicables.",
+      "Los documentos técnicos y reportes disponibles se revisan según el material seleccionado y el uso previsto. La disponibilidad, la muestra, los ensayos, la fecha y el alcance requieren confirmación.",
   },
   {
     question: "¿Cómo se cotiza la entrega a México?",
@@ -121,6 +121,28 @@ export default function MexicoPage() {
       ))}
 
       <main id="main-content" lang="es" className="bg-[#fbfaf6] pt-[64px] md:pt-[92px]">
+        <section className="container-site py-12">
+          <h2 className="text-3xl font-bold">Cinco categorías de productos fabricados</h2>
+          <p className="mt-4">Zhixin fabrica con materiales adquiridos:</p>
+          <ul className="mt-3 list-disc space-y-1 pl-6">
+            <li>Etiquetas para productos y empaques</li>
+            <li>Etiquetas térmicas directas</li>
+            <li>Etiquetas de transferencia térmica</li>
+            <li>Rollos de papel térmico</li>
+            <li>Formularios autocopiantes NCR</li>
+          </ul>
+          <h2 className="mt-8 text-2xl font-bold">Suministro de materiales</h2>
+          <p className="mt-4">Materiales comercializados, no fabricados por Zhixin:</p>
+          <ul className="mt-3 list-disc space-y-1 pl-6">
+            <li>Papel térmico</li>
+            <li>Material autoadherible para etiquetas</li>
+            <li>Papel autocopiante NCR</li>
+            <li>Papel offset libre de madera</li>
+            <li>Cintas de transferencia térmica</li>
+          </ul>
+          <p className="mt-4">Los rollos jumbo y el material para etiquetas en blanco se suministran mediante compras consolidadas.</p>
+          <p className="mt-4">Algunas materias primas seleccionadas y aplicables cuentan con certificación FSC. Los certificados del proveedor están disponibles a solicitud. Esto no significa que Zhixin o sus productos terminados cuenten con certificación FSC.</p>
+        </section>
         <section className="relative isolate min-h-[clamp(380px,50vh,620px)] overflow-hidden bg-[#101b19] text-white">
           <SlotImage
             slotKey="geo.mx.hero"
@@ -266,9 +288,9 @@ export default function MexicoPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               {[
                 { label: "Opciones BPA y fenol", href: "/compliance/bpa-free" },
-                { label: "REACH y RoHS", href: "/compliance/reach-rohs" },
-                { label: "Sistema de calidad ISO 9001", href: "/compliance/iso-9001" },
-                { label: "Opciones FSC", href: "/compliance/fsc-paper" },
+                { label: "Alcance de reportes", href: "/compliance/reach-rohs" },
+                { label: "Procedimientos de calidad", href: "/compliance/iso-9001" },
+                { label: "Certificados FSC de materias primas seleccionadas", href: "/compliance/fsc-paper" },
                 { label: "Planeación de exportación y aduana", href: "/mx/export-and-customs" },
               ].map((item) => (
                 <Link

@@ -61,13 +61,13 @@ const FAQ_ITEMS = [
     questions: [
       {
         q: "Are your products REACH compliant?",
-        a: "REACH and SVHC documentation must be reviewed for the selected material, grade, intended use, and current regulatory scope. Request the applicable declaration or test evidence for your project before approval.",
+        a: "Any available report must be reviewed against its sample, test items, date and scope. One sample report does not establish compliance across products or grades.",
         link: { href: "/compliance/reach-rohs", text: "REACH & RoHS Details" },
       },
       {
         q: "Do you have ISO 9001 certification?",
-        a: "A quality management certificate can be reviewed on request. Buyers should verify the current certificate holder, issuer, validity period, and scope against the manufacturing entity and products covered by their order.",
-        link: { href: "/compliance/iso-9001", text: "ISO 9001 Certificate" },
+        a: "ISO 9001 is a quality-management standard. This does not claim that Zhixin holds a current ISO certificate. Available order-specific inspection records can be reviewed on request.",
+        link: { href: "/compliance/iso-9001", text: "ISO 9001 and quality document scope" },
       },
       {
         q: "Can you provide FDA compliance documentation for the US market?",
@@ -76,8 +76,8 @@ const FAQ_ITEMS = [
       },
       {
         q: "Do you have FSC certification?",
-        a: "FSC-related sourcing options may be available for selected paper and supply chains. Any FSC claim or logo use requires verification of the current certificate holder, scope, product claim, and trademark approval before printing.",
-        link: { href: "/compliance/fsc-paper", text: "FSC Certification Details" },
+        a: "Selected applicable raw materials are FSC-certified. Supplier certificates are available on request. This does not mean that Zhixin or its finished products are FSC-certified.",
+        link: { href: "/compliance/fsc-paper", text: "FSC Raw Material Details" },
       },
     ],
   },

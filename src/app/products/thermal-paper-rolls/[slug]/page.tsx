@@ -39,30 +39,30 @@ const STANDARD_POS_PAGE = {
     "Roll width, length or outer diameter",
     "Core ID, winding direction, and carton count",
     "Printer or terminal model, such as Epson, Star, Bixolon, Clover, Square, or PAX",
-    "BPA-free, REACH, Prop 65, FDA, FSC, or phenol-free document needs",
+    "Available documents for the selected material and intended use",
     "Destination market, shipping term, and pallet or mixed-SKU plan",
   ],
   regionalNotes: [
     {
       market: "Europe",
       href: "/eu",
-      compliance: "BPA-free, REACH, RoHS, FSC, and EU buyer document packs",
+      compliance: "Available technical documents reviewed by material",
       sourcing: "Common POS roll sizes include 80x80mm and 57mm till rolls for retail and hospitality distributors.",
       shipping: "FOB Qingdao, CIF Hamburg or Rotterdam, and DDP options on request.",
     },
     {
       market: "United States",
       href: "/us",
-      compliance: "BPA-free, Prop 65 support, FDA-related document requests, and ISO files",
+      compliance: "Available technical documents reviewed by material",
       sourcing: "Popular for 3 1/8 inch receipt rolls, payment terminal programs, POS resellers, and retail chains.",
-      shipping: "FOB Qingdao, CIF Los Angeles or Long Beach, plus DDP and LTL planning for repeat orders.",
+      shipping: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
     },
     {
       market: "Canada",
       href: "/ca",
       compliance: "BPA-free, Health Canada oriented document support, and bilingual EN/FR file requests",
       sourcing: "Built for Canadian distributors serving retail, pharmacy, restaurant, and cannabis-adjacent POS channels.",
-      shipping: "Vancouver, Prince Rupert, Montreal, and DDP Canada routes can be quoted by volume.",
+      shipping: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
     },
   ],
   faqs: [
@@ -74,7 +74,7 @@ const STANDARD_POS_PAGE = {
     {
       question: "Are these POS thermal paper rolls available as BPA-free?",
       answer:
-        "Yes. BPA-free POS thermal paper grades are available for Europe, the United States, and Canada. Buyers can request REACH, RoHS, Prop 65, FDA-related, FSC, ISO, or phenol-free document support before ordering.",
+        "BPA-free, BPS-free and phenol-free options depend on the selected thermal paper grade. Available documents are reviewed by material and intended use.",
     },
     {
       question: "Which POS printers are compatible with these receipt rolls?",
@@ -84,7 +84,7 @@ const STANDARD_POS_PAGE = {
     {
       question: "What information should I send for a POS roll quote?",
       answer:
-        "Send roll size, target length or outer diameter, core ID, quantity, carton packing, printer model, destination country, compliance documents required, and preferred shipping term such as FOB, CIF, or DDP.",
+        "Send roll size, target length or outer diameter, core ID, quantity, carton packing, printer model, destination country, compliance documents required, and requested shipping term. For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
     },
   ],
 };
@@ -114,7 +114,7 @@ const PAYMENT_TERMINAL_FAQS = [
 
 const STANDARD_POS_HERO_PROOFS = [
   "Measured roll length before shipment",
-  "BPA-free, REACH and Prop 65 files",
+  "Available grade-specific documents",
   "Fit check for Epson, Star, Clover and PAX",
   "Shrink-wrap cartons for moisture control",
 ];
@@ -186,7 +186,7 @@ const STANDARD_POS_RISK_MAP = [
   },
   {
     risk: "Approval delays",
-    proof: "SGS, Intertek, ISO, REACH and FSC file requests collected at the RFQ stage.",
+    proof: "Available technical documents are reviewed for the selected material.",
   },
 ];
 
@@ -349,19 +349,19 @@ const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; 
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string; icon: string }[]> = {
   "standard-pos-rolls": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
-    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Technical document review", desc: "Availability and scope confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Revision, storage guidance, and print parameters reviewed for the quoted grade", icon: "download" },
   ],
   "atm-banking-rolls": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted paper grade", icon: "shield" },
-    { name: "REACH / RoHS Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Technical document review", desc: "Availability and scope confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Image Stability Report", desc: "Test conditions matched to the selected grade and retention target", icon: "download" },
   ],
   "default": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade", icon: "shield" },
-    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material", icon: "file" },
+    { name: "Technical document review", desc: "Availability and scope confirmed for the selected material", icon: "file" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request", icon: "award" },
     { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted grade", icon: "download" },
   ],

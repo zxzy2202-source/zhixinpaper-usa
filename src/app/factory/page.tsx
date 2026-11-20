@@ -54,7 +54,7 @@ const capabilityStats = [
 const factoryProof = [
   {
     icon: Award,
-    title: "ISO-managed production",
+    title: "Quality procedures",
     text: "Quality procedures, incoming material checks, in-process records, and finished-goods inspection before shipment.",
   },
   {
@@ -107,10 +107,10 @@ const productionFlow = [
 ];
 
 const documentRoutes = [
-  { title: "ISO 9001:2015", href: "/compliance/iso-9001", text: "Quality management certificate and audit route." },
+  { title: "Quality procedures", href: "/compliance/iso-9001", text: "Incoming-material checks, in-process records and finished-goods inspection." },
   { title: "BPA-free / phenol-free", href: "/compliance/bpa-free", text: "Thermal paper formulation and test file route." },
-  { title: "REACH / RoHS", href: "/compliance/reach-rohs", text: "Chemical compliance files for import review." },
-  { title: "FSC and FDA files", href: "/compliance", text: "Responsible paper, food-contact, and regulated-use documents." },
+  { title: "Document scope", href: "/compliance/reach-rohs", text: "Review available reports by sample and test scope." },
+  { title: "Raw material certificates", href: "/compliance/fsc-paper", text: "Supplier FSC certificates for selected applicable raw materials are available on request." },
 ];
 
 const factoryPages = [
@@ -123,7 +123,7 @@ const factoryPages = [
   {
     href: "/factory/equipment",
     title: "Equipment and machines",
-    text: "Slitting, die-cutting, coating, printing, and packing equipment details.",
+    text: "Slitting, label printing, die-cutting, inspection and packing processes.",
     icon: Settings,
   },
   {

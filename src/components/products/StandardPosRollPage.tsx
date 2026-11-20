@@ -45,18 +45,14 @@ const RISKS = [
   { title: "Short rolls", copy: "Measured length, OD, GSM, and carton quantity stay on the approved specification." },
   { title: "Printer jams", copy: "Width tolerance, core ID, winding, dust level, and target printer are checked before sampling." },
   { title: "Fading receipts", copy: "Coating sensitivity, image-life expectation, and storage conditions are documented in the TDS." },
-  { title: "Chemical claims", copy: "BPA-free, BPS-free, phenol-free, REACH, and Prop 65 routes are matched to the destination." },
+  { title: "Chemical claims", copy: "BPA-free, BPS-free and phenol-free options depend on the selected grade." },
   { title: "Damaged cartons", copy: "Shrink wrap, carton strength, pallet marks, and loading method are agreed before shipment." },
   { title: "Approval delays", copy: "Sample, artwork, test reports, and declarations are collected in one review sequence." },
 ];
 
 const DOCUMENTS = [
-  "BPA-free test report",
-  "REACH and RoHS declarations",
-  "Prop 65 support files",
-  "ISO 9001 certificate",
-  "FSC documentation when required",
-  "Technical data sheet",
+  "Available technical and inspection documents, subject to review for the quoted material",
+  "Supplier FSC certificates for selected applicable raw materials are available on request",
 ];
 
 export default function StandardPosRollPage({ roll, faqs, regionalNotes }: StandardPosRollPageProps) {

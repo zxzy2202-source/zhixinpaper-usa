@@ -64,12 +64,12 @@ const RFQ_FIELDS = [
   "Image-life target and storage environment",
   "Back-print artwork, language, and revision control",
   "Annual volume, carton plan, destination, and Incoterm",
-  "BPA-free, REACH, ISO, TDS, or archival report requirements",
+  "Grade-specific material, technical data, or archival report requirements",
 ];
 
 const DOCUMENTS = [
   "Phenol test report for the quoted grade",
-  "Current REACH and RoHS declarations when applicable",
+  "Available technical documents reviewed by sample and scope",
   "Current quality-management certificate for scope review",
   "Image-stability report matched to the retention target",
   "Technical data sheet",

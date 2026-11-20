@@ -1,3 +1,4 @@
+import CatalogCategories from "@/components/products/CatalogCategories";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
@@ -91,13 +92,13 @@ const SPEC_STEPS = [
     icon: <ShieldCheck className="h-5 w-5" />,
     number: "02",
     title: "Match samples and files",
-    copy: "Approve print, adhesion, image life, BPA/BPS-free grade, REACH, Prop 65, FSC, FDA, or ISO files.",
+    copy: "Review samples and available documents for the selected material and intended use.",
   },
   {
     icon: <Truck className="h-5 w-5" />,
     number: "03",
     title: "Plan the repeat order",
-    copy: "Lock carton marks, private label, pallet loading, lead time, mixed SKUs, and FOB, CIF, or DDP terms.",
+    copy: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
   },
 ];
 
@@ -219,6 +220,8 @@ export default function HomePage() {
           </div>
         </section>
 
+        <CatalogCategories />
+
         <section className="border-b border-[#ded6c8] bg-[#eef3ef] py-16 md:py-20" aria-labelledby="project-procurement-heading">
           <div className="container-site grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
             <div>
@@ -250,7 +253,7 @@ export default function HomePage() {
         <section className="border-b border-[#ded6c8] bg-[#fbfaf6] py-20 md:py-28">
           <div className="container-site">
             <div className="max-w-3xl border-b border-[#ded6c8] pb-10">
-              <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Two product lines. One supply partner.</h2>
+              <h2 className="text-3xl font-bold text-[#14211f] md:text-5xl">Explore our products.</h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[#4f5f5a]">
                 Start with the product your customer buys. Each route leads to the sizes, applications, material options, and RFQ details needed for an accurate quote.
               </p>
