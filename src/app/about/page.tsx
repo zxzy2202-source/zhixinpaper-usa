@@ -37,9 +37,9 @@ const history = [
     "about.history.2006",
   ],
   [
-    "November 2009",
-    "First 600 mm slitter",
-    "In a 200㎡ workshop, the first 600 mm thermal paper slitting machine marked the practical transition from trade to production.",
+    "August 2009",
+    "First thermal paper slitter",
+    "In a 200㎡ workshop, the first thermal paper slitting machine marked the practical transition from trade to production.",
     "about.history.2009",
   ],
   [
@@ -285,7 +285,7 @@ export default function AboutPage() {
               </h1>
               <p className="mt-5 max-w-lg text-base leading-7 text-white/90 md:text-lg">
                 Zhixin Paper began on June 1, 2006 with one person and a trading
-                business. A first 600 mm slitter in a 200㎡ workshop in November
+                business. Our first thermal paper slitter in August
                 2009 marked the move into manufacturing; today we connect
                 thermal rolls, labels, NCR forms, and export support for repeat supply.
               </p>
@@ -351,7 +351,7 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:gap-14">
               <p>
                 The story starts on June 1, 2006 with one person and no factory.
-                After the first 600 mm slitter arrived in November 2009, Zhixin
+                After the first thermal paper slitter arrived in August 2009, Zhixin
                 added slitting, winding, NCR printing, labels, packing, and factory
                 investment in stages.
               </p>
@@ -493,7 +493,7 @@ export default function AboutPage() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["200㎡", "First manufacturing workshop in 2009"],
-              ["600 mm", "First thermal slitter"],
+              ["August 2009", "Manufacturing began"],
               ["1,800㎡", "2011 manufacturing facility"],
               ["6", "Thermal lines by 2017"],
             ].map(([value, label]) => (

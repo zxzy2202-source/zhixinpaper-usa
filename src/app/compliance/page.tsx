@@ -41,41 +41,41 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 const heroSignals = [
-  "Certificate route before deposit",
-  "Product-specific declarations",
+  "Document availability by request",
+  "Material-specific review",
   "Batch and material records",
   "Import review support",
 ];
 
 const proofBand = [
-  { value: "QMS", label: "Scope review", text: "Current certificate and inspection evidence" },
-  { value: "BPA", label: "Grade review", text: "Material declarations by quoted construction" },
-  { value: "REACH", label: "RoHS route", text: "Current chemical-document review" },
-  { value: "FSC", label: "Food contact", text: "Claim and application-specific document routes" },
+  { value: "QMS", label: "Scope review", text: "Available inspection records" },
+  { value: "BPA", label: "Grade review", text: "Options depend on the quoted grade" },
+  { value: "REACH", label: "RoHS route", text: "Reports reviewed by sample and scope" },
+  { value: "FSC", label: "Food contact", text: "Supplier certificates for selected raw materials" },
 ];
 
 const documentRoutes = [
   {
     title: "For import and distributor review",
-    documents: "BPA-free declaration, REACH/RoHS statement, ISO 9001 certificate",
+    documents: "Available technical and inspection records by material",
     products: "POS rolls, ATM rolls, labels, custom printed rolls",
     href: "/compliance/certificates",
   },
   {
     title: "For food service and retail chains",
-    documents: "Food-contact route, BPA-free route, carton and batch records",
+    documents: "Available documents reviewed for material and use",
     products: "Receipt paper, deli labels, bakery labels, food packaging labels",
     href: "/compliance/eu-food-contact",
   },
   {
     title: "For private label programs",
-    documents: "Product spec sheet, artwork proof, carton marks, certificate package",
+    documents: "Available product information and artwork review",
     products: "OEM receipt rolls, branded cartons, custom printed labels",
     href: "/oem-custom/private-label",
   },
   {
     title: "For regulated applications",
-    documents: "Market-specific declaration, sample test route, repeat-order records",
+    documents: "Available reports reviewed by sample and scope",
     products: "Healthcare, cannabis, lottery, transport, and ticketing media",
     href: "/industries",
   },
@@ -88,7 +88,7 @@ const reviewSteps = [
   },
   {
     title: "Match the document route",
-    text: "We identify which certificate, declaration, or test report should travel with the roll, label, carton, or sample.",
+    text: "We review available technical documents and test reports for the selected material and intended use.",
   },
   {
     title: "Check samples before bulk",
@@ -116,8 +116,8 @@ export default function CompliancePage() {
       url: canonicalUrl("/compliance"),
       about: [
         "BPA-free thermal paper",
-        "REACH and RoHS compliance",
-        "ISO 9001 thermal paper manufacturing",
+        "REACH and RoHS report scope",
+        "ISO 9001 quality document scope",
         "FSC paper sourcing",
         "FDA and food-contact documentation",
       ],
@@ -165,8 +165,7 @@ export default function CompliancePage() {
                   Thermal paper compliance files buyers can review before ordering.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
-                  Find the certificate route for BPA-free thermal paper rolls, REACH/RoHS, ISO 9001, FSC,
-                  food-contact uses, FDA requests, phenol-free grades, and product-specific document packs.
+                  Available technical and inspection documents depend on the selected material and intended use. Selected applicable raw materials have supplier FSC certificates available on request; this does not certify Zhixin or its finished products.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link href="/compliance/certificates" className="inline-flex items-center justify-center gap-2 bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500">
@@ -354,7 +353,7 @@ export default function CompliancePage() {
           primaryHref="/contact"
           secondaryLabel="Request a Quote"
           secondaryHref="/contact?mode=quote#contact-form"
-          trustItems={["ISO 9001:2015", "BPA-free routes", "REACH/RoHS", "FSC / FDA document support"]}
+          trustItems={["Material-specific review", "Grade-specific options", "Inspection records", "Selected raw material certificates"]}
         />
       </main>
       <Footer />

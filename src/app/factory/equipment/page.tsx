@@ -15,7 +15,7 @@ const webPageSchema = {
   name: "Manufacturing Equipment",
   url: PAGE_URL,
   description:
-    "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
+    "Explore the slitting, label printing, die cutting, inspection and packing stages used for thermal paper roll and label projects.",
 };
 
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -31,7 +31,7 @@ const jsonLd = [
 
 export const metadata: Metadata = {
   title: "Thermal Paper Factory Equipment",
-  description: "Explore the coating, slitting, rewinding, printing, die cutting, converting, and inspection stages used for thermal paper roll and label projects.",
+  description: "Explore the slitting, label printing, die cutting, inspection and packing stages used for thermal paper roll and label projects.",
   alternates: {
     canonical: PAGE_URL,
     languages: {
@@ -42,15 +42,6 @@ export const metadata: Metadata = {
 };
 
 const equipment = [
-  {
-    slug: "thermal-coating",
-    category: "Thermal Coating",
-    summary: "Used within the coating stage for applicable thermal paper constructions and protective layers.",
-    roles: ["Material and coating-route preparation", "Controlled web handling through the coating stage", "Process checks against the approved product plan"],
-    slotKey: "factory.equipment.thermal-coating",
-    alt: "Thermal coating production equipment used in a paper manufacturing process",
-    objectPosition: "center",
-  },
   {
     slug: "slitting-rewinding",
     category: "Slitting & Rewinding",
@@ -77,15 +68,6 @@ const equipment = [
     slotKey: "factory.equipment.die-cutting-finishing",
     alt: "Label die cutting and finishing equipment in production",
     objectPosition: "58% center",
-  },
-  {
-    slug: "lamination-converting",
-    category: "Lamination & Converting",
-    summary: "Combines or finishes applicable material layers where the product construction requires added protection or functionality.",
-    roles: ["Material-construction review", "Roll-fed lamination or converting", "Finished construction and winding checks"],
-    slotKey: "factory.equipment.lamination-converting",
-    alt: "Roll-fed lamination and converting equipment in a factory",
-    objectPosition: "center",
   },
   {
     slug: "quality-inspection",

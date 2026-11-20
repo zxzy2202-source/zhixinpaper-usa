@@ -125,7 +125,7 @@ const TIERED_PRICING: Record<string, { tier: string; qty: string; unit: string; 
 const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
   "direct-thermal-labels": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted label grade" },
-    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
+    { name: "Material documents", desc: "Availability and scope reviewed for the selected material" },
     { name: "Image Stability Report", desc: "Test conditions matched to the selected material and retention target" },
     { name: "Technical Data Sheet (TDS)", desc: "Full adhesive, facestock & barcode specs" },
   ],
@@ -137,7 +137,7 @@ const COMPLIANCE_DOCS: Record<string, { name: string; desc: string }[]> = {
   ],
   "default": [
     { name: "Phenol Test Report", desc: "Availability and scope confirmed for the quoted grade" },
-    { name: "REACH Declaration", desc: "Current declaration confirmed for the selected material" },
+    { name: "Material documents", desc: "Availability and scope reviewed for the selected material" },
     { name: "Quality Management Certificate", desc: "Holder, issuer, validity, and certified scope reviewed on request" },
     { name: "Technical Data Sheet (TDS)", desc: "Available fields and revision confirmed for the quoted construction" },
   ],

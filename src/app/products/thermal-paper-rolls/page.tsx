@@ -125,7 +125,7 @@ export default function ThermalPaperRollsPage() {
               Thermal Paper Rolls
             </h1>
             <p className="text-[#4f5f5a] text-lg max-w-2xl mb-4">
-              Standard POS rolls, payment terminal rolls, ATM rolls, lottery and casino tickets, parking tickets, and custom printed receipt paper. BPA-free, REACH compliant, with OEM printing and DDP shipping options.
+              Standard POS rolls, payment terminal rolls, ATM rolls, lottery and casino tickets, parking tickets, and custom printed receipt paper. Grade-specific phenol options, OEM printing, and shipping terms are reviewed by destination.
             </p>
             <p className="text-[#4f5f5a] text-sm max-w-2xl mb-6">
               Need to match a size first?{" "}
@@ -283,7 +283,7 @@ export default function ThermalPaperRollsPage() {
               <div className="absolute top-7 left-7 right-7 h-0.5 bg-[#2a4a3c] hidden lg:block" aria-hidden="true" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
                 {[
-                  { icon: <Layers className="w-5 h-5" />, step: "Coating", detail: "Thermal coating applied to base paper with controlled sensitivity and density" },
+                  { icon: <Layers className="w-5 h-5" />, step: "Material sourcing", detail: "Sourced thermal jumbo rolls reviewed for the selected application" },
                   { icon: <Scissors className="w-5 h-5" />, step: "Slitting", detail: "Jumbo rolls slit to ordered width with precise edge control" },
                   { icon: <Factory className="w-5 h-5" />, step: "Rewinding", detail: "Slit rolls rewound to specified outer diameter and core ID" },
                   { icon: <Printer className="w-5 h-5" />, step: "Printing", detail: "Custom logo, patterns, or compliance text printed on roll back" },
@@ -306,8 +306,8 @@ export default function ThermalPaperRollsPage() {
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
                 <SlotImage
-                  slotKey="factory.equipment.thermal-coating"
-                  alt="Thermal coating production line for paper rolls"
+                  slotKey="factory.equipment.slitting-rewinding"
+                  alt="Roll converting equipment"
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

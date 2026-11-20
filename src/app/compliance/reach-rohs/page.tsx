@@ -2,129 +2,70 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/ui/CTABanner";
 import HeroBanner from "@/components/ui/HeroBanner";
+import CTABanner from "@/components/ui/CTABanner";
 import { breadcrumbSchema, canonicalUrl } from "@/lib/seo";
 
-const PAGE_URL = canonicalUrl("/compliance/reach-rohs");
-
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "REACH and RoHS Documentation",
-  url: PAGE_URL,
-  description:
-    "Review REACH and RoHS documentation for the selected thermal paper or label construction, restricted-substance scope, application, and destination.",
-};
-
-const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
-
-const jsonLd = [
-  breadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Compliance", url: "/compliance" },
-    { name: "REACH & RoHS", url: "/compliance/reach-rohs" },
-  ]),
-  webPageSchema,
-];
-
+const url = canonicalUrl("/compliance/reach-rohs");
+const title = "REACH and RoHS Report Scope";
+const description = "REACH and RoHS are terms buyers may include in document requests. Any available test report must be reviewed against its sample identity, test items, date and scope. A report for one sample does not establish compliance for every product or grade. This page does not claim certification or blanket compliance.";
 export const metadata: Metadata = {
-  title: "REACH & RoHS Documentation Review",
-  description: "Review REACH and RoHS documentation for the selected thermal paper or label construction, restricted-substance scope, application, and destination.",
-  alternates: {
-    canonical: PAGE_URL,
-    languages: {
-      en: PAGE_URL,
-      "x-default": PAGE_URL,
-    },
-  },
+  title,
+  description,
+  alternates: { canonical: url, languages: { en: url, "x-default": url } },
 };
 
-export default function ReachRohsPage() {
-  return (
+export default function DocumentScopePage() {
+  const schema = [
+    { "@context": "https://schema.org", "@type": "WebPage", name: title, url, description },
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Compliance", url: "/compliance" },
+      { name: title, url: "/compliance/reach-rohs" },
+    ]),
+  ];
 
+  return (
     <>
       <Header />
-      {jsonLd.map((schema, index) => (
-        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      {schema.map((item, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(item).replace(/</g, "\\u003c") }}
+        />
       ))}
-      <main className="min-h-screen bg-white">
-      <HeroBanner
-        variant="media"
-        eyebrow="EU chemical documentation"
-        title="REACH and RoHS Documentation"
-        description="Confirm the current declaration, tested material grade, restricted-substance scope, and intended application before approving a thermal-paper or label program."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Compliance", href: "/compliance" },
-          { label: "REACH & RoHS" },
-        ]}
-        actions={[
-          { label: "Request Documents", href: "/compliance/certificates", kind: "primary" },
-          { label: "Contact Compliance Team", href: "/contact", kind: "secondary" },
-        ]}
+      <main id="main-content">
+        <HeroBanner
+          variant="media"
+          eyebrow="Document scope"
+          title={title}
+          description={description}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Compliance", href: "/compliance" },
+            { label: title },
+          ]}
+          actions={[{ label: "Ask About Document Availability", href: "/contact?mode=quote#contact-form", kind: "primary" }]}
+        />
+        <section className="mx-auto max-w-6xl px-6 py-16">
+          <h2 className="text-2xl font-bold">Review the material and intended use</h2>
+          <p className="mt-4 max-w-3xl leading-8 text-slate-600">REACH addresses chemicals and RoHS restricts certain substances in electrical and electronic equipment. Relevance depends on the material and intended use; a test report applies only to its stated sample and scope.</p>
+          <p className="mt-4 max-w-3xl leading-8 text-slate-600">
+            Share the material, application and destination when requesting available documents. Review the identity and scope of each document against the selected order.
+          </p>
+          <Link className="mt-6 inline-block font-bold text-[#0f5f5c]" href="/compliance">
+            Explore other document review topics →
+          </Link>
+        </section>
+      </main>
+      <CTABanner
+        title="Discuss your document request"
+        subtitle="Share the selected material, intended use and destination so availability and scope can be reviewed."
+        primaryLabel="Request a Quote"
+        secondaryLabel="Request Samples"
       />
-
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">REACH Compliance</h2>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU&apos;s chemicals regulation. Thermal paper review commonly considers the current SVHC candidate list and applicable substance restrictions, including restrictions concerning BPA.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Material and finished-product statements should be checked against the selected grade, current supplier evidence, test method, and the buyer&apos;s intended use. Request the current project-specific documentation before approval.
-              </p>
-              <div className="space-y-3">
-                {[
-                  "Selected grade and complete material construction",
-                  "Candidate-list or restriction reference date",
-                  "Declaration issuer, legal entity, and supply-chain scope",
-                  "Test method, laboratory, sample identity, and report date",
-                  "Destination and buyer-specific documentation requirements",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <span className="text-slate-600 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">RoHS Scope Review</h2>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                RoHS Directive 2011/65/EU concerns restricted substances in electrical and electronic equipment. Whether it applies to a label project, and which evidence is appropriate, depends on the finished equipment, label function, complete material construction, supply chain, destination, and buyer requirements.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                For electronics, automotive, or medical-device workflows, request current documentation tied to the exact facestock, coating, adhesive, liner, inks, and finishing included in the quotation. Final applicability and acceptance remain with the buyer and qualified advisers.
-              </p>
-              <div className="space-y-3">
-                {[
-                  "Confirm whether RoHS applies to the finished equipment",
-                  "Identify the exact quoted label construction and supplier scope",
-                  "Review restricted-substance list and applicable exemptions",
-                  "Check test or declaration dates and sample identification",
-                  "Record buyer approval before production",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <span className="text-slate-600 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-      <CTABanner title="Need REACH or RoHS Documentation?" subtitle="Share the selected grade, complete construction, intended application, destination, and required evidence so the available document scope can be reviewed." primaryLabel="Request Document Review" secondaryLabel="Request a Quote" />
-    <Footer />
+      <Footer />
     </>
   );
 }

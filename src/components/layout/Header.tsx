@@ -52,9 +52,13 @@ function ProductsMegaMenu() {
       <div className="grid grid-cols-[1fr_auto] items-center gap-5 bg-[#101b19] px-6 py-5 text-white">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d6b273]">Product navigator</p>
+          <div className="mt-2 flex flex-wrap gap-4 text-sm">
+            <Link href="/products#catalog-categories">Five manufactured categories</Link>
+            <Link href="/products#material-supply">Material Supply</Link>
+          </div>
           <p className="mt-2 text-xl font-bold leading-tight">Choose the product path before sending an RFQ.</p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[#c7d0cb]">
-            Start from rolls or labels, then match size, material, compliance files, packing, and sample requirements.
+            Browse the five manufactured categories or traded materials; the roll and label links below browse existing catalog formats.
           </p>
         </div>
         <Link
@@ -207,7 +211,7 @@ function ProductsMegaMenu() {
       </div>
 
       <div className="flex items-center justify-between border-t border-[#ded6c8] bg-[#f4f0e8] px-6 py-3">
-        <span className="text-xs text-[#687772]">Material, quality-system, chain-of-custody, and market documents are reviewed by quoted grade and current scope.</span>
+        <span className="text-xs text-[#687772]">Available material and inspection documents are reviewed for the selected grade and intended use.</span>
         <Link href="/compliance" className="inline-flex items-center gap-1 text-xs font-semibold text-[#0f5f5c] hover:underline">
           Compliance files <ArrowRight className="h-3 w-3" />
         </Link>
@@ -536,6 +540,8 @@ interface MobileItem { label: string; href: string; tag?: Tag; sub?: string }
 const MOBILE_ITEMS: Record<NavLabel, MobileItem[]> = {
   Home: [],
   Products: [
+    { label: "Five manufactured categories", href: "/products#catalog-categories" },
+    { label: "Material Supply", href: "/products#material-supply" },
     { label: "Thermal Paper Rolls ›", href: "/products/thermal-paper-rolls" },
     ...THERMAL_PAPER_TIERS.map((tier) => ({
       label: `${tier.code} · ${tier.title}`,
@@ -885,7 +891,7 @@ export default function Header() {
                               <div className="mb-3 overflow-hidden border border-[#c8bcaa] bg-white shadow-[0_14px_34px_rgba(20,33,31,0.10)]">
                                 <div className="bg-[#101b19] px-4 py-3 text-white">
                                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#d6b273]">Product navigator</p>
-                                  <p className="mt-1 text-sm font-bold">Choose rolls, labels, or send an RFQ.</p>
+                                  <p className="mt-1 text-sm font-bold">Browse manufactured categories and traded materials, or send an RFQ.</p>
                                 </div>
                                 <div className="grid grid-cols-2 divide-x divide-[#ded6c8] border-b border-[#ded6c8]">
                                   <Link

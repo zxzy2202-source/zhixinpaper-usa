@@ -157,7 +157,7 @@ const CUSTOMER_PATHS = [
     title: "Semi-finished supply to peers",
     audience: "Peer printing plants and converters",
     model: "Material and semi-finished supply",
-    description: "Discuss parent rolls, converted stock, or other inputs your plant needs to complete its own production.",
+    description: "Traded materials, not manufactured by Zhixin: Thermal Paper, Self-Adhesive Labelstock, NCR Carbonless Paper, Woodfree Offset Paper and Thermal Transfer Ribbons.",
     action: "Discuss converter supply",
     icon: FileText,
     priority: false,

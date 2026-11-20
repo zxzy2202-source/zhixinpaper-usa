@@ -163,7 +163,7 @@ export const SLOT_REGISTRY = [
     description: "Company History 2009 年第一台分切机阶段图片",
     group: "about",
     fallback: "/images/hero-bg.jpg",
-    defaultAlt: "November 2009 Zhixin Paper history",
+    defaultAlt: "August 2009 Zhixin Paper history",
     recommendedSize: "800 × 400 px",
   },
   {
@@ -334,7 +334,7 @@ export const SLOT_REGISTRY = [
     description: "热敏涂布工序设备实拍，需展示辊筒、料幅或连续生产线",
     group: "factory",
     fallback: "/images/factory-overview.jpg",
-    defaultAlt: "Thermal coating production equipment used in a paper manufacturing process",
+    defaultAlt: "Paper converting process reference",
     recommendedSize: "1200 × 900 px",
   },
   {
@@ -617,7 +617,7 @@ export const SLOT_REGISTRY = [
     description: "欧洲市场落地页 Hero 图，建议带 REACH / RoHS 元素",
     group: "geo",
     fallback: "/images/hero-bg.jpg",
-    defaultAlt: "REACH-compliant thermal paper rolls for European market",
+    defaultAlt: "Thermal paper rolls for European buyers",
     recommendedSize: "2400 × 1000 px",
   },
   {

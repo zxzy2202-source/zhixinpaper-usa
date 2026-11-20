@@ -1,3 +1,4 @@
+import CatalogCategories from "@/components/products/CatalogCategories";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
@@ -41,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const productLines = [
   {
-    label: "Product line 01",
+    label: "Catalog format",
     title: "Thermal Paper Rolls",
     href: "/products/thermal-paper-rolls",
     slotKey: "home.product.thermal-rolls",
@@ -52,7 +53,7 @@ const productLines = [
     cta: "Browse thermal paper rolls",
   },
   {
-    label: "Product line 02",
+    label: "Catalog format",
     title: "Thermal Labels",
     href: "/products/thermal-labels",
     slotKey: "home.product.thermal-labels",
@@ -72,13 +73,13 @@ const buyingChecks = [
   },
   {
     icon: ShieldCheck,
-    title: "Coating and compliance",
-    copy: "Ask for BPA-free, REACH/RoHS, FDA, FSC, image-life, adhesive, and food-contact files when the use case requires them.",
+    title: "Material and document review",
+    copy: "Available technical and inspection documents are reviewed for the selected material and intended use.",
   },
   {
     icon: PackageCheck,
     title: "Packing and logistics",
-    copy: "Check carton quantity, pallet load, mixed SKU packing, warehouse labels, FOB/CIF/DDP terms, and repeat order marks.",
+    copy: "For thermal paper rolls within the applicable anti-dumping or countervailing-duty scope in the United States or Canada, we quote FOB or EXW only. The importer is responsible for applicable duties; confirm them with your customs broker. Label delivery terms are reviewed separately by product and destination.",
   },
 ] as const;
 
@@ -101,12 +102,12 @@ const quoteFields = [
   {
     icon: Truck,
     label: "Destination and term",
-    helper: "Country, port, warehouse, FOB, CIF, DDP, or forwarder details.",
+    helper: "Country, port, warehouse and requested delivery terms.",
   },
   {
     icon: FileCheck2,
     label: "Required certificates",
-    helper: "BPA-free, REACH/RoHS, FDA, FSC, ISO, food-contact, or image-life files.",
+    helper: "Available documents depend on the selected material and intended use.",
   },
   {
     icon: Tags,
@@ -118,14 +119,14 @@ const quoteFields = [
 const quoteOutcomes = ["Sample plan", "Document list", "Packing option", "Shipping term"];
 
 const sourcingProof = [
-  { value: "2", label: "main product lines", text: "Rolls and labels are routed separately for cleaner RFQs." },
+  { value: "5", label: "manufactured categories", text: "Finished products made using sourced materials." },
   { value: "Reviewed", label: "quote scope", text: "Response timing follows specification, document, and packing review." },
   { value: "OEM", label: "repeat programs", text: "Carton marks, private label, and mixed-SKU export packing." },
 ] as const;
 
 const sourcingSummary = [
   {
-    term: "Main product families",
+    term: "Existing product detail pages",
     detail: "Thermal paper rolls for POS, ATM, lottery, casino, transport, medical, kiosk, and custom receipt programs; thermal labels for shipping, barcode, cold-chain, retail, wristband, synthetic, tamper-evident, and industrial use.",
   },
   {
@@ -142,7 +143,7 @@ const productFaqs = [
   {
     question: "What thermal paper products does Zhixin Paper manufacture?",
     answer:
-      "Zhixin Paper manufactures wholesale thermal paper rolls and thermal labels, including POS receipt rolls, ATM receipt paper, lottery and casino ticket rolls, medical and transport rolls, direct thermal labels, thermal transfer labels, freezer labels, removable labels, synthetic labels, wristband labels, and custom printed OEM products.",
+      "Zhixin manufactures Product & Packaging Labels, Direct Thermal Labels, Thermal Transfer Labels, Thermal Paper Rolls and NCR Carbonless Forms. Materials are sourced; traded materials are listed separately under Material Supply.",
   },
   {
     question: "How should buyers choose between thermal paper rolls and thermal labels?",
@@ -157,7 +158,7 @@ const productFaqs = [
   {
     question: "Are compliance documents available for product categories?",
     answer:
-      "Yes. Depending on the product and destination market, buyers can request BPA-free, REACH/RoHS, FDA, FSC, ISO 9001, food-contact, image-life, and material test files before placing a bulk order.",
+      "Available technical documents and test reports are reviewed for the selected material and intended use. Report availability, sample identity, test items, date and scope require confirmation.",
   },
   {
     question: "Can one order mix several roll or label SKUs?",
@@ -240,6 +241,8 @@ export default function ProductsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
+        <CatalogCategories />
+
         <section className="paper-noise relative overflow-hidden bg-[#101b19] pt-24 text-white md:pt-28">
           <div className="absolute inset-0">
             <SlotImage
@@ -268,11 +271,11 @@ export default function ProductsPage() {
                   Thermal paper rolls and labels for wholesale reorders.
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-[#c7d0cb] md:text-lg">
-                  Choose the product line first. We help confirm size, coating or adhesive, printer fit, documents, packing, and freight terms before bulk production.
+                  Explore five manufactured categories and five traded materials. We help confirm the specification, documents, packing, and freight terms.
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Link href="#product-lines" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
-                    Choose a Product Line
+                  <Link href="#catalog-categories" className="inline-flex items-center justify-center gap-2 bg-[#9c661d] px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#7d4f16] active:translate-y-px">
+                    Explore Categories
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                   <Link href="/contact?mode=quote#contact-form" className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#fbfaf6]/10 active:translate-y-px">
@@ -285,7 +288,7 @@ export default function ProductsPage() {
                 <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
                   <div>
                     <p className="text-xs font-bold text-[#d6b273]">Route buyers faster</p>
-                    <h2 className="mt-1 text-xl font-bold leading-tight text-white">Pick the stock family, then quote the spec.</h2>
+                    <h2 className="mt-1 text-xl font-bold leading-tight text-white">Browse existing catalog formats.</h2>
                   </div>
                   <Boxes className="h-6 w-6 shrink-0 text-[#d6b273]" aria-hidden="true" />
                 </div>
@@ -319,11 +322,11 @@ export default function ProductsPage() {
             <div className="mb-10 max-w-3xl">
               <div>
                 <h2 className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#14211f] md:text-5xl">
-                  Start with the material your customer reorders every month.
+                  Browse the existing roll and label catalog formats.
                 </h2>
               </div>
               <p className="mt-5 max-w-2xl text-sm leading-7 text-[#4f5f5a]">
-                Rolls and labels are quoted differently. Pick the closest product line first, then confirm size, adhesive, printer fit, documents, carton pack, and repeat-order terms.
+                Browse roll and label detail pages by format. See the category overview above for the full manufactured range. Confirm size, adhesive, printer fit, documents, carton pack, and repeat-order terms.
               </p>
             </div>
 

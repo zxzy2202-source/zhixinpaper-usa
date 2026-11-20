@@ -78,7 +78,7 @@ const FACTORY_PAGES: Record<string, {
   equipment: {
     title: "Equipment & Technology",
     metaTitle: "Thermal Paper Slitting Machines & Label Die Cutting Equipment | Zhixin Paper",
-    metaDesc: "Review thermal paper coating, slitting, die-cutting, and printing routes. Equipment identity, operating range, tolerance, and current availability are confirmed during project review.",
+    metaDesc: "Review thermal paper slitting and label die-cutting and printing routes. Equipment identity, operating range, tolerance, and current availability are confirmed during project review.",
     hero: "bg-gradient-to-br from-blue-800 to-blue-600",
     subtitle: "Advanced Production Technology for Precision Output",
     content: (
@@ -87,11 +87,6 @@ const FACTORY_PAGES: Record<string, {
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Core Manufacturing Equipment</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              {
-                name: "Thermal Coating Route",
-                specs: ["Web width: confirmed by selected line", "Speed: confirmed by grade and run", "Coating weight: confirmed by specification", "Controls: reviewed during qualification"],
-                desc: "Confirm the source mill or coating site, selected line, chemistry, control plan, and records that apply to the quoted thermal grade.",
-              },
               {
                 name: "Precision Slitting Route",
                 specs: ["Slit width: confirmed by SKU", "Run speed: confirmed by material", "Tension control: reviewed by line", "Tolerance: agreed in the specification"],
@@ -233,7 +228,7 @@ const FACTORY_PAGES: Record<string, {
               { name: "Quality-System Documents", issuer: "Current holder and scope", href: "/compliance/iso-9001" },
               { name: "Phenol / Material Documents", issuer: "Quoted grade and report scope", href: "/compliance/bpa-free" },
               { name: "REACH/RoHS Review", issuer: "Selected material and destination", href: "/compliance/reach-rohs" },
-              { name: "Chain-of-Custody Review", issuer: "Current certificate route and claim", href: "/compliance/fsc-paper" },
+              { name: "Selected Raw Materials", issuer: "Supplier FSC certificates on request for selected applicable raw materials", href: "/compliance/fsc-paper" },
             ].map((cert) => (
               <Link key={cert.name} href={cert.href} className="bg-white  p-4 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all text-center group">
                 <div className="text-2xl mb-2">📋</div>
@@ -249,7 +244,7 @@ const FACTORY_PAGES: Record<string, {
   "virtual-tour": {
     title: "Virtual Factory Tour",
     metaTitle: "Virtual Thermal Paper Factory Tour | Manufacturing Facility Video | Zhixin Paper",
-    metaDesc: "Take a virtual tour of our thermal paper manufacturing facility. See our coating lines, slitting machines, quality control lab, and warehouse.",
+    metaDesc: "Take a virtual tour of our thermal paper manufacturing facility. Review slitting, inspection, packing, and warehouse areas.",
     hero: "bg-gradient-to-br from-orange-800 to-orange-600",
     subtitle: "See Our Manufacturing Facility From Anywhere in the World",
     content: (

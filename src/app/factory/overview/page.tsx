@@ -14,7 +14,7 @@ const webPageSchema = {
   name: "Thermal Paper Converting and Label Manufacturing",
   url: PAGE_URL,
   description:
-    "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
+    "Explore in-house thermal-roll slitting and label printing, die-cutting, inspection and packing using sourced materials.",
 };
 
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -29,8 +29,8 @@ const jsonLd = [
 ];
 
 export const metadata: Metadata = {
-  title: "Thermal Paper Factory Overview: Coating to Packing",
-  description: "Review Zhixin Paper's thermal paper coating, slitting, label converting, quality-control, warehouse, and export-packing operations in Xi'an, China.",
+  title: "Thermal Paper Converting and Label Manufacturing",
+  description: "Explore in-house thermal-roll slitting and label printing, die-cutting, inspection and packing using sourced materials.",
   alternates: {
     canonical: PAGE_URL,
     languages: {
@@ -52,8 +52,8 @@ export default function FactoryOverviewPage() {
 
   const sections = [
     {
-      title: "Coating & Base Paper Division",
-      desc: "Coating routes, line availability, material formulation, sensitivity, image density, and retention targets are reviewed against the exact product specification and current production plan.",
+      title: "Sourced Materials",
+      desc: "Base paper, coated jumbo rolls and blank labelstock are sourced, not manufactured by Zhixin. We slit thermal rolls and print, die-cut, inspect, slit and pack labels in-house.",
     },
     {
       title: "Slitting & Converting Division",
@@ -113,7 +113,7 @@ export default function FactoryOverviewPage() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-slate-800 mb-4">Production Divisions</h2>
-          <p className="text-slate-500 mb-12 max-w-2xl">Our facility is organized into specialized production divisions, each equipped with dedicated machinery and staffed by experienced technicians.</p>
+          <p className="text-slate-500 mb-12 max-w-2xl">Our factory converts sourced materials through thermal-roll slitting and label printing, die-cutting, vision inspection, slitting and packaging.</p>
           <div className="grid md:grid-cols-2 gap-8">
             {sections.map((s, i) => (
               <div key={i} className="bg-white border border-slate-200  p-8 shadow-sm hover:shadow-md transition-shadow">
