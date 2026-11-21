@@ -55,3 +55,24 @@ next-env.d.ts
 /.playwright-cli/
 /output/
 /文档/
+
+# Archives and backups
+*.tar.gz
+*.tar
+*.zip
+*.rar
+*.7z
+_to_delete/
+_backup/
+
+# Local machine files
+*.bin
+_tmp_*
+.serena/
+%SystemDrive%/
+
+# Temporary and swap files
+*.swp
+*.swo
+*~
+.fuse_hidden*
